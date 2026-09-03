@@ -36,19 +36,28 @@ export async function POST(request: Request) {
   const { firstName, lastName, email, password } = parsed.data;
   const prisma = getPrisma();
 
-  const existing = await prisma.user.findUnique({ where: { email } });
-  if (existing) {
+  let user;
+  try {
+    const existing = await prisma.user.findUnique({ where: { email } });
+    if (existing) {
+      return NextResponse.json(
+        { error: "An account with this email already exists." },
+        { status: 409 }
+      );
+    }
+
+    const passwordHash = await hashPassword(password);
+    user = await prisma.user.create({
+      data: { firstName, lastName, email, passwordHash },
+      select: { id: true, email: true, firstName: true, lastName: true },
+    });
+  } catch (err) {
+    console.error("[auth/register] failed:", err);
     return NextResponse.json(
-      { error: "An account with this email already exists." },
-      { status: 409 }
+      { error: "Could not create your account. Please try again." },
+      { status: 500 }
     );
   }
-
-  const passwordHash = await hashPassword(password);
-  const user = await prisma.user.create({
-    data: { firstName, lastName, email, passwordHash },
-    select: { id: true, email: true, firstName: true, lastName: true },
-  });
 
   const res = NextResponse.json({ user });
   res.cookies.set(SESSION_COOKIE_NAME, createSessionCookieValue(user.id), {

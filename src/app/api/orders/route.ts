@@ -76,23 +76,29 @@ export async function POST(request: Request) {
     });
   }
 
-  const order = await getPrisma().order.create({
-    data: {
-      firstName: data.firstName,
-      lastName: data.lastName,
-      email: data.email,
-      street: data.street,
-      postalCode: data.postalCode,
-      city: data.city,
-      country: data.country,
-      paymentMethod: data.paymentMethod,
-      subtotal,
-      shipping,
-      total,
-      items: { create: items },
-    },
-    include: { items: true },
-  });
+  let order;
+  try {
+    order = await getPrisma().order.create({
+      data: {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        street: data.street,
+        postalCode: data.postalCode,
+        city: data.city,
+        country: data.country,
+        paymentMethod: data.paymentMethod,
+        subtotal,
+        shipping,
+        total,
+        items: { create: items },
+      },
+      include: { items: true },
+    });
+  } catch (err) {
+    console.error("[orders] failed to create order:", err);
+    return NextResponse.json({ error: "Could not save the order. Please try again." }, { status: 500 });
+  }
 
   await sendNotification(
     `New order ${order.id}`,

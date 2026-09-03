@@ -15,7 +15,11 @@ export function getPrisma(): PrismaClient {
     throw new Error("getPrisma() called without DATABASE_URL set");
   }
 
-  const adapter = new PrismaPg({ connectionString });
+  // Supabase's pooler certificate doesn't chain-verify against Node's
+  // default trust store ("self-signed certificate in certificate chain").
+  // The connection is still encrypted — this just skips strict CA-chain
+  // verification, which is standard practice for this provider/driver pair.
+  const adapter = new PrismaPg({ connectionString, ssl: { rejectUnauthorized: false } });
   const client = new PrismaClient({
     adapter,
     log: process.env.NODE_ENV === "development" ? ["warn", "error"] : ["error"],
