@@ -1,0 +1,85 @@
+"use client";
+
+import Link from "next/link";
+import Image from "next/image";
+import { useCart } from "@/components/CartProvider";
+import { getProduct, formatPrice } from "@/lib/products";
+
+export default function CartPage() {
+  const { lines, setQty, remove, total } = useCart();
+
+  if (lines.length === 0) {
+    return (
+      <div className="mx-auto max-w-3xl px-4 py-24 text-center sm:px-6">
+        <h1 className="font-serif text-2xl text-ink">Your cart is empty</h1>
+        <p className="mt-3 text-ink/60">Nothing here yet — a good moment to start a ritual.</p>
+        <Link
+          href="/shop"
+          className="mt-8 inline-block rounded-full bg-mauve px-6 py-3 text-sm text-white hover:bg-mauve-dark"
+        >
+          Browse the shop
+        </Link>
+      </div>
+    );
+  }
+
+  return (
+    <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
+      <h1 className="font-serif text-3xl text-ink">Your cart</h1>
+
+      <div className="mt-10 divide-y divide-mauve/10">
+        {lines.map((line) => {
+          const product = getProduct(line.slug);
+          if (!product) return null;
+          return (
+            <div key={line.slug} className="flex items-center gap-4 py-6">
+              <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl">
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  sizes="80px"
+                  className="object-cover"
+                />
+              </div>
+              <div className="flex-1">
+                <div className="font-medium text-ink">{product.name}</div>
+                <div className="mt-1 text-sm text-ink/60">{formatPrice(product.price)}</div>
+              </div>
+              <input
+                type="number"
+                min={1}
+                value={line.qty}
+                onChange={(e) => setQty(line.slug, Number(e.target.value))}
+                className="w-16 rounded-lg border border-mauve/20 px-2 py-1 text-center"
+              />
+              <div className="w-24 text-right font-medium text-ink">
+                {formatPrice(product.price * line.qty)}
+              </div>
+              <button
+                onClick={() => remove(line.slug)}
+                className="text-sm text-ink/40 hover:text-ink"
+                aria-label={`Remove ${product.name}`}
+              >
+                Remove
+              </button>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="mt-10 flex items-center justify-between border-t border-mauve/10 pt-6">
+        <div>
+          <div className="text-sm text-ink/60">Subtotal, incl. VAT</div>
+          <div className="text-2xl font-medium text-mauve-dark">{formatPrice(total)}</div>
+        </div>
+        <Link
+          href="/checkout"
+          className="rounded-full bg-mauve px-8 py-3 text-sm text-white hover:bg-mauve-dark"
+        >
+          Proceed to checkout
+        </Link>
+      </div>
+    </div>
+  );
+}

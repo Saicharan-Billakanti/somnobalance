@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum OrderStatus {
+  PENDING_PAYMENT
+  PAID
+  CANCELLED
+}
+
+enum PaymentMethod {
+  CARD
+  SEPA
+  PAYPAL
+}
+
+model Order {
+  id            String        @id @default(cuid())
+  createdAt     DateTime      @default(now())
+  status        OrderStatus   @default(PENDING_PAYMENT)
+  paymentMethod PaymentMethod
+
+  firstName  String
+  lastName   String
+  email      String
+  street     String
+  postalCode String
+  city       String
+  country    String
+
+  subtotal Float
+  shipping Float
+  total    Float
+  currency String @default("EUR")
+
+  items OrderItem[]
+}
+
+model OrderItem {
+  id      String @id @default(cuid())
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  slug  String
+  name  String
+  price Float
+  qty   Int
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  name    String
+  email   String
+  topic   String
+  message String
+}
+
+model User {
+  id           String   @id @default(cuid())
+  createdAt    DateTime @default(now())
+  email        String   @unique
+  passwordHash String
+  firstName    String
+  lastName     String
+}
