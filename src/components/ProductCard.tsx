@@ -1,13 +1,23 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Product, formatPrice, getDisplayPrice } from "@/lib/products";
+import type { Locale } from "@/i18n/config";
+import type { Dictionary } from "@/i18n/getDictionary";
 
-export function ProductCard({ product }: { product: Product }) {
+export function ProductCard({
+  product,
+  lang,
+  dict,
+}: {
+  product: Product;
+  lang: Locale;
+  dict: Dictionary;
+}) {
   const { price, fromPrice } = getDisplayPrice(product);
 
   return (
     <Link
-      href={`/shop/${product.slug}`}
+      href={`/${lang}/shop/${product.slug}`}
       className="group block overflow-hidden rounded-2xl border border-mauve/10 bg-white/60 transition hover:shadow-md"
     >
       <div className="relative aspect-square overflow-hidden">
@@ -26,8 +36,8 @@ export function ProductCard({ product }: { product: Product }) {
         </h3>
         <p className="mt-1 text-sm text-ink/60">{product.tagline}</p>
         <div className="mt-3 text-sm font-medium text-mauve-dark">
-          {fromPrice && <span className="font-normal text-ink/60">from </span>}
-          {formatPrice(price)} <span className="font-normal text-ink/40">incl. VAT</span>
+          {fromPrice && <span className="font-normal text-ink/60">{dict.shop.from} </span>}
+          {formatPrice(price)} <span className="font-normal text-ink/40">{dict.shop.inclVat}</span>
         </div>
       </div>
     </Link>

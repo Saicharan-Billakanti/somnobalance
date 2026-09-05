@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Product, formatPrice } from "@/lib/products";
 import { AddToCartButton } from "@/components/AddToCartButton";
+import type { Dictionary } from "@/i18n/getDictionary";
 
 // Only the fields this client component actually needs — not the full
 // Product. Passing the whole object would serialize internal-only fields
@@ -10,7 +11,13 @@ import { AddToCartButton } from "@/components/AddToCartButton";
 // renders them, so we trim it at the boundary instead.
 type PurchaseInfo = Pick<Product, "slug" | "price" | "variants">;
 
-export function ProductPurchasePanel({ product }: { product: PurchaseInfo }) {
+export function ProductPurchasePanel({
+  product,
+  dict,
+}: {
+  product: PurchaseInfo;
+  dict: Dictionary;
+}) {
   const [selected, setSelected] = useState<string | undefined>(product.variants?.[0]?.label);
   const variant = product.variants
     ? product.variants.find((v) => v.label === selected) ?? product.variants[0]
@@ -21,7 +28,7 @@ export function ProductPurchasePanel({ product }: { product: PurchaseInfo }) {
     <div>
       {product.variants && (
         <div className="mt-2">
-          <div className="text-sm font-medium text-ink">Size</div>
+          <div className="text-sm font-medium text-ink">{dict.shop.size}</div>
           <div className="mt-2 flex flex-wrap gap-2">
             {product.variants.map((v) => (
               <button
@@ -46,11 +53,11 @@ export function ProductPurchasePanel({ product }: { product: PurchaseInfo }) {
 
       <div className="mt-6 text-2xl font-medium text-mauve-dark">
         {formatPrice(price)}
-        <span className="ml-2 text-sm font-normal text-ink/40">incl. VAT, plus shipping</span>
+        <span className="ml-2 text-sm font-normal text-ink/40">{dict.shop.inclVatShipping}</span>
       </div>
 
       <div className="mt-8">
-        <AddToCartButton slug={product.slug} variant={selected} />
+        <AddToCartButton slug={product.slug} variant={selected} dict={dict} />
       </div>
     </div>
   );

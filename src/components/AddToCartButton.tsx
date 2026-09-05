@@ -2,8 +2,17 @@
 
 import { useState } from "react";
 import { useCart } from "@/components/CartProvider";
+import type { Dictionary } from "@/i18n/getDictionary";
 
-export function AddToCartButton({ slug, variant }: { slug: string; variant?: string }) {
+export function AddToCartButton({
+  slug,
+  variant,
+  dict,
+}: {
+  slug: string;
+  variant?: string;
+  dict: Dictionary;
+}) {
   const { add } = useCart();
   const [added, setAdded] = useState(false);
 
@@ -16,7 +25,7 @@ export function AddToCartButton({ slug, variant }: { slug: string; variant?: str
       }}
       className="rounded-full bg-mauve px-8 py-3 text-sm text-white transition hover:bg-mauve-dark"
     >
-      {added ? "Added to cart ✓" : "Add to cart"}
+      {added ? dict.shop.addedToCart : dict.shop.addToCart}
     </button>
   );
 }

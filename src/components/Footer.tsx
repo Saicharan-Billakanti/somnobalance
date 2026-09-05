@@ -1,40 +1,39 @@
 import Link from "next/link";
 import { business } from "@/lib/site";
+import type { Locale } from "@/i18n/config";
+import type { Dictionary } from "@/i18n/getDictionary";
 
-const legal = [
-  { href: "/legal/impressum", label: "Impressum" },
-  { href: "/legal/privacy", label: "Privacy Policy" },
-  { href: "/legal/terms", label: "Terms & Conditions" },
-  { href: "/legal/shipping", label: "Shipping & Delivery" },
-  { href: "/legal/withdrawal", label: "Right of Withdrawal" },
-  { href: "/legal/returns", label: "Refund & Return Policy" },
-  { href: "/legal/cancellation", label: "Cancellation Policy" },
-  { href: "/legal/cookies", label: "Cookie Policy" },
-];
+export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
+  const legal = [
+    { href: `/${lang}/legal/impressum`, label: dict.legalNav.impressum },
+    { href: `/${lang}/legal/privacy`, label: dict.legalNav.privacy },
+    { href: `/${lang}/legal/terms`, label: dict.legalNav.terms },
+    { href: `/${lang}/legal/shipping`, label: dict.legalNav.shipping },
+    { href: `/${lang}/legal/withdrawal`, label: dict.legalNav.withdrawal },
+    { href: `/${lang}/legal/returns`, label: dict.legalNav.returns },
+    { href: `/${lang}/legal/cancellation`, label: dict.legalNav.cancellation },
+    { href: `/${lang}/legal/cookies`, label: dict.legalNav.cookies },
+  ];
 
-const explore = [
-  { href: "/for-me", label: "For me" },
-  { href: "/for-business", label: "For my business" },
-  { href: "/partner", label: "Become a partner" },
-  { href: "/shop", label: "Shop" },
-  { href: "/faq", label: "FAQ" },
-  { href: "/contact", label: "Contact" },
-];
+  const explore = [
+    { href: `/${lang}/for-me`, label: dict.nav.forMe },
+    { href: `/${lang}/for-business`, label: dict.nav.forBusiness },
+    { href: `/${lang}/partner`, label: dict.nav.partner },
+    { href: `/${lang}/shop`, label: dict.nav.shop },
+    { href: `/${lang}/faq`, label: dict.nav.faq },
+    { href: `/${lang}/contact`, label: dict.nav.contact },
+  ];
 
-export function Footer() {
   return (
     <footer className="mt-24 border-t border-mauve/10 bg-sand/40">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4">
         <div>
           <div className="font-serif text-lg text-mauve-dark">SomnoBalance</div>
-          <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink/70">
-            Regeneration begins long before you fall asleep. A calm, sensory system for
-            transitioning into rest.
-          </p>
+          <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink/70">{dict.footer.tagline}</p>
         </div>
 
         <div>
-          <div className="text-sm font-medium text-ink">Explore</div>
+          <div className="text-sm font-medium text-ink">{dict.footer.explore}</div>
           <ul className="mt-3 space-y-2 text-sm text-ink/70">
             {explore.map((item) => (
               <li key={item.href}>
@@ -47,7 +46,7 @@ export function Footer() {
         </div>
 
         <div>
-          <div className="text-sm font-medium text-ink">Legal</div>
+          <div className="text-sm font-medium text-ink">{dict.footer.legal}</div>
           <ul className="mt-3 space-y-2 text-sm text-ink/70">
             {legal.map((item) => (
               <li key={item.href}>
@@ -60,7 +59,7 @@ export function Footer() {
         </div>
 
         <div>
-          <div className="text-sm font-medium text-ink">Contact</div>
+          <div className="text-sm font-medium text-ink">{dict.footer.contact}</div>
           <ul className="mt-3 space-y-2 text-sm text-ink/70">
             <li>{business.email}</li>
             <li>{business.addressLine2}</li>
@@ -69,7 +68,7 @@ export function Footer() {
       </div>
 
       <div className="border-t border-mauve/10 px-4 py-5 text-center text-xs text-ink/50 sm:px-6">
-        © {new Date().getFullYear()} SomnoBalance. All rights reserved.
+        © {new Date().getFullYear()} SomnoBalance. {dict.footer.rights}
       </div>
     </footer>
   );
