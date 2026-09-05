@@ -21,11 +21,25 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "SomnoBalance — Regeneration, Calm, Balance",
-  description:
-    "SomnoBalance is a regeneration and lifestyle brand. A holistic, sensory ritual system for calmer transitions into rest.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  if (lang === "de") {
+    return {
+      title: "SomnoBalance — Regeneration, Ruhe, Balance",
+      description:
+        "SomnoBalance ist eine Regenerations- und Lifestyle-Marke. Ein ganzheitliches, sinnliches Ritualsystem für einen ruhigeren Übergang in die Nacht.",
+    };
+  }
+  return {
+    title: "SomnoBalance — Regeneration, Calm, Balance",
+    description:
+      "SomnoBalance is a regeneration and lifestyle brand. A holistic, sensory ritual system for calmer transitions into rest.",
+  };
+}
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
