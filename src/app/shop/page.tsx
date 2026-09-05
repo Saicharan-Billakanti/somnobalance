@@ -10,7 +10,8 @@ export default function ShopPage() {
       <h1 className="mt-3 font-serif text-3xl text-ink">Tools for the ritual</h1>
       <p className="mt-3 max-w-2xl text-ink/70">
         Each piece supports one phase of the SomnoBalance system. Prices shown include statutory
-        German VAT (MwSt.); shipping is calculated at checkout.
+        German VAT (MwSt.). Shipped via DHL within Germany — free from €59, included in the price
+        for mattresses.
       </p>
       <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {products.map((p) => (

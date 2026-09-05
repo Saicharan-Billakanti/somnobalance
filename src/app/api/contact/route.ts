@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { getPrisma } from "@/lib/prisma";
+import { getSupabase, supabaseConfigured } from "@/lib/supabase";
 import { sendNotification } from "@/lib/mailer";
 
 const contactSchema = z.object({
@@ -9,8 +9,6 @@ const contactSchema = z.object({
   topic: z.enum(["general", "business", "partner", "order"]),
   message: z.string().min(1).max(5000),
 });
-
-const dbConfigured = Boolean(process.env.DATABASE_URL);
 
 export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
@@ -24,15 +22,25 @@ export async function POST(request: Request) {
   }
 
   const data = parsed.data;
+  const persisted = supabaseConfigured();
 
-  if (dbConfigured) {
-    await getPrisma().contactMessage.create({ data });
+  if (persisted) {
+    const { error } = await getSupabase()
+      .from("ContactMessage")
+      .insert({ id: crypto.randomUUID(), ...data });
+    if (error) {
+      console.error("[contact] failed to save message:", error);
+      return NextResponse.json(
+        { error: "Could not send your message. Please try again." },
+        { status: 500 }
+      );
+    }
   }
 
   await sendNotification(
     `New contact form message (${data.topic})`,
-    `${data.name} <${data.email}>\n\n${data.message}${dbConfigured ? "" : "\n\n[not persisted — no DATABASE_URL configured]"}`
+    `${data.name} <${data.email}>\n\n${data.message}${persisted ? "" : "\n\n[not persisted — Supabase not configured]"}`
   );
 
-  return NextResponse.json({ ok: true, persisted: dbConfigured });
+  return NextResponse.json({ ok: true, persisted });
 }

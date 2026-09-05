@@ -6,7 +6,9 @@ const legal = [
   { href: "/legal/privacy", label: "Privacy Policy" },
   { href: "/legal/terms", label: "Terms & Conditions" },
   { href: "/legal/shipping", label: "Shipping & Delivery" },
-  { href: "/legal/returns", label: "Returns & Withdrawal" },
+  { href: "/legal/withdrawal", label: "Right of Withdrawal" },
+  { href: "/legal/returns", label: "Refund & Return Policy" },
+  { href: "/legal/cancellation", label: "Cancellation Policy" },
   { href: "/legal/cookies", label: "Cookie Policy" },
 ];
 

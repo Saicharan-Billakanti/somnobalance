@@ -1,23 +1,27 @@
 const faqs = [
   {
     q: "Where do you ship?",
-    a: "Currently within Germany and the wider EU. See our Shipping & Delivery page for timeframes by region.",
+    a: "Currently within Germany only, via DHL. Deliveries outside Germany are not yet offered. See our Shipping & Delivery page for details.",
   },
   {
     q: "How long does delivery take?",
-    a: "Within Germany, orders typically arrive within 2–5 business days. Within the rest of the EU, 5–10 business days. Exact timeframes are confirmed at checkout.",
+    a: "In-stock items (Ritual collection, cards, pillow, starter set) are dispatched immediately and generally arrive within 1–3 business days. Mattresses are made to order and take approximately 3–4 weeks to manufacture before they ship — mattresses from 160 × 200 cm arrive as 3–4 separate parcels.",
+  },
+  {
+    q: "Is shipping free?",
+    a: "Orders over €59 ship free of charge. For mattresses, shipping is always included in the price shown, regardless of order value.",
   },
   {
     q: "Can I return a product?",
-    a: "Yes. As a consumer in the EU you have a 14-day right of withdrawal from the date of delivery, with no need to give a reason. See our Returns & Withdrawal page for the full policy and a sample withdrawal form.",
+    a: "Yes. As a consumer in the EU you have a 14-day right of withdrawal from the date of delivery, with no need to give a reason. See our Right of Withdrawal page for the full policy and a model withdrawal form. Separately, damaged or defective products are covered by our Refund & Return Policy, and a statutory 2-year warranty applies to defects present at delivery.",
   },
   {
     q: "What payment methods do you accept?",
-    a: "Card, SEPA Direct Debit, and PayPal, processed through our payment provider. Payment details are never stored on our servers.",
+    a: "Card, SEPA Direct Debit, and PayPal, processed through our payment provider, Stripe. Card and bank details are never stored on our own servers.",
   },
   {
     q: "Is SomnoBalance the same company as Willing1863?",
-    a: "SomnoBalance is the brand you experience — Willing1863 is the background company behind it, with over 35 years in sleep-environment products. Full legal detail is in our Impressum.",
+    a: "SomnoBalance is the brand you experience. It is operated by Friedrich-Alexander Willing, trading as \"Willing1863\" — Willing1863 is named only for legal-disclosure purposes. Full legal detail is in our Impressum.",
   },
   {
     q: "Do you offer wholesale or hospitality pricing?",

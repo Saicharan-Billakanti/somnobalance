@@ -43,7 +43,7 @@ export default function Home() {
           </div>
           <div className="relative aspect-[4/5] overflow-hidden rounded-3xl">
             <Image
-              src="/products/sleep-sanctuary-set.jpg"
+              src="/products/somnobalance-mattress.jpg"
               alt="SomnoBalance — a ritual for the transition into rest"
               fill
               sizes="(min-width: 768px) 50vw, 100vw"

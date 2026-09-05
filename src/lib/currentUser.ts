@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { SESSION_COOKIE_NAME, verifySessionCookieValue, sessionAuthConfigured } from "@/lib/auth";
-import { getPrisma } from "@/lib/prisma";
+import { getSupabase, supabaseConfigured } from "@/lib/supabase";
 
 export type CurrentUser = {
   id: string;
@@ -10,7 +10,7 @@ export type CurrentUser = {
 } | null;
 
 export async function getCurrentUser(): Promise<CurrentUser> {
-  if (!process.env.DATABASE_URL || !sessionAuthConfigured()) return null;
+  if (!supabaseConfigured() || !sessionAuthConfigured()) return null;
 
   const cookieStore = await cookies();
   const raw = cookieStore.get(SESSION_COOKIE_NAME)?.value;
@@ -18,12 +18,13 @@ export async function getCurrentUser(): Promise<CurrentUser> {
   if (!userId) return null;
 
   try {
-    const prisma = getPrisma();
-    const user = await prisma.user.findUnique({
-      where: { id: userId },
-      select: { id: true, email: true, firstName: true, lastName: true },
-    });
-    return user;
+    const { data, error } = await getSupabase()
+      .from("User")
+      .select("id, email, firstName, lastName")
+      .eq("id", userId)
+      .maybeSingle();
+    if (error || !data) return null;
+    return data;
   } catch {
     return null;
   }

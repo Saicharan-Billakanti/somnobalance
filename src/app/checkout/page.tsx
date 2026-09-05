@@ -3,20 +3,17 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useCart } from "@/components/CartProvider";
-import { getProduct, formatPrice } from "@/lib/products";
-
-const SHIPPING_FLAT_RATE = 4.9;
+import { getProduct, getVariant, formatPrice } from "@/lib/products";
 
 type Placed = { orderId: string | null; persisted: boolean };
 
 export default function CheckoutPage() {
-  const { lines, total, clear } = useCart();
+  const { lines, total, shipping, clear } = useCart();
   const [payment, setPayment] = useState<"card" | "sepa" | "paypal">("card");
   const [placed, setPlaced] = useState<Placed | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const shipping = lines.length > 0 ? SHIPPING_FLAT_RATE : 0;
   const grandTotal = total + shipping;
 
   if (placed) {
@@ -76,7 +73,11 @@ export default function CheckoutPage() {
             city: String(formData.get("city") || ""),
             country: String(formData.get("country") || ""),
             paymentMethod: payment.toUpperCase() as "CARD" | "SEPA" | "PAYPAL",
-            items: lines.map((line) => ({ slug: line.slug, qty: line.qty })),
+            items: lines.map((line) => ({
+              slug: line.slug,
+              qty: line.qty,
+              variant: line.variant,
+            })),
           };
 
           try {
@@ -124,12 +125,19 @@ export default function CheckoutPage() {
               />
               <input required name="postalCode" placeholder="Postal code" className="input-field" />
               <input required name="city" placeholder="City" className="input-field" />
-              <select required name="country" className="input-field sm:col-span-2" defaultValue="DE">
-                <option value="DE">Germany</option>
-                <option value="AT">Austria</option>
-                <option value="CH">Switzerland</option>
-                <option value="OTHER">Other EU country</option>
-              </select>
+              <input
+                readOnly
+                name="country"
+                value="Germany"
+                className="input-field cursor-not-allowed bg-sand/40 text-ink/60 sm:col-span-2"
+              />
+              <p className="text-xs text-ink/50 sm:col-span-2">
+                We currently ship within Germany only. See our{" "}
+                <Link href="/legal/shipping" className="underline">
+                  Shipping &amp; Delivery Policy
+                </Link>
+                .
+              </p>
             </div>
           </section>
 
@@ -182,12 +190,19 @@ export default function CheckoutPage() {
             {lines.map((line) => {
               const product = getProduct(line.slug);
               if (!product) return null;
+              const unitPrice = product.variants
+                ? getVariant(product, line.variant)?.price ?? 0
+                : product.price ?? 0;
               return (
-                <div key={line.slug} className="flex justify-between text-sm text-ink/70">
+                <div
+                  key={`${line.slug}:${line.variant ?? ""}`}
+                  className="flex justify-between text-sm text-ink/70"
+                >
                   <span>
-                    {product.name} × {line.qty}
+                    {product.name}
+                    {line.variant ? ` (${line.variant})` : ""} × {line.qty}
                   </span>
-                  <span>{formatPrice(product.price * line.qty)}</span>
+                  <span>{formatPrice(unitPrice * line.qty)}</span>
                 </div>
               );
             })}
@@ -220,8 +235,8 @@ export default function CheckoutPage() {
               Terms &amp; Conditions
             </Link>{" "}
             and confirm you have read our{" "}
-            <Link href="/legal/returns" className="underline">
-              Withdrawal Policy
+            <Link href="/legal/withdrawal" className="underline">
+              Right of Withdrawal Policy
             </Link>
             .
           </p>

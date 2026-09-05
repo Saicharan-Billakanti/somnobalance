@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "@/components/CartProvider";
-import { getProduct, formatPrice } from "@/lib/products";
+import { getProduct, getVariant, formatPrice } from "@/lib/products";
 
 export default function CartPage() {
   const { lines, setQty, remove, total } = useCart();
@@ -31,33 +31,37 @@ export default function CartPage() {
         {lines.map((line) => {
           const product = getProduct(line.slug);
           if (!product) return null;
+          const unitPrice = product.variants
+            ? getVariant(product, line.variant)?.price ?? 0
+            : product.price ?? 0;
           return (
-            <div key={line.slug} className="flex items-center gap-4 py-6">
-              <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl">
+            <div key={`${line.slug}:${line.variant ?? ""}`} className="flex items-center gap-4 py-6">
+              <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-white">
                 <Image
                   src={product.image}
                   alt={product.name}
                   fill
                   sizes="80px"
-                  className="object-cover"
+                  className="object-contain"
                 />
               </div>
               <div className="flex-1">
                 <div className="font-medium text-ink">{product.name}</div>
-                <div className="mt-1 text-sm text-ink/60">{formatPrice(product.price)}</div>
+                {line.variant && <div className="text-xs text-ink/50">{line.variant}</div>}
+                <div className="mt-1 text-sm text-ink/60">{formatPrice(unitPrice)}</div>
               </div>
               <input
                 type="number"
                 min={1}
                 value={line.qty}
-                onChange={(e) => setQty(line.slug, Number(e.target.value))}
+                onChange={(e) => setQty(line.slug, Number(e.target.value), line.variant)}
                 className="w-16 rounded-lg border border-mauve/20 px-2 py-1 text-center"
               />
               <div className="w-24 text-right font-medium text-ink">
-                {formatPrice(product.price * line.qty)}
+                {formatPrice(unitPrice * line.qty)}
               </div>
               <button
-                onClick={() => remove(line.slug)}
+                onClick={() => remove(line.slug, line.variant)}
                 className="text-sm text-ink/40 hover:text-ink"
                 aria-label={`Remove ${product.name}`}
               >

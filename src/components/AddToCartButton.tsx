@@ -3,14 +3,14 @@
 import { useState } from "react";
 import { useCart } from "@/components/CartProvider";
 
-export function AddToCartButton({ slug }: { slug: string }) {
+export function AddToCartButton({ slug, variant }: { slug: string; variant?: string }) {
   const { add } = useCart();
   const [added, setAdded] = useState(false);
 
   return (
     <button
       onClick={() => {
-        add(slug);
+        add(slug, 1, variant);
         setAdded(true);
         setTimeout(() => setAdded(false), 1800);
       }}

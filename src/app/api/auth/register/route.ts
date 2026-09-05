@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { getPrisma } from "@/lib/prisma";
+import { getSupabase, supabaseConfigured } from "@/lib/supabase";
 import {
   hashPassword,
   createSessionCookieValue,
@@ -17,7 +17,7 @@ const schema = z.object({
 });
 
 export async function POST(request: Request) {
-  if (!process.env.DATABASE_URL || !sessionAuthConfigured()) {
+  if (!supabaseConfigured() || !sessionAuthConfigured()) {
     return NextResponse.json(
       { error: "Accounts are not available in this environment yet." },
       { status: 503 }
@@ -34,11 +34,15 @@ export async function POST(request: Request) {
   }
 
   const { firstName, lastName, email, password } = parsed.data;
-  const prisma = getPrisma();
+  const supabase = getSupabase();
 
-  let user;
+  let user: { id: string; email: string; firstName: string; lastName: string };
   try {
-    const existing = await prisma.user.findUnique({ where: { email } });
+    const { data: existing } = await supabase
+      .from("User")
+      .select("id")
+      .eq("email", email)
+      .maybeSingle();
     if (existing) {
       return NextResponse.json(
         { error: "An account with this email already exists." },
@@ -47,10 +51,13 @@ export async function POST(request: Request) {
     }
 
     const passwordHash = await hashPassword(password);
-    user = await prisma.user.create({
-      data: { firstName, lastName, email, passwordHash },
-      select: { id: true, email: true, firstName: true, lastName: true },
-    });
+    const { data, error } = await supabase
+      .from("User")
+      .insert({ id: crypto.randomUUID(), firstName, lastName, email, passwordHash })
+      .select("id, email, firstName, lastName")
+      .single();
+    if (error || !data) throw error ?? new Error("insert returned no data");
+    user = data;
   } catch (err) {
     console.error("[auth/register] failed:", err);
     return NextResponse.json(

@@ -4,46 +4,55 @@ export const metadata = { title: "Cookie Policy — SomnoBalance" };
 
 export default function CookiesPage() {
   return (
-    <LegalPage title="Cookie Policy" updated="2 September 2026">
-      <h2>What we use</h2>
-      <table className="w-full border-collapse text-sm">
-        <thead>
-          <tr className="border-b border-mauve/20 text-left">
-            <th className="py-2 pr-4">Name / purpose</th>
-            <th className="py-2 pr-4">Type</th>
-            <th className="py-2">Consent required?</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr className="border-b border-mauve/10">
-            <td className="py-2 pr-4">Shopping cart (local storage)</td>
-            <td className="py-2 pr-4">Essential</td>
-            <td className="py-2">No — needed to operate checkout</td>
-          </tr>
-          <tr className="border-b border-mauve/10">
-            <td className="py-2 pr-4">Cookie consent choice (local storage)</td>
-            <td className="py-2 pr-4">Essential</td>
-            <td className="py-2">No — remembers your choice</td>
-          </tr>
-          <tr>
-            <td className="py-2 pr-4">Spotify embedded player</td>
-            <td className="py-2 pr-4">Third-party / functional</td>
-            <td className="py-2">Yes — blocked until you accept</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h2>Your choice</h2>
+    <LegalPage title="Cookie Policy" updated="4 September 2026">
+      <h2>1. What are cookies?</h2>
       <p>
-        On your first visit you can choose &quot;Essential only&quot; or &quot;Accept all&quot;.
-        Spotify players for our ritual playlists stay hidden until you accept. You can change your
-        choice at any time by clearing this site&apos;s local storage in your browser settings.
+        Cookies and similar technologies are small files or technical methods that may be stored
+        on or used by your device. They help us provide the website, remember settings and enable
+        certain functions.
       </p>
 
-      <h2>Third-party provider</h2>
+      <h2>2. Essential cookies</h2>
       <p>
-        When accepted, Spotify embeds are loaded directly from Spotify and are subject to
-        Spotify&apos;s own cookie and privacy practices, over which we have no control.
+        Essential cookies and similar technologies are used where they are necessary for the
+        operation of the website. This includes functions such as the shopping cart, login and
+        basic security.
+      </p>
+
+      <h2>3. Non-essential cookies</h2>
+      <p>Non-essential cookies are used only where the required consent has been given. These may include:</p>
+      <ul>
+        <li>Analysing website use and traffic</li>
+        <li>Improving marketing performance</li>
+        <li>Marketing and tracking functions, including the Meta Pixel</li>
+        <li>Embedded content, including Spotify players</li>
+      </ul>
+
+      <h2>4. Consent</h2>
+      <p>
+        A consent banner is shown when you first visit the website. Non-essential cookies are only
+        set after the required consent has been given. The option to reject non-essential cookies
+        is presented with equal prominence.
+      </p>
+
+      <h2>5. Changing cookie settings</h2>
+      <p>
+        You can change or withdraw your consent at any time. Cookie settings remain permanently
+        accessible through the relevant link in the website footer.
+      </p>
+
+      <h2>6. Other services</h2>
+      <p>
+        Depending on how the website is used, services from hosting, newsletter, analytics,
+        marketing and payment providers may be integrated. Information about the services actually
+        used and the processing of personal data is provided in our{" "}
+        <a href="/legal/privacy">Privacy Policy</a>.
+      </p>
+
+      <h2>7. Contact</h2>
+      <p>
+        Questions about this Cookie Policy can be directed to us using the contact details in our{" "}
+        <a href="/legal/impressum">Impressum</a>.
       </p>
     </LegalPage>
   );

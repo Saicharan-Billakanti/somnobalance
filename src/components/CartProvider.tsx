@@ -1,21 +1,26 @@
 "use client";
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { getProduct } from "@/lib/products";
+import { priceOrderItems, computeShipping } from "@/lib/products";
 
-type CartLine = { slug: string; qty: number };
+type CartLine = { slug: string; qty: number; variant?: string };
 type CartContextValue = {
   lines: CartLine[];
-  add: (slug: string, qty?: number) => void;
-  remove: (slug: string) => void;
-  setQty: (slug: string, qty: number) => void;
+  add: (slug: string, qty?: number, variant?: string) => void;
+  remove: (slug: string, variant?: string) => void;
+  setQty: (slug: string, qty: number, variant?: string) => void;
   clear: () => void;
   count: number;
   total: number;
+  shipping: number;
 };
 
 const CartContext = createContext<CartContextValue | null>(null);
 const STORAGE_KEY = "somnobalance-cart";
+
+function sameLine(a: { slug: string; variant?: string }, b: { slug: string; variant?: string }) {
+  return a.slug === b.slug && a.variant === b.variant;
+}
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [lines, setLines] = useState<CartLine[]>([]);
@@ -40,37 +45,44 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   }, [lines, hydrated]);
 
-  const add = (slug: string, qty = 1) => {
+  const add = (slug: string, qty = 1, variant?: string) => {
     setLines((prev) => {
-      const existing = prev.find((l) => l.slug === slug);
+      const target = { slug, variant };
+      const existing = prev.find((l) => sameLine(l, target));
       if (existing) {
-        return prev.map((l) => (l.slug === slug ? { ...l, qty: l.qty + qty } : l));
+        return prev.map((l) => (sameLine(l, target) ? { ...l, qty: l.qty + qty } : l));
       }
-      return [...prev, { slug, qty }];
+      return [...prev, { slug, qty, variant }];
     });
   };
 
-  const remove = (slug: string) => setLines((prev) => prev.filter((l) => l.slug !== slug));
-  const setQty = (slug: string, qty: number) =>
+  const remove = (slug: string, variant?: string) =>
+    setLines((prev) => prev.filter((l) => !sameLine(l, { slug, variant })));
+
+  const setQty = (slug: string, qty: number, variant?: string) =>
     setLines((prev) =>
-      qty <= 0 ? prev.filter((l) => l.slug !== slug) : prev.map((l) => (l.slug === slug ? { ...l, qty } : l))
+      qty <= 0
+        ? prev.filter((l) => !sameLine(l, { slug, variant }))
+        : prev.map((l) => (sameLine(l, { slug, variant }) ? { ...l, qty } : l))
     );
+
   const clear = () => setLines([]);
 
-  const { count, total } = useMemo(() => {
-    let count = 0;
-    let total = 0;
-    for (const line of lines) {
-      const product = getProduct(line.slug);
-      if (!product) continue;
-      count += line.qty;
-      total += product.price * line.qty;
+  const { count, total, shipping } = useMemo(() => {
+    const priced = priceOrderItems(lines);
+    if ("error" in priced) {
+      // A slug/variant that no longer exists in the catalog (e.g. after a
+      // catalog change) — drop it from the totals rather than crash.
+      return { count: 0, total: 0, shipping: 0 };
     }
-    return { count, total };
+    const count = lines.reduce((sum, l) => sum + l.qty, 0);
+    const total = priced.lines.reduce((sum, l) => sum + l.unitPrice * l.qty, 0);
+    const shipping = computeShipping(priced.lines);
+    return { count, total, shipping };
   }, [lines]);
 
   return (
-    <CartContext.Provider value={{ lines, add, remove, setQty, clear, count, total }}>
+    <CartContext.Provider value={{ lines, add, remove, setQty, clear, count, total, shipping }}>
       {children}
     </CartContext.Provider>
   );

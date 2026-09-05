@@ -16,7 +16,6 @@ export default function ContactPage() {
         <div>
           <h3 className="text-sm font-medium text-ink">Email</h3>
           <p className="mt-1 text-ink/70">{business.email}</p>
-          <p className="text-ink/70">{business.supportEmail}</p>
         </div>
         <div>
           <h3 className="text-sm font-medium text-ink">Phone</h3>

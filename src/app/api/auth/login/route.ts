@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { getPrisma } from "@/lib/prisma";
+import { getSupabase, supabaseConfigured } from "@/lib/supabase";
 import {
   verifyPassword,
   createSessionCookieValue,
@@ -15,7 +15,7 @@ const schema = z.object({
 });
 
 export async function POST(request: Request) {
-  if (!process.env.DATABASE_URL || !sessionAuthConfigured()) {
+  if (!supabaseConfigured() || !sessionAuthConfigured()) {
     return NextResponse.json(
       { error: "Accounts are not available in this environment yet." },
       { status: 503 }
@@ -29,8 +29,11 @@ export async function POST(request: Request) {
   }
 
   const { email, password } = parsed.data;
-  const prisma = getPrisma();
-  const user = await prisma.user.findUnique({ where: { email } });
+  const { data: user } = await getSupabase()
+    .from("User")
+    .select("id, email, firstName, lastName, passwordHash")
+    .eq("email", email)
+    .maybeSingle();
 
   // Same error for "no such user" and "wrong password" so we don't leak which emails exist.
   if (!user || !(await verifyPassword(password, user.passwordHash))) {

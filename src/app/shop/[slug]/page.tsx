@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import { getProduct, formatPrice, products } from "@/lib/products";
-import { AddToCartButton } from "@/components/AddToCartButton";
+import { getProduct, products } from "@/lib/products";
+import { ProductPurchasePanel } from "@/components/ProductPurchasePanel";
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -19,13 +19,13 @@ export default async function ProductPage({
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
       <div className="grid gap-12 md:grid-cols-2">
-        <div className="relative aspect-square overflow-hidden rounded-3xl">
+        <div className="relative aspect-square overflow-hidden rounded-3xl bg-white">
           <Image
             src={product.image}
             alt={product.name}
             fill
             sizes="(min-width: 768px) 50vw, 100vw"
-            className="object-cover"
+            className="object-contain"
             priority
           />
         </div>
@@ -35,13 +35,11 @@ export default async function ProductPage({
           </div>
           <h1 className="mt-2 font-serif text-3xl text-ink">{product.name}</h1>
           <p className="mt-3 text-lg text-ink/70">{product.tagline}</p>
-          <div className="mt-6 text-2xl font-medium text-mauve-dark">
-            {formatPrice(product.price)}
-            <span className="ml-2 text-sm font-normal text-ink/40">incl. VAT, plus shipping</span>
-          </div>
-          {product.priceNote && (
-            <div className="mt-1 text-sm text-teal-dark">{product.priceNote}</div>
-          )}
+
+          <ProductPurchasePanel
+            product={{ slug: product.slug, price: product.price, variants: product.variants }}
+          />
+
           <p className="mt-6 leading-relaxed text-ink/70">{product.description}</p>
           <ul className="mt-6 space-y-2 text-sm text-ink/70">
             {product.details.map((d) => (
@@ -50,13 +48,29 @@ export default async function ProductPage({
               </li>
             ))}
           </ul>
-          <div className="mt-8">
-            <AddToCartButton slug={product.slug} />
-          </div>
+
+          {product.ingredients && (
+            <div className="mt-6 rounded-xl border border-mauve/10 bg-white/60 p-4">
+              <div className="text-xs font-medium uppercase tracking-wide text-ink/50">
+                Ingredients (INCI)
+              </div>
+              <p className="mt-2 text-xs leading-relaxed text-ink/60">{product.ingredients}</p>
+            </div>
+          )}
+
+          {/*
+            product.legalNote is intentionally not rendered right now —
+            these are internal reminders (missing hazard/food-law
+            declarations, placeholder pricing) tracked in src/lib/products.ts
+            so they aren't lost, but showing raw "TODO/placeholder" language
+            to live site visitors during the Stripe application isn't what
+            we want. Re-enable this block once the real text is in.
+          */}
+
           <p className="mt-4 text-xs text-ink/50">
             14-day right of withdrawal within the EU. See{" "}
-            <a href="/legal/returns" className="underline">
-              Returns &amp; Withdrawal
+            <a href="/legal/withdrawal" className="underline">
+              Right of Withdrawal
             </a>
             .
           </p>

@@ -1,18 +1,22 @@
 import { NextResponse } from "next/server";
-import { getPrisma } from "@/lib/prisma";
+import { getSupabase, supabaseConfigured } from "@/lib/supabase";
 
 export async function GET(
   _request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  if (!process.env.DATABASE_URL) {
+  if (!supabaseConfigured()) {
     return NextResponse.json({ error: "No database configured" }, { status: 503 });
   }
 
   const { id } = await params;
-  const order = await getPrisma().order.findUnique({ where: { id }, include: { items: true } });
+  const { data: order, error } = await getSupabase()
+    .from("Order")
+    .select("*, items:OrderItem(*)")
+    .eq("id", id)
+    .maybeSingle();
 
-  if (!order) {
+  if (error || !order) {
     return NextResponse.json({ error: "Order not found" }, { status: 404 });
   }
 

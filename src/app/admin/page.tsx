@@ -2,18 +2,51 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { ADMIN_COOKIE_NAME, adminConfigured, verifySessionCookieValue } from "@/lib/adminAuth";
-import { getPrisma } from "@/lib/prisma";
+import { getSupabase, supabaseConfigured } from "@/lib/supabase";
 import { formatPrice } from "@/lib/products";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { robots: { index: false, follow: false } };
 
-async function loadAdminData(prisma: ReturnType<typeof getPrisma>) {
-  const [orders, messages] = await Promise.all([
-    prisma.order.findMany({ orderBy: { createdAt: "desc" }, take: 50, include: { items: true } }),
-    prisma.contactMessage.findMany({ orderBy: { createdAt: "desc" }, take: 50 }),
+type AdminOrderItem = { id: string; slug: string; name: string; price: number; qty: number };
+type AdminOrder = {
+  id: string;
+  createdAt: string;
+  status: string;
+  paymentMethod: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  total: number;
+  items: AdminOrderItem[];
+};
+type AdminMessage = {
+  id: string;
+  createdAt: string;
+  name: string;
+  email: string;
+  topic: string;
+  message: string;
+};
+
+async function loadAdminData(supabase: ReturnType<typeof getSupabase>) {
+  const [ordersRes, messagesRes] = await Promise.all([
+    supabase
+      .from("Order")
+      .select("*, items:OrderItem(*)")
+      .order("createdAt", { ascending: false })
+      .limit(50)
+      .returns<AdminOrder[]>(),
+    supabase
+      .from("ContactMessage")
+      .select("*")
+      .order("createdAt", { ascending: false })
+      .limit(50)
+      .returns<AdminMessage[]>(),
   ]);
-  return { orders, messages };
+  if (ordersRes.error) throw ordersRes.error;
+  if (messagesRes.error) throw messagesRes.error;
+  return { orders: ordersRes.data ?? [], messages: messagesRes.data ?? [] };
 }
 
 export default async function AdminPage() {
@@ -35,15 +68,14 @@ export default async function AdminPage() {
     redirect("/admin/login");
   }
 
-  const dbConfigured = Boolean(process.env.DATABASE_URL);
-  const prisma = dbConfigured ? getPrisma() : null;
+  const dbConfigured = supabaseConfigured();
 
   let loadError: string | null = null;
   let data: Awaited<ReturnType<typeof loadAdminData>> | null = null;
 
-  if (prisma) {
+  if (dbConfigured) {
     try {
-      data = await loadAdminData(prisma);
+      data = await loadAdminData(getSupabase());
     } catch {
       loadError = "Could not reach the database. Try again in a moment.";
     }

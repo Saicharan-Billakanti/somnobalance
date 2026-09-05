@@ -1,79 +1,150 @@
 import { LegalPage } from "@/components/LegalPage";
 import { business } from "@/lib/site";
 
-export const metadata = { title: "Returns & Withdrawal — SomnoBalance" };
+export const metadata = { title: "Refund & Return Policy — SomnoBalance" };
 
 export default function ReturnsPage() {
   return (
-    <LegalPage title="Returns & Withdrawal Policy" updated="2 September 2026">
-      <p className="rounded-xl border border-teal/20 bg-teal/5 p-4 text-sm">
-        This page follows the standard EU model withdrawal instructions (Consumer Rights Directive
-        2011/83/EU, Annex I). Please have a lawyer confirm the final wording and timeframes before
-        this policy is used for real transactions.
+    <LegalPage title="Refund & Return Policy" updated="4 September 2026">
+      <p>
+        SomnoBalance aims to provide high-quality mattresses, pillows, oils, tea, ritual cards and
+        related products. If you receive a product that is damaged, defective, incorrectly
+        manufactured or materially different from what you ordered, please contact us so that we
+        can review the issue.
       </p>
 
-      <h2>Right of withdrawal</h2>
+      <h2>1. Three separate customer protections</h2>
       <p>
-        You have the right to withdraw from this contract within 14 days without giving any
-        reason. The withdrawal period will expire 14 days from the day on which you, or a third
-        party other than the carrier and indicated by you, acquires physical possession of the
-        goods.
-      </p>
-      <p>
-        To exercise the right of withdrawal, you must inform us ({business.legalEntityName},{" "}
-        {business.addressLine1}, {business.addressLine2}, {business.email}, {business.phone}) of
-        your decision to withdraw from this contract by an unequivocal statement (e.g. a letter
-        sent by post or email). You may use the model withdrawal form below, but it is not
-        obligatory.
-      </p>
-      <p>
-        To meet the withdrawal deadline, it is sufficient for you to send your communication
-        concerning your exercise of the right of withdrawal before the withdrawal period has
-        expired.
+        This policy works alongside two further, separate protections: (a) the statutory 14-day
+        right of withdrawal available to consumers (see our{" "}
+        <a href="/legal/withdrawal">Right of Withdrawal Policy</a>), and (b) the statutory
+        two-year warranty (Gewährleistung) for defects that existed at the time of delivery (see
+        Section 12 of our <a href="/legal/terms">Terms &amp; Conditions</a>). Neither of those
+        statutory rights is limited by this policy.
       </p>
 
-      <h2>Effects of withdrawal</h2>
+      <h2>2. Eligible returns</h2>
+      <p>A product may be eligible for return, replacement or refund under this policy where it is:</p>
+      <ul>
+        <li>Damaged during transit</li>
+        <li>Defective</li>
+        <li>Incorrectly manufactured</li>
+        <li>The wrong product</li>
+        <li>Materially different from the product ordered</li>
+        <li>Missing parts or components, where applicable</li>
+      </ul>
+      <p>All return and refund requests are subject to verification.</p>
+
+      <h2>3. Consumable and hygiene-sealed products</h2>
       <p>
-        If you withdraw from this contract, we will reimburse all payments received from you,
-        including the costs of delivery (except for supplementary costs arising if you chose a
-        type of delivery other than the least expensive type of standard delivery offered by us),
-        without undue delay and, in any event, not later than 14 days from the day on which we are
-        informed about your decision to withdraw. We will carry out such reimbursement using the
-        same means of payment as you used for the initial transaction, unless expressly agreed
-        otherwise; in any event, you will not incur any fees as a result of the reimbursement.
-      </p>
-      <p>
-        We may withhold reimbursement until we have received the goods back, or you have supplied
-        evidence of having sent back the goods, whichever is the earliest. You must send back the
-        goods without undue delay and, in any event, not later than 14 days from the day on which
-        you communicate your withdrawal. The deadline is met if you send back the goods before the
-        14-day period has expired. You bear the direct cost of returning the goods. You are only
-        liable for any diminished value of the goods resulting from handling other than what is
-        necessary to establish the nature, characteristics, and functioning of the goods.
+        Oils and tea are consumable products. Once opened or their seal has been broken, they are
+        generally not eligible for return for reasons of hygiene and food/cosmetic safety, unless
+        the product is defective. Similarly, pillows, mattress covers or other bedding items
+        supplied with a hygiene seal are generally not eligible for return once that seal has been
+        removed, unless the product is defective.
       </p>
 
-      <h2>Exceptions</h2>
+      <h2>4. Wrong option selected by the customer</h2>
       <p>
-        The right of withdrawal does not apply to sealed goods which are not suitable for return
-        due to health protection or hygiene reasons if they were unsealed after delivery (this may
-        apply to certain oils and consumables, clearly marked on the product page).
+        For any products ordered with customer-selected options (such as firmness, size or scent),
+        you are responsible for selecting the correct option at checkout. SomnoBalance is not
+        responsible for a mismatch caused solely by an incorrect selection made by the customer,
+        though we will always try to help you find the right solution.
       </p>
 
-      <h2>Model withdrawal form</h2>
-      <p>(Complete and return this form only if you wish to withdraw from the contract.)</p>
-      <div className="rounded-xl border border-mauve/15 bg-white/60 p-5 text-sm">
-        <p>To: {business.legalEntityName}, {business.addressLine1}, {business.addressLine2}, {business.email}</p>
-        <p className="mt-3">
-          I/We (*) hereby give notice that I/We (*) withdraw from my/our (*) contract of sale of
-          the following goods (*)/for the provision of the following service (*),
-        </p>
-        <p className="mt-3">Ordered on (*)/received on (*):</p>
-        <p className="mt-3">Name of consumer(s):</p>
-        <p className="mt-3">Address of consumer(s):</p>
-        <p className="mt-3">Signature of consumer(s) (only if this form is notified on paper):</p>
-        <p className="mt-3">Date:</p>
-        <p className="mt-3 text-xs text-ink/50">(*) Delete as appropriate.</p>
-      </div>
+      <h2>5. Reporting damaged products</h2>
+      <p>If your product arrives damaged, please contact us preferably within 48 hours of delivery. Please provide:</p>
+      <ul>
+        <li>Order number</li>
+        <li>Photographs of the outer packaging</li>
+        <li>Photographs of the shipping label</li>
+        <li>Clear photographs or video of the damaged product</li>
+        <li>Description of the issue</li>
+      </ul>
+      <p>This information may be required to investigate the claim with the courier or logistics provider.</p>
+
+      <h2>6. Return request process</h2>
+      <ul>
+        <li>Contact SomnoBalance using the official contact details</li>
+        <li>Provide your order number</li>
+        <li>Explain the issue</li>
+        <li>Provide photographs or video where requested</li>
+        <li>Wait for confirmation from our support team</li>
+        <li>If approved, follow the return instructions provided by us</li>
+      </ul>
+      <p>
+        Please do not send products back without receiving return instructions, unless
+        specifically directed to do so.
+      </p>
+
+      <h2>7. Inspection</h2>
+      <p>
+        Returned products may be inspected to determine whether the reported issue qualifies for a
+        refund or replacement. A claim may be rejected where inspection establishes that the
+        product was damaged after delivery due to customer handling, was improperly used, matches
+        the order specifications, or does not otherwise satisfy this policy.
+      </p>
+
+      <h2>8. Replacement</h2>
+      <p>
+        Where an eligible product is found to be defective, damaged or incorrectly supplied,
+        SomnoBalance may, at its discretion and subject to applicable law, replace the product,
+        repair it where reasonably possible, provide a refund, or offer another appropriate remedy.
+      </p>
+
+      <h2>9. Refunds</h2>
+      <p>
+        If a refund is approved outside the statutory withdrawal process, it will generally be
+        processed through the original payment method, without undue delay and in principle within
+        14 days of approval, consistent with the timelines described in our{" "}
+        <a href="/legal/withdrawal">Right of Withdrawal Policy</a>. Actual crediting to your
+        account may take a few additional business days depending on your payment provider or
+        bank.
+      </p>
+
+      <h2>10. Non-returnable situations</h2>
+      <p>Subject to your statutory rights, returns or refunds under this policy will generally not be available for:</p>
+      <ul>
+        <li>Change of mind, where the statutory withdrawal period has already expired</li>
+        <li>Opened or seal-broken consumable products (oils, tea) with no defect</li>
+        <li>Hygiene-sealed bedding items once unsealed, with no defect</li>
+        <li>Incorrect option selected by the customer at checkout (for example firmness or scent)</li>
+        <li>Products damaged after successful delivery due to customer handling</li>
+        <li>Products where there is no defect or error attributable to SomnoBalance</li>
+      </ul>
+
+      <h2>11. Shipping costs for returns</h2>
+      <p>
+        SomnoBalance distinguishes between two product groups for returns. Parcel-suitable goods
+        (Ritual collection products, regeneration card set, neck support pillow, starter set) are
+        returned as a DHL parcel, at the customer&apos;s cost. Mattresses can no longer be repacked
+        into parcel-suitable packaging once unpacked and are collected exclusively by a freight
+        forwarder, kerbside, which SomnoBalance arranges at the customer&apos;s request; the
+        customer likewise bears the return cost, in the amount stated on the relevant product page
+        before the contract is concluded. Where a return is approved because of an error
+        attributable to SomnoBalance or a qualifying product defect, SomnoBalance will bear the
+        reasonable return-shipping costs for either product group instead.
+      </p>
+
+      <h2>12. Exchange</h2>
+      <p>Product exchanges may be offered where appropriate and subject to product availability.</p>
+
+      <h2>13. Promotional or discounted orders</h2>
+      <p>
+        Products purchased using promotional offers or discounts remain subject to this policy. A
+        discount or promotional offer does not remove any rights that cannot legally be excluded.
+      </p>
+
+      <h2>14. Fraudulent or abusive claims</h2>
+      <p>
+        SomnoBalance reserves the right to investigate potentially fraudulent, misleading or
+        abusive refund or return claims. Nothing in this section limits any rights available to
+        customers under applicable law.
+      </p>
+
+      <p className="mt-8 text-xs text-ink/50">
+        Contact for returns: {business.email} · {business.phone}
+      </p>
     </LegalPage>
   );
 }

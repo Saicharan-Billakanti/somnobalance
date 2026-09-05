@@ -1,8 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Product, formatPrice } from "@/lib/products";
+import { Product, formatPrice, getDisplayPrice } from "@/lib/products";
 
 export function ProductCard({ product }: { product: Product }) {
+  const { price, fromPrice } = getDisplayPrice(product);
+
   return (
     <Link
       href={`/shop/${product.slug}`}
@@ -24,8 +26,8 @@ export function ProductCard({ product }: { product: Product }) {
         </h3>
         <p className="mt-1 text-sm text-ink/60">{product.tagline}</p>
         <div className="mt-3 text-sm font-medium text-mauve-dark">
-          {formatPrice(product.price)}{" "}
-          <span className="font-normal text-ink/40">incl. VAT</span>
+          {fromPrice && <span className="font-normal text-ink/60">from </span>}
+          {formatPrice(price)} <span className="font-normal text-ink/40">incl. VAT</span>
         </div>
       </div>
     </Link>
