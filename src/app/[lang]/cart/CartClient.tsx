@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "@/components/CartProvider";
-import { getProduct, getVariant, formatPrice } from "@/lib/products";
+import { getProduct, getProductText, getVariant, formatPrice } from "@/lib/products";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/getDictionary";
 
@@ -33,6 +33,7 @@ export function CartClient({ lang, dict }: { lang: Locale; dict: Dictionary }) {
         {lines.map((line) => {
           const product = getProduct(line.slug);
           if (!product) return null;
+          const text = getProductText(product, lang);
           const unitPrice = product.variants
             ? getVariant(product, line.variant)?.price ?? 0
             : product.price ?? 0;
@@ -41,14 +42,14 @@ export function CartClient({ lang, dict }: { lang: Locale; dict: Dictionary }) {
               <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-white">
                 <Image
                   src={product.image}
-                  alt={product.name}
+                  alt={text.name}
                   fill
                   sizes="80px"
                   className="object-contain"
                 />
               </div>
               <div className="flex-1">
-                <div className="font-medium text-ink">{product.name}</div>
+                <div className="font-medium text-ink">{text.name}</div>
                 {line.variant && <div className="text-xs text-ink/50">{line.variant}</div>}
                 <div className="mt-1 text-sm text-ink/60">{formatPrice(unitPrice)}</div>
               </div>
@@ -65,7 +66,7 @@ export function CartClient({ lang, dict }: { lang: Locale; dict: Dictionary }) {
               <button
                 onClick={() => remove(line.slug, line.variant)}
                 className="text-sm text-ink/40 hover:text-ink"
-                aria-label={`${dict.cart.remove} ${product.name}`}
+                aria-label={`${dict.cart.remove} ${text.name}`}
               >
                 {dict.cart.remove}
               </button>

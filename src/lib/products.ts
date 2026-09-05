@@ -4,6 +4,17 @@ export type ProductVariant = {
   priceNote?: string;
 };
 
+// Storefront-facing text, one set per locale. Order records, the admin
+// panel, and priceOrderItems() always use the canonical English `name` on
+// Product itself — only what a shopper reads on the site is translated.
+export type ProductTranslation = {
+  name: string;
+  tagline: string;
+  description: string;
+  details: string[];
+  ingredients?: string;
+};
+
 export type Product = {
   slug: string;
   name: string;
@@ -21,7 +32,21 @@ export type Product = {
   // mattress) — such items never contribute to, or benefit from, the
   // flat-rate/free-shipping threshold applied to the rest of the cart.
   shippingIncluded?: boolean;
+  // German storefront text. English falls back to the top-level fields
+  // above, so `en` never needs to be repeated here.
+  translations: { de: ProductTranslation };
 };
+
+export function getProductText(product: Product, lang: string): ProductTranslation {
+  if (lang === "de") return product.translations.de;
+  return {
+    name: product.name,
+    tagline: product.tagline,
+    description: product.description,
+    details: product.details,
+    ingredients: product.ingredients,
+  };
+}
 
 export const products: Product[] = [
   {
@@ -45,6 +70,23 @@ export const products: Product[] = [
       "Helianthus Annuus Seed Oil, Simmondsia Chinensis Seed Oil, Tocopherol, Lavandula Angustifolia Oil, Citrus Clementina Peel Oil, Citrus Paradisi Peel Oil, Boswellia Sacra Oil, Pogostemon Cablin Oil, D-Limonene, Linalool, Geraniol.",
     legalNote:
       "Mandatory cosmetic declarations shown are taken from the current product label (INCI list above). Confirm against the latest manufacturer documentation before this page is used for real sales.",
+    translations: {
+      de: {
+        name: "SomnoBalance Roll-on",
+        tagline: "Ein Duftmoment zum Mitnehmen — für zu Hause und unterwegs.",
+        description:
+          "Der SomnoBalance Roll-on verbindet den charakteristischen Duft der Marke mit einer einfachen, gezielten Anwendung. Lavendel, Clementine, Grapefruit, Weihrauch und Patchouli sind in eine Basis aus Sonnenblumen- und Jojobaöl eingebunden und werden direkt auf die Haut aufgetragen — leicht einzubinden in eine persönliche Pause oder ein Ritual, ob zu Hause, auf Reisen oder als Teil der abendlichen Routine.",
+        details: [
+          "10-ml-Roll-on-Fläschchen",
+          "Basisöle: Sonnenblumenöl, Jojobaöl",
+          "Duft: Lavendel, Clementine, Grapefruit, Weihrauch, Patchouli",
+          "Auf Handgelenke, Schläfen, Nacken oder Fußsohlen auftragen — mehrmals täglich nach Bedarf",
+          "Nur zur äußerlichen Anwendung; bei Hautreizungen die Anwendung beenden",
+        ],
+        ingredients:
+          "Helianthus Annuus Seed Oil, Simmondsia Chinensis Seed Oil, Tocopherol, Lavandula Angustifolia Oil, Citrus Clementina Peel Oil, Citrus Paradisi Peel Oil, Boswellia Sacra Oil, Pogostemon Cablin Oil, D-Limonene, Linalool, Geraniol.",
+      },
+    },
   },
   {
     slug: "somnobalance-oil-blend",
@@ -65,6 +107,21 @@ export const products: Product[] = [
     image: "/products/somnobalance-oil-blend.jpg",
     legalNote:
       "This is a concentrated essential-oil blend, not for direct skin contact. Mandatory hazard and safety declarations must be copied verbatim from the current German product labelling before this page is used for real sales — not yet added here.",
+    translations: {
+      de: {
+        name: "SomnoBalance Ölmischung",
+        tagline: "Eine reine ätherische Ölmischung für Diffuser und Abendrituale.",
+        description:
+          "Die SomnoBalance Ölmischung vereint Lavendel, Clementine, Grapefruit, Weihrauch und Patchouli zur charakteristischen Duftkomposition der Marke. Wenige Tropfen tragen den SomnoBalance-Duft in den Raum — ein einfacher Teil bewusster Abend- und Ruherituale.",
+        details: [
+          "10 ml, 100 % reine ätherische Öle",
+          "Duft: Lavendel, Clementine, Grapefruit, Weihrauch, Patchouli",
+          "3–8 Tropfen in das Wasser eines geeigneten Duftlampen- oder Diffusor-Systems geben",
+          "Hinweise des jeweiligen Geräts beachten",
+          "Nicht zur Hautanwendung — Augenkontakt vermeiden, für Kinder unzugänglich aufbewahren",
+        ],
+      },
+    },
   },
   {
     slug: "somnobalance-room-spray",
@@ -84,6 +141,20 @@ export const products: Product[] = [
     image: "/products/somnobalance-room-spray.jpg",
     legalNote:
       "This product carries hazard labelling (including flammability). The binding German warning and safety text must be copied verbatim from the current product labelling before this page is used for real sales — not yet added here.",
+    translations: {
+      de: {
+        name: "SomnoBalance Raumspray",
+        tagline: "Der SomnoBalance-Duft — für einen durchdachten Raum und Schlafumgebung.",
+        description:
+          "Der SomnoBalance Raumspray bringt die Duftkomposition der Marke mit wenigen Sprühstößen in einen Raum — als Teil eines Abendrituals, vor einer bewussten Pause oder beim Übergang von einem aktiven Tag in eine ruhigere Umgebung. Laut Produktetikett formuliert auf Basis von Alkohol, Wasser und einer Mischung ätherischer Öle.",
+        details: [
+          "Basis: Alkohol, Wasser, Mischung ätherischer Öle (laut Etikett)",
+          "Duft: Lavendel, Clementine, Grapefruit, Weihrauch, Patchouli",
+          "Vor Gebrauch gut schütteln und nach Bedarf in den Raum sprühen",
+          "Nicht zum Verzehr oder zur Hautanwendung — Augen- und Hautkontakt vermeiden",
+        ],
+      },
+    },
   },
   {
     slug: "somnobalance-regeneration-tea",
@@ -104,6 +175,21 @@ export const products: Product[] = [
     image: "/products/somnobalance-regeneration-tea.jpg",
     legalNote:
       "Mandatory food-law disclosures (nutritional information, allergen labelling, best-before format) must be added from the current manufacturer documentation before this page is used for real sales — not yet added here.",
+    translations: {
+      de: {
+        name: "SomnoBalance Regenerationstee",
+        tagline: "Eine Kräuter- und Gewürzmischung für einen bewussten Moment der Ruhe.",
+        description:
+          "Der SomnoBalance Regenerationstee vereint ausgewählte Kräuter, Blüten, Früchte und Gewürze zu einer fein abgestimmten Mischung. Melisse und Orangenblüte treffen auf süße Brombeer- und Himbeerblätter, abgerundet mit Süßholzwurzel, Kardamom, Fenchel und Anis — ein warmer Begleiter für bewusste Pausen, am Abend oder in ruhigen Momenten des Tages.",
+        details: [
+          "80 g loser Tee",
+          "Melisse, Orangenblüte, Brombeerblätter, Himbeerblätter, Süßholzwurzel, Kardamom, Fenchel, Anis",
+          "Einen gehäuften Teelöffel pro 200 ml Wasser verwenden",
+          "Mit kochendem Wasser übergießen und 6–8 Minuten ziehen lassen",
+          "Trocken und vor Hitze geschützt lagern",
+        ],
+      },
+    },
   },
   {
     slug: "somnobalance-regeneration-cards",
@@ -121,6 +207,20 @@ export const products: Product[] = [
     ],
     phase: "REGULATE",
     image: "/products/somnobalance-regeneration-cards.jpg",
+    translations: {
+      de: {
+        name: "SomnoBalance Regenerationskarten",
+        tagline: "13 Regenerationspunkte und 10 passende Rituale für den Alltag.",
+        description:
+          "Die SomnoBalance Regenerationskarten machen die SomnoBalance-Methode Schritt für Schritt anwendbar. Das Set besteht aus 13 Regenerationspunkt-Karten und 10 Regenerationsritual-Karten. Die Punktkarten zeigen ausgewählte Punkte am Körper mit Lage, Illustration und Anleitung; die Ritualkarten kombinieren mehrere Punkte zu festen Abfolgen für unterschiedliche Alltagssituationen — darunter Ruhe finden, Gut schlafen, Neue Kraft sammeln, Innere Balance, Gefühle loslassen, Gedanken loslassen, Innere Standfestigkeit finden, Klarheit gewinnen, Den Tag leichter gestalten und Regeneration aktivieren.",
+        details: [
+          "23 Karten: 13 Regenerationspunkt-Karten + 10 Regenerationsritual-Karten",
+          "Einen einzelnen Punkt wählen oder einer vorbereiteten Kombination als vollständigem Ritual folgen",
+          "Jeder Punkt wird für etwa 2–3 Minuten sanft gehalten, bei ruhiger, gleichmäßiger Atmung",
+          "Für die Anwendung zu Hause, im Alltag, als Teil der Abendroutine oder unterwegs",
+        ],
+      },
+    },
   },
   {
     slug: "somnobalance-neck-pillow",
@@ -142,6 +242,22 @@ export const products: Product[] = [
     image: "/products/somnobalance-neck-pillow.jpg",
     legalNote:
       "The Vitalize® cover fabric is described here only as the manufacturer characterises it (reflecting the body's own far-infrared radiation). Manufacturer claims about microcirculation, sleep or wellbeing are deliberately not presented as proven effects.",
+    translations: {
+      de: {
+        name: "SomnoBalance Nackenstützkissen",
+        tagline: "Höhenverstellbare Stütze, geformt für individuellen Komfort.",
+        description:
+          "Das SomnoBalance Nackenstützkissen verbindet eine ergonomische Form mit individuell einstellbarer Höhe. Der offenporige Air-Memory-Schaumstoffkern sorgt für angenehme Belüftung, und zwei integrierte Einlegeplatten ermöglichen insgesamt sechs Höheneinstellungen — so lässt sich das Kissen an unterschiedliche Körpertypen und Schlafpositionen anpassen. Mit rund 30 × 60 cm bleibt es kompakt; der Bezug ist abnehmbar und bei 30 °C waschbar, der Schaumstoffkern kann von Hand schonend gewaschen werden.",
+        details: [
+          "Ca. 30 × 60 cm",
+          "Offenporiger Air-Memory-Schaumstoffkern",
+          "2 integrierte Einlegeplatten — insgesamt sechs Höheneinstellungen",
+          "Bezug abnehmbar, waschbar bei 30 °C",
+          "Schaumstoffkern: nur schonende Handwäsche, an der Luft trocknen — nicht maschinenwaschbar oder trocknergeeignet",
+          "Bezugsstoff: Vitalize®, ein Polyestertextil mit keramischen Mineralkristallen (Fern-Infrarot, laut Hersteller)",
+        ],
+      },
+    },
   },
   {
     slug: "somnobalance-mattress",
@@ -177,6 +293,26 @@ export const products: Product[] = [
     ],
     legalNote:
       "Special lengths of 210 cm or 220 cm are available for a 20% surcharge on the base size price — not yet configurable in this demo checkout. The Vitalize® cover is described only as the manufacturer characterises it; claims about microcirculation, sleep or wellbeing are deliberately not presented as proven effects.",
+    translations: {
+      de: {
+        name: "SomnoBalance Matratze",
+        tagline: "Eine wendbare 7-Zonen-Taschenfederkernmatratze mit zwei Härtegraden.",
+        description:
+          "Die SomnoBalance Matratze verbindet einen 7-Zonen-Taschenfederkern mit einem wendbaren Kern und integriertem Viscogel-Topper. Der Federkern — rund 500 Federn bei 100 × 200 cm — ist beidseitig mit ca. 3 cm hochwertigem Kaltschaum (RG 40) bezogen. Der Kern lässt sich wenden und bietet so zwei Härtegrade in einer Matratze: H2/H3 auf einer Seite, H3/H4 auf der anderen. Ein ca. 4 cm starker Topper aus druckentlastendem Viscogel (RG 50) liegt darüber, veredelt mit dem Bezugsstoff Vitalize®. Ein vierseitiger Reißverschluss ermöglicht das Abnehmen des oberen Bezugsteils für den Zugang zum Kern, vier eingestickte Griffe erleichtern das Wenden und Anpassen der Härte. Ab 160 cm Breite kommen zwei getrennte Kerne unter einem durchgehenden Topper und Bezug zum Einsatz, sodass jede Bettseite unabhängig eingestellt werden kann.",
+        details: [
+          "7-Zonen-Taschenfederkern, wendbar für zwei Härtegrade (H2/H3 oder H3/H4)",
+          "Kaltschaumauflage beidseitig, ca. 3 cm, RG 40",
+          "Viscogel-Topper, ca. 4 cm, RG 50, druckentlastend",
+          "Bezug: Vitalize®-Textil mit keramischen Mineralkristallen (Fern-Infrarot, laut Hersteller), HyperSoft-Steppung, 250 g/m² Klimafaser",
+          "Vierseitiger Reißverschluss, abnehmbares oberes Bezugsteil",
+          "4 eingestickte Tragegriffe",
+          "Ab 160 cm Breite: zwei unabhängige Kerne unter einem durchgehenden Topper und Bezug",
+          "Anfertigung auf Bestellung: Fertigung und Lieferung dauern ca. 3–4 Wochen",
+          "Versand per DHL, nur innerhalb Deutschlands, Versandkosten im Preis enthalten — ab 160 cm Breite als 3–4 separate Pakete",
+          "Der Matratze nach dem Auspacken 48–72 Stunden Zeit geben, um sich vollständig zu entfalten und ihre endgültige Form und Härte anzunehmen",
+        ],
+      },
+    },
   },
   {
     slug: "somnobalance-starter-set",
@@ -197,6 +333,21 @@ export const products: Product[] = [
     image: "/products/somnobalance-starter-set.jpg",
     legalNote:
       "This bundle is referenced in the shipping, returns and about-us policy documents but its retail price was not specified there — the €55 shown is a placeholder only and must be confirmed with SomnoBalance before this page is used for real sales.",
+    translations: {
+      de: {
+        name: "SomnoBalance Starter-Set",
+        tagline: "Roll-on, Ölmischung, Kartenset und ein gedruckter 21-Tage-Guide — zusammen.",
+        description:
+          "Das SomnoBalance Starter-Set vereint den Roll-on, die Ölmischung und die Regenerationskarten mit einem gedruckten 21-Tage-Guide — ein Einstieg in das gesamte SomnoBalance-Ritual, von der aktuellen Phase bis zum passenden Duft und Punkt.",
+        details: [
+          "1× SomnoBalance Roll-on (10 ml)",
+          "1× SomnoBalance Ölmischung (10 ml)",
+          "1× SomnoBalance Regenerationskarten (23 Karten)",
+          "1× gedruckter 21-Tage-Guide",
+          "Auf Lager, Versand als einzelnes DHL-Paket",
+        ],
+      },
+    },
   },
 ];
 

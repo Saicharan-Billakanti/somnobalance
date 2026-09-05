@@ -141,7 +141,21 @@
     "withdrawalNote": "14-day right of withdrawal within the EU. See {link}.",
     "withdrawalLinkLabel": "Right of Withdrawal",
     "addToCart": "Add to cart",
-    "addedToCart": "Added to cart ✓"
+    "addedToCart": "Added to cart ✓",
+    "variantNotes": {
+      "Two independent firmness zones": "Two independent firmness zones"
+    },
+    "categories": {
+      "Sleep": "Sleep",
+      "Ritual": "Ritual",
+      "Care": "Care"
+    },
+    "phases": {
+      "REGULATE": "REGULATE",
+      "LET GO": "LET GO",
+      "PREPARE": "PREPARE",
+      "REGENERATE": "REGENERATE"
+    }
   },
   "cart": {
     "emptyTitle": "Your cart is empty",

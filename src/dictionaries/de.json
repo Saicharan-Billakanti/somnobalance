@@ -141,7 +141,21 @@
     "withdrawalNote": "14-tägiges Widerrufsrecht innerhalb der EU. Siehe {link}.",
     "withdrawalLinkLabel": "Widerrufsbelehrung",
     "addToCart": "In den Warenkorb",
-    "addedToCart": "Hinzugefügt ✓"
+    "addedToCart": "Hinzugefügt ✓",
+    "variantNotes": {
+      "Two independent firmness zones": "Zwei unabhängige Härtezonen"
+    },
+    "categories": {
+      "Sleep": "Schlaf",
+      "Ritual": "Ritual",
+      "Care": "Pflege"
+    },
+    "phases": {
+      "REGULATE": "REGULATE",
+      "LET GO": "LET GO",
+      "PREPARE": "PREPARE",
+      "REGENERATE": "REGENERATE"
+    }
   },
   "cart": {
     "emptyTitle": "Ihr Warenkorb ist leer",

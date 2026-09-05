@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useCart } from "@/components/CartProvider";
-import { getProduct, getVariant, formatPrice } from "@/lib/products";
+import { getProduct, getProductText, getVariant, formatPrice } from "@/lib/products";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/getDictionary";
 
@@ -187,6 +187,7 @@ export function CheckoutClient({ lang, dict }: { lang: Locale; dict: Dictionary 
             {lines.map((line) => {
               const product = getProduct(line.slug);
               if (!product) return null;
+              const text = getProductText(product, lang);
               const unitPrice = product.variants
                 ? getVariant(product, line.variant)?.price ?? 0
                 : product.price ?? 0;
@@ -196,7 +197,7 @@ export function CheckoutClient({ lang, dict }: { lang: Locale; dict: Dictionary 
                   className="flex justify-between text-sm text-ink/70"
                 >
                   <span>
-                    {product.name}
+                    {text.name}
                     {line.variant ? ` (${line.variant})` : ""} × {line.qty}
                   </span>
                   <span>{formatPrice(unitPrice * line.qty)}</span>

@@ -23,6 +23,7 @@ export function ProductPurchasePanel({
     ? product.variants.find((v) => v.label === selected) ?? product.variants[0]
     : null;
   const price = variant ? variant.price : product.price ?? 0;
+  const variantNotes: Record<string, string> = dict.shop.variantNotes;
 
   return (
     <div>
@@ -46,7 +47,9 @@ export function ProductPurchasePanel({
             ))}
           </div>
           {variant?.priceNote && (
-            <p className="mt-2 text-xs text-teal-dark">{variant.priceNote}</p>
+            <p className="mt-2 text-xs text-teal-dark">
+              {variantNotes[variant.priceNote] ?? variant.priceNote}
+            </p>
           )}
         </div>
       )}
