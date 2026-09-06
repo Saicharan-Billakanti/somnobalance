@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { getSupabase, supabaseConfigured } from "@/lib/supabase";
+import { getStripe, stripeConfigured } from "@/lib/stripe";
 import { sendNotification } from "@/lib/mailer";
 import { priceOrderItems, computeShipping } from "@/lib/products";
 
@@ -12,7 +13,7 @@ const orderSchema = z.object({
   postalCode: z.string().min(1).max(20),
   city: z.string().min(1).max(200),
   country: z.string().min(1).max(100),
-  paymentMethod: z.enum(["CARD", "SEPA", "PAYPAL"]),
+  lang: z.enum(["de", "en"]).default("de"),
   items: z
     .array(
       z.object({
@@ -71,6 +72,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       id: null,
       persisted: false,
+      checkoutUrl: null,
       status: "PENDING_PAYMENT",
       subtotal,
       shipping,
@@ -79,9 +81,8 @@ export async function POST(request: Request) {
   }
 
   const orderId = crypto.randomUUID();
+  const supabase = getSupabase();
   try {
-    const supabase = getSupabase();
-
     const { error: orderError } = await supabase.from("Order").insert({
       id: orderId,
       firstName: data.firstName,
@@ -91,7 +92,6 @@ export async function POST(request: Request) {
       postalCode: data.postalCode,
       city: data.city,
       country: data.country,
-      paymentMethod: data.paymentMethod,
       subtotal,
       shipping,
       total,
@@ -119,19 +119,75 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Could not save the order. Please try again." }, { status: 500 });
   }
 
-  await sendNotification(
-    `New order ${orderId}`,
-    `${data.firstName} ${data.lastName} <${data.email}>\nTotal: €${total.toFixed(2)}\nItems: ${items
-      .map((i) => `${i.name} x${i.qty}`)
-      .join(", ")}`
-  );
+  // Without Stripe configured, fall back to the existing demo confirmation
+  // (order stays PENDING_PAYMENT forever — same as before this integration).
+  if (!stripeConfigured()) {
+    await sendNotification(
+      `New order ${orderId} (Stripe not configured — no payment collected)`,
+      `${data.firstName} ${data.lastName} <${data.email}>\nTotal: €${total.toFixed(2)}\nItems: ${items
+        .map((i) => `${i.name} x${i.qty}`)
+        .join(", ")}`
+    );
+    return NextResponse.json({
+      id: orderId,
+      persisted: true,
+      checkoutUrl: null,
+      status: "PENDING_PAYMENT",
+      subtotal,
+      shipping,
+      total,
+    });
+  }
 
-  return NextResponse.json({
-    id: orderId,
-    persisted: true,
-    status: "PENDING_PAYMENT",
-    subtotal,
-    shipping,
-    total,
-  });
+  const origin = request.headers.get("origin") ?? new URL(request.url).origin;
+  try {
+    const stripe = getStripe();
+    const session = await stripe.checkout.sessions.create({
+      mode: "payment",
+      customer_email: data.email,
+      client_reference_id: orderId,
+      payment_method_types: ["card"],
+      line_items: items.map((item) => ({
+        quantity: item.qty,
+        price_data: {
+          currency: "eur",
+          unit_amount: Math.round(item.price * 100),
+          product_data: { name: item.name },
+        },
+      })),
+      shipping_options:
+        shipping > 0
+          ? [
+              {
+                shipping_rate_data: {
+                  type: "fixed_amount",
+                  fixed_amount: { amount: Math.round(shipping * 100), currency: "eur" },
+                  display_name: "Shipping",
+                },
+              },
+            ]
+          : undefined,
+      success_url: `${origin}/${data.lang}/checkout/success?order=${orderId}`,
+      cancel_url: `${origin}/${data.lang}/checkout/cancel?order=${orderId}`,
+      metadata: { orderId },
+    });
+
+    await supabase.from("Order").update({ stripeSessionId: session.id }).eq("id", orderId);
+
+    return NextResponse.json({
+      id: orderId,
+      persisted: true,
+      checkoutUrl: session.url,
+      status: "PENDING_PAYMENT",
+      subtotal,
+      shipping,
+      total,
+    });
+  } catch (err) {
+    console.error("[orders] failed to create Stripe session:", err);
+    return NextResponse.json(
+      { error: "Could not start payment. Please try again." },
+      { status: 500 }
+    );
+  }
 }

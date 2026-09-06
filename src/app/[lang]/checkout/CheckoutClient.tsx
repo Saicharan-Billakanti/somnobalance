@@ -11,7 +11,6 @@ type Placed = { orderId: string | null; persisted: boolean };
 
 export function CheckoutClient({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   const { lines, total, shipping, clear } = useCart();
-  const [payment, setPayment] = useState<"card" | "sepa" | "paypal">("card");
   const [placed, setPlaced] = useState<Placed | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -57,7 +56,6 @@ export function CheckoutClient({ lang, dict }: { lang: Locale; dict: Dictionary 
   return (
     <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
       <h1 className="font-serif text-3xl text-ink">{dict.checkout.title}</h1>
-      <p className="mt-2 text-sm text-ink/50">{dict.checkout.demoEnv}</p>
 
       <form
         onSubmit={async (e) => {
@@ -74,7 +72,7 @@ export function CheckoutClient({ lang, dict }: { lang: Locale; dict: Dictionary 
             postalCode: String(formData.get("postalCode") || ""),
             city: String(formData.get("city") || ""),
             country: String(formData.get("country") || ""),
-            paymentMethod: payment.toUpperCase() as "CARD" | "SEPA" | "PAYPAL",
+            lang,
             items: lines.map((line) => ({
               slug: line.slug,
               qty: line.qty,
@@ -93,6 +91,13 @@ export function CheckoutClient({ lang, dict }: { lang: Locale; dict: Dictionary 
             if (!res.ok) {
               setError(data.error || dict.checkout.genericError);
               setSubmitting(false);
+              return;
+            }
+
+            if (data.checkoutUrl) {
+              // Cart is cleared on the Stripe success page once payment is
+              // actually confirmed, not here — the order isn't paid yet.
+              window.location.href = data.checkoutUrl;
               return;
             }
 
@@ -145,39 +150,7 @@ export function CheckoutClient({ lang, dict }: { lang: Locale; dict: Dictionary 
 
           <section>
             <h2 className="font-serif text-lg text-ink">{dict.checkout.paymentMethod}</h2>
-            <div className="mt-4 grid gap-3 sm:grid-cols-3">
-              {(["card", "sepa", "paypal"] as const).map((method) => (
-                <button
-                  type="button"
-                  key={method}
-                  onClick={() => setPayment(method)}
-                  className={`rounded-xl border px-4 py-3 text-sm capitalize ${
-                    payment === method
-                      ? "border-mauve bg-mauve/10 text-mauve-dark"
-                      : "border-mauve/20 text-ink/70 hover:bg-sand"
-                  }`}
-                >
-                  {method === "sepa" ? dict.checkout.sepa : method === "card" ? dict.checkout.card : dict.checkout.paypal}
-                </button>
-              ))}
-            </div>
-
-            {payment === "card" && (
-              <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                <input required placeholder={dict.checkout.cardNumber} className="input-field sm:col-span-2" />
-                <input required placeholder={dict.checkout.cardExpiry} className="input-field" />
-                <input required placeholder={dict.checkout.cardCvc} className="input-field" />
-              </div>
-            )}
-            {payment === "sepa" && (
-              <div className="mt-4">
-                <input required placeholder={dict.checkout.iban} className="input-field w-full" />
-                <p className="mt-2 text-xs text-ink/50">{dict.checkout.sepaNote}</p>
-              </div>
-            )}
-            {payment === "paypal" && (
-              <p className="mt-4 text-sm text-ink/60">{dict.checkout.paypalNote}</p>
-            )}
+            <p className="mt-4 text-sm text-ink/60">{dict.checkout.stripeNote}</p>
           </section>
         </div>
 
@@ -225,7 +198,7 @@ export function CheckoutClient({ lang, dict }: { lang: Locale; dict: Dictionary 
             disabled={submitting}
             className="mt-6 w-full rounded-full bg-mauve py-3 text-sm text-white hover:bg-mauve-dark disabled:opacity-60"
           >
-            {submitting ? dict.checkout.placingOrder : dict.checkout.placeOrder}
+            {submitting ? dict.checkout.placingOrder : dict.checkout.continueToPayment}
           </button>
           <p className="mt-3 text-xs leading-relaxed text-ink/40">
             {agreeBefore}

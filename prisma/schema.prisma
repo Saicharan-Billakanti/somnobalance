@@ -19,10 +19,10 @@ enum PaymentMethod {
 }
 
 model Order {
-  id            String        @id @default(cuid())
-  createdAt     DateTime      @default(now())
-  status        OrderStatus   @default(PENDING_PAYMENT)
-  paymentMethod PaymentMethod
+  id            String         @id @default(cuid())
+  createdAt     DateTime       @default(now())
+  status        OrderStatus    @default(PENDING_PAYMENT)
+  paymentMethod PaymentMethod?
 
   firstName  String
   lastName   String
@@ -36,6 +36,8 @@ model Order {
   shipping Float
   total    Float
   currency String @default("EUR")
+
+  stripeSessionId String? @unique
 
   items OrderItem[]
 }
