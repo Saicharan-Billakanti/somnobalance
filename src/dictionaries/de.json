@@ -36,6 +36,14 @@
     "subtitle": "SomnoBalance ist keine Matratzenmarke. Es ist ein Ritual für den Übergang in die Ruhe — sinnlich, unaufgeregt und ganz auf Sie ausgerichtet.",
     "ctaForMe": "Für mich",
     "ctaShop": "Shop entdecken",
+    "cycleLabel": "Der SomnoBalance-Kreislauf",
+    "cycle": [
+      { "name": "TAG" },
+      { "name": "REGULATION" },
+      { "name": "LOSLASSEN" },
+      { "name": "VORBEREITUNG" },
+      { "name": "NACHT" }
+    ],
     "systemTitle": "Ein System, kein Produkt",
     "systemSubtitle": "Vier Phasen begleiten Sie vom Trubel des Tages in die Ruhe — jede mit eigenem Ritual und eigenem Platz im SomnoBalance-System.",
     "phases": [

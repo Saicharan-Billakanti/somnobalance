@@ -10,6 +10,15 @@
   --color-ink: #2b2530;
   --background: var(--color-offwhite);
   --foreground: var(--color-ink);
+
+  /* Warm day-to-night gradient tokens for the homepage cycle hero
+     (brief: cream/sand/taupe/warm brown by day, warm — never cold/technical
+     — dark tones toward night). */
+  --color-cycle-day: #f6ede1;
+  --color-cycle-regulate: #e9d9c4;
+  --color-cycle-letgo: #cfae8e;
+  --color-cycle-prepare: #8d6b53;
+  --color-cycle-night: #3a2c26;
 }
 
 @theme inline {
@@ -22,6 +31,11 @@
   --color-ink: var(--color-ink);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-cycle-day: var(--color-cycle-day);
+  --color-cycle-regulate: var(--color-cycle-regulate);
+  --color-cycle-letgo: var(--color-cycle-letgo);
+  --color-cycle-prepare: var(--color-cycle-prepare);
+  --color-cycle-night: var(--color-cycle-night);
   --font-serif: var(--font-fraunces);
   --font-sans: var(--font-inter);
 }
