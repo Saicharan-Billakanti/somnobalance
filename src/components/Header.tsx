@@ -18,6 +18,7 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
 
   const nav = [
     { href: `/${lang}/for-me`, label: dict.nav.forMe },
+    { href: `/${lang}/regenerationscheck`, label: dict.nav.regenerationscheck },
     { href: `/${lang}/for-business`, label: dict.nav.forBusiness },
     { href: `/${lang}/partner`, label: dict.nav.partner },
     { href: `/${lang}/shop`, label: dict.nav.shop },
