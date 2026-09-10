@@ -33,8 +33,9 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   };
 
   return (
-    <header className="sticky top-0 z-40 border-b border-mauve/10 bg-offwhite/95 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
+    <header className="sticky top-0 z-40 border-b border-mauve/10 bg-gradient-to-r from-mauve/[0.06] via-offwhite/95 to-teal/[0.08] backdrop-blur">
+      <div className="pointer-events-none h-0.5 w-full bg-gradient-to-r from-mauve via-teal to-mauve" />
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-3 py-3 sm:px-6 sm:py-4">
         <Link href={`/${lang}`} className="shrink-0">
           <Image
             src="/brand/somnobalance-logo.png"
@@ -42,7 +43,7 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
             width={876}
             height={267}
             priority
-            className="h-9 w-auto"
+            className="h-7 w-auto sm:h-9"
           />
         </Link>
 
@@ -54,7 +55,7 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1.5 sm:gap-3">
           <LocaleSwitcher lang={lang} />
           {user ? (
             <div className="hidden items-center gap-3 sm:flex">
@@ -86,17 +87,26 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
           )}
           <Link
             href={`/${lang}/cart`}
-            className="relative flex items-center gap-1 rounded-full border border-mauve/30 px-3 py-1.5 text-sm text-mauve-dark hover:bg-sand"
+            className="relative flex items-center gap-1 rounded-full border border-mauve/30 px-2.5 py-1.5 text-sm text-mauve-dark hover:bg-sand sm:px-3"
           >
-            {dict.nav.cart}
+            <span className="hidden sm:inline">{dict.nav.cart}</span>
+            <svg viewBox="0 0 24 24" className="h-4 w-4 sm:hidden" fill="none" aria-hidden="true">
+              <path
+                d="M6 6h15l-1.5 9h-12L6 6Zm0 0L5 3H2M9 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm9 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
+                stroke="currentColor"
+                strokeWidth={1.6}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
             {count > 0 && (
-              <span className="ml-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-teal px-1 text-xs text-white">
+              <span className="ml-0.5 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-teal px-1 text-xs text-white">
                 {count}
               </span>
             )}
           </Link>
           <button
-            className="text-ink md:hidden"
+            className="shrink-0 text-ink md:hidden"
             aria-label="Toggle menu"
             onClick={() => setOpen((v) => !v)}
           >

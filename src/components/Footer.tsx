@@ -25,15 +25,23 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   ];
 
   return (
-    <footer className="mt-24 border-t border-mauve/10 bg-sand/40">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4">
+    <footer className="relative mt-24 overflow-hidden border-t border-mauve/10 bg-gradient-to-br from-mauve/[0.07] via-sand/50 to-teal/[0.09]">
+      <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-teal/15 blur-[90px]" aria-hidden="true" />
+      <div className="pointer-events-none absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-mauve/15 blur-[90px]" aria-hidden="true" />
+
+      <div className="relative mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4">
         <div>
           <div className="font-serif text-lg text-mauve-dark">SomnoBalance</div>
           <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink/70">{dict.footer.tagline}</p>
+          <div className="mt-4 flex gap-1.5">
+            <span className="h-1.5 w-1.5 rounded-full bg-mauve" />
+            <span className="h-1.5 w-1.5 rounded-full bg-teal" />
+            <span className="h-1.5 w-1.5 rounded-full bg-ink/30" />
+          </div>
         </div>
 
         <div>
-          <div className="text-sm font-medium text-ink">{dict.footer.explore}</div>
+          <div className="text-sm font-medium text-teal-dark">{dict.footer.explore}</div>
           <ul className="mt-3 space-y-2 text-sm text-ink/70">
             {explore.map((item) => (
               <li key={item.href}>
@@ -46,7 +54,7 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
         </div>
 
         <div>
-          <div className="text-sm font-medium text-ink">{dict.footer.legal}</div>
+          <div className="text-sm font-medium text-teal-dark">{dict.footer.legal}</div>
           <ul className="mt-3 space-y-2 text-sm text-ink/70">
             {legal.map((item) => (
               <li key={item.href}>
@@ -59,7 +67,7 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
         </div>
 
         <div>
-          <div className="text-sm font-medium text-ink">{dict.footer.contact}</div>
+          <div className="text-sm font-medium text-teal-dark">{dict.footer.contact}</div>
           <ul className="mt-3 space-y-2 text-sm text-ink/70">
             <li>{business.email}</li>
             <li>{business.addressLine2}</li>
@@ -67,7 +75,7 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
         </div>
       </div>
 
-      <div className="border-t border-mauve/10 px-4 py-5 text-center text-xs text-ink/50 sm:px-6">
+      <div className="relative border-t border-mauve/10 px-4 py-5 text-center text-xs text-ink/50 sm:px-6">
         © {new Date().getFullYear()} SomnoBalance. {dict.footer.rights}
       </div>
     </footer>

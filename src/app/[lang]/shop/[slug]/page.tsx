@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import { getProduct, getProductText, products } from "@/lib/products";
 import { ProductPurchasePanel } from "@/components/ProductPurchasePanel";
+import { ProductGallery } from "@/components/ProductGallery";
 import { getDictionary } from "@/i18n/getDictionary";
 import { locales, isLocale, type Locale } from "@/i18n/config";
 
@@ -26,16 +26,13 @@ export default async function ProductPage({
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
       <div className="grid gap-12 md:grid-cols-2">
-        <div className="relative aspect-square overflow-hidden rounded-3xl bg-white">
-          <Image
-            src={product.image}
-            alt={text.name}
-            fill
-            sizes="(min-width: 768px) 50vw, 100vw"
-            className="object-contain"
-            priority
-          />
-        </div>
+        <ProductGallery
+          image={product.image}
+          lifestyleImage={product.lifestyleImage}
+          alt={text.name}
+          cleanLabel={dict.shop.cleanImage}
+          lifestyleLabel={dict.shop.lifestyleImage}
+        />
         <div>
           <div className="text-xs uppercase tracking-wide text-teal-dark">
             {dict.shop.categories[product.category]} &middot; {dict.shop.phases[product.phase]}

@@ -25,7 +25,13 @@ export type Product = {
   description: string;
   details: string[];
   phase: "REGULATE" | "LET GO" | "PREPARE" | "REGENERATE";
+  // Clean cutout shot on a plain background — used on the shop grid and as
+  // the primary product-page image.
   image: string;
+  // Optional editorial/lifestyle shot (product styled into linen, travertine,
+  // wood, etc.) — shown alongside `image` on the product page when present.
+  // Left unset until real photography exists; nothing renders without it.
+  lifestyleImage?: string;
   ingredients?: string;
   legalNote?: string;
   // True when the listed price already includes shipping (e.g. the

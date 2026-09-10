@@ -32,10 +32,11 @@
   },
   "home": {
     "eyebrow": "Regeneration · Calm · Balance",
-    "title": "Regeneration begins long before you fall asleep.",
-    "subtitle": "SomnoBalance is not a mattress brand. It's a ritual for the transition into rest — sensory, unhurried, and built around you.",
+    "title": "Regeneration begins during the day.",
+    "subtitle": "SomnoBalance accompanies you from the active day through conscious regulation and rituals into a regenerative night.",
     "ctaForMe": "For me",
     "ctaShop": "Explore the shop",
+    "journey": ["Day", "Regulation", "Letting Go", "Preparation", "Night"],
     "systemTitle": "A system, not a product",
     "systemSubtitle": "Four phases carry you from the noise of the day into rest — each with its own ritual, and its own place in the SomnoBalance system.",
     "phases": [
@@ -138,6 +139,8 @@
     "size": "Size",
     "inclVatShipping": "incl. VAT, plus shipping",
     "ingredients": "Ingredients (INCI)",
+    "cleanImage": "Product",
+    "lifestyleImage": "In the ritual",
     "withdrawalNote": "14-day right of withdrawal within the EU. See {link}.",
     "withdrawalLinkLabel": "Right of Withdrawal",
     "addToCart": "Add to cart",
