@@ -1,13 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --color-mauve: #6f5784;
-  --color-mauve-dark: #564267;
-  --color-teal: #669999;
-  --color-teal-dark: #4f7a7a;
-  --color-sand: #efe7da;
-  --color-offwhite: #faf7f2;
-  --color-ink: #2b2530;
+  /* Warm neutral palette (client brief: cream/sand/beige/taupe/warm brown,
+     never cold or technical). `mauve` keeps its role as the primary accent
+     (buttons, links, headings) and `teal` as the secondary/label accent —
+     only the actual colors changed, so every existing usage site inherits
+     the new palette without needing to be touched individually. */
+  --color-mauve: #8a6a4f;
+  --color-mauve-dark: #6b4f39;
+  --color-teal: #a9835f;
+  --color-teal-dark: #7c5a3d;
+  --color-sand: #efe4d3;
+  --color-offwhite: #faf6ef;
+  --color-ink: #3a2f27;
   --background: var(--color-offwhite);
   --foreground: var(--color-ink);
 
