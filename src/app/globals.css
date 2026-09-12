@@ -24,6 +24,15 @@
   --color-cycle-letgo: #cfae8e;
   --color-cycle-prepare: #8d6b53;
   --color-cycle-night: #3a2c26;
+
+  /* Homepage-only scroll dramaturgy (brief §8): each section below the
+     hero deepens slightly so the page reads as a calming descent rather
+     than snapping back to a flat background — dark ink text stays legible
+     throughout, this never goes fully dark. Scoped to the homepage only;
+     every other page keeps the flat --color-offwhite background. */
+  --color-scroll-1: #faf6ef;
+  --color-scroll-2: #f5ecdd;
+  --color-scroll-3: #eeddc4;
 }
 
 @theme inline {
@@ -41,6 +50,9 @@
   --color-cycle-letgo: var(--color-cycle-letgo);
   --color-cycle-prepare: var(--color-cycle-prepare);
   --color-cycle-night: var(--color-cycle-night);
+  --color-scroll-1: var(--color-scroll-1);
+  --color-scroll-2: var(--color-scroll-2);
+  --color-scroll-3: var(--color-scroll-3);
   --font-serif: var(--font-fraunces);
   --font-sans: var(--font-inter);
 }

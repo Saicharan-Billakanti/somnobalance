@@ -25,7 +25,7 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   ];
 
   return (
-    <footer className="mt-24 border-t border-mauve/10 bg-sand/40">
+    <footer className="border-t border-mauve/10" style={{ background: "var(--color-scroll-3)" }}>
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4">
         <div>
           <div className="font-serif text-lg text-mauve-dark">SomnoBalance</div>
