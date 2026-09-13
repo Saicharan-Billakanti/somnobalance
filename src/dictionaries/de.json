@@ -65,13 +65,22 @@
     ],
     "fromShop": "Aus dem Shop",
     "viewAll": "Alle ansehen",
+    "personaEyebrow": "Ihr Weg zu mehr Balance",
+    "personaTitle": "Für Sie. Für Ihren Raum. Für das, was als Nächstes kommt.",
+    "personaIntro": "Ob für Ihre persönliche Routine, Ihr Unternehmen oder eine gemeinsame Vision — SomnoBalance begleitet Sie auf Ihrem Weg zu mehr Ruhe, Klarheit und Regeneration.",
     "forMeTitle": "Für mich",
     "forMeCopy": "Ein persönliches Ritual für ruhigere Nächte und ausgeglichenere Tage.",
+    "forMeImage": "/products/somnobalance-regeneration-tea.jpg",
     "forBusinessTitle": "Für mein Unternehmen",
     "forBusinessCopy": "Ein Gefühl von Ruhe, an das sich Ihre Gäste erinnern — für Hotellerie und Wellness.",
+    "forBusinessImage": "/products/somnobalance-mattress.jpg",
     "partnerTitle": "Partner werden",
     "partnerCopy": "Gemeinsame Werte, transparente Konditionen — für Gesundheitsfachkräfte.",
-    "discover": "Entdecken →"
+    "partnerImage": "/products/somnobalance-regeneration-cards.jpg",
+    "discover": "Entdecken →",
+    "shopEyebrow": "Natürliche Rituale, sorgfältig kuratiert",
+    "shopIntro": "Sorgfältig ausgewählte Produkte, die Ihre SomnoBalance-Reise unterstützen.",
+    "shopViewAllCta": "Alle Produkte ansehen →"
   },
   "about": {
     "title": "Über uns",

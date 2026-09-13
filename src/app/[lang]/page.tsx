@@ -137,28 +137,57 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
         style={{ background: "var(--color-scroll-2)" }}
       >
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="grid gap-6 rounded-3xl bg-white/50 p-10 md:grid-cols-3">
-            <Link href={`/${l}/for-me`} className="group">
-              <h3 className="font-serif text-lg text-mauve-dark">{dict.home.forMeTitle}</h3>
-              <p className="mt-2 text-sm text-ink/70">{dict.home.forMeCopy}</p>
-              <span className="mt-3 inline-block text-sm text-teal-dark group-hover:underline">
-                {dict.home.discover}
-              </span>
-            </Link>
-            <Link href={`/${l}/for-business`} className="group">
-              <h3 className="font-serif text-lg text-mauve-dark">{dict.home.forBusinessTitle}</h3>
-              <p className="mt-2 text-sm text-ink/70">{dict.home.forBusinessCopy}</p>
-              <span className="mt-3 inline-block text-sm text-teal-dark group-hover:underline">
-                {dict.home.discover}
-              </span>
-            </Link>
-            <Link href={`/${l}/partner`} className="group">
-              <h3 className="font-serif text-lg text-mauve-dark">{dict.home.partnerTitle}</h3>
-              <p className="mt-2 text-sm text-ink/70">{dict.home.partnerCopy}</p>
-              <span className="mt-3 inline-block text-sm text-teal-dark group-hover:underline">
-                {dict.home.discover}
-              </span>
-            </Link>
+          <p className="text-xs uppercase tracking-[0.2em] text-teal-dark">
+            {dict.home.personaEyebrow}
+          </p>
+          <h2 className="mt-3 max-w-xl font-serif text-3xl leading-tight text-ink">
+            {dict.home.personaTitle}
+          </h2>
+          <p className="mt-4 max-w-lg text-ink/70">{dict.home.personaIntro}</p>
+
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {[
+              {
+                href: `/${l}/for-me`,
+                title: dict.home.forMeTitle,
+                copy: dict.home.forMeCopy,
+                image: dict.home.forMeImage,
+              },
+              {
+                href: `/${l}/for-business`,
+                title: dict.home.forBusinessTitle,
+                copy: dict.home.forBusinessCopy,
+                image: dict.home.forBusinessImage,
+              },
+              {
+                href: `/${l}/partner`,
+                title: dict.home.partnerTitle,
+                copy: dict.home.partnerCopy,
+                image: dict.home.partnerImage,
+              },
+            ].map((card) => (
+              <Link
+                key={card.href}
+                href={card.href}
+                className="group relative flex aspect-[3/4] flex-col justify-end overflow-hidden rounded-3xl"
+              >
+                <Image
+                  src={card.image}
+                  alt=""
+                  fill
+                  sizes="(min-width: 768px) 33vw, 100vw"
+                  className="object-cover transition duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent" />
+                <div className="relative p-6">
+                  <h3 className="font-serif text-lg text-white">{card.title}</h3>
+                  <p className="mt-2 text-sm text-white/80">{card.copy}</p>
+                  <span className="mt-3 inline-block text-sm text-white group-hover:underline">
+                    {dict.home.discover}
+                  </span>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
@@ -168,13 +197,17 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
         style={{ background: "var(--color-scroll-3)" }}
       >
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="flex items-baseline justify-between">
-            <h2 className="font-serif text-2xl text-ink">{dict.home.fromShop}</h2>
-            <Link href={`/${l}/shop`} className="text-sm text-mauve-dark hover:underline">
-              {dict.home.viewAll}
-            </Link>
-          </div>
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <p className="text-xs uppercase tracking-[0.2em] text-teal-dark">{dict.home.shopEyebrow}</p>
+          <h2 className="mt-3 font-serif text-3xl text-ink">{dict.home.fromShop}</h2>
+          <p className="mt-4 max-w-md text-ink/70">{dict.home.shopIntro}</p>
+          <Link
+            href={`/${l}/shop`}
+            className="mt-6 inline-flex items-center gap-2 rounded-full bg-mauve px-6 py-3 text-sm text-white hover:bg-mauve-dark"
+          >
+            {dict.home.shopViewAllCta}
+          </Link>
+
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {products.slice(0, 3).map((p) => (
               <ProductCard key={p.slug} product={p} lang={l} dict={dict} />
             ))}
