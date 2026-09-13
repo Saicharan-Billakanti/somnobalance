@@ -112,7 +112,7 @@ export function CheckoutClient({ lang, dict }: { lang: Locale; dict: Dictionary 
         className="mt-10 grid gap-12 md:grid-cols-[1.3fr_1fr]"
       >
         <div className="space-y-10">
-          <section>
+          <section className="rounded-2xl border border-mauve/10 bg-white/50 p-6">
             <h2 className="font-serif text-lg text-ink">{dict.checkout.contactShipping}</h2>
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
               <input required name="firstName" placeholder={dict.checkout.firstName} className="input-field" />
@@ -148,7 +148,7 @@ export function CheckoutClient({ lang, dict }: { lang: Locale; dict: Dictionary 
             </div>
           </section>
 
-          <section>
+          <section className="rounded-2xl border border-mauve/10 bg-white/50 p-6">
             <h2 className="font-serif text-lg text-ink">{dict.checkout.paymentMethod}</h2>
             <p className="mt-4 text-sm text-ink/60">{dict.checkout.stripeNote}</p>
           </section>

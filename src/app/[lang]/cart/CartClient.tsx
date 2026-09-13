@@ -29,7 +29,7 @@ export function CartClient({ lang, dict }: { lang: Locale; dict: Dictionary }) {
     <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
       <h1 className="font-serif text-3xl text-ink">{dict.cart.title}</h1>
 
-      <div className="mt-10 divide-y divide-mauve/10">
+      <div className="mt-10 space-y-4">
         {lines.map((line) => {
           const product = getProduct(line.slug);
           if (!product) return null;
@@ -38,13 +38,16 @@ export function CartClient({ lang, dict }: { lang: Locale; dict: Dictionary }) {
             ? getVariant(product, line.variant)?.price ?? 0
             : product.price ?? 0;
           return (
-            <div key={`${line.slug}:${line.variant ?? ""}`} className="flex items-center gap-4 py-6">
-              <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-white">
+            <div
+              key={`${line.slug}:${line.variant ?? ""}`}
+              className="flex items-center gap-5 rounded-2xl border border-mauve/10 bg-white/50 p-4"
+            >
+              <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-white">
                 <Image
                   src={product.image}
                   alt={text.name}
                   fill
-                  sizes="80px"
+                  sizes="96px"
                   className="object-contain"
                 />
               </div>
@@ -58,7 +61,7 @@ export function CartClient({ lang, dict }: { lang: Locale; dict: Dictionary }) {
                 min={1}
                 value={line.qty}
                 onChange={(e) => setQty(line.slug, Number(e.target.value), line.variant)}
-                className="w-16 rounded-lg border border-mauve/20 px-2 py-1 text-center"
+                className="w-16 rounded-lg border border-mauve/20 bg-white px-2 py-1 text-center"
               />
               <div className="w-24 text-right font-medium text-ink">
                 {formatPrice(unitPrice * line.qty)}
@@ -75,7 +78,7 @@ export function CartClient({ lang, dict }: { lang: Locale; dict: Dictionary }) {
         })}
       </div>
 
-      <div className="mt-10 flex items-center justify-between border-t border-mauve/10 pt-6">
+      <div className="mt-10 flex items-center justify-between rounded-2xl border border-mauve/10 bg-white/50 p-6">
         <div>
           <div className="text-sm text-ink/60">{dict.cart.subtotal}</div>
           <div className="text-2xl font-medium text-mauve-dark">{formatPrice(total)}</div>
