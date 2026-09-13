@@ -51,13 +51,17 @@
       { "name": "NACHT" }
     ],
     "videoPlaceholderLabel": "Video folgt in Kürze",
+    "systemEyebrow": "Rhythmus für ein volleres Leben.",
     "systemTitle": "Ein System, kein Produkt",
     "systemSubtitle": "Vier Phasen begleiten Sie vom Trubel des Tages in die Ruhe — jede mit eigenem Ritual und eigenem Platz im SomnoBalance-System.",
+    "systemCta": "Die Rituale entdecken",
+    "systemTagline1": "Derselbe Tag.",
+    "systemTagline2": "Mehr Sie.",
     "phases": [
-      { "name": "REGULATE", "copy": "Das Nervensystem zur Ruhe bringen, während der Tag ausklingt." },
-      { "name": "LET GO", "copy": "Spannung lösen durch Duft, Wärme und ein stilles Ritual." },
-      { "name": "PREPARE", "copy": "Eine Schlafumgebung, die Sie trägt — nicht nur aufnimmt." },
-      { "name": "REGENERATE", "copy": "Ruhe als Grundlage für Lebensqualität, nicht als weitere Aufgabe." }
+      { "name": "REGULATE", "copy": "Das Nervensystem zur Ruhe bringen, während der Tag ausklingt.", "image": "/products/somnobalance-roll-on.jpg" },
+      { "name": "LET GO", "copy": "Spannung lösen durch Duft, Wärme und ein stilles Ritual.", "image": "/products/somnobalance-oil-blend.jpg" },
+      { "name": "PREPARE", "copy": "Eine Schlafumgebung, die Sie trägt — nicht nur aufnimmt.", "image": "/products/somnobalance-neck-pillow.jpg" },
+      { "name": "REGENERATE", "copy": "Ruhe als Grundlage für Lebensqualität, nicht als weitere Aufgabe.", "image": "/products/somnobalance-starter-set.jpg" }
     ],
     "fromShop": "Aus dem Shop",
     "viewAll": "Alle ansehen",

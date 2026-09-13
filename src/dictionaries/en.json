@@ -51,13 +51,17 @@
       { "name": "NIGHT" }
     ],
     "videoPlaceholderLabel": "Video coming soon",
+    "systemEyebrow": "Rhythm for a fuller life.",
     "systemTitle": "A system, not a product",
     "systemSubtitle": "Four phases carry you from the noise of the day into rest — each with its own ritual, and its own place in the SomnoBalance system.",
+    "systemCta": "Explore the rituals",
+    "systemTagline1": "Same day.",
+    "systemTagline2": "More you.",
     "phases": [
-      { "name": "REGULATE", "copy": "Settling the nervous system as the day winds down." },
-      { "name": "LET GO", "copy": "Releasing tension through scent, warmth, and quiet ritual." },
-      { "name": "PREPARE", "copy": "A sleep environment built to hold you, not just contain you." },
-      { "name": "REGENERATE", "copy": "Rest as the foundation of quality of life, not a chore to optimise." }
+      { "name": "REGULATE", "copy": "Settling the nervous system as the day winds down.", "image": "/products/somnobalance-roll-on.jpg" },
+      { "name": "LET GO", "copy": "Releasing tension through scent, warmth, and quiet ritual.", "image": "/products/somnobalance-oil-blend.jpg" },
+      { "name": "PREPARE", "copy": "A sleep environment built to hold you, not just contain you.", "image": "/products/somnobalance-neck-pillow.jpg" },
+      { "name": "REGENERATE", "copy": "Rest as the foundation of quality of life, not a chore to optimise.", "image": "/products/somnobalance-starter-set.jpg" }
     ],
     "fromShop": "From the shop",
     "viewAll": "View all",

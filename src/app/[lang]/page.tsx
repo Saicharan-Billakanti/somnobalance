@@ -6,6 +6,7 @@ import { getDictionary } from "@/i18n/getDictionary";
 import { isLocale, type Locale } from "@/i18n/config";
 import { notFound } from "next/navigation";
 import { VideoPlaceholder } from "@/components/VideoPlaceholder";
+import { CycleBar } from "@/components/CycleBar";
 
 export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -71,20 +72,60 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
         <VideoPlaceholder label={dict.home.videoPlaceholderLabel} />
       </section>
 
-      <section
-        className="py-16"
-        style={{ background: "var(--color-scroll-1)" }}
-      >
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <h2 className="font-serif text-2xl text-ink">{dict.home.systemTitle}</h2>
-          <p className="mt-3 max-w-2xl text-ink/70">{dict.home.systemSubtitle}</p>
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <section style={{ background: "var(--color-scroll-1)" }}>
+        <CycleBar label={dict.home.cycleLabel} stages={dict.home.cycle} />
+
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+          <div className="grid items-center gap-10 md:grid-cols-2">
+            <div>
+              <p className="text-xs uppercase tracking-[0.2em] text-teal-dark">
+                {dict.home.systemEyebrow}
+              </p>
+              <h2 className="mt-3 font-serif text-3xl text-ink">{dict.home.systemTitle}</h2>
+              <p className="mt-4 max-w-md text-ink/70">{dict.home.systemSubtitle}</p>
+              <Link
+                href={`/${l}/shop`}
+                className="mt-6 inline-flex items-center gap-2 rounded-full bg-mauve px-6 py-3 text-sm text-white hover:bg-mauve-dark"
+              >
+                {dict.home.systemCta}
+                <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+
+            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl">
+              <Image
+                src="/brand/system-section-placeholder.jpg"
+                alt=""
+                fill
+                sizes="(min-width: 768px) 50vw, 100vw"
+                className="object-cover"
+              />
+              <div className="absolute right-6 top-6 text-right font-serif text-lg italic leading-snug text-ink/80">
+                {dict.home.systemTagline1}
+                <br />
+                {dict.home.systemTagline2}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {dict.home.phases.map((phase) => (
-              <div key={phase.name} className="rounded-2xl border border-mauve/10 bg-white/60 p-6">
-                <div className="text-xs font-semibold tracking-[0.15em] text-teal-dark">
-                  {phase.name}
+              <div key={phase.name} className="overflow-hidden rounded-2xl bg-white/60">
+                <div className="relative aspect-[4/3]">
+                  <Image
+                    src={phase.image}
+                    alt=""
+                    fill
+                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                    className="object-cover"
+                  />
                 </div>
-                <p className="mt-3 text-sm leading-relaxed text-ink/70">{phase.copy}</p>
+                <div className="p-5">
+                  <div className="text-xs font-semibold tracking-[0.15em] text-teal-dark">
+                    {phase.name}
+                  </div>
+                  <p className="mt-2 text-sm leading-relaxed text-ink/70">{phase.copy}</p>
+                </div>
               </div>
             ))}
           </div>
