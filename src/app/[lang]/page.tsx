@@ -5,6 +5,7 @@ import { getDictionary } from "@/i18n/getDictionary";
 import { isLocale, type Locale } from "@/i18n/config";
 import { notFound } from "next/navigation";
 import { CycleStrip } from "@/components/CycleStrip";
+import { VideoPlaceholder } from "@/components/VideoPlaceholder";
 
 export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -40,6 +41,10 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
         </div>
 
         <CycleStrip label={dict.home.cycleLabel} stages={dict.home.cycle} />
+      </section>
+
+      <section className="px-4 py-16 sm:px-6">
+        <VideoPlaceholder label={dict.home.videoPlaceholderLabel} />
       </section>
 
       <section

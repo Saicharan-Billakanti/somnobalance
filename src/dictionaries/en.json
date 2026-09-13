@@ -45,6 +45,7 @@
       { "name": "PREPARE" },
       { "name": "NIGHT" }
     ],
+    "videoPlaceholderLabel": "Video coming soon",
     "systemTitle": "A system, not a product",
     "systemSubtitle": "Four phases carry you from the noise of the day into rest — each with its own ritual, and its own place in the SomnoBalance system.",
     "phases": [
