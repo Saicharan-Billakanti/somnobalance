@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import { getProduct, getProductText, products } from "@/lib/products";
 import { ProductPurchasePanel } from "@/components/ProductPurchasePanel";
+import { CyclePosition } from "@/components/CyclePosition";
 import { getDictionary } from "@/i18n/getDictionary";
 import { locales, isLocale, type Locale } from "@/i18n/config";
 
@@ -38,9 +39,12 @@ export default async function ProductPage({
         </div>
         <div>
           <div className="text-xs uppercase tracking-wide text-teal-dark">
-            {dict.shop.categories[product.category]} &middot; {dict.shop.phases[product.phase]}
+            {dict.shop.categories[product.category]}
           </div>
-          <h1 className="mt-2 font-serif text-3xl text-ink">{text.name}</h1>
+          <div className="mt-2">
+            <CyclePosition phase={product.phase} stages={dict.home.cycle} />
+          </div>
+          <h1 className="mt-3 font-serif text-3xl text-ink">{text.name}</h1>
           <p className="mt-3 text-lg text-ink/70">{text.tagline}</p>
 
           <ProductPurchasePanel

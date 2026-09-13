@@ -67,25 +67,6 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
         style={{ background: "var(--color-scroll-2)" }}
       >
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="flex items-baseline justify-between">
-            <h2 className="font-serif text-2xl text-ink">{dict.home.fromShop}</h2>
-            <Link href={`/${l}/shop`} className="text-sm text-mauve-dark hover:underline">
-              {dict.home.viewAll}
-            </Link>
-          </div>
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {products.slice(0, 3).map((p) => (
-              <ProductCard key={p.slug} product={p} lang={l} dict={dict} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section
-        className="py-16"
-        style={{ background: "var(--color-scroll-3)" }}
-      >
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="grid gap-6 rounded-3xl bg-white/50 p-10 md:grid-cols-3">
             <Link href={`/${l}/for-me`} className="group">
               <h3 className="font-serif text-lg text-mauve-dark">{dict.home.forMeTitle}</h3>
@@ -108,6 +89,25 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                 {dict.home.discover}
               </span>
             </Link>
+          </div>
+        </div>
+      </section>
+
+      <section
+        className="py-16"
+        style={{ background: "var(--color-scroll-3)" }}
+      >
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="flex items-baseline justify-between">
+            <h2 className="font-serif text-2xl text-ink">{dict.home.fromShop}</h2>
+            <Link href={`/${l}/shop`} className="text-sm text-mauve-dark hover:underline">
+              {dict.home.viewAll}
+            </Link>
+          </div>
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {products.slice(0, 3).map((p) => (
+              <ProductCard key={p.slug} product={p} lang={l} dict={dict} />
+            ))}
           </div>
         </div>
       </section>
