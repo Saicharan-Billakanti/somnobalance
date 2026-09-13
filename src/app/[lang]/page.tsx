@@ -197,15 +197,33 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
         style={{ background: "var(--color-scroll-3)" }}
       >
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <p className="text-xs uppercase tracking-[0.2em] text-teal-dark">{dict.home.shopEyebrow}</p>
-          <h2 className="mt-3 font-serif text-3xl text-ink">{dict.home.fromShop}</h2>
-          <p className="mt-4 max-w-md text-ink/70">{dict.home.shopIntro}</p>
-          <Link
-            href={`/${l}/shop`}
-            className="mt-6 inline-flex items-center gap-2 rounded-full bg-mauve px-6 py-3 text-sm text-white hover:bg-mauve-dark"
-          >
-            {dict.home.shopViewAllCta}
-          </Link>
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <p className="text-xs uppercase tracking-[0.2em] text-teal-dark">{dict.home.shopEyebrow}</p>
+              <h2 className="mt-3 font-serif text-3xl text-ink">{dict.home.fromShop}</h2>
+              <p className="mt-4 max-w-md text-ink/70">{dict.home.shopIntro}</p>
+              <Link
+                href={`/${l}/shop`}
+                className="mt-6 inline-flex items-center gap-2 rounded-full bg-mauve px-6 py-3 text-sm text-white hover:bg-mauve-dark"
+              >
+                {dict.home.shopViewAllCta}
+              </Link>
+            </div>
+
+            <div className="flex flex-col items-end gap-4">
+              <p className="max-w-[12rem] text-right font-serif text-lg italic leading-snug text-ink/70">
+                {dict.home.shopTagline}
+              </p>
+              <div className="hidden items-center gap-2 sm:flex" aria-hidden="true">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full border border-mauve/30 text-mauve-dark">
+                  ←
+                </span>
+                <span className="flex h-9 w-9 items-center justify-center rounded-full border border-mauve/30 text-mauve-dark">
+                  →
+                </span>
+              </div>
+            </div>
+          </div>
 
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {products.slice(0, 3).map((p) => (
