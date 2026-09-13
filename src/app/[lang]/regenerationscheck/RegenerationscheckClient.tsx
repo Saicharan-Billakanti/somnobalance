@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/getDictionary";
 import type { QuizContent } from "@/lib/regenerationscheckContent";
@@ -20,11 +21,14 @@ type Step =
   | { kind: "transition" }
   | { kind: "result" };
 
-function productLink(lang: Locale, ref: ProductRef): { label: string; href: string } {
+function productLink(
+  lang: Locale,
+  ref: ProductRef
+): { label: string; href: string; image: string | null } {
   const product = getProduct(ref.slug);
-  if (!product) return { label: ref.label, href: `/${lang}/shop` };
+  if (!product) return { label: ref.label, href: `/${lang}/shop`, image: null };
   const text = getProductText(product, lang);
-  return { label: text.name, href: `/${lang}/shop/${product.slug}` };
+  return { label: text.name, href: `/${lang}/shop/${product.slug}`, image: product.image };
 }
 
 export function RegenerationscheckClient({
@@ -202,6 +206,11 @@ function ResultScreen({
         <h1 className="font-serif text-3xl text-ink">{quiz.lowScoreResult.title}</h1>
         <p className="mt-6 leading-relaxed text-ink/70">{quiz.lowScoreResult.intro}</p>
         <p className="mt-6 text-sm text-ink/60">{quiz.lowScoreResult.recommendation}</p>
+        {link.image && (
+          <div className="relative mx-auto mt-8 aspect-square w-40 overflow-hidden rounded-2xl bg-white/60">
+            <Image src={link.image} alt={link.label} fill sizes="160px" className="object-contain" />
+          </div>
+        )}
         <Link
           href={link.href}
           className="mt-8 inline-block rounded-full bg-mauve px-8 py-3 text-sm text-white hover:bg-mauve-dark"
@@ -243,7 +252,12 @@ function ResultScreen({
         <div className="text-xs font-medium uppercase tracking-wide text-ink/50">
           {content.productLabel}
         </div>
-        <p className="mt-1 text-ink">{link.label}</p>
+        {link.image && (
+          <div className="relative mx-auto mt-4 aspect-square w-40 overflow-hidden rounded-2xl bg-white/60">
+            <Image src={link.image} alt={link.label} fill sizes="160px" className="object-contain" />
+          </div>
+        )}
+        <p className="mt-3 text-ink">{link.label}</p>
         <Link
           href={link.href}
           className="mt-4 inline-block rounded-full bg-mauve px-8 py-3 text-sm text-white hover:bg-mauve-dark"
