@@ -19,7 +19,12 @@
     "explore": "Explore",
     "legal": "Legal",
     "contact": "Contact",
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "newsletterTitle": "Stay in balance",
+    "newsletterIntro": "Inspiration, new rituals and gentle updates — straight to your inbox.",
+    "newsletterPlaceholder": "Your email address",
+    "newsletterSubmit": "Subscribe",
+    "newsletterThanks": "Thank you — you're on the list."
   },
   "legalNav": {
     "impressum": "Impressum",

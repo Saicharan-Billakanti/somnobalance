@@ -1,7 +1,18 @@
 import Link from "next/link";
+import Image from "next/image";
 import { business } from "@/lib/site";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/getDictionary";
+import { NewsletterForm } from "@/components/NewsletterForm";
+
+// Social links are placeholders (# ) — swap in the real profile URLs once
+// the client shares them.
+const social = [
+  { label: "Instagram", href: "#", icon: InstagramIcon },
+  { label: "Facebook", href: "#", icon: FacebookIcon },
+  { label: "Pinterest", href: "#", icon: PinterestIcon },
+  { label: "YouTube", href: "#", icon: YouTubeIcon },
+];
 
 export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   const legal = [
@@ -26,44 +37,70 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
 
   return (
     <footer className="border-t border-mauve/10" style={{ background: "var(--color-scroll-3)" }}>
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4">
-        <div>
-          <div className="font-serif text-lg text-mauve-dark">SomnoBalance</div>
-          <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink/70">{dict.footer.tagline}</p>
+      <div className="grid md:grid-cols-2">
+        <div className="grid gap-10 px-4 py-14 sm:px-6 sm:grid-cols-2 lg:grid-cols-3 lg:px-10">
+          <div className="sm:col-span-2 lg:col-span-3">
+            <div className="font-serif text-lg text-mauve-dark">SomnoBalance</div>
+            <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink/70">{dict.footer.tagline}</p>
+            <div className="mt-5 flex items-center gap-3">
+              {social.map(({ label, href, icon: Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  aria-label={label}
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-mauve/20 text-ink/60 transition hover:border-mauve/40 hover:text-mauve-dark"
+                >
+                  <Icon />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <div className="text-sm font-medium text-ink">{dict.footer.explore}</div>
+            <ul className="mt-3 space-y-2 text-sm text-ink/70">
+              {explore.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="hover:text-mauve-dark">
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <div className="text-sm font-medium text-ink">{dict.footer.legal}</div>
+            <ul className="mt-3 space-y-2 text-sm text-ink/70">
+              {legal.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="hover:text-mauve-dark">
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <div className="text-sm font-medium text-ink">{dict.footer.contact}</div>
+            <ul className="mt-3 space-y-2 text-sm text-ink/70">
+              <li>{business.email}</li>
+              <li>{business.addressLine2}</li>
+            </ul>
+          </div>
         </div>
 
-        <div>
-          <div className="text-sm font-medium text-ink">{dict.footer.explore}</div>
-          <ul className="mt-3 space-y-2 text-sm text-ink/70">
-            {explore.map((item) => (
-              <li key={item.href}>
-                <Link href={item.href} className="hover:text-mauve-dark">
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <div className="text-sm font-medium text-ink">{dict.footer.legal}</div>
-          <ul className="mt-3 space-y-2 text-sm text-ink/70">
-            {legal.map((item) => (
-              <li key={item.href}>
-                <Link href={item.href} className="hover:text-mauve-dark">
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <div className="text-sm font-medium text-ink">{dict.footer.contact}</div>
-          <ul className="mt-3 space-y-2 text-sm text-ink/70">
-            <li>{business.email}</li>
-            <li>{business.addressLine2}</li>
-          </ul>
+        <div className="relative flex min-h-[16rem] flex-col justify-center gap-4 overflow-hidden px-4 py-14 sm:px-6 lg:px-10">
+          <Image src="/brand/system-section-placeholder.jpg" alt="" fill sizes="50vw" className="object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-l from-transparent via-white/40 to-white/80" />
+          <div className="relative max-w-xs">
+            <div className="text-sm font-medium text-ink">{dict.footer.newsletterTitle}</div>
+            <p className="mt-2 text-sm leading-relaxed text-ink/70">{dict.footer.newsletterIntro}</p>
+            <div className="mt-4">
+              <NewsletterForm dict={dict} />
+            </div>
+          </div>
         </div>
       </div>
 
@@ -71,5 +108,41 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
         © {new Date().getFullYear()} SomnoBalance. {dict.footer.rights}
       </div>
     </footer>
+  );
+}
+
+function InstagramIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function FacebookIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+      <path d="M14 9h3V5h-3c-2.2 0-4 1.8-4 4v2H7v4h3v6h4v-6h3l1-4h-4V9c0-.6.4-1 1-1z" />
+    </svg>
+  );
+}
+
+function PinterestIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M10 17c1-3 1.5-5 2-7.5.4-2 3.2-1.8 3 .3-.2 1.8-1 4-3 4.2-1.2.1-2-.5-2-1.7 0-1.5 1.2-3.3 3-3.3 1.5 0 2.3 1 2.1 2.5" />
+    </svg>
+  );
+}
+
+function YouTubeIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+      <rect x="3" y="6" width="18" height="12" rx="3" />
+      <path d="M10.5 9.5v5l4.5-2.5-4.5-2.5z" fill="currentColor" stroke="none" />
+    </svg>
   );
 }

@@ -19,7 +19,12 @@
     "explore": "Entdecken",
     "legal": "Rechtliches",
     "contact": "Kontakt",
-    "rights": "Alle Rechte vorbehalten."
+    "rights": "Alle Rechte vorbehalten.",
+    "newsletterTitle": "Bleiben Sie im Gleichgewicht",
+    "newsletterIntro": "Inspiration, neue Rituale und sanfte Updates — direkt in Ihr Postfach.",
+    "newsletterPlaceholder": "Ihre E-Mail-Adresse",
+    "newsletterSubmit": "Abonnieren",
+    "newsletterThanks": "Danke — Sie sind dabei."
   },
   "legalNav": {
     "impressum": "Impressum",
