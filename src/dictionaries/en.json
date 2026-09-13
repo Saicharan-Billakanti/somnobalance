@@ -37,6 +37,11 @@
     "subtitle": "SomnoBalance is not a mattress brand. It's a ritual for the transition into rest — sensory, unhurried, and built around you.",
     "ctaForMe": "For me",
     "ctaShop": "Explore the shop",
+    "scrollHint": "Scroll to discover",
+    "heroBadgeLine1": "Rituals for a",
+    "heroBadgeLine2": "more balanced you.",
+    "heroSideTitle": "Small rituals.",
+    "heroSideSubtitle": "Big change.",
     "cycleLabel": "The SomnoBalance cycle",
     "cycle": [
       { "name": "DAY" },

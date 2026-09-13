@@ -1,10 +1,10 @@
 import Link from "next/link";
+import Image from "next/image";
 import { products } from "@/lib/products";
 import { ProductCard } from "@/components/ProductCard";
 import { getDictionary } from "@/i18n/getDictionary";
 import { isLocale, type Locale } from "@/i18n/config";
 import { notFound } from "next/navigation";
-import { CycleStrip } from "@/components/CycleStrip";
 import { VideoPlaceholder } from "@/components/VideoPlaceholder";
 
 export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
@@ -16,31 +16,55 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
   return (
     <div>
       <section className="relative overflow-hidden">
-        <div className="mx-auto max-w-4xl px-4 pt-24 pb-16 text-center sm:px-6 sm:pt-28">
-          <p className="text-sm uppercase tracking-[0.2em] text-teal-dark">{dict.home.eyebrow}</p>
-          <h1 className="mx-auto mt-4 max-w-2xl font-serif text-4xl leading-tight text-ink md:text-5xl">
-            {dict.home.title}
-          </h1>
-          <p className="mx-auto mt-6 max-w-md text-lg leading-relaxed text-ink/70">
-            {dict.home.subtitle}
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Link
-              href={`/${l}/for-me`}
-              className="rounded-full bg-mauve px-6 py-3 text-sm text-white hover:bg-mauve-dark"
-            >
-              {dict.home.ctaForMe}
-            </Link>
-            <Link
-              href={`/${l}/shop`}
-              className="rounded-full border border-mauve/40 px-6 py-3 text-sm text-mauve-dark hover:bg-sand"
-            >
-              {dict.home.ctaShop}
-            </Link>
+        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2 md:py-20">
+          <div>
+            <p className="text-sm uppercase tracking-[0.2em] text-teal-dark">{dict.home.eyebrow}</p>
+            <h1 className="mt-4 font-serif text-4xl leading-tight text-ink md:text-5xl">
+              {dict.home.title}
+            </h1>
+            <p className="mt-6 max-w-md text-lg leading-relaxed text-ink/70">
+              {dict.home.subtitle}
+            </p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Link
+                href={`/${l}/for-me`}
+                className="rounded-full bg-mauve px-6 py-3 text-sm text-white hover:bg-mauve-dark"
+              >
+                {dict.home.ctaForMe}
+              </Link>
+              <Link
+                href={`/${l}/shop`}
+                className="rounded-full border border-mauve/40 px-6 py-3 text-sm text-mauve-dark hover:bg-sand"
+              >
+                {dict.home.ctaShop}
+              </Link>
+            </div>
+            <div className="mt-14 hidden items-center gap-2 text-xs uppercase tracking-[0.15em] text-ink/40 md:flex">
+              <span aria-hidden="true">↓</span>
+              {dict.home.scrollHint}
+            </div>
+          </div>
+
+          <div className="relative aspect-[4/5] overflow-hidden rounded-3xl">
+            <Image
+              src="/brand/hero-placeholder.jpg"
+              alt=""
+              fill
+              sizes="(min-width: 768px) 50vw, 100vw"
+              priority
+              className="object-cover"
+            />
+            <div className="absolute right-6 top-6 max-w-[9rem] text-right font-serif text-lg italic leading-snug text-white drop-shadow-sm">
+              {dict.home.heroBadgeLine1}
+              <br />
+              {dict.home.heroBadgeLine2}
+            </div>
+            <div className="absolute bottom-6 left-6 rounded-2xl bg-white/90 px-4 py-3">
+              <div className="font-serif text-sm text-ink">{dict.home.heroSideTitle}</div>
+              <div className="font-serif text-sm text-ink">{dict.home.heroSideSubtitle}</div>
+            </div>
           </div>
         </div>
-
-        <CycleStrip label={dict.home.cycleLabel} stages={dict.home.cycle} />
       </section>
 
       <section className="px-4 py-16 sm:px-6">
