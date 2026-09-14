@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+:root {
+  --color-mauve: #6f5784;
+  --color-mauve-dark: #564267;
+  --color-teal: #669999;
+  --color-teal-dark: #4f7a7a;
+  --color-sand: #efe7da;
+  --color-offwhite: #faf7f2;
+  --color-ink: #2b2530;
+  --background: var(--color-offwhite);
+  --foreground: var(--color-ink);
+}
+
+@theme inline {
+  --color-mauve: var(--color-mauve);
+  --color-mauve-dark: var(--color-mauve-dark);
+  --color-teal: var(--color-teal);
+  --color-teal-dark: var(--color-teal-dark);
+  --color-sand: var(--color-sand);
+  --color-offwhite: var(--color-offwhite);
+  --color-ink: var(--color-ink);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-serif: var(--font-fraunces);
+  --font-sans: var(--font-inter);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.prose-legal h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-mauve-dark);
+}
+
+.prose-legal h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.prose-legal p,
+.prose-legal li {
+  margin-bottom: 0.75rem;
+  line-height: 1.7;
+  color: var(--color-ink);
+}
+
+.prose-legal ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+}
+
+.prose-legal a {
+  color: var(--color-teal-dark);
+  text-decoration: underline;
+}
+
+.input-field {
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 1px solid color-mix(in srgb, var(--color-mauve) 20%, transparent);
+  background: white;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.9rem;
+  color: var(--color-ink);
+}
+
+.input-field:focus {
+  outline: 2px solid var(--color-teal);
+  outline-offset: 1px;
+}
