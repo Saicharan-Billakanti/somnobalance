@@ -5,8 +5,14 @@
 // as possible so the two can be diffed directly. The real site Header/Footer
 // still wrap this (see [lang]/layout.tsx); only the Lovable page's own
 // <header>/<footer> were intentionally left out, per instruction. Swap the
-// six AI-generated images and wire the Sound panel to real audio in a
-// follow-up pass — this is a visual/structural port only.
+// six AI-generated images once real photography exists.
+//
+// The Sound panel plays a real Spotify track via Spotify's official iFrame
+// API (not a synthesized tone) — the embed itself is visually hidden so the
+// panel's look is unchanged; our own play/pause button and progress bar
+// drive it. SPOTIFY_TRACK_URI below is a placeholder public track (no
+// specific track was supplied) — swap it for the real one whenever it's
+// chosen.
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Cormorant_Garamond, Manrope } from "next/font/google";
@@ -41,6 +47,30 @@ const gallery = [
   "/products/pdp-roll-on-details.jpg",
 ];
 
+// Placeholder public track — no specific song was supplied. Swap the URI
+// (open.spotify.com/track/<id> -> spotify:track:<id>) for the real one.
+const SPOTIFY_TRACK_URI = "spotify:track:2WfaOiMkCvy7F5fcp2zZ8L";
+
+type SpotifyPlaybackUpdate = { data: { isPaused: boolean; position: number; duration: number } };
+type SpotifyController = {
+  addListener: (event: "playback_update" | "ready", cb: (e: SpotifyPlaybackUpdate) => void) => void;
+  togglePlay: () => void;
+  destroy: () => void;
+};
+type SpotifyIframeApi = {
+  createController: (
+    el: HTMLElement,
+    options: { uri: string; width: string; height: string },
+    cb: (controller: SpotifyController) => void,
+  ) => void;
+};
+
+declare global {
+  interface Window {
+    onSpotifyIframeApiReady?: (IFrameAPI: SpotifyIframeApi) => void;
+  }
+}
+
 export function RollOnPdp({
   lang,
   dict,
@@ -57,53 +87,42 @@ export function RollOnPdp({
   const [added, setAdded] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [elapsed, setElapsed] = useState(0);
-  const audioRef = useRef<AudioContext | null>(null);
-  const oscillatorRef = useRef<OscillatorNode | null>(null);
-  const startedAtRef = useRef(0);
-  const rafRef = useRef<number | null>(null);
+  const [duration, setDuration] = useState(SOUND_DURATION);
+  const spotifyMountRef = useRef<HTMLDivElement | null>(null);
+  const controllerRef = useRef<SpotifyController | null>(null);
 
-  const stopPlayback = () => {
-    oscillatorRef.current?.stop();
-    oscillatorRef.current = null;
-    audioRef.current?.close();
-    audioRef.current = null;
-    if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
-    rafRef.current = null;
-    setPlaying(false);
-  };
+  useEffect(() => {
+    const mount = spotifyMountRef.current;
+    if (!mount) return;
 
-  useEffect(() => () => stopPlayback(), []);
+    const setup = (IFrameAPI: SpotifyIframeApi) => {
+      IFrameAPI.createController(mount, { uri: SPOTIFY_TRACK_URI, width: "1", height: "1" }, (controller) => {
+        controllerRef.current = controller;
+        controller.addListener("playback_update", (e) => {
+          setPlaying(!e.data.isPaused);
+          setElapsed(e.data.position / 1000);
+          if (e.data.duration) setDuration(e.data.duration / 1000);
+        });
+      });
+    };
 
-  const tick = () => {
-    const secs = (performance.now() - startedAtRef.current) / 1000;
-    if (secs >= SOUND_DURATION) {
-      setElapsed(SOUND_DURATION);
-      stopPlayback();
-      setElapsed(0);
-      return;
+    window.onSpotifyIframeApiReady = setup;
+    if (!document.getElementById("spotify-iframe-api")) {
+      const script = document.createElement("script");
+      script.id = "spotify-iframe-api";
+      script.src = "https://open.spotify.com/embed/iframe-api/v1";
+      script.async = true;
+      document.body.appendChild(script);
     }
-    setElapsed(secs);
-    rafRef.current = requestAnimationFrame(tick);
-  };
+
+    return () => {
+      controllerRef.current?.destroy();
+      controllerRef.current = null;
+    };
+  }, []);
 
   const toggleSound = () => {
-    if (playing) {
-      stopPlayback();
-      return;
-    }
-    const context = new AudioContext();
-    const oscillator = context.createOscillator();
-    const gain = context.createGain();
-    oscillator.type = "sine";
-    oscillator.frequency.value = 174;
-    gain.gain.value = 0.025;
-    oscillator.connect(gain).connect(context.destination);
-    oscillator.start();
-    audioRef.current = context;
-    oscillatorRef.current = oscillator;
-    startedAtRef.current = performance.now();
-    setPlaying(true);
-    rafRef.current = requestAnimationFrame(tick);
+    controllerRef.current?.togglePlay();
   };
 
   const formatTime = (secs: number) => {
@@ -254,7 +273,7 @@ export function RollOnPdp({
           </p>
         </div>
 
-        <aside className="self-start rounded-md border border-lovable-border bg-lovable-card px-6 py-8 lg:min-h-[530px]">
+        <aside className="relative self-start rounded-md border border-lovable-border bg-lovable-card px-6 py-8 lg:min-h-[530px]">
           <h2 className="font-lovable-serif text-xl">
             SomnoBalance
             <br />
@@ -277,13 +296,13 @@ export function RollOnPdp({
             <div className="h-px flex-1 bg-lovable-border">
               <div
                 className="h-px bg-lovable-primary transition-[width]"
-                style={{ width: `${Math.min(100, (elapsed / SOUND_DURATION) * 100)}%` }}
+                style={{ width: `${Math.min(100, (elapsed / duration) * 100)}%` }}
               />
             </div>
             <Volume2 className="size-4" />
           </div>
           <p className="mt-2 text-[9px] text-lovable-muted-foreground">
-            {formatTime(elapsed)} / {formatTime(SOUND_DURATION)}
+            {formatTime(elapsed)} / {formatTime(duration)}
           </p>
           <div className="my-10 h-px w-9 bg-lovable-border" />
           <p className="rotate-[-7deg] text-center font-lovable-serif text-2xl italic leading-tight text-lovable-primary/60">
@@ -291,6 +310,11 @@ export function RollOnPdp({
             <br />
             wherever you are.
           </p>
+          {/* Real Spotify playback, controlled via the iFrame API — sized
+              to 1x1 and visually hidden so the panel's design is unchanged.
+              The embed still requires the visitor to click once inside it
+              per browser autoplay rules, which is what our button does. */}
+          <div ref={spotifyMountRef} className="absolute h-px w-px overflow-hidden opacity-0" aria-hidden="true" />
         </aside>
       </section>
 
