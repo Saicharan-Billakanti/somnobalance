@@ -1,8 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
 import { business } from "@/lib/site";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/getDictionary";
-import { NewsletterForm } from "@/components/NewsletterForm";
 
 // Social links are placeholders (# ) — swap in the real profile URLs once
 // the client shares them.
@@ -35,74 +35,76 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   ];
 
   return (
-    <footer className="border-t border-mauve/10" style={{ background: "var(--color-scroll-3)" }}>
-      <div className="grid md:grid-cols-2">
-        <div className="grid gap-10 px-4 py-14 sm:px-6 sm:grid-cols-2 lg:grid-cols-3 lg:px-10">
-          <div className="sm:col-span-2 lg:col-span-3">
-            <div className="font-serif text-lg text-mauve-dark">SomnoBalance</div>
-            <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink/70">{dict.footer.tagline}</p>
-            <div className="mt-5 flex items-center gap-3">
-              {social.map(({ label, href, icon: Icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-mauve/20 text-ink/60 transition hover:border-mauve/40 hover:text-mauve-dark"
-                >
-                  <Icon />
-                </a>
-              ))}
-            </div>
-          </div>
+    <footer className="relative overflow-hidden bg-[#1c1a17] text-white/90">
+      <div className="absolute inset-y-0 left-0 hidden w-[26%] md:block">
+        <Image
+          src="/products/somnobalance-roll-on.jpg"
+          alt=""
+          fill
+          sizes="26vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#1c1a17]" />
+      </div>
 
-          <div>
-            <div className="text-sm font-medium text-ink">{dict.footer.explore}</div>
-            <ul className="mt-3 space-y-2 text-sm text-ink/70">
-              {explore.map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} className="hover:text-mauve-dark">
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <div className="text-sm font-medium text-ink">{dict.footer.legal}</div>
-            <ul className="mt-3 space-y-2 text-sm text-ink/70">
-              {legal.map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} className="hover:text-mauve-dark">
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <div className="text-sm font-medium text-ink">{dict.footer.contact}</div>
-            <ul className="mt-3 space-y-2 text-sm text-ink/70">
-              <li>{business.email}</li>
-              <li>{business.addressLine2}</li>
-            </ul>
+      <div className="relative mx-auto grid max-w-6xl gap-10 px-4 py-16 pl-4 sm:px-6 md:grid-cols-[1.2fr_1fr_1fr_1fr] md:pl-[calc(26%+2rem)] lg:px-10 lg:pl-[calc(26%+2.5rem)]">
+        <div>
+          <div className="font-serif text-lg text-white">SomnoBalance</div>
+          <p className="mt-3 max-w-xs text-sm leading-relaxed text-white/70">{dict.footer.tagline}</p>
+          <div className="mt-5 flex items-center gap-3">
+            {social.map(({ label, href, icon: Icon }) => (
+              <a
+                key={label}
+                href={href}
+                aria-label={label}
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/25 text-white/80 transition hover:border-white/50 hover:text-white"
+              >
+                <Icon />
+              </a>
+            ))}
           </div>
         </div>
 
-        <div className="flex flex-col justify-center gap-4 border-t border-mauve/10 px-4 py-14 sm:px-6 md:border-l md:border-t-0 lg:px-10">
-          <div className="max-w-xs">
-            <div className="text-sm font-medium text-ink">{dict.footer.newsletterTitle}</div>
-            <p className="mt-2 text-sm leading-relaxed text-ink/70">{dict.footer.newsletterIntro}</p>
-            <div className="mt-4">
-              <NewsletterForm dict={dict} />
-            </div>
-          </div>
+        <div>
+          <div className="text-sm font-medium text-white">{dict.footer.explore}</div>
+          <ul className="mt-3 space-y-2 text-sm text-white/70">
+            {explore.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="hover:text-white">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <div className="text-sm font-medium text-white">{dict.footer.legal}</div>
+          <ul className="mt-3 space-y-2 text-sm text-white/70">
+            {legal.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="hover:text-white">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <div className="text-sm font-medium text-white">{dict.footer.contact}</div>
+          <ul className="mt-3 space-y-2 text-sm text-white/70">
+            <li>{business.email}</li>
+            <li>{business.addressLine2}</li>
+          </ul>
         </div>
       </div>
 
-      <div className="border-t border-mauve/10 px-4 py-5 text-center text-xs text-ink/50 sm:px-6">
-        © {new Date().getFullYear()} SomnoBalance. {dict.footer.rights}
+      <div className="relative mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 border-t border-white/15 px-4 py-5 text-xs text-white/60 sm:px-6 lg:px-10">
+        <span>
+          © {new Date().getFullYear()} SomnoBalance. {dict.footer.rights}
+        </span>
+        <span className="font-serif text-base italic text-white/80">{dict.footer.handwrittenTagline}</span>
       </div>
     </footer>
   );
