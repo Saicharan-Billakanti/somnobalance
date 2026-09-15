@@ -61,7 +61,7 @@ export function ProductPurchasePanel({
       </div>
 
       <div className="mt-8 flex items-center gap-4">
-        <div className="flex items-center rounded-full border border-mauve/20">
+        <div className="flex items-center rounded-full border border-mauve/30 bg-transparent px-2 h-[52px]">
           <button
             type="button"
             aria-label="-"
@@ -70,7 +70,7 @@ export function ProductPurchasePanel({
           >
             −
           </button>
-          <span className="w-6 text-center text-sm text-ink">{quantity}</span>
+          <span className="w-8 text-center text-sm font-medium text-ink">{quantity}</span>
           <button
             type="button"
             aria-label="+"

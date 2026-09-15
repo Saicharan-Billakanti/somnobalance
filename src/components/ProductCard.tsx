@@ -50,7 +50,7 @@ export function ProductCard({
             <Link
               href={href}
               aria-label={text.name}
-              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-mauve text-white transition hover:bg-mauve-dark"
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-mauve-dark text-white transition hover:bg-ink"
             >
               <ArrowIcon />
             </Link>
@@ -59,7 +59,7 @@ export function ProductCard({
               type="button"
               onClick={() => add(product.slug, 1)}
               aria-label={dict.shop.addToCart}
-              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-mauve text-white transition hover:bg-mauve-dark"
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-mauve-dark text-white transition hover:bg-ink"
             >
               <CartIcon />
             </button>
