@@ -50,26 +50,45 @@ export function RollOnPdp({
   dict: Dictionary;
   onAddToCart: (quantity: number) => void;
 }) {
+  const SOUND_DURATION = 120; // 2:00, matches the "/ 02:00" label
+
   const [active, setActive] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
   const [playing, setPlaying] = useState(false);
+  const [elapsed, setElapsed] = useState(0);
   const audioRef = useRef<AudioContext | null>(null);
   const oscillatorRef = useRef<OscillatorNode | null>(null);
+  const startedAtRef = useRef(0);
+  const rafRef = useRef<number | null>(null);
 
-  useEffect(
-    () => () => {
-      oscillatorRef.current?.stop();
-      audioRef.current?.close();
-    },
-    [],
-  );
+  const stopPlayback = () => {
+    oscillatorRef.current?.stop();
+    oscillatorRef.current = null;
+    audioRef.current?.close();
+    audioRef.current = null;
+    if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+    rafRef.current = null;
+    setPlaying(false);
+  };
+
+  useEffect(() => () => stopPlayback(), []);
+
+  const tick = () => {
+    const secs = (performance.now() - startedAtRef.current) / 1000;
+    if (secs >= SOUND_DURATION) {
+      setElapsed(SOUND_DURATION);
+      stopPlayback();
+      setElapsed(0);
+      return;
+    }
+    setElapsed(secs);
+    rafRef.current = requestAnimationFrame(tick);
+  };
 
   const toggleSound = () => {
     if (playing) {
-      oscillatorRef.current?.stop();
-      oscillatorRef.current = null;
-      setPlaying(false);
+      stopPlayback();
       return;
     }
     const context = new AudioContext();
@@ -82,7 +101,15 @@ export function RollOnPdp({
     oscillator.start();
     audioRef.current = context;
     oscillatorRef.current = oscillator;
+    startedAtRef.current = performance.now();
     setPlaying(true);
+    rafRef.current = requestAnimationFrame(tick);
+  };
+
+  const formatTime = (secs: number) => {
+    const m = Math.floor(secs / 60);
+    const s = Math.floor(secs % 60);
+    return `${m}:${String(s).padStart(2, "0")}`;
   };
 
   const moveGallery = (step: number) =>
@@ -248,11 +275,16 @@ export function RollOnPdp({
           </Button>
           <div className="mt-6 flex items-center gap-3">
             <div className="h-px flex-1 bg-lovable-border">
-              <div className={`h-px bg-lovable-primary ${playing ? "w-2/3" : "w-1/3"}`} />
+              <div
+                className="h-px bg-lovable-primary transition-[width]"
+                style={{ width: `${Math.min(100, (elapsed / SOUND_DURATION) * 100)}%` }}
+              />
             </div>
             <Volume2 className="size-4" />
           </div>
-          <p className="mt-2 text-[9px] text-lovable-muted-foreground">{playing ? "00:42" : "00:00"} / 02:00</p>
+          <p className="mt-2 text-[9px] text-lovable-muted-foreground">
+            {formatTime(elapsed)} / {formatTime(SOUND_DURATION)}
+          </p>
           <div className="my-10 h-px w-9 bg-lovable-border" />
           <p className="rotate-[-7deg] text-center font-lovable-serif text-2xl italic leading-tight text-lovable-primary/60">
             A little more calm,
