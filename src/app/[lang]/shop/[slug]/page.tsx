@@ -1,9 +1,7 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import Link from "next/link";
 import { getProduct, getProductText, products } from "@/lib/products";
 import { ProductPurchasePanel } from "@/components/ProductPurchasePanel";
-import { ProductCard } from "@/components/ProductCard";
 import { ProductGallery } from "@/components/ProductGallery";
 import { Accordion } from "@/components/Accordion";
 import { ProductSpecRow } from "@/components/ProductSpecRow";
@@ -26,12 +24,9 @@ export default async function ProductPage({
   const product = getProduct(slug);
   if (!product) notFound();
   const text = getProductText(product, lang);
-  const l = lang as Locale;
   const isRollOn = product.slug === "somnobalance-roll-on";
 
   const [before, after] = dict.shop.withdrawalNote.split("{link}");
-
-  const related = products.filter((p) => p.slug !== product.slug).slice(0, 3);
 
   // The Roll-on ships with a full AI-rendered visual set (placeholder art,
   // not real photography — swap for real product photos once available).
@@ -222,58 +217,6 @@ export default async function ProductPage({
         </section>
       )}
 
-      {isRollOn && (
-        <section className="relative flex min-h-[285px] items-center overflow-hidden">
-          <Image src="/brand/pdp-bedroom.jpg" alt="" fill className="object-cover" />
-          <div className="relative z-10 px-8 text-white md:px-16">
-            <h2 className="text-4xl">SomnoBalance</h2>
-            <p className="mt-2 text-[11px] uppercase leading-6 tracking-[0.25em]">
-              {dict.shop.closingTagline.split("\n").map((line, i) => (
-                <span key={i}>
-                  {line}
-                  <br />
-                </span>
-              ))}
-            </p>
-            <span className="mt-4 block h-px w-9 bg-current" />
-          </div>
-          <p className="absolute right-[12%] top-1/2 z-10 -translate-y-1/2 rotate-[-10deg] font-serif text-2xl italic text-white/80">
-            {dict.shop.closingNote.split("\n").map((line, i) => (
-              <span key={i}>
-                {line}
-                <br />
-              </span>
-            ))}
-          </p>
-        </section>
-      )}
-
-      {related.length > 0 && (
-        <div className="mt-16 w-full rounded-t-3xl border-t border-mauve/10 bg-sand/35 py-20">
-          <div className="mx-auto max-w-[1100px] px-4 sm:px-6">
-            <div className="flex items-end justify-between">
-              <div>
-                <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-ink/60">
-                  {dict.shop.ritualCompanions}
-                </p>
-                <h2 className="mt-3 font-serif text-3xl tracking-tight text-ink">{dict.shop.youMightAlsoLike}</h2>
-              </div>
-              <Link
-                href={`/${l}/shop`}
-                className="inline-flex items-center gap-2 text-sm text-ink/70 transition hover:text-ink"
-              >
-                {dict.shop.viewAllProducts}
-                <span aria-hidden="true">→</span>
-              </Link>
-            </div>
-            <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {related.map((p) => (
-                <ProductCard key={p.slug} product={p} lang={l} dict={dict} />
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
