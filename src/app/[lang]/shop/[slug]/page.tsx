@@ -44,7 +44,7 @@ export default async function ProductPage({
     <div className="w-full pb-20">
       <div className="mx-auto max-w-[1100px] px-4 pt-12 pb-16 sm:px-6">
         <div className={`grid gap-12 lg:gap-16 ${isRollOn ? "lg:grid-cols-[1.35fr_1fr_0.6fr]" : "lg:grid-cols-[1.1fr_1fr]"}`}>
-          <div>
+          <div className="min-w-0">
             <ProductGallery
               images={galleryImages}
               alt={text.name}
@@ -66,7 +66,7 @@ export default async function ProductPage({
             />
           </div>
 
-          <div className="lg:py-8 lg:pl-4">
+          <div className="min-w-0 lg:py-8 lg:pl-4">
             <div className="text-[11px] font-medium uppercase tracking-[0.2em] text-ink/60">
               {dict.shop.categories[product.category]}
               {" — "}

@@ -11,7 +11,7 @@ export function SoundPanel({
   quote: string;
 }) {
   return (
-    <aside className="self-start rounded-md border border-mauve/10 bg-white/60 px-6 py-8 lg:min-h-[530px]">
+    <aside className="min-w-0 self-start rounded-md border border-mauve/10 bg-white/60 px-6 py-8 lg:min-h-[530px]">
       <h2 className="font-serif text-xl text-ink">
         {title.split("\n").map((line, i) => (
           <span key={i}>
