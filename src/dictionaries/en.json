@@ -176,6 +176,11 @@
     "withdrawalLinkLabel": "Right of Withdrawal",
     "addToCart": "Add to cart",
     "addedToCart": "Added to cart ✓",
+    "quantity": "Quantity",
+    "productInfo": "Product information",
+    "shippingReturns": "Shipping & Returns",
+    "youMightAlsoLike": "You might also like",
+    "viewAllProducts": "View all products",
     "variantNotes": {
       "Two independent firmness zones": "Two independent firmness zones"
     },

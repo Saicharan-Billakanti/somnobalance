@@ -7,10 +7,12 @@ import type { Dictionary } from "@/i18n/getDictionary";
 export function AddToCartButton({
   slug,
   variant,
+  quantity = 1,
   dict,
 }: {
   slug: string;
   variant?: string;
+  quantity?: number;
   dict: Dictionary;
 }) {
   const { add } = useCart();
@@ -19,13 +21,14 @@ export function AddToCartButton({
   return (
     <button
       onClick={() => {
-        add(slug, 1, variant);
+        add(slug, quantity, variant);
         setAdded(true);
         setTimeout(() => setAdded(false), 1800);
       }}
-      className="rounded-full bg-mauve px-8 py-3 text-sm text-white transition hover:bg-mauve-dark"
+      className="flex flex-1 items-center justify-center gap-2 rounded-full bg-mauve px-8 py-3 text-sm text-white transition hover:bg-mauve-dark"
     >
       {added ? dict.shop.addedToCart : dict.shop.addToCart}
+      {!added && <span aria-hidden="true">→</span>}
     </button>
   );
 }

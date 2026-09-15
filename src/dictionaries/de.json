@@ -176,6 +176,11 @@
     "withdrawalLinkLabel": "Widerrufsbelehrung",
     "addToCart": "In den Warenkorb",
     "addedToCart": "Hinzugefügt ✓",
+    "quantity": "Menge",
+    "productInfo": "Produktinformationen",
+    "shippingReturns": "Versand & Rückgabe",
+    "youMightAlsoLike": "Das könnte Ihnen auch gefallen",
+    "viewAllProducts": "Alle Produkte ansehen",
     "variantNotes": {
       "Two independent firmness zones": "Zwei unabhängige Härtezonen"
     },

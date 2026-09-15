@@ -1,8 +1,11 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 import { getProduct, getProductText, products } from "@/lib/products";
 import { ProductPurchasePanel } from "@/components/ProductPurchasePanel";
+import { ProductCard } from "@/components/ProductCard";
 import { CyclePosition } from "@/components/CyclePosition";
+import { Accordion } from "@/components/Accordion";
 import { getDictionary } from "@/i18n/getDictionary";
 import { locales, isLocale, type Locale } from "@/i18n/config";
 
@@ -21,8 +24,11 @@ export default async function ProductPage({
   const product = getProduct(slug);
   if (!product) notFound();
   const text = getProductText(product, lang);
+  const l = lang as Locale;
 
   const [before, after] = dict.shop.withdrawalNote.split("{link}");
+
+  const related = products.filter((p) => p.slug !== product.slug).slice(0, 3);
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
@@ -33,13 +39,15 @@ export default async function ProductPage({
             alt={text.name}
             fill
             sizes="(min-width: 768px) 50vw, 100vw"
-            className="object-contain"
+            className="object-cover"
             priority
           />
         </div>
         <div>
           <div className="text-xs uppercase tracking-wide text-teal-dark">
             {dict.shop.categories[product.category]}
+            {" — "}
+            {dict.shop.phases[product.phase]}
           </div>
           <div className="mt-2">
             <CyclePosition phase={product.phase} stages={dict.home.cycle} />
@@ -52,42 +60,69 @@ export default async function ProductPage({
             dict={dict}
           />
 
-          <p className="mt-6 leading-relaxed text-ink/70">{text.description}</p>
-          <ul className="mt-6 space-y-2 text-sm text-ink/70">
-            {text.details.map((d) => (
-              <li key={d} className="flex gap-2">
-                <span className="text-teal-dark">—</span> {d}
-              </li>
-            ))}
-          </ul>
-
-          {text.ingredients && (
-            <div className="mt-6 rounded-xl border border-mauve/10 bg-white/60 p-4">
-              <div className="text-xs font-medium uppercase tracking-wide text-ink/50">
-                {dict.shop.ingredients}
-              </div>
-              <p className="mt-2 text-xs leading-relaxed text-ink/60">{text.ingredients}</p>
-            </div>
-          )}
-
-          {/*
-            product.legalNote is intentionally not rendered right now —
-            these are internal reminders (missing hazard/food-law
-            declarations, placeholder pricing) tracked in src/lib/products.ts
-            so they aren't lost, but showing raw "TODO/placeholder" language
-            to live site visitors during the Stripe application isn't what
-            we want. Re-enable this block once the real text is in.
-          */}
-
-          <p className="mt-4 text-xs text-ink/50">
-            {before}
-            <a href={`/${lang}/legal/withdrawal`} className="underline">
-              {dict.shop.withdrawalLinkLabel}
-            </a>
-            {after}
-          </p>
+          <div className="mt-10">
+            <Accordion
+              items={[
+                {
+                  title: dict.shop.productInfo,
+                  content: (
+                    <div>
+                      <p className="leading-relaxed">{text.description}</p>
+                      <ul className="mt-4 space-y-2">
+                        {text.details.map((d) => (
+                          <li key={d} className="flex gap-2">
+                            <span className="text-teal-dark">—</span> {d}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ),
+                },
+                ...(text.ingredients
+                  ? [
+                      {
+                        title: dict.shop.ingredients,
+                        content: <p className="leading-relaxed">{text.ingredients}</p>,
+                      },
+                    ]
+                  : []),
+                {
+                  title: dict.shop.shippingReturns,
+                  content: (
+                    <p className="leading-relaxed">
+                      {before}
+                      <a href={`/${lang}/legal/withdrawal`} className="underline">
+                        {dict.shop.withdrawalLinkLabel}
+                      </a>
+                      {after}
+                    </p>
+                  ),
+                },
+              ]}
+            />
+          </div>
         </div>
       </div>
+
+      {related.length > 0 && (
+        <div className="mt-20">
+          <div className="flex items-end justify-between">
+            <h2 className="font-serif text-2xl text-ink">{dict.shop.youMightAlsoLike}</h2>
+            <Link
+              href={`/${l}/shop`}
+              className="inline-flex items-center gap-2 text-sm text-mauve-dark hover:underline"
+            >
+              {dict.shop.viewAllProducts}
+              <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {related.map((p) => (
+              <ProductCard key={p.slug} product={p} lang={l} dict={dict} />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

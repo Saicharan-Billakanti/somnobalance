@@ -19,6 +19,7 @@ export function ProductPurchasePanel({
   dict: Dictionary;
 }) {
   const [selected, setSelected] = useState<string | undefined>(product.variants?.[0]?.label);
+  const [quantity, setQuantity] = useState(1);
   const variant = product.variants
     ? product.variants.find((v) => v.label === selected) ?? product.variants[0]
     : null;
@@ -59,8 +60,27 @@ export function ProductPurchasePanel({
         <span className="ml-2 text-sm font-normal text-ink/40">{dict.shop.inclVatShipping}</span>
       </div>
 
-      <div className="mt-8">
-        <AddToCartButton slug={product.slug} variant={selected} dict={dict} />
+      <div className="mt-8 flex items-center gap-4">
+        <div className="flex items-center rounded-full border border-mauve/20">
+          <button
+            type="button"
+            aria-label="-"
+            onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+            className="flex h-11 w-11 items-center justify-center text-ink/60 hover:text-mauve-dark"
+          >
+            −
+          </button>
+          <span className="w-6 text-center text-sm text-ink">{quantity}</span>
+          <button
+            type="button"
+            aria-label="+"
+            onClick={() => setQuantity((q) => q + 1)}
+            className="flex h-11 w-11 items-center justify-center text-ink/60 hover:text-mauve-dark"
+          >
+            +
+          </button>
+        </div>
+        <AddToCartButton slug={product.slug} variant={selected} quantity={quantity} dict={dict} />
       </div>
     </div>
   );
