@@ -35,7 +35,7 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   ];
 
   return (
-    <footer className="relative overflow-hidden bg-[#1c1a17] text-white/90">
+    <footer className="relative overflow-hidden bg-ink text-white/90">
       <div className="absolute inset-y-0 left-0 hidden w-[26%] md:block">
         <Image
           src="/products/somnobalance-roll-on.jpg"
@@ -44,7 +44,7 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
           sizes="26vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#1c1a17]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-ink" />
       </div>
 
       <div className="relative mx-auto grid max-w-6xl gap-10 px-4 py-16 pl-4 sm:px-6 md:grid-cols-[1.2fr_1fr_1fr_1fr] md:pl-[calc(26%+2rem)] lg:px-10 lg:pl-[calc(26%+2.5rem)]">
