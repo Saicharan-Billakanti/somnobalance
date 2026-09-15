@@ -49,13 +49,12 @@
     "heroSideSubtitle": "Big change.",
     "cycleLabel": "The SomnoBalance cycle",
     "cycle": [
-      { "name": "DAY" },
-      { "name": "REGULATE" },
-      { "name": "LET GO" },
-      { "name": "PREPARE" },
-      { "name": "NIGHT" }
+      { "name": "DAY", "caption": "Live fully" },
+      { "name": "REGULATE", "caption": "Find balance" },
+      { "name": "LET GO", "caption": "Release gently" },
+      { "name": "PREPARE", "caption": "Create rest" },
+      { "name": "NIGHT", "caption": "Rest deeply" }
     ],
-    "videoPlaceholderLabel": "Video coming soon",
     "systemEyebrow": "Rhythm for a fuller life.",
     "systemTitle": "A system, not a product",
     "systemSubtitle": "Four phases carry you from the noise of the day into rest — each with its own ritual, and its own place in the SomnoBalance system.",
@@ -86,7 +85,12 @@
     "shopEyebrow": "Natural rituals, thoughtfully curated",
     "shopIntro": "Carefully selected products to support your SomnoBalance journey.",
     "shopTagline": "Small rituals. A calmer you.",
-    "shopViewAllCta": "View all products →"
+    "shopViewAllCta": "View all products →",
+    "checkEyebrow": "Regeneration Check",
+    "checkTitle": "Discover your personal reflection.",
+    "checkIntro": "A 20-question self-check to find out what supports your regeneration right now.",
+    "checkCta": "Start your Regeneration Check →",
+    "checkTagline": "Small insights.\nMeaningful change."
   },
   "about": {
     "title": "About",

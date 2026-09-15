@@ -49,13 +49,12 @@
     "heroSideSubtitle": "Große Veränderung.",
     "cycleLabel": "Der SomnoBalance-Kreislauf",
     "cycle": [
-      { "name": "TAG" },
-      { "name": "REGULATION" },
-      { "name": "LOSLASSEN" },
-      { "name": "VORBEREITUNG" },
-      { "name": "NACHT" }
+      { "name": "TAG", "caption": "Voll leben" },
+      { "name": "REGULATION", "caption": "Balance finden" },
+      { "name": "LOSLASSEN", "caption": "Sanft loslassen" },
+      { "name": "VORBEREITUNG", "caption": "Ruhe schaffen" },
+      { "name": "NACHT", "caption": "Tief ruhen" }
     ],
-    "videoPlaceholderLabel": "Video folgt in Kürze",
     "systemEyebrow": "Rhythmus für ein volleres Leben.",
     "systemTitle": "Ein System, kein Produkt",
     "systemSubtitle": "Vier Phasen begleiten Sie vom Trubel des Tages in die Ruhe — jede mit eigenem Ritual und eigenem Platz im SomnoBalance-System.",
@@ -86,7 +85,12 @@
     "shopEyebrow": "Natürliche Rituale, sorgfältig kuratiert",
     "shopIntro": "Sorgfältig ausgewählte Produkte, die Ihre SomnoBalance-Reise unterstützen.",
     "shopTagline": "Kleine Rituale. Ein ruhigeres Ich.",
-    "shopViewAllCta": "Alle Produkte ansehen →"
+    "shopViewAllCta": "Alle Produkte ansehen →",
+    "checkEyebrow": "Regenerationscheck",
+    "checkTitle": "Entdecken Sie Ihr persönliches Spiegelbild.",
+    "checkIntro": "Ein 20-Fragen-Selbsttest, der zeigt, was Ihre Regeneration jetzt unterstützt.",
+    "checkCta": "Regenerationscheck starten →",
+    "checkTagline": "Kleine Einsichten.\nGroße Veränderung."
   },
   "about": {
     "title": "Über uns",
