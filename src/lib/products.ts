@@ -7,12 +7,23 @@ export type ProductVariant = {
 // Storefront-facing text, one set per locale. Order records, the admin
 // panel, and priceOrderItems() always use the canonical English `name` on
 // Product itself — only what a shopper reads on the site is translated.
+// Short structured facts shown as an icon row on the PDP (format, product
+// type, usage) — short labels, not full sentences. Only set this once the
+// values are confirmed for a product; leave it undefined rather than
+// guessing from the prose description.
+export type ProductSpecs = {
+  format: string;
+  type: string;
+  usage: string;
+};
+
 export type ProductTranslation = {
   name: string;
   tagline: string;
   description: string;
   details: string[];
   ingredients?: string;
+  specs?: ProductSpecs;
 };
 
 export type Product = {
@@ -28,6 +39,7 @@ export type Product = {
   image: string;
   ingredients?: string;
   legalNote?: string;
+  specs?: ProductSpecs;
   // True when the listed price already includes shipping (e.g. the
   // mattress) — such items never contribute to, or benefit from, the
   // flat-rate/free-shipping threshold applied to the rest of the cart.
@@ -45,6 +57,7 @@ export function getProductText(product: Product, lang: string): ProductTranslati
     description: product.description,
     details: product.details,
     ingredients: product.ingredients,
+    specs: product.specs,
   };
 }
 
@@ -66,6 +79,7 @@ export const products: Product[] = [
     ],
     phase: "REGULATE",
     image: "/products/somnobalance-roll-on.jpg",
+    specs: { format: "10 ml", type: "Roll-on", usage: "External use" },
     ingredients:
       "Helianthus Annuus Seed Oil, Simmondsia Chinensis Seed Oil, Tocopherol, Lavandula Angustifolia Oil, Citrus Clementina Peel Oil, Citrus Paradisi Peel Oil, Boswellia Sacra Oil, Pogostemon Cablin Oil, D-Limonene, Linalool, Geraniol.",
     legalNote:
@@ -85,6 +99,7 @@ export const products: Product[] = [
         ],
         ingredients:
           "Helianthus Annuus Seed Oil, Simmondsia Chinensis Seed Oil, Tocopherol, Lavandula Angustifolia Oil, Citrus Clementina Peel Oil, Citrus Paradisi Peel Oil, Boswellia Sacra Oil, Pogostemon Cablin Oil, D-Limonene, Linalool, Geraniol.",
+        specs: { format: "10 ml", type: "Roll-on", usage: "Äußerliche Anwendung" },
       },
     },
   },

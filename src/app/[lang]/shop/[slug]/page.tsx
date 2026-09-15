@@ -6,6 +6,7 @@ import { ProductPurchasePanel } from "@/components/ProductPurchasePanel";
 import { ProductCard } from "@/components/ProductCard";
 import { CyclePosition } from "@/components/CyclePosition";
 import { Accordion } from "@/components/Accordion";
+import { ProductSpecRow } from "@/components/ProductSpecRow";
 import { getDictionary } from "@/i18n/getDictionary";
 import { locales, isLocale, type Locale } from "@/i18n/config";
 
@@ -60,6 +61,12 @@ export default async function ProductPage({
             dict={dict}
           />
 
+          {text.specs && (
+            <div className="mt-6">
+              <ProductSpecRow specs={text.specs} />
+            </div>
+          )}
+
           <div className="mt-10">
             <Accordion
               items={[
@@ -107,7 +114,10 @@ export default async function ProductPage({
       {related.length > 0 && (
         <div className="mt-20">
           <div className="flex items-end justify-between">
-            <h2 className="font-serif text-2xl text-ink">{dict.shop.youMightAlsoLike}</h2>
+            <div>
+              <p className="text-xs uppercase tracking-[0.2em] text-teal-dark">{dict.shop.ritualCompanions}</p>
+              <h2 className="mt-2 font-serif text-2xl text-ink">{dict.shop.youMightAlsoLike}</h2>
+            </div>
             <Link
               href={`/${l}/shop`}
               className="inline-flex items-center gap-2 text-sm text-mauve-dark hover:underline"
