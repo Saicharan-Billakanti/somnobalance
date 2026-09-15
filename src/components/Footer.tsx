@@ -38,7 +38,7 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
     <footer className="relative overflow-hidden bg-ink text-white/90">
       <div className="absolute inset-y-0 left-0 hidden w-[26%] md:block">
         <Image
-          src="/products/somnobalance-roll-on.jpg"
+          src="/brand/rollon-styled-stone.jpg"
           alt=""
           fill
           sizes="26vw"

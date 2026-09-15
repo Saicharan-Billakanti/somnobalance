@@ -47,7 +47,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
 
           <div className="relative aspect-[4/5] overflow-hidden rounded-3xl">
             <Image
-              src="/brand/hero-placeholder.jpg"
+              src="/brand/rollon-styled-stone.jpg"
               alt=""
               fill
               sizes="(min-width: 768px) 50vw, 100vw"
@@ -89,7 +89,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
 
             <div className="relative aspect-[4/3] overflow-hidden rounded-3xl">
               <Image
-                src="/brand/system-section-placeholder.jpg"
+                src="/brand/roomspray-styled-stone.jpg"
                 alt=""
                 fill
                 sizes="(min-width: 768px) 50vw, 100vw"
