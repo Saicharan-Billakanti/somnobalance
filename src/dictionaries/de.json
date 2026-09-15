@@ -109,23 +109,25 @@
   "forBusiness": {
     "eyebrow": "Für mein Unternehmen",
     "title": "Ein Zuhause, das Ihren Gästen ein Gefühl von Ruhe schenkt.",
-    "intro": "Für Partner aus Hotellerie und Gesundheitssektor — Boutique-Hotels, Wellness-Resorts und Kliniken — bringt SomnoBalance ein durchdachtes Regenerationssystem für Gäste in gemeinsame Räume.",
+    "intro": "Für Hoteliers und Planungsbüros, die Hotel- oder Apartmentprojekte ausstatten — Boutique-Hotels, Wellness-Resorts, Kliniken und neu entstehende Objekte — bringt SomnoBalance ein durchdachtes Regenerationssystem in gemeinsame Räume.",
     "card1Title": "Amenities fürs Zimmer",
     "card1Copy": "Ritual-Sets für Gästezimmer — Kissen, Öl und Tee — als Teil des Aufenthalts präsentiert.",
-    "card2Title": "Großhandelskonditionen",
-    "card2Copy": "Mengenpreise und verlässliche Belieferung für Betriebe jeder Größe.",
-    "card3Title": "Markenkonsistente Erfahrung",
-    "card3Copy": "Dieselbe ruhige, sinnliche Sprache, die Ihre Gäste bereits mit Erholung verbinden.",
-    "cta": "Sprechen Sie mit uns über Ihren Betrieb"
+    "card2Title": "Für Planungsphasen",
+    "card2Copy": "Planungsbüros erhalten frühzeitig Muster, Spezifikationen und Mengenkonditionen für laufende Projekte.",
+    "card3Title": "Großhandelskonditionen",
+    "card3Copy": "Mengenpreise und verlässliche Belieferung für Betriebe jeder Größe.",
+    "card4Title": "Markenkonsistente Erfahrung",
+    "card4Copy": "Dieselbe ruhige, sinnliche Sprache, die Ihre Gäste bereits mit Erholung verbinden.",
+    "cta": "Sprechen Sie mit uns über Ihr Projekt"
   },
   "partner": {
     "eyebrow": "Partner werden",
     "title": "Gemeinsame Werte, transparente Provision.",
-    "intro": "Wir arbeiten mit Gesundheitsfachkräften — Physiotherapeut:innen, Heilpraktiker:innen, Kinesiolog:innen und weiteren, deren Arbeit Regeneration und Ruhe berührt — die etwas empfehlen möchten, an das sie glauben, zu klaren und fairen Konditionen.",
-    "card1Title": "Transparente Provision",
-    "card1Copy": "Ein klarer Prozentsatz auf jeden empfohlenen Verkauf, eindeutig nachverfolgt und ausgewiesen.",
+    "intro": "Wir arbeiten mit Menschen und Häusern, die Regeneration bereits im Alltag ihrer Patient:innen, Klient:innen oder Gäste begleiten — Physiotherapeut:innen, Heilpraktiker:innen, Kinesiolog:innen, Masseur:innen sowie Hotels, die ihren Gästen etwas mitgeben möchten, an das sie glauben.",
+    "card1Title": "So funktioniert die Empfehlung",
+    "card1Copy": "Sie empfehlen SomnoBalance weiter. Ihre Patient:innen, Klient:innen oder Gäste kaufen über Ihren persönlichen Link mit 5% Nachlass. Sie selbst erhalten bis zu 10% Provision auf jeden vermittelten Verkauf — klar nachverfolgt und ausgewiesen.",
     "card2Title": "Passender Ton",
-    "card2Copy": "Kein rabattgetriebenes Marketing, kein Verkaufsdruck — Empfehlungen, die zu Ihrer Praxis passen.",
+    "card2Copy": "Kein rabattgetriebenes Marketing, kein Verkaufsdruck — eine Empfehlung, die zu Ihrer Praxis oder Ihrem Haus passt.",
     "cta": "Jetzt Partner werden"
   },
   "faq": {

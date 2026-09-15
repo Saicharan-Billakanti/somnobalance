@@ -109,23 +109,25 @@
   "forBusiness": {
     "eyebrow": "For my business",
     "title": "A home that gives your guests a sense of calm.",
-    "intro": "For hospitality and health-sector partners — boutique hotels, wellness resorts, and clinics — SomnoBalance brings a considered, guest-facing regeneration system into shared spaces.",
+    "intro": "For hoteliers and planning offices furnishing hotel or apartment projects — boutique hotels, wellness resorts, clinics, and newly built properties — SomnoBalance brings a considered regeneration system into shared spaces.",
     "card1Title": "In-room amenities",
     "card1Copy": "Ritual sets for guest rooms — pillow, oil, and tea — presented as part of the stay.",
-    "card2Title": "Wholesale terms",
-    "card2Copy": "Volume pricing and consistent supply for properties of any size.",
-    "card3Title": "Brand-consistent experience",
-    "card3Copy": "The same calm, sensory language your guests already associate with rest.",
-    "cta": "Talk to us about your property"
+    "card2Title": "For planning phases",
+    "card2Copy": "Planning offices receive samples, specifications, and volume terms early for projects in progress.",
+    "card3Title": "Wholesale terms",
+    "card3Copy": "Volume pricing and consistent supply for properties of any size.",
+    "card4Title": "Brand-consistent experience",
+    "card4Copy": "The same calm, sensory language your guests already associate with rest.",
+    "cta": "Talk to us about your project"
   },
   "partner": {
     "eyebrow": "Become a partner",
     "title": "Shared values, transparent commission.",
-    "intro": "We work with health professionals — physiotherapists, alternative practitioners, kinesiologists, and others whose work touches regeneration and rest — who want to recommend something they believe in, on clear and fair terms.",
-    "card1Title": "Transparent commission",
-    "card1Copy": "A clear percentage on every recommended sale, tracked and reported without ambiguity.",
+    "intro": "We work with people and properties who already accompany regeneration in the everyday lives of their patients, clients, or guests — physiotherapists, alternative practitioners, kinesiologists, massage therapists, and hotels who want to give their guests something they believe in.",
+    "card1Title": "How the referral works",
+    "card1Copy": "You recommend SomnoBalance. Your patients, clients, or guests buy through your personal link with a 5% discount. You receive up to 10% commission on every referred sale — clearly tracked and reported.",
     "card2Title": "Aligned tone",
-    "card2Copy": "No discount-driven marketing, no pressure tactics — recommendations that fit your practice.",
+    "card2Copy": "No discount-driven marketing, no pressure tactics — a recommendation that fits your practice or property.",
     "cta": "Apply to become a partner"
   },
   "faq": {

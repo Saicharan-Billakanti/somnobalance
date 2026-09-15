@@ -19,7 +19,7 @@ export default async function ForBusinessPage({ params }: { params: Promise<{ la
       </div>
       <div className="py-14" style={{ background: "var(--color-scroll-2)" }}>
         <div className="mx-auto max-w-4xl px-4 sm:px-6">
-          <div className="grid gap-6 sm:grid-cols-3">
+          <div className="grid gap-6 sm:grid-cols-2">
             <div className="rounded-2xl border border-mauve/10 bg-white/60 p-6">
               <h3 className="font-medium text-ink">{dict.forBusiness.card1Title}</h3>
               <p className="mt-2 text-sm text-ink/70">{dict.forBusiness.card1Copy}</p>
@@ -31,6 +31,10 @@ export default async function ForBusinessPage({ params }: { params: Promise<{ la
             <div className="rounded-2xl border border-mauve/10 bg-white/60 p-6">
               <h3 className="font-medium text-ink">{dict.forBusiness.card3Title}</h3>
               <p className="mt-2 text-sm text-ink/70">{dict.forBusiness.card3Copy}</p>
+            </div>
+            <div className="rounded-2xl border border-mauve/10 bg-white/60 p-6">
+              <h3 className="font-medium text-ink">{dict.forBusiness.card4Title}</h3>
+              <p className="mt-2 text-sm text-ink/70">{dict.forBusiness.card4Copy}</p>
             </div>
           </div>
           <div className="mt-10">
