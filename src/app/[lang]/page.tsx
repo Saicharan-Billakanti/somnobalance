@@ -104,33 +104,44 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
           </div>
 
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {dict.home.phases.map((phase) => (
-              <div key={phase.name} className="overflow-hidden rounded-2xl bg-white/60">
-                <div className="relative aspect-[4/3]">
-                  <Image
-                    src={phase.image}
-                    alt=""
-                    fill
-                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                    className="object-cover"
-                  />
-                </div>
-                <div className="flex items-start justify-between gap-3 p-5">
-                  <div>
-                    <div className="text-xs font-semibold tracking-[0.15em] text-teal-dark">
-                      {phase.name}
-                    </div>
-                    <p className="mt-2 text-sm leading-relaxed text-ink/70">{phase.copy}</p>
+            {dict.home.phases.map((phase, i) => {
+              // Client spec (email, 2026-09-16): REGULATE/PREPARE (even
+              // index) get the mauve tint, LET GO/REGENERATE (odd index)
+              // get the sage tint, both as ~9% tinted background fills.
+              const accentColor = i % 2 === 0 ? "var(--color-phase-mauve)" : "var(--color-phase-sage)";
+              return (
+                <div
+                  key={phase.name}
+                  className="overflow-hidden rounded-2xl"
+                  style={{ background: `color-mix(in srgb, ${accentColor} 9%, white)` }}
+                >
+                  <div className="relative aspect-[4/3]">
+                    <Image
+                      src={phase.image}
+                      alt=""
+                      fill
+                      sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                      className="object-cover"
+                    />
                   </div>
-                  <span
-                    aria-hidden="true"
-                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-mauve text-white"
-                  >
-                    →
-                  </span>
+                  <div className="flex items-start justify-between gap-3 p-5">
+                    <div>
+                      <div className="text-xs font-semibold tracking-[0.15em] text-teal-dark">
+                        {phase.name}
+                      </div>
+                      <div className="mt-2 h-[3px] w-8 rounded-full" style={{ background: accentColor }} />
+                      <p className="mt-3 text-sm leading-relaxed text-ink/70">{phase.copy}</p>
+                    </div>
+                    <span
+                      aria-hidden="true"
+                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-mauve text-white"
+                    >
+                      →
+                    </span>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

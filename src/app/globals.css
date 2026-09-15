@@ -25,6 +25,15 @@
   --color-scroll-2: #f5ecdd;
   --color-scroll-3: #eeddc4;
 
+  /* Phase-card tint pair (client spec, 2026-09-16 email): the two brand
+     colors used as very light background fills behind alternating phase
+     cards — REGULATE/PREPARE get the mauve tint, LET GO/REGENERATE get
+     the sage tint. Distinct from --color-mauve/--color-teal (the site's
+     own accent tokens) since the client gave these as specific hex
+     values to match exactly, not to be substituted with our palette. */
+  --color-phase-mauve: #6f5784;
+  --color-phase-sage: #669999;
+
   /* Lovable PDP design-system tokens (exact port from the client's
      Lovable export, src/styles.css) — used only by src/components/lovable/*
      and the roll-on PDP body. Kept separate from the site's own mauve/ink/
@@ -60,6 +69,8 @@
   --color-scroll-1: var(--color-scroll-1);
   --color-scroll-2: var(--color-scroll-2);
   --color-scroll-3: var(--color-scroll-3);
+  --color-phase-mauve: var(--color-phase-mauve);
+  --color-phase-sage: var(--color-phase-sage);
   --font-serif: var(--font-fraunces);
   --font-sans: var(--font-inter);
 
