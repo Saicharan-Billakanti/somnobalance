@@ -92,7 +92,13 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
         </div>
 
         <div className="relative flex min-h-[16rem] flex-col justify-center gap-4 overflow-hidden px-4 py-14 sm:px-6 lg:px-10">
-          <Image src="/brand/system-section-placeholder.jpg" alt="" fill sizes="50vw" className="object-cover" />
+          <Image
+            src="/brand/system-section-placeholder.jpg"
+            alt=""
+            fill
+            sizes="50vw"
+            className="object-cover object-[75%_60%]"
+          />
           <div className="absolute inset-0 bg-gradient-to-l from-transparent via-white/40 to-white/80" />
           <div className="relative max-w-xs">
             <div className="text-sm font-medium text-ink">{dict.footer.newsletterTitle}</div>
