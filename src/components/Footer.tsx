@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { business } from "@/lib/site";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/getDictionary";
@@ -91,16 +90,7 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
           </div>
         </div>
 
-        <div className="flex flex-col justify-center gap-6 border-t border-mauve/10 px-4 py-14 sm:flex-row sm:items-center sm:px-6 md:border-l md:border-t-0 lg:px-10">
-          <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-2xl sm:h-28 sm:w-28">
-            <Image
-              src="/products/somnobalance-regeneration-tea.jpg"
-              alt=""
-              fill
-              sizes="112px"
-              className="object-cover"
-            />
-          </div>
+        <div className="flex flex-col justify-center gap-4 border-t border-mauve/10 px-4 py-14 sm:px-6 md:border-l md:border-t-0 lg:px-10">
           <div className="max-w-xs">
             <div className="text-sm font-medium text-ink">{dict.footer.newsletterTitle}</div>
             <p className="mt-2 text-sm leading-relaxed text-ink/70">{dict.footer.newsletterIntro}</p>
