@@ -50,7 +50,7 @@ export default async function ProductPage({
               alt={text.name}
               overlay={
                 isRollOn ? (
-                  <div className="absolute bottom-10 left-8 hidden max-w-[140px] text-ink sm:block">
+                  <div className="absolute left-8 top-10 hidden max-w-[140px] text-ink sm:block">
                     <p className="text-[11px] font-medium uppercase leading-loose tracking-[0.2em]">
                       {dict.shop.rollOnGalleryTagline.split("\n").map((line, i) => (
                         <span key={i}>
