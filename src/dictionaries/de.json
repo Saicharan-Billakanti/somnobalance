@@ -181,7 +181,17 @@
     "shippingReturns": "Versand & Rückgabe",
     "youMightAlsoLike": "Das könnte Ihnen auch gefallen",
     "ritualCompanions": "Ritual-Begleiter",
-    "rollOnGalleryTagline": "Ein kleines Ritual für ruhigere Abende.",
+    "rollOnGalleryTagline": "Zeitlose Pflege.\nTiefere Ruhe.",
+    "howToUseEyebrow": "Anwendung",
+    "howToUseTitle": "Teil Ihrer\nRoutine.",
+    "howToUseNote": "Mehrmals täglich\nnach Bedarf\nanwenden.",
+    "howToUseSteps": ["Handgelenke", "Schläfen", "Nacken", "Fußsohlen"],
+    "productDetailsEyebrow": "Produktdetails",
+    "closingTagline": "Ein kleines Ritual.\nWo immer Sie sind.",
+    "closingNote": "Ruhe.\nBalance.\nWiederholen.",
+    "soundTitle": "SomnoBalance\nSound",
+    "soundIntro": "Eine ruhige Atmosphäre\nfür Ihren Moment.",
+    "soundQuote": "Ein bisschen mehr Ruhe,\nwo immer Sie sind.",
     "viewAllProducts": "Alle Produkte ansehen",
     "variantNotes": {
       "Two independent firmness zones": "Zwei unabhängige Härtezonen"
