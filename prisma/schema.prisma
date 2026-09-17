@@ -63,6 +63,44 @@ model ContactMessage {
   message String
 }
 
+// B2B wholesale account application — distinct from PartnerApplication
+// below. Wholesale pricing, no commission, no discount links. Backend
+// team: this table only captures submissions; account creation/approval
+// flow (e.g. status transitions, price-list assignment) is not built yet.
+model BusinessApplication {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  status    String   @default("pending") // pending | approved | rejected
+
+  contactName   String
+  email         String
+  phone         String?
+  companyName   String
+  companyType   String // hotel | planning-office | clinic | other
+  propertyCount String?
+  projectStage  String // planning | active | renovation | other
+  message       String?
+}
+
+// Affiliate/referral partner application — distinct from
+// BusinessApplication above. Personal referral link with a 5% customer
+// discount, up to 10% commission for the partner, never wholesale
+// pricing. Backend team: this table only captures submissions; referral
+// link generation and commission tracking are not built yet.
+model PartnerApplication {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  status    String   @default("pending") // pending | approved | rejected
+
+  contactName            String
+  email                  String
+  phone                  String?
+  profession             String // physiotherapist | alternative-practitioner | kinesiologist | massage-therapist | hotel | other
+  practiceOrPropertyName String
+  website                String?
+  message                String?
+}
+
 model User {
   id           String   @id @default(cuid())
   createdAt    DateTime @default(now())

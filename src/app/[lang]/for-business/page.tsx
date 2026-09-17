@@ -1,7 +1,7 @@
-import Link from "next/link";
 import { getDictionary } from "@/i18n/getDictionary";
 import { isLocale, type Locale } from "@/i18n/config";
 import { notFound } from "next/navigation";
+import { BusinessApplicationForm } from "@/components/BusinessApplicationForm";
 
 export const metadata = { title: "For my business — SomnoBalance" };
 
@@ -37,14 +37,14 @@ export default async function ForBusinessPage({ params }: { params: Promise<{ la
               <p className="mt-2 text-sm text-ink/70">{dict.forBusiness.card4Copy}</p>
             </div>
           </div>
-          <div className="mt-10">
-            <Link
-              href={`/${lang}/contact`}
-              className="rounded-full bg-mauve px-6 py-3 text-sm text-white hover:bg-mauve-dark"
-            >
-              {dict.forBusiness.cta}
-            </Link>
-          </div>
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6">
+        <h2 className="font-serif text-2xl text-ink">{dict.applicationForm.businessTitle}</h2>
+        <p className="mt-2 text-ink/70">{dict.applicationForm.businessIntro}</p>
+        <div className="mt-8">
+          <BusinessApplicationForm dict={dict} />
         </div>
       </div>
     </div>

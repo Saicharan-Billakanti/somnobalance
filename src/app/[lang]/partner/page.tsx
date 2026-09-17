@@ -1,7 +1,7 @@
-import Link from "next/link";
 import { getDictionary } from "@/i18n/getDictionary";
 import { isLocale, type Locale } from "@/i18n/config";
 import { notFound } from "next/navigation";
+import { PartnerApplicationForm } from "@/components/PartnerApplicationForm";
 
 export const metadata = { title: "Become a partner — SomnoBalance" };
 
@@ -29,14 +29,14 @@ export default async function PartnerPage({ params }: { params: Promise<{ lang: 
               <p className="mt-2 text-sm text-ink/70">{dict.partner.card2Copy}</p>
             </div>
           </div>
-          <div className="mt-10">
-            <Link
-              href={`/${lang}/contact`}
-              className="rounded-full bg-mauve px-6 py-3 text-sm text-white hover:bg-mauve-dark"
-            >
-              {dict.partner.cta}
-            </Link>
-          </div>
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6">
+        <h2 className="font-serif text-2xl text-ink">{dict.applicationForm.partnerTitle}</h2>
+        <p className="mt-2 text-ink/70">{dict.applicationForm.partnerIntro}</p>
+        <div className="mt-8">
+          <PartnerApplicationForm dict={dict} />
         </div>
       </div>
     </div>
