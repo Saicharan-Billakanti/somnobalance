@@ -18,10 +18,9 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
 
   const nav = [
     { href: `/${lang}/for-me`, label: dict.nav.forMe },
-    { href: `/${lang}/regenerationscheck`, label: dict.nav.regenerationscheck },
+    { href: `/${lang}/shop`, label: dict.nav.shop },
     { href: `/${lang}/for-business`, label: dict.nav.forBusiness },
     { href: `/${lang}/partner`, label: dict.nav.partner },
-    { href: `/${lang}/shop`, label: dict.nav.shop },
     { href: `/${lang}/about`, label: dict.nav.about },
   ];
 
@@ -43,7 +42,7 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
             width={876}
             height={267}
             priority
-            className="h-9 w-auto"
+            className="h-14 w-auto"
           />
         </Link>
 
