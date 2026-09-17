@@ -21,7 +21,8 @@ import { ArrowLeft, ArrowRight, Minus, Pause, Play, Plus, Search, Volume2, type 
 import { Button } from "@/components/lovable/Button";
 import type { Dictionary } from "@/i18n/getDictionary";
 import type { Locale } from "@/i18n/config";
-import type { Product, ProductVariant } from "@/lib/products";
+import Link from "next/link";
+import { products, getProductText, type Product, type ProductVariant } from "@/lib/products";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -71,6 +72,22 @@ export type ProductSystemConfig = {
   soundQuote: [string, string];
   brandCloseTagline: [string, string];
   brandCloseNote: [string, string, string];
+  translations?: {
+    en?: {
+      systemRoleLabel?: string;
+      galleryTagline?: string[];
+      howToUseEyebrow?: string;
+      howToUseTitle?: string[];
+      howToUseSteps?: string[];
+      howToUseNote?: string[];
+      nextCompanionLabel?: string;
+      soundTitle?: [string, string];
+      soundIntro?: [string, string];
+      soundQuote?: [string, string];
+      brandCloseTagline?: [string, string];
+      brandCloseNote?: [string, string, string];
+    };
+  };
 };
 
 export function ProductSystemPage({
@@ -90,6 +107,9 @@ export function ProductSystemPage({
   const SOUND_DURATION = 120;
 
   const [quantity, setQuantity] = useState(1);
+  const [active, setActive] = useState(0);
+  const gallery = [product.image, product.image, product.image, product.image];
+  const moveGallery = (step: number) => setActive((current) => (current + step + gallery.length) % gallery.length);
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant | undefined>(product.variants?.[0]);
   const [added, setAdded] = useState(false);
   const [playing, setPlaying] = useState(false);
@@ -138,6 +158,9 @@ export function ProductSystemPage({
   const [before, after] = dict.shop.withdrawalNote.split("{link}");
   const price = selectedVariant ? selectedVariant.price : (product.price ?? 0);
 
+  const t = (lang === "en" && config.translations?.en) ? config.translations.en : {};
+  const c = { ...config, ...t };
+
   return (
     <div
       className={`${cormorant.variable} ${manrope.variable} bg-lovable-background text-lovable-foreground`}
@@ -146,9 +169,9 @@ export function ProductSystemPage({
       <section className="mx-auto grid max-w-[1500px] gap-8 px-5 pb-10 pt-10 md:px-10 lg:grid-cols-[1.45fr_1fr_0.55fr] lg:px-16">
         <div className="min-w-0">
           <div className="relative aspect-square overflow-hidden rounded-md bg-lovable-muted">
-            <Image src={product.image} alt={text.name} width={1200} height={1200} className="h-full w-full object-cover" />
+            <Image src={gallery[active]} alt={text.name} width={1200} height={1200} className="h-full w-full object-cover" />
             <div className="absolute bottom-10 left-10 hidden text-[11px] uppercase leading-[2] tracking-[0.25em] text-lovable-primary md:block">
-              {config.galleryTagline.map((line, i) => (
+              {c.galleryTagline.map((line, i) => (
                 <span key={i}>
                   {line}
                   <br />
@@ -158,18 +181,59 @@ export function ProductSystemPage({
             </div>
             <button
               type="button"
-              disabled
-              aria-label="Zoom (coming soon)"
-              className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-white text-lovable-foreground shadow transition hover:bg-lovable-muted"
+              onClick={() => moveGallery(-1)}
+              aria-label="Previous image"
+              className="absolute left-4 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 text-lovable-foreground shadow transition hover:bg-white"
             >
-              <Search className="size-4" />
+              <ArrowLeft className="size-4" />
             </button>
+            <button
+              type="button"
+              onClick={() => moveGallery(1)}
+              aria-label="Next image"
+              className="absolute right-4 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 text-lovable-foreground shadow transition hover:bg-white"
+            >
+              <ArrowRight className="size-4" />
+            </button>
+
+          </div>
+          <div className="mt-4 flex items-center gap-3">
+            <Button
+              variant="outline"
+              className="size-10 shrink-0 rounded-full px-0"
+              onClick={() => moveGallery(-1)}
+              aria-label="Previous image"
+            >
+              <ArrowLeft className="size-4" />
+            </Button>
+            <div className="grid min-w-0 flex-1 grid-cols-4 gap-3">
+              {gallery.map((image, index) => (
+                <button
+                  key={index}
+                  onClick={() => setActive(index)}
+                  aria-label={`View product image ${index + 1}`}
+                  className={`aspect-square overflow-hidden rounded-sm border bg-lovable-muted transition-colors ${
+                    active === index ? "border-lovable-primary" : "border-transparent"
+                  }`}
+                >
+                  <Image src={image} alt="" width={300} height={300} className="h-full w-full object-cover" />
+                </button>
+              ))}
+            </div>
+            <Button
+              variant="outline"
+              className="size-10 shrink-0 rounded-full px-0"
+              onClick={() => moveGallery(1)}
+              aria-label="Next image"
+            >
+              <ArrowRight className="size-4" />
+            </Button>
           </div>
         </div>
 
         <div className="py-2 lg:py-4">
           <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
-            {config.systemRoleLabel}
+            {c.systemRoleLabel}
           </p>
           <h1 className="mt-5 font-sans text-4xl font-medium leading-none md:text-5xl">{text.name}</h1>
           <p className="mt-3 max-w-md font-lovable-serif text-xl leading-tight text-lovable-muted-foreground">
@@ -248,15 +312,11 @@ export function ProductSystemPage({
         </div>
 
         <aside className="relative self-start rounded-md border border-lovable-border bg-lovable-card px-6 py-8 lg:min-h-[530px]">
-          <h2 className="font-lovable-serif text-xl">
-            {config.soundTitle[0]}
-            <br />
-            {config.soundTitle[1]}
+          <h2 className="font-lovable-serif text-xl whitespace-pre-line">
+            {dict.shop.soundTitle}
           </h2>
-          <p className="mt-2 text-[10px] leading-5 text-lovable-muted-foreground">
-            {config.soundIntro[0]}
-            <br />
-            {config.soundIntro[1]}
+          <p className="mt-2 text-[10px] leading-5 text-lovable-muted-foreground whitespace-pre-line">
+            {dict.shop.soundIntro}
           </p>
           <Button
             variant="ghost"
@@ -279,10 +339,8 @@ export function ProductSystemPage({
             {formatTime(elapsed)} / {formatTime(duration)}
           </p>
           <div className="my-10 h-px w-9 bg-lovable-border" />
-          <p className="rotate-[-7deg] text-center font-lovable-serif text-2xl italic leading-tight text-lovable-primary/60">
-            {config.soundQuote[0]}
-            <br />
-            {config.soundQuote[1]}
+          <p className="rotate-[-7deg] text-center font-lovable-serif text-2xl italic leading-tight text-lovable-primary/60 whitespace-pre-line">
+            {dict.shop.soundQuote}
           </p>
           <div ref={spotifyMountRef} className="absolute h-px w-px overflow-hidden opacity-0" aria-hidden="true" />
         </aside>
@@ -292,21 +350,21 @@ export function ProductSystemPage({
         <div className="mx-auto grid max-w-[1500px] items-center gap-8 px-5 md:px-10 lg:grid-cols-[280px_1fr_180px] lg:px-16">
           <div>
             <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
-              {config.howToUseEyebrow}
+              {c.howToUseEyebrow}
             </p>
             <span className="mt-4 block h-px w-8 bg-lovable-primary" />
             <h2 className="mt-8 font-lovable-serif text-3xl leading-tight md:text-4xl">
-              {config.howToUseTitle[0]}
+              {c.howToUseTitle[0]}
               <br />
-              {config.howToUseTitle[1]}
+              {c.howToUseTitle[1]}
             </h2>
           </div>
           <div>
-            <div className="aspect-[2.15/1] overflow-hidden">
+            <div className="w-full overflow-hidden">
               {config.howToUseImage ? (
-                <Image src={config.howToUseImage} alt="" width={1600} height={720} className="h-full w-full object-cover" />
+                <Image src={config.howToUseImage} alt="" width={1600} height={720} className="h-auto w-full object-contain" />
               ) : (
-                <div className="flex h-full w-full items-center justify-center border border-dashed border-lovable-border bg-lovable-muted text-[10px] uppercase tracking-[0.2em] text-lovable-muted-foreground">
+                <div className="flex aspect-[2.15/1] w-full items-center justify-center border border-dashed border-lovable-border bg-lovable-muted text-[10px] uppercase tracking-[0.2em] text-lovable-muted-foreground">
                   Image coming soon
                 </div>
               )}
@@ -315,15 +373,15 @@ export function ProductSystemPage({
               {config.howToUseSteps.map((step, index) => (
                 <span key={step.label}>
                   <b className="mr-2 font-normal underline underline-offset-8">0{index + 1}</b>
-                  {step.label}
+                  {t.howToUseSteps?.[index] || step.label}
                 </span>
               ))}
             </div>
           </div>
           <p className="border-l border-lovable-border pl-8 font-lovable-serif text-xl leading-tight">
-            {config.howToUseNote[0]}
+            {c.howToUseNote[0]}
             <br />
-            {config.howToUseNote[1]}
+            {c.howToUseNote[1]}
           </p>
         </div>
       </section>
@@ -333,7 +391,7 @@ export function ProductSystemPage({
           <Image src={product.image} alt={text.name} fill className="object-cover" />
         </div>
         <div className="px-7 py-12 md:px-12">
-          <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">Product details</p>
+          <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">{dict.shop.productDetailsEyebrow}</p>
           <span className="mt-4 block h-px w-8 bg-lovable-primary" />
           <ul className="mt-6 space-y-7 text-xs leading-5">
             {text.details.map((d, i) => {
@@ -368,8 +426,37 @@ export function ProductSystemPage({
         <div className="mx-auto max-w-[1500px]">
           <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">System</p>
           <p className="mt-3 max-w-lg font-lovable-serif text-2xl italic leading-snug text-lovable-primary">
-            {config.nextCompanionLabel}
+            {c.nextCompanionLabel}
           </p>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-[1500px] px-5 py-14 md:px-10 lg:px-16 lg:py-20">
+        <h2 className="mb-8 font-lovable-serif text-2xl md:text-3xl">{dict.shop.youMightAlsoLike}</h2>
+        <div className="grid grid-cols-2 gap-5 md:grid-cols-4 lg:gap-8">
+          {products
+            .filter((p) => p.slug !== product.slug)
+            .slice(0, 4)
+            .map((p) => {
+              const pText = getProductText(p, lang);
+              return (
+                <Link key={p.slug} href={`/${lang}/shop/${p.slug}`} className="group block">
+                  <div className="relative mb-4 aspect-[4/5] overflow-hidden rounded-md bg-lovable-muted">
+                    <Image
+                      src={p.image}
+                      alt={pText.name}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                  <h3 className="font-lovable-serif text-lg leading-tight">{pText.name}</h3>
+                  <p className="mt-1 text-xs leading-5 text-lovable-muted-foreground">{pText.tagline}</p>
+                  <div className="mt-3 text-sm font-medium">
+                    {new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(p.price || 0)}
+                  </div>
+                </Link>
+              );
+            })}
         </div>
       </section>
     </div>

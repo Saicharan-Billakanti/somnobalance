@@ -8,6 +8,7 @@ import { useCart } from "@/components/CartProvider";
 import { useAuth } from "@/components/AuthProvider";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/getDictionary";
+import { Package, SlidersHorizontal, Search, Sparkles, BedSingle, Leaf, Flower2, Star, Check, X, ArrowRight } from "lucide-react";
 
 type ShopClientProps = {
   products: Product[];
@@ -96,10 +97,10 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
     onlyFreeShipping;
 
   const categories = [
-    { key: "all", label: lang === "de" ? "Alle Produkte" : "All Products", icon: "✨" },
-    { key: "Sleep", label: dict.shop?.categories?.Sleep || "Sleep", icon: "🛏️" },
-    { key: "Ritual", label: dict.shop?.categories?.Ritual || "Ritual", icon: "🌿" },
-    { key: "Care", label: dict.shop?.categories?.Care || "Care", icon: "💆" },
+    { key: "all", label: lang === "de" ? "Alle Produkte" : "All Products", icon: <Sparkles className="size-4" /> },
+    { key: "Sleep", label: dict.shop?.categories?.Sleep || "Sleep", icon: <BedSingle className="size-4" /> },
+    { key: "Ritual", label: dict.shop?.categories?.Ritual || "Ritual", icon: <Leaf className="size-4" /> },
+    { key: "Care", label: dict.shop?.categories?.Care || "Care", icon: <Flower2 className="size-4" /> },
   ];
 
   const phases = [
@@ -143,8 +144,9 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
           </div>
 
           {/* Quick Stats or Free Shipping Threshold banner */}
-          <div className="rounded-2xl border border-teal/20 bg-teal/5 px-4 py-3 text-xs text-teal-dark font-medium">
-            📦 {lang === "de" ? "Kostenloser DHL-Versand ab 59 €" : "Free DHL Standard Shipping over €59"}
+          <div className="flex items-center gap-2 rounded-2xl border border-teal/20 bg-teal/5 px-4 py-3 text-xs text-teal-dark font-medium">
+            <Package className="size-4" />
+            {lang === "de" ? "Kostenloser DHL-Versand ab 59 €" : "Free DHL Standard Shipping over €59"}
           </div>
         </div>
       </div>
@@ -158,7 +160,7 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
           <div className="sticky top-24 rounded-3xl border border-mauve/15 bg-white p-6 shadow-sm space-y-6">
             <div className="flex items-center justify-between border-b border-mauve/10 pb-3">
               <h3 className="font-serif text-lg font-bold text-ink flex items-center gap-2">
-                <span>🎛️</span> Filters
+                <SlidersHorizontal className="size-4" /> Filters
               </h3>
               {hasActiveFilters && (
                 <button
@@ -183,7 +185,7 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
                   placeholder="e.g. Pillow, Roll-on, Tea..."
                   className="input-field text-xs pl-8"
                 />
-                <span className="absolute left-2.5 top-2.5 text-xs text-ink/40">🔍</span>
+                <Search className="absolute left-2.5 top-2.5 size-4 text-ink/40" />
               </div>
             </div>
 
@@ -241,7 +243,7 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
                       }`}
                     >
                       <span>{ph.label}</span>
-                      {isSelected && <span className="text-mauve-dark">✓</span>}
+                      {isSelected && <Check className="size-4 text-mauve-dark" />}
                     </button>
                   );
                 })}
@@ -293,7 +295,7 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
             {isDualRole ? (
               <div className="rounded-2xl border border-teal/20 bg-teal/5 p-3.5 text-xs text-ink/80">
                 <div className="font-semibold text-teal-dark flex items-center gap-1.5">
-                  <span>⭐</span> Partner Member
+                  <Star className="size-4" /> Partner Member
                 </div>
                 <p className="mt-1 text-[11px] text-ink/60">
                   Earn 15% commission on customer referrals.
@@ -308,7 +310,7 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
             ) : (
               <div className="rounded-2xl border border-mauve/15 bg-sand/40 p-3.5 text-xs text-ink/80">
                 <div className="font-semibold text-ink flex items-center gap-1.5">
-                  <span>✨</span> Healthcare Professional?
+                  <Sparkles className="size-4" /> Healthcare Professional?
                 </div>
                 <p className="mt-1 text-[11px] text-ink/60">
                   Join our verified health partner network and earn 15% on client referrals.
@@ -336,7 +338,7 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
                 onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
                 className="flex items-center gap-1.5 rounded-full border border-mauve/20 bg-sand px-3 py-1.5 text-xs font-semibold text-ink lg:hidden"
               >
-                <span>🎛️</span> Filters
+                <SlidersHorizontal className="size-4" /> Filters
                 {hasActiveFilters && (
                   <span className="h-2 w-2 rounded-full bg-teal" />
                 )}
@@ -370,31 +372,31 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
               {searchQuery && (
                 <span className="inline-flex items-center gap-1 rounded-full bg-sand px-3 py-1 text-xs text-ink">
                   "{searchQuery}"
-                  <button onClick={() => setSearchQuery("")} className="text-ink/50 hover:text-ink">✕</button>
+                  <button onClick={() => setSearchQuery("")} className="text-ink/50 hover:text-ink"><X className="size-3" /></button>
                 </span>
               )}
               {selectedCategory !== "all" && (
                 <span className="inline-flex items-center gap-1 rounded-full bg-teal/15 px-3 py-1 text-xs text-teal-dark font-medium">
                   Category: {selectedCategory}
-                  <button onClick={() => setSelectedCategory("all")} className="hover:text-teal">✕</button>
+                  <button onClick={() => setSelectedCategory("all")} className="hover:text-teal"><X className="size-3" /></button>
                 </span>
               )}
               {selectedPhase !== "all" && (
                 <span className="inline-flex items-center gap-1 rounded-full bg-mauve/15 px-3 py-1 text-xs text-mauve-dark font-medium">
                   Phase: {selectedPhase}
-                  <button onClick={() => setSelectedPhase("all")} className="hover:text-mauve">✕</button>
+                  <button onClick={() => setSelectedPhase("all")} className="hover:text-mauve"><X className="size-3" /></button>
                 </span>
               )}
               {priceRange !== "all" && (
                 <span className="inline-flex items-center gap-1 rounded-full bg-sand px-3 py-1 text-xs text-ink">
                   {priceRange === "under-25" ? "Under €25" : priceRange === "25-100" ? "€25 - €100" : "Over €100"}
-                  <button onClick={() => setPriceRange("all")} className="text-ink/50 hover:text-ink">✕</button>
+                  <button onClick={() => setPriceRange("all")} className="text-ink/50 hover:text-ink"><X className="size-3" /></button>
                 </span>
               )}
               {onlyFreeShipping && (
                 <span className="inline-flex items-center gap-1 rounded-full bg-teal/15 px-3 py-1 text-xs text-teal-dark">
                   Free Shipping
-                  <button onClick={() => setOnlyFreeShipping(false)}>✕</button>
+                  <button onClick={() => setOnlyFreeShipping(false)}><X className="size-3" /></button>
                 </span>
               )}
               <button
@@ -413,9 +415,9 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
                 <h3 className="font-serif text-lg text-ink font-bold">Filter Products</h3>
                 <button
                   onClick={() => setMobileFilterOpen(false)}
-                  className="rounded-full bg-sand p-1 px-2.5 text-xs text-ink"
+                  className="rounded-full bg-sand flex items-center gap-1 p-1 px-2.5 text-xs text-ink"
                 >
-                  ✕ Close
+                  <X className="size-3" /> Close
                 </button>
               </div>
 
@@ -426,7 +428,7 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
                     <button
                       key={cat.key}
                       onClick={() => setSelectedCategory(cat.key)}
-                      className={`rounded-xl p-2 text-xs text-left ${
+                      className={`rounded-xl p-2 text-xs text-left flex items-center gap-2 ${
                         selectedCategory === cat.key ? "bg-teal text-white font-semibold" : "bg-sand/60 text-ink"
                       }`}
                     >
@@ -466,8 +468,8 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
 
           {/* Product Cards Grid */}
           {filteredProducts.length === 0 ? (
-            <div className="rounded-3xl border border-mauve/15 bg-white p-12 text-center">
-              <span className="text-3xl">🌿</span>
+            <div className="rounded-3xl border border-mauve/15 bg-white p-12 text-center flex flex-col items-center">
+              <Leaf className="size-8 text-ink/40" />
               <h3 className="mt-3 font-serif text-xl text-ink">No matching products found</h3>
               <p className="mx-auto mt-2 max-w-sm text-xs text-ink/60">
                 Try adjusting your search query, price ranges, or phase filters.

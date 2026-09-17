@@ -78,7 +78,7 @@ export const products: Product[] = [
       "For external use only; discontinue if skin irritation occurs",
     ],
     phase: "REGULATE",
-    image: "/products/somnobalance-roll-on.jpg",
+    image: "/products/SomnoBalance Roll-on.png",
     specs: { format: "10 ml", type: "Roll-on", usage: "External use" },
     returnPeriodDays: 14,
     refundPolicy: "14-Day Money-Back Guarantee",
@@ -90,7 +90,7 @@ export const products: Product[] = [
     translations: {
       de: {
         name: "SomnoBalance Roll-on",
-        tagline: "Ein Duftmoment zum Mitnehmen — für zu Hause und unterwegs.",
+        tagline: "Dein Duftimpuls für unterwegs und zwischendurch.",
         description:
           "Der SomnoBalance Roll-on verbindet den charakteristischen Duft der Marke mit einer einfachen, gezielten Anwendung. Lavendel, Clementine, Grapefruit, Weihrauch und Patchouli sind in eine Basis aus Sonnenblumen- und Jojobaöl eingebunden und werden direkt auf die Haut aufgetragen — leicht einzubinden in eine persönliche Pause oder ein Ritual, ob zu Hause, auf Reisen oder als Teil der abendlichen Routine.",
         details: [
@@ -122,7 +122,7 @@ export const products: Product[] = [
       "Not for skin application — avoid eye contact, keep out of reach of children",
     ],
     phase: "LET GO",
-    image: "/products/somnobalance-oil-blend.jpg",
+    image: "/products/SomnoBalance Oil Blend.png",
     returnPeriodDays: 14,
     refundPolicy: "14-Day Money-Back Guarantee",
     returnEligible: true,
@@ -131,7 +131,7 @@ export const products: Product[] = [
     translations: {
       de: {
         name: "SomnoBalance Ölmischung",
-        tagline: "Eine reine ätherische Ölmischung für Diffuser und Abendrituale.",
+        tagline: "Dein Duftimpuls für bewusste Regenerations- und Abendmomente.",
         description:
           "Die SomnoBalance Ölmischung vereint Lavendel, Clementine, Grapefruit, Weihrauch und Patchouli zur charakteristischen Duftkomposition der Marke. Wenige Tropfen tragen den SomnoBalance-Duft in den Raum — ein einfacher Teil bewusster Abend- und Ruherituale.",
         details: [
@@ -159,7 +159,7 @@ export const products: Product[] = [
       "Not for consumption or skin application — avoid eye and skin contact",
     ],
     phase: "PREPARE",
-    image: "/products/somnobalance-room-spray.jpg",
+    image: "/products/SomnoBalance Room Spray.png",
     returnPeriodDays: 14,
     refundPolicy: "14-Day Money-Back Guarantee",
     returnEligible: true,
@@ -168,7 +168,7 @@ export const products: Product[] = [
     translations: {
       de: {
         name: "SomnoBalance Raumspray",
-        tagline: "Der SomnoBalance-Duft — für einen durchdachten Raum und Schlafumgebung.",
+        tagline: "Ein Duftimpuls für deinen Raum und bewusste Übergänge.",
         description:
           "Der SomnoBalance Raumspray bringt die Duftkomposition der Marke mit wenigen Sprühstößen in einen Raum — als Teil eines Abendrituals, vor einer bewussten Pause oder beim Übergang von einem aktiven Tag in eine ruhigere Umgebung. Laut Produktetikett formuliert auf Basis von Alkohol, Wasser und einer Mischung ätherischer Öle.",
         details: [
@@ -196,7 +196,7 @@ export const products: Product[] = [
       "Store dry, away from heat",
     ],
     phase: "LET GO",
-    image: "/products/somnobalance-regeneration-tea.jpg",
+    image: "/products/SomnoBalance Regeneration Tea.png",
     returnPeriodDays: 14,
     refundPolicy: "14-Day Money-Back Guarantee",
     returnEligible: true,
@@ -205,7 +205,7 @@ export const products: Product[] = [
     translations: {
       de: {
         name: "SomnoBalance Regenerationstee",
-        tagline: "Eine Kräuter- und Gewürzmischung für einen bewussten Moment der Ruhe.",
+        tagline: "Eine warme Begleitung für ruhigere Abendmomente.",
         description:
           "Der SomnoBalance Regenerationstee vereint ausgewählte Kräuter, Blüten, Früchte und Gewürze zu einer fein abgestimmten Mischung. Melisse und Orangenblüte treffen auf süße Brombeer- und Himbeerblätter, abgerundet mit Süßholzwurzel, Kardamom, Fenchel und Anis — ein warmer Begleiter für bewusste Pausen, am Abend oder in ruhigen Momenten des Tages.",
         details: [
@@ -240,7 +240,7 @@ export const products: Product[] = [
     translations: {
       de: {
         name: "SomnoBalance Regenerationskarten",
-        tagline: "13 Regenerationspunkte und 10 passende Rituale für den Alltag.",
+        tagline: "Regenerationspunkte und Rituale für deinen Alltag.",
         description:
           "Die SomnoBalance Regenerationskarten machen die SomnoBalance-Methode Schritt für Schritt anwendbar. Das Set besteht aus 13 Regenerationspunkt-Karten und 10 Regenerationsritual-Karten. Die Punktkarten zeigen ausgewählte Punkte am Körper mit Lage, Illustration und Anleitung; die Ritualkarten kombinieren mehrere Punkte zu festen Abfolgen für unterschiedliche Alltagssituationen — darunter Ruhe finden, Gut schlafen, Neue Kraft sammeln, Innere Balance, Gefühle loslassen, Gedanken loslassen, Innere Standfestigkeit finden, Klarheit gewinnen, Den Tag leichter gestalten und Regeneration aktivieren.",
         details: [
@@ -278,7 +278,7 @@ export const products: Product[] = [
     translations: {
       de: {
         name: "SomnoBalance Nackenstützkissen",
-        tagline: "Höhenverstellbare Stütze, geformt für individuellen Komfort.",
+        tagline: "Für eine Schlafumgebung, die Regeneration auch in der Nacht unterstützt.",
         description:
           "Das SomnoBalance Nackenstützkissen verbindet eine ergonomische Form mit individuell einstellbarer Höhe. Der offenporige Air-Memory-Schaumstoffkern sorgt für angenehme Belüftung, und zwei integrierte Einlegeplatten ermöglichen insgesamt sechs Höheneinstellungen — so lässt sich das Kissen an unterschiedliche Körpertypen und Schlafpositionen anpassen. Mit rund 30 × 60 cm bleibt es kompakt; der Bezug ist abnehmbar und bei 30 °C waschbar, der Schaumstoffkern kann von Hand schonend gewaschen werden.",
         details: [
@@ -332,7 +332,7 @@ export const products: Product[] = [
     translations: {
       de: {
         name: "SomnoBalance Matratze",
-        tagline: "Eine wendbare 7-Zonen-Taschenfederkernmatratze mit zwei Härtegraden.",
+        tagline: "Regeneration endet nicht mit dem Abendritual.",
         description:
           "Die SomnoBalance Matratze verbindet einen 7-Zonen-Taschenfederkern mit einem wendbaren Kern und integriertem Viscogel-Topper. Der Federkern — rund 500 Federn bei 100 × 200 cm — ist beidseitig mit ca. 3 cm hochwertigem Kaltschaum (RG 40) bezogen. Der Kern lässt sich wenden und bietet so zwei Härtegrade in einer Matratze: H2/H3 auf einer Seite, H3/H4 auf der anderen. Ein ca. 4 cm starker Topper aus druckentlastendem Viscogel (RG 50) liegt darüber, veredelt mit dem Bezugsstoff Vitalize®. Ein vierseitiger Reißverschluss ermöglicht das Abnehmen des oberen Bezugsteils für den Zugang zum Kern, vier eingestickte Griffe erleichtern das Wenden und Anpassen der Härte. Ab 160 cm Breite kommen zwei getrennte Kerne unter einem durchgehenden Topper und Bezug zum Einsatz, sodass jede Bettseite unabhängig eingestellt werden kann.",
         details: [
@@ -375,7 +375,7 @@ export const products: Product[] = [
     translations: {
       de: {
         name: "SomnoBalance Starter-Set",
-        tagline: "Roll-on, Ölmischung, Kartenset und ein gedruckter 21-Tage-Guide — zusammen.",
+        tagline: "Dein Einstieg in einen Regenerationsweg vom aktiven Tag bis in die Nacht.",
         description:
           "Das SomnoBalance Starter-Set vereint den Roll-on, die Ölmischung und die Regenerationskarten mit einem gedruckten 21-Tage-Guide — ein Einstieg in das gesamte SomnoBalance-Ritual, von der aktuellen Phase bis zum passenden Duft und Punkt.",
         details: [
@@ -389,34 +389,37 @@ export const products: Product[] = [
     },
   },
   {
-    slug: "test-product",
-    name: "Test Product",
-    category: "Ritual",
-    price: 0.5,
-    shippingIncluded: true,
-    tagline: "Test product for payment processing (€0.50).",
+    slug: "somnobalance-regeneration-bed",
+    name: "SomnoBalance Regenerationsbett",
+    category: "Sleep",
+    price: 4995,
+    tagline: "The night as part of your regeneration — a premium sleep environment designed to complete your SomnoBalance journey.",
     description:
-      "A €0.50 test product for testing payment gateway integrations, checkout flows, and Stripe processing (Stripe minimum charge for EUR is €0.50).",
+      "Regulation and rituals prepare the transition. The sleep environment takes over during the night. The SomnoBalance Regenerationsbett brings together comfort, craftsmanship and a carefully considered sleep environment as the spatial completion of the SomnoBalance regeneration journey.",
     details: [
-      "Test amount: €0.50 (Stripe EUR minimum charge)",
-      "Free shipping / Shipping included",
-      "Created for payment gateway testing and verification",
+      "Comfort: A premium sleep environment designed around individual comfort and sleeping preferences.",
+      "Construction: Details of the bed construction, base system and mattress integration should be added from the confirmed product specification.",
+      "Configuration: Available configurations, dimensions, upholstery/fabric options and other selectable elements should be listed here.",
+      "Materials: Add the confirmed materials, fabrics, wood elements and upholstery specifications.",
+      "Individual consultation: The bed is a consultation-led product, individually manufactured with personal sleep consultation.",
     ],
-    phase: "REGULATE",
-    image: "/products/somnobalance-roll-on.jpg",
-    returnPeriodDays: 14,
-    refundPolicy: "14-Day Standard Return Policy",
-    returnEligible: true,
+    phase: "REGENERATE",
+    image: "/products/somnobalance-mattress.jpg",
+    returnPeriodDays: 30,
+    refundPolicy: "Individual Consultation & Custom Order",
+    returnEligible: false,
     translations: {
       de: {
-        name: "Testprodukt",
-        tagline: "Testprodukt zur Überprüfung der Zahlungsabwicklung (0,50 €).",
+        name: "SomnoBalance Regenerationsbett",
+        tagline: "Die Nacht als Teil deiner Regeneration — eine Premium-Schlafumgebung.",
         description:
-          "Ein 0,50 € Testprodukt zum Testen der Payment-Integration, des Checkouts und der Stripe-Zahlungsabwicklung (Stripe Mindestbetrag für EUR ist 0,50 €).",
+          "Regulation und Rituale bereiten den Übergang vor. Die Schlafumgebung übernimmt in der Nacht. Das SomnoBalance Regenerationsbett vereint Komfort, Handwerkskunst und eine sorgfältig durchdachte Schlafumgebung als räumlichen Abschluss der SomnoBalance-Regenerationsreise.",
         details: [
-          "Testbetrag: 0,50 € (Stripe EUR Mindestbetrag)",
-          "Versand inklusive / Kostenloser Versand",
-          "Erstellt für Testzwecke der Zahlungsabwicklung",
+          "Komfort: Eine Premium-Schlafumgebung, die rund um individuellen Komfort und Schlafgewohnheiten entworfen wurde.",
+          "Konstruktion: Details zur Bettkonstruktion, zum Basissystem und zur Matratzenintegration.",
+          "Konfiguration: Verfügbare Konfigurationen, Abmessungen, Polster-/Stoffoptionen und wählbare Elemente.",
+          "Materialien: Bestätigte Materialien, Stoffe, Holzelemente und Polsterspezifikationen.",
+          "Individuelle Beratung: Individuell gefertigte Betten und persönliche Schlafberatung.",
         ],
       },
     },

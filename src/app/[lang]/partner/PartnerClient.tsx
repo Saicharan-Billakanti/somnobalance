@@ -6,6 +6,7 @@ import { formatPrice } from "@/lib/products";
 import { useAuth } from "@/components/AuthProvider";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/getDictionary";
+import { Star, User, Check, Link as LinkIcon, ClipboardList, Ticket, CreditCard, Zap, Banknote, Package } from "lucide-react";
 
 export function PartnerClient({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   const { user } = useAuth();
@@ -173,8 +174,8 @@ export function PartnerClient({ lang, dict }: { lang: Locale; dict: Dictionary }
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="rounded-full bg-teal/15 px-3 py-0.5 text-xs font-semibold text-teal-dark uppercase tracking-wider">
-                    ⭐ Partner ID: {portalData.affiliate.affiliateCode}
+                  <span className="flex items-center gap-1 rounded-full bg-teal/15 px-3 py-0.5 text-xs font-semibold text-teal-dark uppercase tracking-wider">
+                    <Star className="size-3" /> Partner ID: {portalData.affiliate.affiliateCode}
                   </span>
                   <span className="rounded-full bg-emerald-100 px-3 py-0.5 text-xs font-semibold text-emerald-800 uppercase tracking-wider">
                     ● {portalData.affiliate.status || "Active"}
@@ -196,15 +197,15 @@ export function PartnerClient({ lang, dict }: { lang: Locale; dict: Dictionary }
               <div className="flex flex-wrap items-center gap-3">
                 <Link
                   href={`/${lang}/account`}
-                  className="rounded-full bg-white border border-mauve/20 px-5 py-2.5 text-xs font-semibold text-ink/80 hover:bg-sand transition shadow-sm"
+                  className="flex items-center gap-1.5 rounded-full bg-white border border-mauve/20 px-5 py-2.5 text-xs font-semibold text-ink/80 hover:bg-sand transition shadow-sm"
                 >
-                  👤 My Customer Orders
+                  <User className="size-4" /> My Customer Orders
                 </Link>
                 <button
                   onClick={() => copyReferralLink(portalData.affiliate.affiliateCode)}
-                  className="rounded-full bg-teal px-5 py-2.5 text-xs font-semibold text-white hover:bg-teal-dark transition shadow-sm"
+                  className="flex items-center gap-1.5 rounded-full bg-teal px-5 py-2.5 text-xs font-semibold text-white hover:bg-teal-dark transition shadow-sm"
                 >
-                  {copiedLink ? "✓ Referral Link Copied" : "🔗 Copy Primary Referral Link"}
+                  {copiedLink ? <><Check className="size-4" /> Referral Link Copied</> : <><LinkIcon className="size-4" /> Copy Primary Referral Link</>}
                 </button>
               </div>
             </div>
@@ -243,9 +244,9 @@ export function PartnerClient({ lang, dict }: { lang: Locale; dict: Dictionary }
               </div>
               <div className="mt-2 flex items-center justify-between text-[11px] text-ink/60">
                 <span>Threshold: {formatPrice(portalData.metrics?.payoutThreshold || 50)}</span>
-                <span className="font-semibold text-teal-dark">
+                <span className="font-semibold text-teal-dark flex items-center gap-1">
                   {portalData.metrics?.availableBalance >= (portalData.metrics?.payoutThreshold || 50)
-                    ? "✓ Payout Ready"
+                    ? <><Check className="size-3" /> Payout Ready</>
                     : `${formatPrice((portalData.metrics?.payoutThreshold || 50) - (portalData.metrics?.availableBalance || 0))} to threshold`}
                 </span>
               </div>
@@ -262,7 +263,7 @@ export function PartnerClient({ lang, dict }: { lang: Locale; dict: Dictionary }
           {/* 3. All Details About That Affiliate */}
           <div className="rounded-3xl border border-mauve/15 bg-white p-6 shadow-sm sm:p-8">
             <h3 className="font-serif text-xl font-bold text-ink flex items-center gap-2">
-              <span>📋</span> Partner Profile & Business Registration Details
+              <ClipboardList className="size-5 text-teal-dark" /> Partner Profile & Business Registration Details
             </h3>
             <p className="text-xs text-ink/60 mt-1">
               Your registered professional information and commission terms with SomnoBalance.
@@ -331,7 +332,7 @@ export function PartnerClient({ lang, dict }: { lang: Locale; dict: Dictionary }
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div>
                 <h3 className="font-serif text-xl font-bold text-ink flex items-center gap-2">
-                  <span>🎟️</span> Active Coupons On Your Account ({(portalData.coupons || []).length})
+                  <Ticket className="size-5 text-teal-dark" /> Active Coupons On Your Account ({(portalData.coupons || []).length})
                 </h3>
                 <p className="text-xs text-ink/60 mt-1">
                   Share these codes with your clients and patients. They receive an exclusive discount and you earn commission.
@@ -339,8 +340,8 @@ export function PartnerClient({ lang, dict }: { lang: Locale; dict: Dictionary }
               </div>
 
               <div className="flex items-center gap-2">
-                <span className="rounded-full bg-teal/15 px-3 py-1 text-xs font-semibold text-teal-dark">
-                  Self-Referral Protected ✓
+                <span className="flex items-center gap-1 rounded-full bg-teal/15 px-3 py-1 text-xs font-semibold text-teal-dark">
+                  Self-Referral Protected <Check className="size-3" />
                 </span>
               </div>
             </div>
@@ -373,9 +374,9 @@ export function PartnerClient({ lang, dict }: { lang: Locale; dict: Dictionary }
                         </div>
                         <button
                           onClick={() => copyCodeOnly(coupon.couponCode)}
-                          className="rounded-full bg-white border border-mauve/20 px-3 py-1 text-xs font-semibold text-ink/80 hover:bg-sand transition"
+                          className="flex items-center gap-1 rounded-full bg-white border border-mauve/20 px-3 py-1 text-xs font-semibold text-ink/80 hover:bg-sand transition"
                         >
-                          {isCopied ? "✓ Copied" : "Copy Code"}
+                          {isCopied ? <><Check className="size-3" /> Copied</> : "Copy Code"}
                         </button>
                       </div>
 
@@ -435,7 +436,7 @@ export function PartnerClient({ lang, dict }: { lang: Locale; dict: Dictionary }
             {/* Payout Method Card */}
             <div className="rounded-3xl border border-mauve/15 bg-white p-6 shadow-sm sm:p-8 space-y-4">
               <h3 className="font-serif text-lg font-bold text-ink flex items-center gap-2">
-                <span>💳</span> Stripe Payout Setup
+                <CreditCard className="size-5 text-teal-dark" /> Stripe Payout Setup
               </h3>
               <p className="text-xs text-ink/60">
                 Stripe securely collects your identity and bank details. SomnoBalance never stores your raw bank account information.
@@ -456,8 +457,8 @@ export function PartnerClient({ lang, dict }: { lang: Locale; dict: Dictionary }
                   </div>
                 )}
 
-                <div className="border-t border-teal/15 pt-2 text-[11px] text-teal-dark">
-                  ⚡ <strong>Automated Payouts:</strong> Approved commissions are paid after Stripe enables payouts for your connected account.
+                <div className="border-t border-teal/15 pt-2 text-[11px] text-teal-dark flex items-start gap-1">
+                  <Zap className="size-4 shrink-0" /> <span><strong>Automated Payouts:</strong> Approved commissions are paid after Stripe enables payouts for your connected account.</span>
                 </div>
 
                 <button
@@ -473,7 +474,7 @@ export function PartnerClient({ lang, dict }: { lang: Locale; dict: Dictionary }
                     </>
                   ) : (
                     <>
-                      <span>⚡</span> {portalData.affiliate.stripeAccountId ? "Manage Connected Stripe" : "Connect with Stripe"}
+                      <Zap className="size-4" /> {portalData.affiliate.stripeAccountId ? "Manage Connected Stripe" : "Connect with Stripe"}
                     </>
                   )}
                 </button>
@@ -488,7 +489,7 @@ export function PartnerClient({ lang, dict }: { lang: Locale; dict: Dictionary }
             {/* Payout History Table */}
             <div className="lg:col-span-2 rounded-3xl border border-mauve/15 bg-white p-6 shadow-sm sm:p-8 space-y-4">
               <h3 className="font-serif text-lg font-bold text-ink flex items-center gap-2">
-                <span>💸</span> Payout Disbursement History ({(portalData.payouts || []).length})
+                <Banknote className="size-5 text-teal-dark" /> Payout Disbursement History ({(portalData.payouts || []).length})
               </h3>
 
               {(!portalData.payouts || portalData.payouts.length === 0) ? (
@@ -539,7 +540,7 @@ export function PartnerClient({ lang, dict }: { lang: Locale; dict: Dictionary }
           {/* 6. Recent Referred Commissions */}
           <div className="rounded-3xl border border-mauve/15 bg-white p-6 shadow-sm sm:p-8 space-y-4">
             <h3 className="font-serif text-xl font-bold text-ink flex items-center gap-2">
-              <span>📦</span> Referral Orders & Commission Ledger ({(portalData.commissions || []).length})
+              <Package className="size-5 text-teal-dark" /> Referral Orders & Commission Ledger ({(portalData.commissions || []).length})
             </h3>
 
             {(!portalData.commissions || portalData.commissions.length === 0) ? (
@@ -670,9 +671,9 @@ export function PartnerClient({ lang, dict }: { lang: Locale; dict: Dictionary }
           {activeTab === "apply" && (
             <div className="mx-auto mt-12 max-w-2xl rounded-3xl border border-mauve/10 bg-white/80 p-8 shadow-sm sm:p-10 animate-fade-in">
               {formSuccess ? (
-                <div className="py-8 text-center">
-                  <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-teal/20 text-2xl text-teal-dark">
-                    ✓
+                <div className="py-8 text-center flex flex-col items-center">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-teal/20 text-teal-dark">
+                    <Check className="size-6" />
                   </div>
                   <h3 className="mt-4 font-serif text-2xl text-ink">
                     {dict.partner.form?.successTitle || "Application Received!"}
