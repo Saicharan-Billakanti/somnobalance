@@ -318,7 +318,7 @@ export function RollOnPdp({
         </aside>
       </section>
 
-      <section className="border-y border-lovable-border bg-lovable-secondary/35 py-8">
+      <section className="bg-gradient-to-b from-lovable-background via-lovable-secondary/30 to-lovable-background py-14 lg:py-20">
         <div className="mx-auto grid max-w-[1500px] items-center gap-8 px-5 md:px-10 lg:grid-cols-[280px_1fr_180px] lg:px-16">
           <div>
             <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">How to use</p>
@@ -358,8 +358,8 @@ export function RollOnPdp({
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-[1500px] lg:grid-cols-[0.9fr_1.05fr_0.75fr]">
-        <div className="relative min-h-[520px]">
+      <section className="mx-auto grid max-w-[1500px] gap-8 px-5 py-14 md:px-10 lg:grid-cols-[0.9fr_1.05fr_0.75fr] lg:gap-0 lg:px-16 lg:py-20">
+        <div className="relative min-h-[520px] overflow-hidden rounded-md">
           <Image
             src="/products/pdp-roll-on-details.jpg"
             alt="SomnoBalance roll-on with dried flowers"
@@ -367,7 +367,7 @@ export function RollOnPdp({
             className="object-cover"
           />
         </div>
-        <div className="px-7 py-12 md:px-12">
+        <div className="px-2 py-4 md:px-8 lg:px-12 lg:py-12">
           <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">Product details</p>
           <span className="mt-4 block h-px w-8 bg-lovable-primary" />
           <ul className="mt-6 space-y-7 text-xs leading-5">
@@ -407,7 +407,7 @@ export function RollOnPdp({
             </li>
           </ul>
         </div>
-        <div className="border-l border-lovable-border px-7 py-12">
+        <div className="px-2 py-4 md:px-8 lg:border-l lg:border-lovable-border/60 lg:px-7 lg:py-12">
           <div className="rounded-md border border-lovable-border bg-lovable-card p-6">
             <p className="text-[9px] uppercase tracking-[0.18em]">Ingredients (INCI)</p>
             <p className="mt-5 text-[10px] leading-5 text-lovable-muted-foreground">
