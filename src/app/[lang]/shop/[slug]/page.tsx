@@ -5,6 +5,8 @@ import { ProductGallery } from "@/components/ProductGallery";
 import { Accordion } from "@/components/Accordion";
 import { ProductSpecRow } from "@/components/ProductSpecRow";
 import { RollOnPdpConnected } from "@/components/lovable/RollOnPdpConnected";
+import { ProductSystemPageConnected } from "@/components/lovable/ProductSystemPageConnected";
+import { hasProductSystemConfig } from "@/components/lovable/productSystemConfigs";
 import { getDictionary } from "@/i18n/getDictionary";
 import { locales, isLocale, type Locale } from "@/i18n/config";
 
@@ -27,6 +29,10 @@ export default async function ProductPage({
 
   if (product.slug === "somnobalance-roll-on") {
     return <RollOnPdpConnected lang={l} dict={dict} slug={product.slug} />;
+  }
+
+  if (hasProductSystemConfig(product.slug)) {
+    return <ProductSystemPageConnected lang={l} dict={dict} product={product} />;
   }
 
   const [before, after] = dict.shop.withdrawalNote.split("{link}");
