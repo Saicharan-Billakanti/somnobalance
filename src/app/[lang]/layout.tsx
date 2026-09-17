@@ -8,7 +8,6 @@ import { Footer } from "@/components/Footer";
 import { CartProvider } from "@/components/CartProvider";
 import { CookieConsentProvider } from "@/components/CookieConsent";
 import { AuthProvider } from "@/components/AuthProvider";
-import { ClerkProvider } from "@clerk/nextjs";
 import { notFound } from "next/navigation";
 
 const fraunces = Fraunces({
@@ -60,17 +59,15 @@ export default async function LocaleLayout({
   return (
     <html lang={lang} className={`${fraunces.variable} ${inter.variable} h-full`} suppressHydrationWarning>
       <body className="min-h-full flex flex-col font-sans antialiased" suppressHydrationWarning>
-        <ClerkProvider>
-          <AuthProvider>
-            <CookieConsentProvider dict={dict}>
-              <CartProvider>
-                <Header lang={lang as Locale} dict={dict} />
-                <main className="flex-1">{children}</main>
-                <Footer lang={lang as Locale} dict={dict} />
-              </CartProvider>
-            </CookieConsentProvider>
-          </AuthProvider>
-        </ClerkProvider>
+        <AuthProvider>
+          <CookieConsentProvider dict={dict}>
+            <CartProvider>
+              <Header lang={lang as Locale} dict={dict} />
+              <main className="flex-1">{children}</main>
+              <Footer lang={lang as Locale} dict={dict} />
+            </CartProvider>
+          </CookieConsentProvider>
+        </AuthProvider>
       </body>
     </html>
   );

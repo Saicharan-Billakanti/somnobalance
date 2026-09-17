@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useCart } from "@/components/CartProvider";
 import { useAuth } from "@/components/AuthProvider";
-import { UserButton, useAuth as useClerkAuth } from "@clerk/nextjs";
+import { getSupabaseBrowser } from "@/lib/supabase-browser";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/getDictionary";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
@@ -14,7 +14,6 @@ import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   const { count } = useCart();
   const { user, setUser } = useAuth();
-  const { isSignedIn: isClerkSignedIn } = useClerkAuth();
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
@@ -37,6 +36,8 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   ];
 
   const logout = async () => {
+    const supabase = await getSupabaseBrowser();
+    await supabase.auth.signOut();
     await fetch("/api/auth/logout", { method: "POST" });
     setUser(null);
     setOpen(false);

@@ -112,6 +112,25 @@ model BusinessApplication {
   updatedAt     DateTime @updatedAt
 
   messages      BusinessMessage[]
+  products      BusinessProduct[]
+}
+
+model BusinessProduct {
+  id                  String              @id @default(cuid())
+  applicationId       String
+  application         BusinessApplication @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  name                String
+  description         String?
+  image               String              @default("/products/somnobalance-roll-on.jpg")
+  category            String              @default("Business")
+  retailPrice         Float
+  discountRate        Float               @default(20.0)
+  maxQuantity         Int                 @default(1000)
+  inStock             Boolean             @default(true)
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
+
+  @@index([applicationId])
 }
 
 model BusinessMessage {

@@ -4,29 +4,28 @@ import {
   getBusinessApplicationByEmail,
   getBusinessApplicationById,
   submitBusinessApplication,
+  addCatalogProductToBusiness,
 } from "@/lib/businessService";
+import { getCombinedProducts } from "@/lib/storeService";
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const idParam = searchParams.get("id");
-  const emailParam = searchParams.get("email");
-
-  if (idParam) {
-    const appById = await getBusinessApplicationById(idParam);
-    if (appById) {
-      return NextResponse.json({ application: appById });
-    }
-  }
-
   const user = await getCurrentUser();
-  const targetEmail = emailParam || user?.email;
-
-  if (!targetEmail) {
-    return NextResponse.json({ application: null });
+  if (!user?.email) {
+    return NextResponse.json({ application: null, catalog: await getCombinedProducts() });
   }
 
-  const app = await getBusinessApplicationByEmail(targetEmail);
-  return NextResponse.json({ application: app });
+  const { searchParams } = new URL(request.url);
+  const requestedId = searchParams.get("id");
+  const requestedEmail = searchParams.get("email")?.trim().toLowerCase();
+  const application = requestedId
+    ? await getBusinessApplicationById(requestedId)
+    : await getBusinessApplicationByEmail(requestedEmail || user.email);
+
+  if (application && application.email.toLowerCase() !== user.email.toLowerCase()) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
+  }
+
+  return NextResponse.json({ application, catalog: await getCombinedProducts() });
 }
 
 export async function POST(request: Request) {
@@ -41,6 +40,24 @@ export async function POST(request: Request) {
       { error: "Please log in or sign up before sending a business request so we can keep track of it." },
       { status: 401 }
     );
+  }
+
+  if (body.action === "add_catalog_product") {
+    const application = user.email ? await getBusinessApplicationByEmail(user.email) : null;
+    if (!application || application.status !== "approved") {
+      return NextResponse.json({ error: "Your approved business account is required." }, { status: 403 });
+    }
+    const product = (await getCombinedProducts()).find((item: any) =>
+      item.slug === body.productSlug || item.id === body.productId
+    );
+    if (!product) return NextResponse.json({ error: "Catalog product was not found." }, { status: 404 });
+    const assigned = await addCatalogProductToBusiness({
+      applicationId: application.id,
+      product,
+      discountRate: Number(application.discountRate || 20),
+    });
+    const updated = await getBusinessApplicationById(application.id);
+    return NextResponse.json({ success: true, product: assigned, application: updated });
   }
 
   const { companyName, contactName, email, phone, businessType, vatId, address, city, country, estimatedVolume, notes } = body;

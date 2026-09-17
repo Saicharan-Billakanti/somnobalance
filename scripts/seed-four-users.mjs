@@ -73,6 +73,42 @@ const users = [
   },
 ];
 
+const { data: authUsersPage, error: authUsersError } = await supabase.auth.admin.listUsers({
+  page: 1,
+  perPage: 1000,
+});
+if (authUsersError) throw authUsersError;
+
+for (const user of users) {
+  const existingAuthUser = authUsersPage.users.find(
+    (authUser) => authUser.email?.toLowerCase() === user.email.toLowerCase()
+  );
+
+  if (existingAuthUser) {
+    const { error } = await supabase.auth.admin.updateUserById(existingAuthUser.id, {
+      email_confirm: true,
+      user_metadata: {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        role: user.role,
+      },
+    });
+    if (error) throw error;
+  } else {
+    const { error } = await supabase.auth.admin.createUser({
+      email: user.email,
+      password: password,
+      email_confirm: true,
+      user_metadata: {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        role: user.role,
+      },
+    });
+    if (error) throw error;
+  }
+}
+
 const insertedUsers = [];
 for (const user of users) {
   const { data: existing } = await supabase

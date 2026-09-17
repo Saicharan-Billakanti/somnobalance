@@ -5,6 +5,8 @@ import {
   getAllBusinessApplications,
   updateBusinessAppStatus,
   sendBusinessMessage,
+  createBusinessProduct,
+  deleteBusinessProduct,
 } from "@/lib/businessService";
 
 export async function GET() {
@@ -53,6 +55,30 @@ export async function POST(request: Request) {
       message
     );
     return NextResponse.json({ success: true, message: msg });
+  }
+
+  if (action === "create_product") {
+    const { applicationId, name, description, image, category, retailPrice, discountRate, maxQuantity } = body;
+    if (!applicationId || !name || retailPrice === undefined || discountRate === undefined) {
+      return NextResponse.json({ error: "Business, name, retail price, and discount are required" }, { status: 400 });
+    }
+    const product = await createBusinessProduct({
+      applicationId,
+      name,
+      description,
+      image,
+      category,
+      retailPrice: Number(retailPrice),
+      discountRate: Number(discountRate),
+      maxQuantity: Number(maxQuantity || 1000),
+    });
+    return NextResponse.json({ success: true, product });
+  }
+
+  if (action === "delete_product") {
+    if (!body.productId) return NextResponse.json({ error: "Product id is required" }, { status: 400 });
+    await deleteBusinessProduct(body.productId);
+    return NextResponse.json({ success: true });
   }
 
   return NextResponse.json({ error: "Unknown action" }, { status: 400 });

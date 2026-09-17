@@ -427,6 +427,10 @@ export async function createAffiliatePayout(data: {
       throw new Error("Stripe is not configured. Please set STRIPE_SECRET_KEY in Cloudflare secrets.");
     }
     const stripe = getStripe();
+    const connectedAccount = await stripe.accounts.retrieve(destAccountId);
+    if (!connectedAccount.details_submitted || !connectedAccount.payouts_enabled) {
+      throw new Error("Partner must complete Stripe onboarding before a payout can be sent.");
+    }
     const transfer = await stripe.transfers.create({
       amount: Math.round(Number(data.amount) * 100),
       currency: "eur",

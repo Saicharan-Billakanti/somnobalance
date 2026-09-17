@@ -82,6 +82,10 @@ export function ForBusinessClient({
   // Portal & Edit Mode State
   const [isEditingDetails, setIsEditingDetails] = useState(false);
   const [savingDetails, setSavingDetails] = useState(false);
+  const [businessQuantities, setBusinessQuantities] = useState<Record<string, number>>({});
+  const [catalogProducts, setCatalogProducts] = useState<any[]>([]);
+  const [addingCatalogProduct, setAddingCatalogProduct] = useState<string | null>(null);
+  const [catalogError, setCatalogError] = useState<string | null>(null);
 
   // Messaging state
   const [chatMessage, setChatMessage] = useState("");
@@ -109,6 +113,9 @@ export function ForBusinessClient({
       fetch(url)
         .then((res) => res.json())
         .then((data) => {
+          if (Array.isArray(data.catalog)) {
+            setCatalogProducts(data.catalog);
+          }
           if (data.application) {
             setApp(data.application);
             if (data.application.id) {
@@ -123,6 +130,19 @@ export function ForBusinessClient({
         .catch(() => {});
     }
   }, [user, app]);
+
+  useEffect(() => {
+    if (!app?.id) return;
+
+    fetch(`/api/business/application?id=${encodeURIComponent(app.id)}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data.catalog)) {
+          setCatalogProducts(data.catalog);
+        }
+      })
+      .catch(() => {});
+  }, [app?.id]);
 
   // 2. Real-time Live Polling: Auto-refresh application & messages every 4 seconds
   useEffect(() => {
@@ -345,6 +365,51 @@ export function ForBusinessClient({
       console.error(err);
     } finally {
       setSendingMsg(false);
+    }
+  };
+
+  const handleRequestBusinessOrder = () => {
+    const lines = (app.products || [])
+      .map((product: any) => ({ product, quantity: Number(businessQuantities[product.id] || 0) }))
+      .filter(({ quantity }: { quantity: number }) => quantity > 0)
+      .map(({ product, quantity }: { product: any; quantity: number }) => {
+        const unitPrice = Number(product.retailPrice) * (1 - Number(product.discountRate || 0) / 100);
+        return `${product.name}: ${quantity} units at €${unitPrice.toFixed(2)} each`;
+      });
+
+    if (!lines.length) return;
+    handleSendMessage(null as any, `Business order request:\n${lines.join("\n")}`);
+  };
+
+  const handleAddCatalogProduct = async (product: any) => {
+    if (!app?.id || app.status !== "approved") return;
+
+    const productKey = product.slug || product.id || product.name;
+    setAddingCatalogProduct(productKey);
+    setCatalogError(null);
+
+    try {
+      const res = await fetch("/api/business/application", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "add_catalog_product",
+          productSlug: product.slug,
+          productId: product.id,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setCatalogError(data.error || "Unable to add this product to your business catalog.");
+        return;
+      }
+      if (data.application) {
+        setApp(data.application);
+      }
+    } catch {
+      setCatalogError("Network error. Please try again.");
+    } finally {
+      setAddingCatalogProduct(null);
     }
   };
 
@@ -1021,6 +1086,114 @@ export function ForBusinessClient({
                   </button>
                 </div>
               </form>
+            )}
+          </div>
+
+          {app.status === "approved" && (
+            <div className="rounded-3xl border border-mauve/15 bg-white p-6 shadow-sm sm:p-8">
+              <div className="border-b border-mauve/10 pb-4">
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-teal-dark">
+                  Customer catalog
+                </span>
+                <h3 className="font-serif text-2xl text-ink">Add products to your business catalog</h3>
+                <p className="text-xs text-ink/60">
+                  Select any available customer product. Your assigned business discount will be applied.
+                </p>
+              </div>
+              {catalogError && (
+                <p className="mt-4 rounded-xl bg-red-50 p-3 text-xs text-red-700">{catalogError}</p>
+              )}
+              {catalogProducts.length ? (
+                <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {catalogProducts.map((product: any) => {
+                    const productKey = product.slug || product.id || product.name;
+                    const alreadyAdded = (app.products || []).some(
+                      (assigned: any) => assigned.name === product.name
+                    );
+                    const price = Number(product.price || 0);
+                    return (
+                      <div key={productKey} className="rounded-2xl border border-mauve/15 bg-sand/20 p-4">
+                        <img
+                          src={product.image || "/products/somnobalance-roll-on.jpg"}
+                          alt=""
+                          className="h-32 w-full rounded-xl object-cover"
+                        />
+                        <h4 className="mt-3 font-semibold text-ink">{product.name}</h4>
+                        <p className="mt-1 line-clamp-2 text-xs text-ink/60">
+                          {product.description || product.tagline || "SomnoBalance product"}
+                        </p>
+                        <div className="mt-4 flex items-center justify-between gap-3">
+                          <span className="font-serif text-lg font-bold text-teal-dark">
+                            €{price.toFixed(2)}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => handleAddCatalogProduct(product)}
+                            disabled={alreadyAdded || addingCatalogProduct === productKey}
+                            className="rounded-full bg-teal px-4 py-2 text-xs font-semibold text-white hover:bg-teal-dark disabled:cursor-not-allowed disabled:opacity-50"
+                          >
+                            {alreadyAdded
+                              ? "Added"
+                              : addingCatalogProduct === productKey
+                              ? "Adding..."
+                              : "Add product"}
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <p className="mt-6 rounded-2xl bg-sand/30 p-6 text-center text-sm text-ink/60">
+                  No customer products are available yet.
+                </p>
+              )}
+            </div>
+          )}
+
+          {/* Business-only catalog with per-account discounts and quantities */}
+          <div className="rounded-3xl border border-teal/20 bg-white p-6 shadow-sm sm:p-8">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-mauve/10 pb-4">
+              <div>
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-teal-dark">Your business catalog</span>
+                <h3 className="font-serif text-2xl text-ink">Products and quantities</h3>
+                <p className="text-xs text-ink/60">Choose the quantities you need. Your assigned account discount is applied per product.</p>
+              </div>
+              <button type="button" onClick={handleRequestBusinessOrder} className="rounded-full bg-teal px-5 py-2 text-xs font-semibold text-white hover:bg-teal-dark disabled:opacity-50" disabled={!Object.values(businessQuantities).some((quantity) => quantity > 0)}>
+                Request business order
+              </button>
+            </div>
+            {app.products?.length ? (
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                {app.products.map((product: any) => {
+                  const quantity = Number(businessQuantities[product.id] || 0);
+                  const unitPrice = Number(product.retailPrice) * (1 - Number(product.discountRate || 0) / 100);
+                  return (
+                    <div key={product.id} className="rounded-2xl border border-mauve/15 bg-sand/20 p-4">
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <h4 className="font-semibold text-ink">{product.name}</h4>
+                          <p className="mt-1 text-xs text-ink/60">{product.description || "Business product"}</p>
+                        </div>
+                        <span className="rounded-full bg-emerald-100 px-2 py-1 text-[10px] font-bold text-emerald-800">{product.discountRate}% off</span>
+                      </div>
+                      <div className="mt-4 flex items-end justify-between gap-3">
+                        <div>
+                          <span className="text-[10px] text-ink/50 line-through">€{Number(product.retailPrice).toFixed(2)}</span>
+                          <p className="font-serif text-xl font-bold text-teal-dark">€{unitPrice.toFixed(2)} <span className="text-[10px] font-sans font-normal text-ink/50">per unit</span></p>
+                        </div>
+                        <label className="text-right text-[10px] font-semibold uppercase text-ink/50">
+                          Quantity
+                          <input type="number" min={0} max={product.maxQuantity || 1000} value={quantity} onChange={(event) => setBusinessQuantities((current) => ({ ...current, [product.id]: Number(event.target.value) }))} className="input-field mt-1 w-24 text-center text-sm" />
+                        </label>
+                      </div>
+                      <p className="mt-2 text-right text-xs font-semibold text-ink">Subtotal: €{(unitPrice * quantity).toFixed(2)}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <p className="mt-6 rounded-2xl bg-sand/30 p-6 text-center text-sm text-ink/60">Your business products will appear here after the admin assigns them to your account.</p>
             )}
           </div>
 

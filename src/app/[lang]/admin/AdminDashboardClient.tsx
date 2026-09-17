@@ -183,6 +183,12 @@ export function AdminDashboardClient({
 
   // Business Status Update Form State
   const [customDiscount, setCustomDiscount] = useState<Record<string, number>>({});
+  const [businessProductName, setBusinessProductName] = useState("");
+  const [businessProductDescription, setBusinessProductDescription] = useState("");
+  const [businessProductPrice, setBusinessProductPrice] = useState("");
+  const [businessProductDiscount, setBusinessProductDiscount] = useState("20");
+  const [businessProductMaxQty, setBusinessProductMaxQty] = useState("1000");
+  const [savingBusinessProduct, setSavingBusinessProduct] = useState(false);
 
   // Analytics Computations (computed from actual live data)
   const totalRevenue = orders.reduce((sum: number, o: any) => sum + (Number(o.total) || 0), 0);
@@ -355,6 +361,38 @@ export function AdminDashboardClient({
       console.error(err);
     } finally {
       setSendingAdminMsg(false);
+    }
+  };
+
+  const handleCreateBusinessProduct = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedBusiness?.id || !businessProductName.trim()) return;
+    setSavingBusinessProduct(true);
+    try {
+      const res = await fetch("/api/admin/business", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "create_product",
+          applicationId: selectedBusiness.id,
+          name: businessProductName,
+          description: businessProductDescription,
+          retailPrice: Number(businessProductPrice),
+          discountRate: Number(businessProductDiscount),
+          maxQuantity: Number(businessProductMaxQty),
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.product) {
+        setBusinessApps((prev) => prev.map((app) => app.id === selectedBusiness.id
+          ? { ...app, products: [data.product, ...(app.products || [])] }
+          : app));
+        setBusinessProductName("");
+        setBusinessProductDescription("");
+        setBusinessProductPrice("");
+      }
+    } finally {
+      setSavingBusinessProduct(false);
     }
   };
 
@@ -2017,6 +2055,38 @@ export function AdminDashboardClient({
           {/* 2-Way Message Thread Desk */}
           <div className="lg:col-span-5">
             <div className="sticky top-24 rounded-3xl border border-mauve/15 bg-white p-6 shadow-sm space-y-4">
+              <div className="border-b border-mauve/10 pb-4">
+                <span className="text-[10px] uppercase tracking-wider text-teal-dark font-semibold">
+                  Business Catalog
+                </span>
+                <h3 className="font-serif text-xl text-ink">Add product for this business</h3>
+                <p className="text-xs text-ink/50">
+                  This product and discount are visible only to the selected business account.
+                </p>
+                <form onSubmit={handleCreateBusinessProduct} className="mt-4 space-y-2">
+                  <input required value={businessProductName} onChange={(e) => setBusinessProductName(e.target.value)} placeholder="Product name" className="input-field text-xs" />
+                  <input required type="number" min="0" step="0.01" value={businessProductPrice} onChange={(e) => setBusinessProductPrice(e.target.value)} placeholder="Retail price (€)" className="input-field text-xs" />
+                  <textarea value={businessProductDescription} onChange={(e) => setBusinessProductDescription(e.target.value)} placeholder="Business product description" rows={2} className="input-field text-xs" />
+                  <div className="grid grid-cols-2 gap-2">
+                    <input required type="number" min="0" max="100" value={businessProductDiscount} onChange={(e) => setBusinessProductDiscount(e.target.value)} placeholder="Discount %" className="input-field text-xs" />
+                    <input required type="number" min="1" value={businessProductMaxQty} onChange={(e) => setBusinessProductMaxQty(e.target.value)} placeholder="Max quantity" className="input-field text-xs" />
+                  </div>
+                  <button type="submit" disabled={savingBusinessProduct || !selectedBusiness} className="w-full rounded-full bg-teal py-2 text-xs font-semibold text-white disabled:opacity-50">
+                    {savingBusinessProduct ? "Adding..." : selectedBusiness ? `Add to ${selectedBusiness.companyName}` : "Select a business first"}
+                  </button>
+                </form>
+                {selectedBusiness?.products?.length ? (
+                  <div className="mt-4 space-y-1 text-xs text-ink/70">
+                    <p className="font-semibold text-ink">Assigned products</p>
+                    {selectedBusiness.products.map((product: any) => (
+                      <div key={product.id} className="flex justify-between rounded-lg bg-sand/40 px-2 py-1">
+                        <span>{product.name}</span><strong>{product.discountRate}% off</strong>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+
               <div className="border-b border-mauve/10 pb-3">
                 <span className="text-[10px] uppercase tracking-wider text-teal-dark font-semibold">
                   Direct Communication Desk

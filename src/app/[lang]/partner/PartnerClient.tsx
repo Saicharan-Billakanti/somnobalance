@@ -25,8 +25,6 @@ export function PartnerClient({ lang, dict }: { lang: Locale; dict: Dictionary }
   const [copiedCouponCode, setCopiedCouponCode] = useState<string | null>(null);
   const [connectingStripe, setConnectingStripe] = useState(false);
   const [stripeStatusMsg, setStripeStatusMsg] = useState<string | null>(null);
-  const [savingPaymentDetails, setSavingPaymentDetails] = useState(false);
-  const [paymentDetailsMsg, setPaymentDetailsMsg] = useState<string | null>(null);
   const [origin, setOrigin] = useState("");
 
   useEffect(() => {
@@ -71,41 +69,6 @@ export function PartnerClient({ lang, dict }: { lang: Locale; dict: Dictionary }
       setStripeStatusMsg("Network error while connecting Stripe. Please try again.");
     } finally {
       setConnectingStripe(false);
-    }
-  };
-
-  const handleSavePaymentDetails = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (!portalData?.affiliate?.id) return;
-
-    const formData = new FormData(event.currentTarget);
-    setSavingPaymentDetails(true);
-    setPaymentDetailsMsg(null);
-    try {
-      const res = await fetch("/api/partner/connect", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          action: "save_payment_details",
-          affiliateId: portalData.affiliate.id,
-          email: portalData.affiliate.email,
-          paymentMethod: String(formData.get("paymentMethod") || "bank_transfer"),
-          bankName: String(formData.get("bankName") || ""),
-          iban: String(formData.get("iban") || ""),
-          bicSwift: String(formData.get("bicSwift") || ""),
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Could not save payment details.");
-      setPortalData((previous: any) => ({
-        ...previous,
-        affiliate: { ...previous.affiliate, ...data.paymentDetails },
-      }));
-      setPaymentDetailsMsg("Payment details saved.");
-    } catch (error) {
-      setPaymentDetailsMsg(error instanceof Error ? error.message : "Could not save payment details.");
-    } finally {
-      setSavingPaymentDetails(false);
     }
   };
 
@@ -231,13 +194,6 @@ export function PartnerClient({ lang, dict }: { lang: Locale; dict: Dictionary }
               </div>
 
               <div className="flex flex-wrap items-center gap-3">
-                <Link
-                  href={`/${lang}/admin`}
-                  className="rounded-full bg-ink px-5 py-2.5 text-xs font-semibold text-white hover:bg-ink/80 transition shadow-sm flex items-center gap-1.5"
-                >
-                  <span className="h-2 w-2 rounded-full bg-teal" />
-                  🛡️ Admin Hub
-                </Link>
                 <Link
                   href={`/${lang}/account`}
                   className="rounded-full bg-white border border-mauve/20 px-5 py-2.5 text-xs font-semibold text-ink/80 hover:bg-sand transition shadow-sm"
@@ -479,10 +435,10 @@ export function PartnerClient({ lang, dict }: { lang: Locale; dict: Dictionary }
             {/* Payout Method Card */}
             <div className="rounded-3xl border border-mauve/15 bg-white p-6 shadow-sm sm:p-8 space-y-4">
               <h3 className="font-serif text-lg font-bold text-ink flex items-center gap-2">
-                <span>💳</span> Payout Method & Bank Account
+                <span>💳</span> Stripe Payout Setup
               </h3>
               <p className="text-xs text-ink/60">
-                Where your approved commission disbursements are sent automatically.
+                Stripe securely collects your identity and bank details. SomnoBalance never stores your raw bank account information.
               </p>
 
               <div className="rounded-2xl border border-teal/20 bg-teal/5 p-4 space-y-3 text-xs">
@@ -500,61 +456,9 @@ export function PartnerClient({ lang, dict }: { lang: Locale; dict: Dictionary }
                   </div>
                 )}
 
-                {portalData.affiliate.iban && (
-                  <div className="space-y-1">
-                    <span className="text-[10px] text-ink/50 uppercase">Bank Account (SEPA)</span>
-                    <p className="font-medium text-ink">{portalData.affiliate.bankName || "Bank Transfer"}</p>
-                    <p className="font-mono text-xs font-semibold text-ink">
-                      {portalData.affiliate.iban.slice(0, 4)} •••• {portalData.affiliate.iban.slice(-4)}
-                    </p>
-                    {portalData.affiliate.bicSwift && (
-                      <p className="font-mono text-[10px] text-ink/60">BIC: {portalData.affiliate.bicSwift}</p>
-                    )}
-                  </div>
-                )}
-
                 <div className="border-t border-teal/15 pt-2 text-[11px] text-teal-dark">
-                  ⚡ <strong>Automated Payouts:</strong> Disbursements trigger automatically once your balance reaches the <strong>{formatPrice(portalData.affiliate.payoutThreshold || 50)}</strong> threshold.
+                  ⚡ <strong>Automated Payouts:</strong> Approved commissions are paid after Stripe enables payouts for your connected account.
                 </div>
-
-                <form onSubmit={handleSavePaymentDetails} className="space-y-2 border-t border-teal/15 pt-3">
-                  <p className="text-[11px] font-semibold text-ink">Payout payment details</p>
-                  <select
-                    name="paymentMethod"
-                    defaultValue={portalData.affiliate.paymentMethod || "bank_transfer"}
-                    className="w-full rounded-xl border border-mauve/20 bg-white px-3 py-2 text-xs text-ink outline-none focus:border-teal"
-                  >
-                    <option value="bank_transfer">Bank transfer (SEPA)</option>
-                    <option value="stripe_connect">Stripe Connect</option>
-                  </select>
-                  <input
-                    name="bankName"
-                    defaultValue={portalData.affiliate.bankName || ""}
-                    placeholder="Bank name"
-                    className="w-full rounded-xl border border-mauve/20 bg-white px-3 py-2 text-xs text-ink outline-none focus:border-teal"
-                  />
-                  <input
-                    name="iban"
-                    defaultValue={portalData.affiliate.iban || ""}
-                    placeholder="IBAN"
-                    autoComplete="off"
-                    className="w-full rounded-xl border border-mauve/20 bg-white px-3 py-2 text-xs text-ink outline-none focus:border-teal"
-                  />
-                  <input
-                    name="bicSwift"
-                    defaultValue={portalData.affiliate.bicSwift || ""}
-                    placeholder="BIC / SWIFT (optional)"
-                    className="w-full rounded-xl border border-mauve/20 bg-white px-3 py-2 text-xs text-ink outline-none focus:border-teal"
-                  />
-                  <button
-                    type="submit"
-                    disabled={savingPaymentDetails}
-                    className="w-full rounded-full border border-teal px-4 py-2 text-xs font-semibold text-teal-dark hover:bg-teal/10 transition disabled:opacity-50"
-                  >
-                    {savingPaymentDetails ? "Saving payment details..." : "Save payment details"}
-                  </button>
-                  {paymentDetailsMsg && <p className="text-center text-[11px] text-ink/70">{paymentDetailsMsg}</p>}
-                </form>
 
                 <button
                   type="button"

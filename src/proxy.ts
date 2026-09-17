@@ -1,6 +1,6 @@
-import { clerkMiddleware } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { locales, defaultLocale, isLocale } from "@/i18n/config";
+import { updateSupabaseSession } from "@/lib/supabase-middleware";
 
 const LOCALE_COOKIE = "NEXT_LOCALE";
 
@@ -20,7 +20,7 @@ function detectLocale(request: NextRequest): string {
 function localeProxy(request: NextRequest): NextResponse | undefined {
   const { pathname } = request.nextUrl;
 
-  if (pathname.startsWith("/api") || pathname.startsWith("/__clerk")) return undefined;
+  if (pathname.startsWith("/api")) return undefined;
 
   const pathnameHasLocale = locales.some(
     (locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`)
@@ -36,15 +36,15 @@ function localeProxy(request: NextRequest): NextResponse | undefined {
 }
 
 // Next.js 16 renamed middleware.ts → proxy.ts and the export to `proxy`
-export const proxy = clerkMiddleware(async (_auth, request) => {
+export async function proxy(request: NextRequest) {
   const redirect = localeProxy(request);
   if (redirect) return redirect;
-});
+  return updateSupabaseSession(request);
+}
 
 export const config = {
   matcher: [
     "/((?!api|_next/static|_next/image|favicon.ico|brand|products|.*\\.(?:png|jpg|jpeg|svg|ico|webp)).*)",
     "/(api|trpc)(.*)",
-    "/__clerk/:path*",
   ],
 };

@@ -72,6 +72,17 @@ export async function getUserById(userId: string): Promise<UserProfile | null> {
   };
 }
 
+export async function getUserByPhone(phone: string): Promise<UserProfile | null> {
+  if (!supabaseConfigured() || !phone) return null;
+  const { data, error } = await getSupabase()
+    .from("User")
+    .select("id")
+    .eq("phone", phone.trim())
+    .maybeSingle();
+  if (error) throw new Error(`Failed to load user: ${error.message}`);
+  return data ? getUserById(data.id) : null;
+}
+
 export async function updateUserProfile(
   userId: string,
   updates: Partial<UserProfile>

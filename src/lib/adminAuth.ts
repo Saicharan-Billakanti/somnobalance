@@ -74,25 +74,7 @@ export async function verifyAdminOrPartnerAccess(adminCookieValue?: string): Pro
       }
     }
 
-    // 1b. Check Clerk authenticated user
-    try {
-      const { currentUser: clerkCurrentUser } = await import("@clerk/nextjs/server");
-      const clerkUser = await clerkCurrentUser();
-      if (clerkUser) {
-        const email = clerkUser.emailAddresses?.[0]?.emailAddress?.toLowerCase();
-        if (email) {
-          if (email === "arunkumar17012006@gmail.com" || clerkUser.publicMetadata?.role === "admin") {
-            return true;
-          }
-          const user = await getUserById(email);
-          if (user && (user.role === "admin" || email === "arunkumar17012006@gmail.com")) {
-            return true;
-          }
-        }
-      }
-    } catch {}
-
-    // 2. If no user session, check direct admin session cookie
+    // If no Supabase user session, check the direct admin session cookie.
     const adminVal = adminCookieValue || cookieStore.get(ADMIN_COOKIE_NAME)?.value;
     if (verifySessionCookieValue(adminVal)) {
       return true;
