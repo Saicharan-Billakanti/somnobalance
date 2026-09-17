@@ -6,7 +6,6 @@ import { getDictionary } from "@/i18n/getDictionary";
 import { isLocale, type Locale } from "@/i18n/config";
 import { notFound } from "next/navigation";
 import { CycleBar } from "@/components/CycleBar";
-import { LotusHero } from "@/components/LotusHero";
 
 export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -46,12 +45,21 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             </div>
           </div>
 
-          <div className="flex flex-col items-center gap-6">
-            <LotusHero />
-            <p className="text-center font-serif text-lg italic leading-snug text-ink/80">
-              {dict.home.heroBadgeLine1} {dict.home.heroBadgeLine2}
-            </p>
-            <div className="rounded-2xl bg-white/90 px-4 py-3 text-center shadow-sm">
+          <div className="relative aspect-[4/5] overflow-hidden rounded-3xl">
+            <Image
+              src="/brand/rollon-styled-stone.jpg"
+              alt=""
+              fill
+              sizes="(min-width: 768px) 50vw, 100vw"
+              priority
+              className="object-cover"
+            />
+            <div className="absolute right-6 top-6 max-w-[9rem] text-right font-serif text-lg italic leading-snug text-white drop-shadow-sm">
+              {dict.home.heroBadgeLine1}
+              <br />
+              {dict.home.heroBadgeLine2}
+            </div>
+            <div className="absolute bottom-6 left-6 rounded-2xl bg-white/90 px-4 py-3">
               <div className="font-serif text-sm text-ink">{dict.home.heroSideTitle}</div>
               <div className="font-serif text-sm text-ink">{dict.home.heroSideSubtitle}</div>
             </div>
