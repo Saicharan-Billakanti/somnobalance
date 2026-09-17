@@ -4,9 +4,6 @@ export type ProductVariant = {
   priceNote?: string;
 };
 
-// Storefront-facing text, one set per locale. Order records, the admin
-// panel, and priceOrderItems() always use the canonical English `name` on
-// Product itself — only what a shopper reads on the site is translated.
 // Short structured facts shown as an icon row on the PDP (format, product
 // type, usage) — short labels, not full sentences. Only set this once the
 // values are confirmed for a product; leave it undefined rather than
@@ -17,6 +14,9 @@ export type ProductSpecs = {
   usage: string;
 };
 
+// Storefront-facing text, one set per locale. Order records, the admin
+// panel, and priceOrderItems() always use the canonical English `name` on
+// Product itself — only what a shopper reads on the site is translated.
 export type ProductTranslation = {
   name: string;
   tagline: string;
@@ -40,12 +40,12 @@ export type Product = {
   ingredients?: string;
   legalNote?: string;
   specs?: ProductSpecs;
-  // True when the listed price already includes shipping (e.g. the
-  // mattress) — such items never contribute to, or benefit from, the
-  // flat-rate/free-shipping threshold applied to the rest of the cart.
   shippingIncluded?: boolean;
-  // German storefront text. English falls back to the top-level fields
-  // above, so `en` never needs to be repeated here.
+  returnPeriodDays?: number;
+  refundPolicy?: string;
+  returnEligible?: boolean;
+  refundRules?: string;
+  maxRetailQuantity?: number;
   translations: { de: ProductTranslation };
 };
 
@@ -80,6 +80,9 @@ export const products: Product[] = [
     phase: "REGULATE",
     image: "/products/somnobalance-roll-on.jpg",
     specs: { format: "10 ml", type: "Roll-on", usage: "External use" },
+    returnPeriodDays: 14,
+    refundPolicy: "14-Day Money-Back Guarantee",
+    returnEligible: true,
     ingredients:
       "Helianthus Annuus Seed Oil, Simmondsia Chinensis Seed Oil, Tocopherol, Lavandula Angustifolia Oil, Citrus Clementina Peel Oil, Citrus Paradisi Peel Oil, Boswellia Sacra Oil, Pogostemon Cablin Oil, D-Limonene, Linalool, Geraniol.",
     legalNote:
@@ -120,6 +123,9 @@ export const products: Product[] = [
     ],
     phase: "LET GO",
     image: "/products/somnobalance-oil-blend.jpg",
+    returnPeriodDays: 14,
+    refundPolicy: "14-Day Money-Back Guarantee",
+    returnEligible: true,
     legalNote:
       "This is a concentrated essential-oil blend, not for direct skin contact. Mandatory hazard and safety declarations must be copied verbatim from the current German product labelling before this page is used for real sales — not yet added here.",
     translations: {
@@ -154,6 +160,9 @@ export const products: Product[] = [
     ],
     phase: "PREPARE",
     image: "/products/somnobalance-room-spray.jpg",
+    returnPeriodDays: 14,
+    refundPolicy: "14-Day Money-Back Guarantee",
+    returnEligible: true,
     legalNote:
       "This product carries hazard labelling (including flammability). The binding German warning and safety text must be copied verbatim from the current product labelling before this page is used for real sales — not yet added here.",
     translations: {
@@ -188,6 +197,9 @@ export const products: Product[] = [
     ],
     phase: "LET GO",
     image: "/products/somnobalance-regeneration-tea.jpg",
+    returnPeriodDays: 14,
+    refundPolicy: "14-Day Money-Back Guarantee",
+    returnEligible: true,
     legalNote:
       "Mandatory food-law disclosures (nutritional information, allergen labelling, best-before format) must be added from the current manufacturer documentation before this page is used for real sales — not yet added here.",
     translations: {
@@ -222,6 +234,9 @@ export const products: Product[] = [
     ],
     phase: "REGULATE",
     image: "/products/somnobalance-regeneration-cards.jpg",
+    returnPeriodDays: 14,
+    refundPolicy: "14-Day Money-Back Guarantee",
+    returnEligible: true,
     translations: {
       de: {
         name: "SomnoBalance Regenerationskarten",
@@ -255,6 +270,9 @@ export const products: Product[] = [
     ],
     phase: "PREPARE",
     image: "/products/somnobalance-neck-pillow.jpg",
+    returnPeriodDays: 30,
+    refundPolicy: "30-Night Sleep Trial & Full Refund Guarantee",
+    returnEligible: true,
     legalNote:
       "The Vitalize® cover fabric is described here only as the manufacturer characterises it (reflecting the body's own far-infrared radiation). Manufacturer claims about microcirculation, sleep or wellbeing are deliberately not presented as proven effects.",
     translations: {
@@ -296,6 +314,9 @@ export const products: Product[] = [
     ],
     phase: "PREPARE",
     image: "/products/somnobalance-mattress.jpg",
+    returnPeriodDays: 100,
+    refundPolicy: "100-Night Risk-Free Sleep Trial & Free Return Pickup",
+    returnEligible: true,
     variants: [
       { label: "80 × 200 cm", price: 1295 },
       { label: "90 × 200 cm", price: 1295 },
@@ -346,6 +367,9 @@ export const products: Product[] = [
     ],
     phase: "REGULATE",
     image: "/products/somnobalance-starter-set.jpg",
+    returnPeriodDays: 30,
+    refundPolicy: "30-Day Money-Back Guarantee",
+    returnEligible: true,
     legalNote:
       "This bundle is referenced in the shipping, returns and about-us policy documents but its retail price was not specified there — the €55 shown is a placeholder only and must be confirmed with SomnoBalance before this page is used for real sales.",
     translations: {
@@ -364,7 +388,54 @@ export const products: Product[] = [
       },
     },
   },
+  {
+    slug: "test-product",
+    name: "Test Product",
+    category: "Ritual",
+    price: 0.5,
+    shippingIncluded: true,
+    tagline: "Test product for payment processing (€0.50).",
+    description:
+      "A €0.50 test product for testing payment gateway integrations, checkout flows, and Stripe processing (Stripe minimum charge for EUR is €0.50).",
+    details: [
+      "Test amount: €0.50 (Stripe EUR minimum charge)",
+      "Free shipping / Shipping included",
+      "Created for payment gateway testing and verification",
+    ],
+    phase: "REGULATE",
+    image: "/products/somnobalance-roll-on.jpg",
+    returnPeriodDays: 14,
+    refundPolicy: "14-Day Standard Return Policy",
+    returnEligible: true,
+    translations: {
+      de: {
+        name: "Testprodukt",
+        tagline: "Testprodukt zur Überprüfung der Zahlungsabwicklung (0,50 €).",
+        description:
+          "Ein 0,50 € Testprodukt zum Testen der Payment-Integration, des Checkouts und der Stripe-Zahlungsabwicklung (Stripe Mindestbetrag für EUR ist 0,50 €).",
+        details: [
+          "Testbetrag: 0,50 € (Stripe EUR Mindestbetrag)",
+          "Versand inklusive / Kostenloser Versand",
+          "Erstellt für Testzwecke der Zahlungsabwicklung",
+        ],
+      },
+    },
+  },
 ];
+
+export function getProductReturnInfo(slug: string) {
+  const prod = getProduct(slug);
+  return {
+    returnPeriodDays: prod?.returnPeriodDays ?? 30,
+    refundPolicy: prod?.refundPolicy ?? "30-Day Money-Back Guarantee",
+    returnEligible: prod?.returnEligible !== false,
+    refundRules:
+      prod?.refundRules ??
+      "Hygienic seal must be intact upon return; items must be in original condition and packaging.",
+    maxRetailQuantity: prod?.maxRetailQuantity ?? 10,
+  };
+}
+
 
 export function getProduct(slug: string) {
   return products.find((p) => p.slug === slug);

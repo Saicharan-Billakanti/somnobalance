@@ -1,9 +1,17 @@
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
 const globalForSupabase = globalThis as unknown as { supabase?: SupabaseClient };
+const globalForOtpSupabase = globalThis as unknown as { otpSupabase?: SupabaseClient };
 
 export function supabaseConfigured() {
   return Boolean(process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY);
+}
+
+export function otpSupabaseConfigured() {
+  return Boolean(
+    process.env.SUPABASE_OTP_URL &&
+      (process.env.SUPABASE_OTP_SERVICE_ROLE_KEY || process.env.SUPABASE_OTP_ANON_KEY)
+  );
 }
 
 // Lazy on purpose, same reasoning as the old getPrisma(): constructing the
@@ -26,5 +34,24 @@ export function getSupabase(): SupabaseClient {
   });
 
   if (process.env.NODE_ENV !== "production") globalForSupabase.supabase = client;
+  return client;
+}
+
+export function getOtpSupabase(): SupabaseClient {
+  if (globalForOtpSupabase.otpSupabase) return globalForOtpSupabase.otpSupabase;
+
+  const url = process.env.SUPABASE_OTP_URL;
+  const key = process.env.SUPABASE_OTP_SERVICE_ROLE_KEY || process.env.SUPABASE_OTP_ANON_KEY;
+  if (!url || !key) {
+    throw new Error(
+      "getOtpSupabase() called without SUPABASE_OTP_URL and either SUPABASE_OTP_SERVICE_ROLE_KEY or SUPABASE_OTP_ANON_KEY set"
+    );
+  }
+
+  const client = createClient(url, key, {
+    auth: { persistSession: false },
+  });
+
+  if (process.env.NODE_ENV !== "production") globalForOtpSupabase.otpSupabase = client;
   return client;
 }

@@ -54,8 +54,17 @@ export default async function ProductPage({
           <p className="mt-4 max-w-sm text-lg text-ink/70">{text.tagline}</p>
 
           <ProductPurchasePanel
-            product={{ slug: product.slug, price: product.price, variants: product.variants }}
+            product={{
+              slug: product.slug,
+              price: product.price,
+              variants: product.variants,
+              returnPeriodDays: product.returnPeriodDays,
+              refundPolicy: product.refundPolicy,
+              refundRules: product.refundRules,
+              maxRetailQuantity: product.maxRetailQuantity,
+            }}
             dict={dict}
+            lang={l}
           />
 
           {text.specs && (

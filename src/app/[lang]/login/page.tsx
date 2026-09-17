@@ -1,11 +1,18 @@
+import { Suspense } from "react";
 import { getDictionary } from "@/i18n/getDictionary";
 import { isLocale, type Locale } from "@/i18n/config";
 import { notFound } from "next/navigation";
 import { LoginClient } from "./LoginClient";
 
+export const dynamic = "force-dynamic";
+
 export default async function LoginPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const dict = await getDictionary(lang as Locale);
-  return <LoginClient lang={lang as Locale} dict={dict} />;
+  return (
+    <Suspense fallback={<div className="p-12 text-center text-sm">Loading...</div>}>
+      <LoginClient lang={lang as Locale} dict={dict} />
+    </Suspense>
+  );
 }

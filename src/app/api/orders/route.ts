@@ -2,8 +2,9 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { getSupabase, supabaseConfigured } from "@/lib/supabase";
 import { getStripe, stripeConfigured } from "@/lib/stripe";
-import { sendNotification } from "@/lib/mailer";
-import { priceOrderItems, computeShipping } from "@/lib/products";
+import { priceOrderItems, computeShipping, getProductReturnInfo } from "@/lib/products";
+import { validateCoupon } from "@/lib/affiliateService";
+import { updateUserProfile, getUserById } from "@/lib/userService";
 
 const orderSchema = z.object({
   firstName: z.string().min(1).max(200),
@@ -12,8 +13,9 @@ const orderSchema = z.object({
   street: z.string().min(1).max(300),
   postalCode: z.string().min(1).max(20),
   city: z.string().min(1).max(200),
-  country: z.string().min(1).max(100),
+  country: z.string().min(1).max(100).default("Germany"),
   lang: z.enum(["de", "en"]).default("de"),
+  couponCode: z.string().max(50).optional().nullable(),
   items: z
     .array(
       z.object({
@@ -26,63 +28,112 @@ const orderSchema = z.object({
 });
 
 export async function POST(request: Request) {
-  const body = await request.json().catch(() => null);
-  const parsed = orderSchema.safeParse(body);
-
-  if (!parsed.success) {
-    return NextResponse.json(
-      { error: "Invalid order data", details: parsed.error.flatten() },
-      { status: 400 }
-    );
-  }
-
-  const data = parsed.data;
-
-  // Re-price every line server-side from the product catalog — never trust
-  // a price sent by the client. Same helper the checkout UI uses for
-  // display, so the two can never disagree.
-  const priced = priceOrderItems(data.items);
-  if ("error" in priced) {
-    return NextResponse.json({ error: priced.error }, { status: 400 });
-  }
-
-  const items = priced.lines.map((l) => ({
-    slug: l.slug,
-    name: l.name,
-    price: l.unitPrice,
-    qty: l.qty,
-  }));
-
-  const subtotal = items.reduce((sum, item) => sum + item.price * item.qty, 0);
-  const shipping = computeShipping(priced.lines);
-  const total = subtotal + shipping;
-
-  // SUPABASE_URL/SUPABASE_SERVICE_ROLE_KEY intentionally unset in some
-  // environments (e.g. before the backend is wired up there). In that case
-  // we accept the order shape but skip persistence, so the checkout flow
-  // keeps working for gateway/courier application reviewers instead of
-  // failing with a 500.
-  if (!supabaseConfigured()) {
-    await sendNotification(
-      "New demo order (not persisted — Supabase not configured)",
-      `${data.firstName} ${data.lastName} <${data.email}>\nTotal: €${total.toFixed(2)}\nItems: ${items
-        .map((i) => `${i.name} x${i.qty}`)
-        .join(", ")}`
-    );
-    return NextResponse.json({
-      id: null,
-      persisted: false,
-      checkoutUrl: null,
-      status: "PENDING_PAYMENT",
-      subtotal,
-      shipping,
-      total,
-    });
-  }
-
-  const orderId = crypto.randomUUID();
-  const supabase = getSupabase();
   try {
+    const body = await request.json().catch(() => null);
+    const parsed = orderSchema.safeParse(body);
+
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: "Invalid order data", details: parsed.error.flatten() },
+        { status: 400 }
+      );
+    }
+
+    const data = parsed.data;
+
+    // Re-price every line server-side from the product catalog
+    const priced = priceOrderItems(data.items);
+    if ("error" in priced) {
+      return NextResponse.json({ error: priced.error }, { status: 400 });
+    }
+
+    const items = priced.lines.map((l) => {
+      const returnInfo = getProductReturnInfo(l.slug);
+      return {
+        slug: l.slug,
+        name: l.name,
+        price: l.unitPrice,
+        qty: l.qty,
+        variant: (l as any).variant,
+        returnPeriodDays: returnInfo.returnPeriodDays,
+        refundPolicy: returnInfo.refundPolicy,
+        refundRules: returnInfo.refundRules,
+        returnEligible: returnInfo.returnEligible,
+      };
+    });
+
+    const maxReturnDays = Math.max(...items.map((i) => i.returnPeriodDays || 14), 14);
+    const primaryRefundPolicy = items.find((i) => (i.returnPeriodDays || 0) === maxReturnDays)?.refundPolicy || "30-Day Money-Back Guarantee";
+    const primaryRefundRules =
+      items.find((i) => (i.returnPeriodDays || 0) === maxReturnDays)?.refundRules ||
+      "Hygienic seal must be intact and unbroken upon return; unsoiled in original packaging.";
+
+    const rawSubtotal = items.reduce((sum, item) => sum + item.price * item.qty, 0);
+
+    // Validate coupon server-side
+    let discountAmount = 0;
+    let discountRate = 0;
+    let appliedCouponCode: string | null = null;
+    let affiliateId: string | null = null;
+    let commissionAmount = 0;
+
+    if (data.couponCode) {
+      try {
+        const couponValidation = await validateCoupon(data.couponCode, rawSubtotal, data.email);
+        if (couponValidation.valid) {
+          discountAmount = couponValidation.discountAmount;
+          discountRate = couponValidation.discountRate;
+          appliedCouponCode = couponValidation.couponCode;
+          affiliateId = couponValidation.affiliateId;
+
+          const commissionBase =
+            couponValidation.commissionBaseType === "original_value"
+              ? rawSubtotal
+              : couponValidation.finalSubtotal;
+          commissionAmount =
+            Math.round(commissionBase * (couponValidation.commissionRate / 100) * 100) / 100;
+        }
+      } catch (couponErr) {
+        console.warn("[orders] Coupon validation non-critical error:", couponErr);
+      }
+    }
+
+    const subtotal = Math.max(0, Math.round((rawSubtotal - discountAmount) * 100) / 100);
+    const shipping = computeShipping(priced.lines);
+    const total = Math.round((subtotal + shipping) * 100) / 100;
+
+    // Generate unique order ID & DHL GoGreen tracking code
+    const orderNum = Math.floor(10000000 + Math.random() * 90000000);
+    const orderId = `ord_sb_${orderNum}`;
+    const trackingNumber = `DHL-DE-${orderNum}DE`;
+    const createdAt = new Date().toISOString();
+
+    // 1. Update user address profile if user exists
+    try {
+      const existingUser = await getUserById(data.email);
+      if (existingUser) {
+        await updateUserProfile(existingUser.id, {
+          firstName: data.firstName,
+          lastName: data.lastName,
+          street: data.street,
+          postalCode: data.postalCode,
+          city: data.city,
+          country: data.country,
+        });
+      }
+    } catch (profileErr) {
+      console.warn("[orders] user profile sync note:", profileErr);
+    }
+
+    // 2. Persist to Supabase before creating checkout.
+    if (!supabaseConfigured()) {
+      return NextResponse.json(
+        { error: "Database is not configured. Orders cannot be accepted." },
+        { status: 503 }
+      );
+    }
+
+    const supabase = getSupabase();
     const { error: orderError } = await supabase.from("Order").insert({
       id: orderId,
       firstName: data.firstName,
@@ -95,10 +146,20 @@ export async function POST(request: Request) {
       subtotal,
       shipping,
       total,
+      couponCode: appliedCouponCode,
+      discountAmount,
+      discountRate,
+      affiliateId,
+      commissionAmount,
+      carrier: "DHL GoGreen",
+      trackingNumber,
     });
-    if (orderError) throw orderError;
 
-    const { error: itemsError } = await supabase.from("OrderItem").insert(
+    if (orderError) {
+      throw new Error(`Failed to save order: ${orderError.message}`);
+    }
+
+    const { error: itemError } = await supabase.from("OrderItem").insert(
       items.map((item) => ({
         id: crypto.randomUUID(),
         orderId,
@@ -108,86 +169,93 @@ export async function POST(request: Request) {
         qty: item.qty,
       }))
     );
-    if (itemsError) {
-      // Not a real transaction across two REST calls — clean up the
-      // now-orphaned Order row rather than leave an order with no items.
-      await supabase.from("Order").delete().eq("id", orderId);
-      throw itemsError;
+
+    if (itemError) {
+      throw new Error(`Failed to save order items: ${itemError.message}`);
     }
-  } catch (err) {
-    console.error("[orders] failed to create order:", err);
-    return NextResponse.json({ error: "Could not save the order. Please try again." }, { status: 500 });
-  }
 
-  // Without Stripe configured, fall back to the existing demo confirmation
-  // (order stays PENDING_PAYMENT forever — same as before this integration).
-  if (!stripeConfigured()) {
-    await sendNotification(
-      `New order ${orderId} (Stripe not configured — no payment collected)`,
-      `${data.firstName} ${data.lastName} <${data.email}>\nTotal: €${total.toFixed(2)}\nItems: ${items
-        .map((i) => `${i.name} x${i.qty}`)
-        .join(", ")}`
-    );
-    return NextResponse.json({
-      id: orderId,
-      persisted: true,
-      checkoutUrl: null,
-      status: "PENDING_PAYMENT",
-      subtotal,
-      shipping,
-      total,
-    });
-  }
+    const origin = request.headers.get("origin") ?? new URL(request.url).origin;
 
-  const origin = request.headers.get("origin") ?? new URL(request.url).origin;
-  try {
-    const stripe = getStripe();
-    const session = await stripe.checkout.sessions.create({
-      mode: "payment",
-      customer_email: data.email,
-      client_reference_id: orderId,
-      payment_method_types: ["card"],
-      line_items: items.map((item) => ({
-        quantity: item.qty,
-        price_data: {
-          currency: "eur",
-          unit_amount: Math.round(item.price * 100),
-          product_data: { name: item.name },
-        },
-      })),
-      shipping_options:
-        shipping > 0
-          ? [
-              {
-                shipping_rate_data: {
-                  type: "fixed_amount",
-                  fixed_amount: { amount: Math.round(shipping * 100), currency: "eur" },
-                  display_name: "Shipping",
-                },
+    // 4. Create Stripe Checkout Session only if Stripe is configured in the runtime environment.
+    if (!stripeConfigured()) {
+      return NextResponse.json(
+        { error: "Stripe is not configured. Please set STRIPE_SECRET_KEY in the runtime environment." },
+        { status: 503 }
+      );
+    }
+
+    try {
+      const stripe = getStripe();
+      const discountMultiplier = rawSubtotal > 0 ? (rawSubtotal - discountAmount) / rawSubtotal : 1;
+
+      const session = await stripe.checkout.sessions.create({
+        mode: "payment",
+        customer_email: data.email,
+        client_reference_id: orderId,
+        line_items: items.map((item) => {
+          const unitAmount = Math.round(item.price * discountMultiplier * 100);
+          return {
+            quantity: item.qty,
+            price_data: {
+              currency: "eur",
+              unit_amount: Math.max(1, unitAmount),
+              product_data: {
+                name: appliedCouponCode ? `${item.name} (${discountRate}% off applied)` : item.name,
               },
-            ]
-          : undefined,
-      success_url: `${origin}/${data.lang}/checkout/success?order=${orderId}`,
-      cancel_url: `${origin}/${data.lang}/checkout/cancel?order=${orderId}`,
-      metadata: { orderId },
-    });
+            },
+          };
+        }),
+        shipping_options:
+          shipping > 0
+            ? [
+                {
+                  shipping_rate_data: {
+                    type: "fixed_amount" as const,
+                    fixed_amount: { amount: Math.round(shipping * 100), currency: "eur" },
+                    display_name: "DHL GoGreen Shipping",
+                  },
+                },
+              ]
+            : undefined,
+        success_url: `${origin}/${data.lang}/checkout/success?order=${orderId}&session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${origin}/${data.lang}/checkout?canceled=true`,
+        metadata: {
+          orderId,
+          couponCode: appliedCouponCode || "",
+          affiliateId: affiliateId || "",
+          subtotal: String(subtotal),
+        },
+      });
 
-    await supabase.from("Order").update({ stripeSessionId: session.id }).eq("id", orderId);
+      const { error: stripeSessionError } = await getSupabase()
+        .from("Order")
+        .update({ stripeSessionId: session.id })
+        .eq("id", orderId);
 
-    return NextResponse.json({
-      id: orderId,
-      persisted: true,
-      checkoutUrl: session.url,
-      status: "PENDING_PAYMENT",
-      subtotal,
-      shipping,
-      total,
-    });
-  } catch (err) {
-    console.error("[orders] failed to create Stripe session:", err);
-    return NextResponse.json(
-      { error: "Could not start payment. Please try again." },
-      { status: 500 }
-    );
+      if (stripeSessionError) {
+        throw new Error(`Failed to save Stripe session: ${stripeSessionError.message}`);
+      }
+
+      return NextResponse.json({
+        id: orderId,
+        persisted: true,
+        checkoutUrl: session.url,
+        status: "PENDING_PAYMENT",
+        subtotal,
+        discountAmount,
+        shipping,
+        total,
+      });
+    } catch (stripeErr: any) {
+      console.error("[orders] Stripe checkout creation error:", stripeErr);
+      return NextResponse.json(
+        { error: stripeErr.message || "Failed to create Stripe Checkout session" },
+        { status: 500 }
+      );
+    }
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Internal order error";
+    console.error("[orders] Unexpected error:", err);
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

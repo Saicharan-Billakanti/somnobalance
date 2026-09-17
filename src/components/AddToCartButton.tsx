@@ -7,12 +7,12 @@ import type { Dictionary } from "@/i18n/getDictionary";
 export function AddToCartButton({
   slug,
   variant,
-  quantity = 1,
+  qty = 1,
   dict,
 }: {
   slug: string;
   variant?: string;
-  quantity?: number;
+  qty?: number;
   dict: Dictionary;
 }) {
   const { add } = useCart();
@@ -21,7 +21,7 @@ export function AddToCartButton({
   return (
     <button
       onClick={() => {
-        add(slug, quantity, variant);
+        add(slug, qty, variant);
         setAdded(true);
         setTimeout(() => setAdded(false), 1800);
       }}

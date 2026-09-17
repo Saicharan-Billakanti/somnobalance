@@ -4,15 +4,12 @@ import bcrypt from "bcryptjs";
 export const SESSION_COOKIE_NAME = "sb_session";
 const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
 export const SESSION_COOKIE_MAX_AGE_SECONDS = SESSION_TTL_MS / 1000;
-
 function getSecret() {
-  const secret = process.env.SESSION_SECRET;
-  if (!secret) throw new Error("SESSION_SECRET not configured");
-  return secret;
+  return process.env.SESSION_SECRET || process.env.JWT_SECRET;
 }
 
 export function sessionAuthConfigured() {
-  return Boolean(process.env.SESSION_SECRET);
+  return Boolean(process.env.SESSION_SECRET || process.env.JWT_SECRET);
 }
 
 export async function hashPassword(password: string) {
@@ -25,6 +22,10 @@ export async function verifyPassword(password: string, hash: string) {
 
 export function createSessionCookieValue(userId: string) {
   const secret = getSecret();
+  if (!secret) {
+    throw new Error("SESSION_SECRET must be configured before creating a user session cookie");
+  }
+
   const expires = Date.now() + SESSION_TTL_MS;
   const payload = `${userId}.${expires}`;
   const sig = crypto.createHmac("sha256", secret).update(payload).digest("hex");
@@ -32,7 +33,7 @@ export function createSessionCookieValue(userId: string) {
 }
 
 export function verifySessionCookieValue(value: string | undefined): string | null {
-  if (!value || !sessionAuthConfigured()) return null;
+  if (!value) return null;
 
   const parts = value.split(".");
   if (parts.length !== 3) return null;
@@ -41,7 +42,9 @@ export function verifySessionCookieValue(value: string | undefined): string | nu
   const expires = Number(expiresStr);
   if (!userId || !Number.isFinite(expires) || Date.now() > expires) return null;
 
-  const secret = process.env.SESSION_SECRET!;
+  const secret = getSecret();
+  if (!secret) return null;
+
   const payload = `${userId}.${expiresStr}`;
   const expected = crypto.createHmac("sha256", secret).update(payload).digest("hex");
 

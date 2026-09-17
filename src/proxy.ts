@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { locales, defaultLocale, isLocale } from "@/i18n/config";
+import { updateSupabaseSession } from "@/lib/supabase-middleware";
 
 const LOCALE_COOKIE = "NEXT_LOCALE";
 
@@ -16,13 +17,15 @@ function detectLocale(request: NextRequest): string {
   return defaultLocale;
 }
 
-export function proxy(request: NextRequest) {
+function localeProxy(request: NextRequest): NextResponse | undefined {
   const { pathname } = request.nextUrl;
+
+  if (pathname.startsWith("/api")) return undefined;
 
   const pathnameHasLocale = locales.some(
     (locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`)
   );
-  if (pathnameHasLocale) return NextResponse.next();
+  if (pathnameHasLocale) return undefined;
 
   const locale = detectLocale(request);
   const url = request.nextUrl.clone();
@@ -32,8 +35,16 @@ export function proxy(request: NextRequest) {
   return response;
 }
 
+// Next.js 16 renamed middleware.ts → proxy.ts and the export to `proxy`
+export async function proxy(request: NextRequest) {
+  const redirect = localeProxy(request);
+  if (redirect) return redirect;
+  return updateSupabaseSession(request);
+}
+
 export const config = {
   matcher: [
     "/((?!api|_next/static|_next/image|favicon.ico|brand|products|.*\\.(?:png|jpg|jpeg|svg|ico|webp)).*)",
+    "/(api|trpc)(.*)",
   ],
 };

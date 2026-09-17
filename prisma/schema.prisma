@@ -39,7 +39,20 @@ model Order {
 
   stripeSessionId String? @unique
 
-  items OrderItem[]
+  // Affiliate & Referral Fields
+  affiliateId      String?
+  affiliate        Affiliate? @relation(fields: [affiliateId], references: [id], onDelete: SetNull)
+  couponCode       String?
+  discountAmount   Float      @default(0)
+  discountRate     Float      @default(0)
+  commissionAmount Float      @default(0)
+  selfReferral     Boolean    @default(false)
+
+  carrier        String? @default("DHL GoGreen")
+  trackingNumber String?
+
+  items             OrderItem[]
+  commissionRecords CommissionRecord[]
 }
 
 model OrderItem {
@@ -63,44 +76,6 @@ model ContactMessage {
   message String
 }
 
-// B2B wholesale account application — distinct from PartnerApplication
-// below. Wholesale pricing, no commission, no discount links. Backend
-// team: this table only captures submissions; account creation/approval
-// flow (e.g. status transitions, price-list assignment) is not built yet.
-model BusinessApplication {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  status    String   @default("pending") // pending | approved | rejected
-
-  contactName   String
-  email         String
-  phone         String?
-  companyName   String
-  companyType   String // hotel | planning-office | clinic | other
-  propertyCount String?
-  projectStage  String // planning | active | renovation | other
-  message       String?
-}
-
-// Affiliate/referral partner application — distinct from
-// BusinessApplication above. Personal referral link with a 5% customer
-// discount, up to 10% commission for the partner, never wholesale
-// pricing. Backend team: this table only captures submissions; referral
-// link generation and commission tracking are not built yet.
-model PartnerApplication {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  status    String   @default("pending") // pending | approved | rejected
-
-  contactName            String
-  email                  String
-  phone                  String?
-  profession             String // physiotherapist | alternative-practitioner | kinesiologist | massage-therapist | hotel | other
-  practiceOrPropertyName String
-  website                String?
-  message                String?
-}
-
 model User {
   id           String   @id @default(cuid())
   createdAt    DateTime @default(now())
@@ -108,4 +83,219 @@ model User {
   passwordHash String
   firstName    String
   lastName     String
+  phone        String?
+  street       String?
+  postalCode   String?
+  city         String?
+  country      String?  @default("Germany")
+  role         String   @default("customer") // customer, affiliate, business, admin
+}
+
+model BusinessApplication {
+  id              String  @id @default(cuid())
+  userId          String?
+  companyName     String
+  contactName     String
+  email           String  @unique
+  phone           String?
+  businessType    String // hotel, spa, clinic, retailer, corporate
+  vatId           String?
+  address         String?
+  city            String?
+  country         String? @default("Germany")
+  estimatedVolume String?
+  status          String  @default("pending") // pending, approved, rejected
+  discountRate    Float   @default(20.0) // Wholesale discount percentage
+  notes           String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  messages BusinessMessage[]
+  products BusinessProduct[]
+}
+
+model BusinessProduct {
+  id            String              @id @default(cuid())
+  applicationId String
+  application   BusinessApplication @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  name          String
+  description   String?
+  image         String              @default("/products/somnobalance-roll-on.jpg")
+  category      String              @default("Business")
+  retailPrice   Float
+  discountRate  Float               @default(20.0)
+  maxQuantity   Int                 @default(1000)
+  inStock       Boolean             @default(true)
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+
+  @@index([applicationId])
+}
+
+model BusinessMessage {
+  id            String              @id @default(cuid())
+  applicationId String
+  application   BusinessApplication @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  senderRole    String // "admin" | "business"
+  senderName    String
+  message       String
+  createdAt     DateTime            @default(now())
+  read          Boolean             @default(false)
+}
+
+model StoreSetting {
+  id                    String   @id @default("default")
+  vatRateStandard       Float    @default(19.0)
+  vatRateReduced        Float    @default(7.0)
+  pricesIncludeTax      Boolean  @default(true)
+  shippingFlatRate      Float    @default(4.90)
+  freeShippingThreshold Float    @default(59.00)
+  deliveryCourier       String   @default("DHL GoGreen")
+  estimatedDeliveryDays String   @default("1-3 Business Days")
+  updatedAt             DateTime @updatedAt
+}
+
+model CustomProduct {
+  id                String   @id @default(cuid())
+  slug              String   @unique
+  name              String
+  category          String   @default("Ritual") // Sleep, Ritual, Care
+  price             Float
+  tagline           String
+  description       String
+  details           Json?
+  ingredients       String?
+  image             String   @default("/products/somnobalance-roll-on.jpg")
+  phase             String   @default("REGULATE")
+  shippingIncluded  Boolean  @default(false)
+  returnPeriodDays  Int      @default(30)
+  refundPolicy      String?
+  returnEligible    Boolean  @default(true)
+  refundRules       String?
+  maxRetailQuantity Int      @default(10)
+  inStock           Boolean  @default(true)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model StaffAccount {
+  id          String    @id @default(cuid())
+  name        String
+  email       String    @unique
+  role        String
+  roleTitle   String
+  department  String?
+  status      String    @default("active")
+  permissions Json      @default("[]")
+  createdAt   DateTime  @default(now())
+  lastLogin   DateTime?
+  updatedAt   DateTime  @updatedAt
+}
+
+model Affiliate {
+  id            String   @id @default(cuid())
+  affiliateCode String   @unique
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  name         String
+  email        String  @unique
+  phone        String?
+  businessName String?
+  businessType String?
+  website      String?
+  country      String?
+  address      String?
+  audienceType String?
+  description  String?
+  status       String  @default("pending") // pending, active, suspended, rejected
+
+  bankName        String?
+  iban            String?
+  bicSwift        String?
+  paymentMethod   String? @default("bank_transfer")
+  stripeAccountId String?
+
+  payoutThreshold       Float @default(50.0)
+  defaultCommissionRate Float @default(10.0)
+
+  orders            Order[]
+  coupons           AffiliateCoupon[]
+  commissionRecords CommissionRecord[]
+  payouts           Payout[]
+  notifications     AffiliateNotification[]
+}
+
+model AffiliateCoupon {
+  id          String    @id @default(cuid())
+  affiliateId String
+  affiliate   Affiliate @relation(fields: [affiliateId], references: [id], onDelete: Cascade)
+
+  couponCode         String @unique // Normalised (UPPERCASE)
+  discountRate       Float // Customer discount percentage (e.g. 10.0)
+  commissionRate     Float // Partner commission percentage (e.g. 15.0)
+  commissionBaseType String @default("discounted_value") // "original_value" or "discounted_value"
+  minimumOrderValue  Float  @default(0)
+  usageLimit         Int?
+  timesUsed          Int    @default(0)
+  status             String @default("active") // active, inactive
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  commissionRecords CommissionRecord[]
+}
+
+model CommissionRecord {
+  id          String           @id @default(cuid())
+  affiliateId String
+  affiliate   Affiliate        @relation(fields: [affiliateId], references: [id], onDelete: Cascade)
+  orderId     String
+  order       Order            @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  couponId    String?
+  coupon      AffiliateCoupon? @relation(fields: [couponId], references: [id], onDelete: SetNull)
+
+  commissionBase   Float
+  commissionRate   Float
+  commissionAmount Float
+  currency         String @default("EUR")
+  status           String @default("pending") // pending, approved, paid, rejected, cancelled, on_hold, reversed
+
+  payoutId String?
+  payout   Payout? @relation(fields: [payoutId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Payout {
+  id          String    @id @default(cuid())
+  affiliateId String
+  affiliate   Affiliate @relation(fields: [affiliateId], references: [id], onDelete: Cascade)
+
+  amount           Float
+  currency         String    @default("EUR")
+  status           String    @default("pending") // pending, paid, rejected
+  paymentMethod    String?   @default("bank_transfer")
+  paymentReference String?
+  paymentDate      DateTime?
+  notes            String?
+  stripeTransferId String?
+
+  commissions CommissionRecord[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AffiliateNotification {
+  id          String    @id @default(cuid())
+  affiliateId String
+  affiliate   Affiliate @relation(fields: [affiliateId], references: [id], onDelete: Cascade)
+
+  type      String // registration, approval, referral_order, commission_approved, payout_paid
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
 }

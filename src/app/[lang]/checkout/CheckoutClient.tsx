@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useCart } from "@/components/CartProvider";
+import { useAuth } from "@/components/AuthProvider";
 import { getProduct, getProductText, getVariant, formatPrice } from "@/lib/products";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/getDictionary";
@@ -10,12 +12,98 @@ import type { Dictionary } from "@/i18n/getDictionary";
 type Placed = { orderId: string | null; persisted: boolean };
 
 export function CheckoutClient({ lang, dict }: { lang: Locale; dict: Dictionary }) {
+  const searchParams = useSearchParams();
+  const initialCoupon = searchParams.get("coupon") || searchParams.get("ref") || "";
+
   const { lines, total, shipping, clear } = useCart();
+  const { user } = useAuth();
   const [placed, setPlaced] = useState<Placed | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const grandTotal = total + shipping;
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    street: "",
+    postalCode: "",
+    city: "",
+  });
+
+  const [couponInput, setCouponInput] = useState(initialCoupon);
+  const [appliedCoupon, setAppliedCoupon] = useState<{
+    code: string;
+    discountRate: number;
+    discountAmount: number;
+    finalSubtotal: number;
+  } | null>(null);
+  const [couponError, setCouponError] = useState<string | null>(null);
+  const [validatingCoupon, setValidatingCoupon] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      setFormData((prev) => ({
+        ...prev,
+        firstName: prev.firstName || user.firstName || "",
+        lastName: prev.lastName || user.lastName || "",
+        email: prev.email || user.email || "",
+      }));
+    }
+  }, [user]);
+
+  const applyCouponCode = async (codeToApply: string) => {
+    const code = codeToApply.trim();
+    if (!code) return;
+    setCouponError(null);
+    setValidatingCoupon(true);
+    try {
+      const res = await fetch("/api/coupons/validate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          couponCode: code,
+          subtotal: total,
+          email: formData.email || user?.email,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setCouponError(data.error || "Invalid coupon code");
+        setAppliedCoupon(null);
+      } else {
+        setAppliedCoupon({
+          code: data.couponCode,
+          discountRate: data.discountRate,
+          discountAmount: data.discountAmount,
+          finalSubtotal: data.finalSubtotal,
+        });
+        setCouponInput(data.couponCode);
+      }
+    } catch {
+      setCouponError("Could not validate coupon");
+    } finally {
+      setValidatingCoupon(false);
+    }
+  };
+
+  useEffect(() => {
+    const code = initialCoupon || (typeof window !== "undefined" ? localStorage.getItem("sb_coupon") || "" : "");
+    if (code && total > 0) {
+      applyCouponCode(code);
+    }
+  }, [initialCoupon, total]);
+
+  const removeCoupon = () => {
+    setAppliedCoupon(null);
+    setCouponInput("");
+    setCouponError(null);
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("sb_coupon");
+    }
+  };
+
+  const finalSubtotal = appliedCoupon ? appliedCoupon.finalSubtotal : total;
+  const grandTotal = finalSubtotal + shipping;
 
   if (placed) {
     return (
@@ -55,7 +143,26 @@ export function CheckoutClient({ lang, dict }: { lang: Locale; dict: Dictionary 
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
-      <h1 className="font-serif text-3xl text-ink">{dict.checkout.title}</h1>
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="font-serif text-3xl text-ink">{dict.checkout.title}</h1>
+        {user ? (
+          <div className="inline-flex items-center gap-2 rounded-full border border-mauve/20 bg-sand/50 px-4 py-1.5 text-xs text-ink/80">
+            <span className="h-2 w-2 rounded-full bg-teal"></span>
+            <span>
+              {(dict.checkout.loggedInAs || "Signed in as {name} ({email})")
+                .replace("{name}", `${user.firstName} ${user.lastName}`.trim() || user.firstName)
+                .replace("{email}", user.email)}
+            </span>
+          </div>
+        ) : (
+          <Link
+            href={`/${lang}/login?redirect=/${lang}/checkout`}
+            className="text-xs text-mauve-dark underline hover:text-mauve"
+          >
+            {dict.auth.alreadyHaveAccount} {dict.auth.loginButton}
+          </Link>
+        )}
+      </div>
 
       <form
         onSubmit={async (e) => {
@@ -63,16 +170,16 @@ export function CheckoutClient({ lang, dict }: { lang: Locale; dict: Dictionary 
           setError(null);
           setSubmitting(true);
 
-          const formData = new FormData(e.currentTarget);
           const payload = {
-            firstName: String(formData.get("firstName") || ""),
-            lastName: String(formData.get("lastName") || ""),
-            email: String(formData.get("email") || ""),
-            street: String(formData.get("street") || ""),
-            postalCode: String(formData.get("postalCode") || ""),
-            city: String(formData.get("city") || ""),
-            country: String(formData.get("country") || ""),
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            email: formData.email,
+            street: formData.street,
+            postalCode: formData.postalCode,
+            city: formData.city,
+            country: "Germany",
             lang,
+            couponCode: appliedCoupon?.code || null,
             items: lines.map((line) => ({
               slug: line.slug,
               qty: line.qty,
@@ -95,8 +202,7 @@ export function CheckoutClient({ lang, dict }: { lang: Locale; dict: Dictionary 
             }
 
             if (data.checkoutUrl) {
-              // Cart is cleared on the Stripe success page once payment is
-              // actually confirmed, not here — the order isn't paid yet.
+              clear();
               window.location.href = data.checkoutUrl;
               return;
             }
@@ -115,23 +221,55 @@ export function CheckoutClient({ lang, dict }: { lang: Locale; dict: Dictionary 
           <section className="rounded-2xl border border-mauve/10 bg-white/50 p-6">
             <h2 className="font-serif text-lg text-ink">{dict.checkout.contactShipping}</h2>
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
-              <input required name="firstName" placeholder={dict.checkout.firstName} className="input-field" />
-              <input required name="lastName" placeholder={dict.checkout.lastName} className="input-field" />
+              <input
+                required
+                name="firstName"
+                value={formData.firstName}
+                onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                placeholder={dict.checkout.firstName}
+                className="input-field"
+              />
+              <input
+                required
+                name="lastName"
+                value={formData.lastName}
+                onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                placeholder={dict.checkout.lastName}
+                className="input-field"
+              />
               <input
                 required
                 name="email"
                 type="email"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 placeholder={dict.checkout.email}
                 className="input-field sm:col-span-2"
               />
               <input
                 required
                 name="street"
+                value={formData.street}
+                onChange={(e) => setFormData({ ...formData, street: e.target.value })}
                 placeholder={dict.checkout.street}
                 className="input-field sm:col-span-2"
               />
-              <input required name="postalCode" placeholder={dict.checkout.postalCode} className="input-field" />
-              <input required name="city" placeholder={dict.checkout.city} className="input-field" />
+              <input
+                required
+                name="postalCode"
+                value={formData.postalCode}
+                onChange={(e) => setFormData({ ...formData, postalCode: e.target.value })}
+                placeholder={dict.checkout.postalCode}
+                className="input-field"
+              />
+              <input
+                required
+                name="city"
+                value={formData.city}
+                onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                placeholder={dict.checkout.city}
+                className="input-field"
+              />
               <input
                 readOnly
                 name="country"
@@ -178,11 +316,58 @@ export function CheckoutClient({ lang, dict }: { lang: Locale; dict: Dictionary 
               );
             })}
           </div>
+
+          {/* Coupon input in checkout */}
+          <div className="mt-4 border-t border-mauve/10 pt-4">
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={couponInput}
+                onChange={(e) => setCouponInput(e.target.value)}
+                placeholder={dict.checkout.promoCode || "Promo / Partner Code"}
+                disabled={Boolean(appliedCoupon)}
+                className="flex-1 uppercase rounded-lg border border-mauve/20 bg-white px-3 py-1.5 text-xs uppercase text-ink placeholder:normal-case placeholder:text-ink/40 focus:outline-none focus:ring-1 focus:ring-mauve"
+              />
+              {appliedCoupon ? (
+                <button
+                  type="button"
+                  onClick={removeCoupon}
+                  className="rounded-lg border border-mauve/30 px-3 py-1.5 text-xs text-mauve-dark hover:bg-sand"
+                >
+                  {dict.checkout.removeCode || "Remove"}
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => applyCouponCode(couponInput)}
+                  disabled={validatingCoupon || !couponInput.trim()}
+                  className="rounded-lg bg-mauve px-3 py-1.5 text-xs text-white hover:bg-mauve-dark disabled:opacity-60"
+                >
+                  {validatingCoupon ? "…" : dict.checkout.applyCode || "Apply"}
+                </button>
+              )}
+            </div>
+            {couponError && <p className="mt-1 text-xs text-red-600">{couponError}</p>}
+            {appliedCoupon && (
+              <p className="mt-1 text-xs font-medium text-teal-dark">
+                ✓ {(dict.checkout.codeApplied || "Coupon {code} applied (-{rate}%)")
+                  .replace("{code}", appliedCoupon.code)
+                  .replace("{rate}", String(appliedCoupon.discountRate))}
+              </p>
+            )}
+          </div>
+
           <div className="mt-4 space-y-2 border-t border-mauve/10 pt-4 text-sm">
             <div className="flex justify-between text-ink/70">
               <span>{dict.checkout.subtotal}</span>
               <span>{formatPrice(total)}</span>
             </div>
+            {appliedCoupon && (
+              <div className="flex justify-between text-teal-dark font-medium">
+                <span>{dict.checkout.discount || "Discount"} (-{appliedCoupon.discountRate}%)</span>
+                <span>-{formatPrice(appliedCoupon.discountAmount)}</span>
+              </div>
+            )}
             <div className="flex justify-between text-ink/70">
               <span>{dict.checkout.shipping}</span>
               <span>{formatPrice(shipping)}</span>

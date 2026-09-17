@@ -45,11 +45,26 @@
     "heroSideSubtitle": "Big change.",
     "cycleLabel": "The SomnoBalance cycle",
     "cycle": [
-      { "name": "DAY", "caption": "Live fully" },
-      { "name": "REGULATE", "caption": "Find balance" },
-      { "name": "LET GO", "caption": "Release gently" },
-      { "name": "PREPARE", "caption": "Create rest" },
-      { "name": "NIGHT", "caption": "Rest deeply" }
+      {
+        "name": "DAY",
+        "caption": "Live fully"
+      },
+      {
+        "name": "REGULATE",
+        "caption": "Find balance"
+      },
+      {
+        "name": "LET GO",
+        "caption": "Release gently"
+      },
+      {
+        "name": "PREPARE",
+        "caption": "Create rest"
+      },
+      {
+        "name": "NIGHT",
+        "caption": "Rest deeply"
+      }
     ],
     "systemEyebrow": "Rhythm for a fuller life.",
     "systemTitle": "A system, not a product",
@@ -58,10 +73,26 @@
     "systemTagline1": "Same day.",
     "systemTagline2": "More you.",
     "phases": [
-      { "name": "REGULATE", "copy": "Settling the nervous system as the day winds down.", "image": "/products/somnobalance-roll-on.jpg" },
-      { "name": "LET GO", "copy": "Releasing tension through scent, warmth, and quiet ritual.", "image": "/products/somnobalance-oil-blend.jpg" },
-      { "name": "PREPARE", "copy": "A sleep environment built to hold you, not just contain you.", "image": "/products/somnobalance-neck-pillow.jpg" },
-      { "name": "REGENERATE", "copy": "Rest as the foundation of quality of life, not a chore to optimise.", "image": "/products/somnobalance-starter-set.jpg" }
+      {
+        "name": "REGULATE",
+        "copy": "Settling the nervous system as the day winds down.",
+        "image": "/products/somnobalance-roll-on.jpg"
+      },
+      {
+        "name": "LET GO",
+        "copy": "Releasing tension through scent, warmth, and quiet ritual.",
+        "image": "/products/somnobalance-oil-blend.jpg"
+      },
+      {
+        "name": "PREPARE",
+        "copy": "A sleep environment built to hold you, not just contain you.",
+        "image": "/products/somnobalance-neck-pillow.jpg"
+      },
+      {
+        "name": "REGENERATE",
+        "copy": "Rest as the foundation of quality of life, not a chore to optimise.",
+        "image": "/products/somnobalance-starter-set.jpg"
+      }
     ],
     "fromShop": "From the shop",
     "viewAll": "View all",
@@ -128,7 +159,70 @@
     "card1Copy": "You recommend SomnoBalance. Your patients, clients, or guests buy through your personal link with a 5% discount. You receive up to 10% commission on every referred sale — clearly tracked and reported.",
     "card2Title": "Aligned tone",
     "card2Copy": "No discount-driven marketing, no pressure tactics — a recommendation that fits your practice or property.",
-    "cta": "Apply to become a partner"
+    "cta": "Apply to become a partner",
+    "card3Title": "Dedicated portal",
+    "card3Copy": "Live dashboard, track clicks, referred orders, commission payouts, and in-app alerts.",
+    "tabs": {
+      "overview": "Overview & Values",
+      "apply": "Partner Application",
+      "portal": "Partner Portal"
+    },
+    "form": {
+      "title": "Partner Application",
+      "subtitle": "Join our verified health and wellness partner network.",
+      "name": "Full Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "businessName": "Practice / Business Name",
+      "businessType": "Field of Practice (e.g. Physiotherapy, Wellness)",
+      "website": "Website / Social Profile",
+      "audienceType": "Client / Patient Focus",
+      "description": "How do you plan to introduce SomnoBalance?",
+      "bankDetailsTitle": "Payout & Banking Details (Optional at registration)",
+      "bankName": "Bank Name",
+      "iban": "IBAN",
+      "bicSwift": "BIC / SWIFT",
+      "submit": "Submit Application",
+      "submitting": "Submitting…",
+      "successTitle": "Application Received!",
+      "successCopy": "Thank you for applying. Our partner team will review your application and activate your custom coupon code within 24–48 hours."
+    },
+    "portal": {
+      "loginTitle": "Partner Portal Login",
+      "loginSubtitle": "Enter your partner email to view your dashboard, coupons, earnings, and payouts.",
+      "emailPlaceholder": "Enter your partner email",
+      "accessButton": "Open Partner Dashboard",
+      "loading": "Loading dashboard…",
+      "greeting": "Welcome back, {name}",
+      "partnerCode": "Partner ID",
+      "status": "Status",
+      "active": "Active",
+      "pending": "Pending Approval",
+      "suspended": "Suspended",
+      "myCoupons": "Your Referral Coupons",
+      "couponCopy": "Share this code with your clients or patients for an exclusive discount:",
+      "referralLink": "Your Referral Link",
+      "copyLink": "Copy link",
+      "copied": "Copied ✓",
+      "metrics": {
+        "orders": "Referral Orders",
+        "earned": "Total Commission Earned",
+        "paid": "Total Paid Out",
+        "available": "Available Balance",
+        "threshold": "Payout Threshold (€{amount})",
+        "thresholdNotice": "€{remaining} remaining until your next automatic payout"
+      },
+      "recentOrders": "Referred Orders & Commissions",
+      "noOrders": "No referred orders yet. Share your referral link to earn your first commission!",
+      "orderRef": "Order",
+      "date": "Date",
+      "commission": "Commission",
+      "payouts": "Payout Ledger",
+      "noPayouts": "No payouts disbursed yet.",
+      "reference": "Reference",
+      "amount": "Amount",
+      "notifications": "Notifications"
+    }
   },
   "applicationForm": {
     "businessTitle": "Apply for a wholesale account",
@@ -170,13 +264,34 @@
     "title": "FAQ",
     "heading": "Frequently asked questions",
     "items": [
-      { "q": "Where do you ship?", "a": "Currently within Germany only, via DHL. Deliveries outside Germany are not yet offered. See our Shipping & Delivery page for details." },
-      { "q": "How long does delivery take?", "a": "In-stock items (Ritual collection, cards, pillow, starter set) are dispatched immediately and generally arrive within 1–3 business days. Mattresses are made to order and take approximately 3–4 weeks to manufacture before they ship — mattresses from 160 × 200 cm arrive as 3–4 separate parcels." },
-      { "q": "Is shipping free?", "a": "Orders over €59 ship free of charge. For mattresses, shipping is always included in the price shown, regardless of order value." },
-      { "q": "Can I return a product?", "a": "Yes. As a consumer in the EU you have a 14-day right of withdrawal from the date of delivery, with no need to give a reason. See our Right of Withdrawal page for the full policy and a model withdrawal form. Separately, damaged or defective products are covered by our Refund & Return Policy, and a statutory 2-year warranty applies to defects present at delivery." },
-      { "q": "What payment methods do you accept?", "a": "Card, SEPA Direct Debit, and PayPal, processed through our payment provider, Stripe. Card and bank details are never stored on our own servers." },
-      { "q": "Is SomnoBalance the same company as Willing1863?", "a": "SomnoBalance is the brand you experience. It is operated by Friedrich-Alexander Willing, trading as \"Willing1863\" — Willing1863 is named only for legal-disclosure purposes. Full legal detail is in our Impressum." },
-      { "q": "Do you offer wholesale or hospitality pricing?", "a": "Yes — see our For my business page or contact us directly to discuss terms for hotels and wellness properties." }
+      {
+        "q": "Where do you ship?",
+        "a": "Currently within Germany only, via DHL. Deliveries outside Germany are not yet offered. See our Shipping & Delivery page for details."
+      },
+      {
+        "q": "How long does delivery take?",
+        "a": "In-stock items (Ritual collection, cards, pillow, starter set) are dispatched immediately and generally arrive within 1–3 business days. Mattresses are made to order and take approximately 3–4 weeks to manufacture before they ship — mattresses from 160 × 200 cm arrive as 3–4 separate parcels."
+      },
+      {
+        "q": "Is shipping free?",
+        "a": "Orders over €59 ship free of charge. For mattresses, shipping is always included in the price shown, regardless of order value."
+      },
+      {
+        "q": "Can I return a product?",
+        "a": "Yes. As a consumer in the EU you have a 14-day right of withdrawal from the date of delivery, with no need to give a reason. See our Right of Withdrawal page for the full policy and a model withdrawal form. Separately, damaged or defective products are covered by our Refund & Return Policy, and a statutory 2-year warranty applies to defects present at delivery."
+      },
+      {
+        "q": "What payment methods do you accept?",
+        "a": "Card, SEPA Direct Debit, and PayPal, processed through our payment provider, Stripe. Card and bank details are never stored on our own servers."
+      },
+      {
+        "q": "Is SomnoBalance the same company as Willing1863?",
+        "a": "SomnoBalance is the brand you experience. It is operated by Friedrich-Alexander Willing, trading as \"Willing1863\" — Willing1863 is named only for legal-disclosure purposes. Full legal detail is in our Impressum."
+      },
+      {
+        "q": "Do you offer wholesale or hospitality pricing?",
+        "a": "Yes — see our For my business page or contact us directly to discuss terms for hotels and wellness properties."
+      }
     ]
   },
   "contact": {
@@ -224,7 +339,12 @@
     "howToUseEyebrow": "How to use",
     "howToUseTitle": "Apply as part\nof your routine.",
     "howToUseNote": "Apply several\ntimes a day\nas needed.",
-    "howToUseSteps": ["Wrists", "Temples", "Neck", "Soles of the feet"],
+    "howToUseSteps": [
+      "Wrists",
+      "Temples",
+      "Neck",
+      "Soles of the feet"
+    ],
     "productDetailsEyebrow": "Product details",
     "soundTitle": "SomnoBalance\nSound",
     "soundIntro": "A quiet atmosphere\nfor your moment.",
@@ -251,7 +371,17 @@
     "title": "Your cart",
     "subtotal": "Subtotal, incl. VAT",
     "checkout": "Proceed to checkout",
-    "remove": "Remove"
+    "remove": "Remove",
+    "loginPromptTitle": "Sign in to complete your purchase",
+    "loginPromptSubtitle": "Log in to your SomnoBalance account or register in seconds to continue to checkout.",
+    "loginAndCheckout": "Log in & Checkout",
+    "registerAndCheckout": "Create account & Checkout",
+    "continueAsGuest": "Continue as guest",
+    "promoCode": "Promo or Partner Referral Code",
+    "applyCode": "Apply",
+    "codeApplied": "Coupon {code} applied (-{rate}%)",
+    "removeCode": "Remove",
+    "discount": "Discount"
   },
   "checkout": {
     "orderReceived": "Order received",
@@ -298,13 +428,20 @@
     "termsLabel": "Terms & Conditions",
     "withdrawalLabel": "Right of Withdrawal Policy",
     "genericError": "Something went wrong placing your order.",
-    "networkError": "Could not reach the server. Please try again."
+    "networkError": "Could not reach the server. Please try again.",
+    "loggedInAs": "Signed in as {name} ({email})",
+    "switchAccount": "Switch account",
+    "promoCode": "Promo or Partner Code",
+    "applyCode": "Apply",
+    "codeApplied": "Coupon {code} applied (-{rate}%)",
+    "removeCode": "Remove",
+    "discount": "Discount"
   },
   "auth": {
     "account": "Account",
     "loginTitle": "Log in",
     "loginWelcome": "Welcome back to your SomnoBalance ritual.",
-    "email": "Email",
+    "email": "Email Address",
     "password": "Password",
     "passwordMin": "Password (min. 8 characters)",
     "loginButton": "Log in",
@@ -319,13 +456,42 @@
     "alreadyHaveAccount": "Already have an account?",
     "loginError": "Could not log in.",
     "registerError": "Could not create your account.",
-    "networkError": "Could not reach the server. Please try again."
+    "networkError": "Could not reach the server. Please try again.",
+    "phone": "Mobile Number (Germany +49 / India +91)",
+    "phonePlaceholder": "+49 170 1234567 or +91 98765 43210",
+    "phoneHint": "Real-time SMS verification for German (+49) and Indian (+91) numbers",
+    "phoneNotice": "You will receive a 6-digit SMS verification code in the next step.",
+    "adminCodeLabel": "Admin Registration Code (Optional)",
+    "adminCodePlaceholder": "e.g. ADMIN_2K26",
+    "adminCodeNotice": "Enter an admin code like ADMIN_2K26 to create an account with Administrator privileges.",
+    "verifyPhone": "Verify Number",
+    "sendOtp": "Request SMS Code",
+    "sendingOtp": "Sending SMS code…",
+    "otpSentNotice": "A 6-digit SMS verification code was sent to {phone}.",
+    "otpPlaceholder": "6-digit SMS Code",
+    "verifyOtp": "Verify Code",
+    "verifyingOtp": "Verifying…",
+    "phoneVerified": "Phone number verified ✓",
+    "resendOtp": "Resend Code",
+    "resendWait": "Resend code ({seconds}s)",
+    "phoneRequiredError": "Please verify your phone number before completing registration.",
+    "verificationTitle": "SMS Verification",
+    "enterCodePrompt": "Enter the 6-digit verification code sent via SMS to {phone}:",
+    "enter6DigitCode": "Enter 6-Digit Code",
+    "sentTo": "Sent to",
+    "changePhone": "← Change phone number",
+    "requestOtpAndContinue": "Request SMS Code & Continue →",
+    "verifyAndCreate": "Verify Code & Create Account ✓",
+    "verifyingAndCreating": "Verifying & creating account…",
+    "validPhoneRequired": "Please enter a valid German (+49) or Indian (+91) phone number.",
+    "passwordMinLength": "The password must be at least 8 characters long.",
+    "fullCodeRequired": "Please enter the complete 6-digit SMS code."
   },
   "admin": {
     "notConfiguredTitle": "Admin not configured",
     "notConfiguredCopy": "Set an ADMIN_PASSWORD environment variable to enable this page.",
-    "title": "Admin",
-    "subtitle": "Internal use only — not linked from the site.",
+    "title": "Admin Dashboard",
+    "subtitle": "Store operations, orders, partner referrals, and payout disbursements.",
     "logout": "Log out",
     "noDb": "No database is configured in this environment, so there is nothing to show yet.",
     "loadError": "Could not reach the database. Try again in a moment.",
@@ -348,7 +514,58 @@
     "loginButton": "Log in",
     "checking": "Checking…",
     "loginFailed": "Login failed",
-    "networkError": "Could not reach the server."
+    "networkError": "Could not reach the server.",
+    "tabs": {
+      "orders": "Orders & Inquiries",
+      "affiliates": "Partners & Affiliates",
+      "coupons": "Coupons & Commission Rates",
+      "commissions": "Commission Ledger & Payouts"
+    },
+    "affiliates": {
+      "title": "Partner Applications & Directory",
+      "code": "Code",
+      "name": "Partner",
+      "contact": "Contact",
+      "business": "Practice / Business",
+      "status": "Status",
+      "actions": "Actions",
+      "approve": "Approve",
+      "reject": "Reject",
+      "suspend": "Suspend",
+      "activate": "Activate",
+      "noAffiliates": "No partners registered yet."
+    },
+    "coupons": {
+      "title": "Active Referral Coupons",
+      "createTitle": "Create New Affiliate Coupon",
+      "code": "Coupon Code (e.g. SOMNO10)",
+      "discount": "Customer Discount (%)",
+      "commission": "Partner Commission (%)",
+      "minOrder": "Min Order Value (€)",
+      "partner": "Assign to Partner",
+      "createButton": "Create Coupon",
+      "creating": "Creating…",
+      "noCoupons": "No referral coupons created yet."
+    },
+    "commissions": {
+      "title": "Commission Ledger",
+      "payoutsTitle": "Disbursed Payouts",
+      "order": "Order ID",
+      "partner": "Partner",
+      "base": "Base Amount",
+      "rate": "Rate",
+      "earned": "Earned Commission",
+      "status": "Status",
+      "recordPayout": "Record Payout",
+      "payoutPartner": "Partner",
+      "payoutAmount": "Amount (€)",
+      "payoutRef": "Payment Reference (e.g. SEPA/IBAN transfer ID)",
+      "payoutNotes": "Notes",
+      "payoutButton": "Record Payout",
+      "recording": "Recording…",
+      "noCommissions": "No commission records yet.",
+      "noPayouts": "No payouts recorded yet."
+    }
   },
   "cookieConsent": {
     "notice": "We use essential cookies to run this site, and — only with your consent — embedded Spotify players for our ritual playlists, which may set third-party cookies. See our {link}.",
@@ -357,14 +574,30 @@
     "acceptAll": "Accept all"
   },
   "legalPages": {
-    "impressum": { "title": "Legal Notice (Impressum)" },
-    "privacy": { "title": "Privacy Policy" },
-    "terms": { "title": "Terms & Conditions (AGB)" },
-    "shipping": { "title": "Shipping & Delivery Policy" },
-    "withdrawal": { "title": "Right of Withdrawal" },
-    "returns": { "title": "Refund & Return Policy" },
-    "cancellation": { "title": "Cancellation Policy" },
-    "cookies": { "title": "Cookie Policy" },
+    "impressum": {
+      "title": "Legal Notice (Impressum)"
+    },
+    "privacy": {
+      "title": "Privacy Policy"
+    },
+    "terms": {
+      "title": "Terms & Conditions (AGB)"
+    },
+    "shipping": {
+      "title": "Shipping & Delivery Policy"
+    },
+    "withdrawal": {
+      "title": "Right of Withdrawal"
+    },
+    "returns": {
+      "title": "Refund & Return Policy"
+    },
+    "cancellation": {
+      "title": "Cancellation Policy"
+    },
+    "cookies": {
+      "title": "Cookie Policy"
+    },
     "lastUpdated": "Last updated"
   }
 }

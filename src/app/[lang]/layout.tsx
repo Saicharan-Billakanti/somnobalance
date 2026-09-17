@@ -57,8 +57,8 @@ export default async function LocaleLayout({
   const dict = await getDictionary(lang as Locale);
 
   return (
-    <html lang={lang} className={`${fraunces.variable} ${inter.variable} h-full`}>
-      <body className="min-h-full flex flex-col font-sans antialiased">
+    <html lang={lang} className={`${fraunces.variable} ${inter.variable} h-full`} suppressHydrationWarning>
+      <body className="min-h-full flex flex-col font-sans antialiased" suppressHydrationWarning>
         <AuthProvider>
           <CookieConsentProvider dict={dict}>
             <CartProvider>
