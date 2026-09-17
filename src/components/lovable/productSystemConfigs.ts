@@ -68,7 +68,6 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
     galleryTagline: ["Raum schaffen.", "Übergang beginnen."],
     howToUseEyebrow: "Anwendung",
     howToUseTitle: ["Beginne", "mit dem Raum."],
-    howToUseImage: "/products/somnobalance-room-spray.jpg",
     howToUseSteps: [
       { icon: Wind, label: "Raum schaffen" },
       { icon: Sparkles, label: "Duftimpuls" },
@@ -90,7 +89,6 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
     galleryTagline: ["Zeit nehmen.", "Ankommen."],
     howToUseEyebrow: "Zubereitung",
     howToUseTitle: ["Manchmal beginnt", "Loslassen einfach."],
-    howToUseImage: "/products/somnobalance-regeneration-tea.jpg",
     howToUseSteps: [
       { icon: Droplet, label: "Aufbrühen" },
       { icon: Cloud, label: "Ankommen" },
@@ -112,7 +110,6 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
     galleryTagline: ["Welche Begleitung", "brauchst du?"],
     howToUseEyebrow: "Anwendung",
     howToUseTitle: ["Karte wählen.", "Impuls anwenden."],
-    howToUseImage: "/products/somnobalance-regeneration-cards.jpg",
     howToUseSteps: [
       { icon: Sparkles, label: "Karte wählen" },
       { icon: Droplet, label: "Impuls anwenden" },
@@ -134,7 +131,6 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
     galleryTagline: ["Drei Wochen.", "Dein Weg."],
     howToUseEyebrow: "21-Tage-Guide",
     howToUseTitle: ["Drei Wochen.", "Dein Regenerationsweg."],
-    howToUseImage: "/products/somnobalance-starter-set.jpg",
     howToUseSteps: [
       { icon: Sun, label: "Woche 1" },
       { icon: Cloud, label: "Woche 2" },
@@ -156,7 +152,6 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
     galleryTagline: ["Die Nacht braucht", "andere Bedingungen."],
     howToUseEyebrow: "Schlafumgebung",
     howToUseTitle: ["Die Nacht braucht", "andere Bedingungen."],
-    howToUseImage: "/products/somnobalance-neck-pillow.jpg",
     howToUseSteps: [
       { icon: Moon, label: "Höhe einstellen" },
       { icon: Bed, label: "Position finden" },
@@ -178,7 +173,6 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
     galleryTagline: ["Was dich durch", "die Nacht trägt."],
     howToUseEyebrow: "Schlafumgebung",
     howToUseTitle: ["Was dich durch", "die Nacht trägt."],
-    howToUseImage: "/products/somnobalance-mattress.jpg",
     howToUseSteps: [
       { icon: Bed, label: "Härtegrad wählen" },
       { icon: Moon, label: "Wenden möglich" },

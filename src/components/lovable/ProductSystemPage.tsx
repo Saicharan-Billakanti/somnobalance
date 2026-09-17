@@ -61,7 +61,7 @@ export type ProductSystemConfig = {
   galleryTagline: string[]; // lines shown over the hero image, top-left
   howToUseEyebrow: string;
   howToUseTitle: string[];
-  howToUseImage: string; // application-sequence photo; falls back to the product photo if none exists
+  howToUseImage?: string; // real application-sequence photo; leave unset to show a placeholder until one exists
   howToUseSteps: RitualStep[];
   howToUseNote: string[];
   detailIcons: LucideIcon[]; // one icon per details[] line, in order; extra details reuse the last icon
@@ -303,7 +303,13 @@ export function ProductSystemPage({
           </div>
           <div>
             <div className="aspect-[2.15/1] overflow-hidden">
-              <Image src={config.howToUseImage} alt="" width={1600} height={720} className="h-full w-full object-cover" />
+              {config.howToUseImage ? (
+                <Image src={config.howToUseImage} alt="" width={1600} height={720} className="h-full w-full object-cover" />
+              ) : (
+                <div className="flex h-full w-full items-center justify-center border border-dashed border-lovable-border bg-lovable-muted text-[10px] uppercase tracking-[0.2em] text-lovable-muted-foreground">
+                  Image coming soon
+                </div>
+              )}
             </div>
             <div className="grid grid-cols-4 gap-2 pt-3 text-[9px] sm:text-[11px]">
               {config.howToUseSteps.map((step, index) => (
