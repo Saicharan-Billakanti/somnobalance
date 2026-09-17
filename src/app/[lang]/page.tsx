@@ -45,12 +45,12 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             </div>
           </div>
 
-          <div className="relative aspect-[4/5] overflow-hidden rounded-3xl">
+          <div className="relative mx-auto aspect-[4/5] w-full max-w-[320px] overflow-hidden rounded-3xl md:mx-0">
             <Image
               src="/brand/rollon-styled-stone.jpg"
               alt=""
               fill
-              sizes="(min-width: 768px) 50vw, 100vw"
+              sizes="(min-width: 768px) 320px, 80vw"
               priority
               className="object-cover"
             />

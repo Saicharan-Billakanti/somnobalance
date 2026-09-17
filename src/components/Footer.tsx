@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Leaf, Mail, MapPin } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
 import { business } from "@/lib/site";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/getDictionary";
@@ -52,10 +52,15 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
             <div className="md:pr-10">
               <div className="flex items-center gap-3">
                 <span className="relative flex size-10 items-center justify-center">
-                  <Leaf className="size-7 rotate-[-28deg] stroke-[1.1]" />
-                  <Leaf className="absolute size-5 translate-x-2 rotate-[28deg] stroke-[1.1]" />
+                  <Image
+                    src="/brand/somnobalance-icon.png"
+                    alt=""
+                    width={40}
+                    height={40}
+                    className="h-9 w-9 object-contain"
+                  />
                 </span>
-                <span className="font-lovable-serif text-3xl leading-none">SomnoBalance</span>
+                <span className="font-serif text-3xl leading-none">SomnoBalance</span>
               </div>
               <p className="mt-5 max-w-[260px] text-[11px] leading-5 text-lovable-primary-foreground/70">
                 {dict.footer.tagline}
@@ -121,7 +126,7 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
             </span>
             <div className="flex items-center gap-4 text-lovable-primary-foreground/80">
               <span className="h-px w-10 bg-lovable-primary-foreground/40" />
-              <span className="rotate-[-5deg] font-lovable-serif text-2xl italic">
+              <span className="rotate-[-5deg] font-serif text-2xl italic">
                 {dict.footer.handwrittenTagline}
               </span>
               <span className="h-px w-10 bg-lovable-primary-foreground/40" />
