@@ -66,7 +66,11 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
                     key={label}
                     href={href}
                     aria-label={label}
-                    className="flex size-10 items-center justify-center rounded-full border border-lovable-primary-foreground/25 font-lovable-serif text-base text-lovable-primary-foreground transition hover:bg-lovable-primary-foreground/10"
+                    className={
+                      Icon
+                        ? "size-10 rounded-full border border-lovable-primary-foreground/25 px-0 text-lovable-primary-foreground hover:bg-lovable-primary-foreground/10 flex items-center justify-center"
+                        : "size-10 rounded-full border border-lovable-primary-foreground/25 px-0 font-lovable-serif text-base text-lovable-primary-foreground hover:bg-lovable-primary-foreground/10 flex items-center justify-center"
+                    }
                   >
                     {Icon ? <Icon className="size-4" /> : "p"}
                   </a>
@@ -78,7 +82,7 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
               <h2 className="font-lovable-sans text-sm font-medium">{dict.footer.explore}</h2>
               <div className="mt-5 flex flex-col gap-2 text-[11px] text-lovable-primary-foreground/75">
                 {explore.map((item) => (
-                  <Link key={item.href} href={item.href} className="hover:text-lovable-primary-foreground">
+                  <Link key={item.href} href={item.href}>
                     {item.label}
                   </Link>
                 ))}
@@ -89,7 +93,7 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
               <h2 className="font-lovable-sans text-sm font-medium">{dict.footer.legal}</h2>
               <div className="mt-5 flex flex-col gap-2 text-[11px] text-lovable-primary-foreground/75">
                 {legal.map((item) => (
-                  <Link key={item.href} href={item.href} className="hover:text-lovable-primary-foreground">
+                  <Link key={item.href} href={item.href}>
                     {item.label}
                   </Link>
                 ))}
