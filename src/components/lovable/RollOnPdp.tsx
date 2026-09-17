@@ -425,31 +425,6 @@ export function RollOnPdp({
           </p>
         </div>
       </section>
-
-      <section className="relative flex min-h-[285px] items-center overflow-hidden">
-        <Image
-          src="/brand/pdp-bedroom.jpg"
-          alt="A calm bedroom lit by a warm bedside lamp"
-          fill
-          className="object-cover"
-        />
-        <div className="relative z-10 px-8 text-lovable-primary-foreground md:px-16">
-          <h2 className="font-lovable-serif text-4xl">SomnoBalance</h2>
-          <p className="mt-2 text-[11px] uppercase leading-6 tracking-[0.25em]">
-            A small ritual.
-            <br />
-            Wherever you are.
-          </p>
-          <span className="mt-4 block h-px w-9 bg-current" />
-        </div>
-        <p className="absolute right-[12%] top-[25%] z-10 rotate-[-10deg] font-lovable-serif text-2xl italic text-lovable-primary-foreground/80">
-          Rest.
-          <br />
-          Rebalance.
-          <br />
-          Repeat.
-        </p>
-      </section>
     </div>
   );
 }
