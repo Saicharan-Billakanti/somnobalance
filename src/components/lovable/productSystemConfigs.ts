@@ -47,7 +47,7 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
     galleryTagline: ["Loslassen.", "Vorbereiten."],
     howToUseEyebrow: "Anwendung",
     howToUseTitle: ["Wenn der Tag", "leiser werden darf."],
-    howToUseImage: "/products/oil.png",
+    howToUseImage: "/products/oil.webp",
     howToUseSteps: [
       { icon: Droplet, label: "Ankommen" },
       { icon: Wind, label: "Duftimpuls" },
@@ -78,7 +78,7 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
   "somnobalance-room-spray": {
     systemRoleLabel: "RITUAL · VORBEREITEN",
     galleryTagline: ["Raum schaffen.", "Übergang beginnen."],
-    howToUseImage: "/products/spray.png",
+    howToUseImage: "/products/spray.webp",
     howToUseEyebrow: "Anwendung",
     howToUseTitle: ["Beginne", "mit dem Raum."],
     howToUseSteps: [
@@ -113,7 +113,7 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
     galleryTagline: ["Zeit nehmen.", "Ankommen."],
     howToUseEyebrow: "Zubereitung",
     howToUseTitle: ["Manchmal beginnt Loslassen", "mit etwas ganz Einfachem."],
-    howToUseImage: "/products/teapowder.png",
+    howToUseImage: "/products/teapowder.webp",
     howToUseSteps: [
       { icon: Droplet, label: "Aufbrühen" },
       { icon: Cloud, label: "Ankommen" },
@@ -146,7 +146,7 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
     galleryTagline: ["Welche Begleitung", "brauchst du gerade?"],
     howToUseEyebrow: "Anwendung",
     howToUseTitle: ["Karte wählen.", "Impuls anwenden."],
-    howToUseImage: "/products/cards.png",
+    howToUseImage: "/products/cards.webp",
     howToUseSteps: [
       { icon: Sparkles, label: "Karte wählen" },
       { icon: Droplet, label: "Impuls anwenden" },
@@ -211,7 +211,7 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
     galleryTagline: ["Die Nacht braucht", "andere Bedingungen."],
     howToUseEyebrow: "Schlafumgebung",
     howToUseTitle: ["Die Nacht braucht andere", "Bedingungen als der Tag."],
-    howToUseImage: "/products/pillow.png",
+    howToUseImage: "/products/pillow.webp",
     howToUseSteps: [
       { icon: Moon, label: "Höhe einstellen" },
       { icon: Bed, label: "Position finden" },
@@ -242,7 +242,7 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
   "somnobalance-mattress": {
     systemRoleLabel: "SCHLAFUMGEBUNG · REGENERIEREN",
     galleryTagline: ["Was dich durch", "die Nacht trägt."],
-    howToUseImage: "/products/bed.png",
+    howToUseImage: "/products/bed.webp",
     howToUseEyebrow: "Schlafumgebung",
     howToUseTitle: ["Was dich durch", "die Nacht trägt."],
     howToUseSteps: [

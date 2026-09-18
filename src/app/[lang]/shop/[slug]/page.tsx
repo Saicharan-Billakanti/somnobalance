@@ -45,7 +45,7 @@ export default async function ProductPage({
     <div
       className="relative animate-leaf-drift"
       style={{
-        backgroundImage: "url('/brand/related-bg.png')",
+        backgroundImage: "url('/brand/related-bg.webp')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundAttachment: "fixed",

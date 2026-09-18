@@ -170,3 +170,34 @@ body {
     animation: none;
   }
 }
+
+/* Intro preloader (see Preloader.tsx). Skipped for return visits in the same
+   session and for reduced-motion users; the animation is a failsafe that
+   hides it if JS never runs. */
+html[data-preloader="skip"] .site-preloader {
+  display: none;
+}
+
+@keyframes preloader-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+.site-preloader {
+  animation: preloader-failsafe 0.6s ease 9s forwards;
+}
+
+/* The clip is shown small and centred, like a typical preloader. Feather
+   its edges into the overlay colour so the video box is never visible; the
+   lotus sits well inside the solid area. */
+.site-preloader video {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent),
+    linear-gradient(to bottom, transparent, #000 22%, #000 78%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent),
+    linear-gradient(to bottom, transparent, #000 22%, #000 78%, transparent);
+  mask-composite: intersect;
+}
