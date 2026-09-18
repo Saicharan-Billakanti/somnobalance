@@ -1121,7 +1121,7 @@ export function ForBusinessClient({
                     return (
                       <div key={productKey} className="rounded-2xl border border-mauve/15 bg-sand/20 p-4">
                         <img
-                          src={product.image || "/products/somnobalance-roll-on.jpg"}
+                          src={product.image || "/products/somnobalance-roll-on.webp"}
                           alt=""
                           className="h-32 w-full rounded-xl object-cover"
                         />

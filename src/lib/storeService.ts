@@ -86,7 +86,7 @@ export async function createCustomProduct(payload: {
   const product = {
     id: `prod_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`, slug, name: payload.name,
     category: payload.category || "Ritual", price: Number(payload.price), tagline: payload.tagline || "", description: payload.description || "",
-    details: payload.details || [], ingredients: payload.ingredients || "", image: payload.image || "/products/somnobalance-roll-on.jpg",
+    details: payload.details || [], ingredients: payload.ingredients || "", image: payload.image || "/products/somnobalance-roll-on.webp",
     phase: payload.phase || "REGULATE", shippingIncluded: Boolean(payload.shippingIncluded), returnPeriodDays: Number(payload.returnPeriodDays ?? 30),
     refundPolicy: payload.refundPolicy || null, returnEligible: payload.returnEligible !== false, refundRules: payload.refundRules || null,
     maxRetailQuantity: Number(payload.maxRetailQuantity ?? 10), inStock: true, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(),

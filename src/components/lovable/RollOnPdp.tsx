@@ -46,10 +46,10 @@ const manrope = Manrope({
 });
 
 const gallery = [
-  "/products/SomnoBalance Roll-on.png",
-  "/products/SomnoBalance Roll-on.png",
-  "/products/SomnoBalance Roll-on.png",
-  "/products/SomnoBalance Roll-on.png",
+  "/products/SomnoBalance Roll-on.webp",
+  "/products/SomnoBalance Roll-on.webp",
+  "/products/SomnoBalance Roll-on.webp",
+  "/products/SomnoBalance Roll-on.webp",
 ];
 
 // Placeholder public track — no specific song was supplied. Swap the URI
@@ -155,7 +155,7 @@ export function RollOnPdp({
       className={`${cormorant.variable} ${manrope.variable} relative animate-leaf-drift text-lovable-foreground`}
       style={{
         fontFamily: "var(--font-lovable-sans-loaded)",
-        backgroundImage: "url('/brand/related-bg.png')",
+        backgroundImage: "url('/brand/related-bg.webp')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundAttachment: "fixed",
@@ -386,7 +386,7 @@ export function RollOnPdp({
             <div>
               <div className="aspect-[2.15/1] overflow-hidden">
                 <Image
-                  src="/products/pdp-roll-on-rituals.jpg"
+                  src="/products/pdp-roll-on-rituals.webp"
                   alt="Four ways to apply the SomnoBalance roll-on"
                   width={1600}
                   height={720}
@@ -413,7 +413,7 @@ export function RollOnPdp({
         <section className="mx-auto grid max-w-[1500px] gap-8 px-5 py-14 md:px-10 lg:grid-cols-[0.9fr_1.05fr_0.75fr] lg:gap-0 lg:px-16 lg:py-20">
           <div className="relative min-h-[520px] overflow-hidden rounded-md">
             <Image
-              src="/products/SomnoBalance Roll-on.png"
+              src="/products/SomnoBalance Roll-on.webp"
               alt="SomnoBalance roll-on"
               fill
               className="object-cover"

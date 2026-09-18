@@ -38,7 +38,7 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   return (
     <footer className="relative overflow-hidden text-lovable-primary-foreground before:pointer-events-none before:absolute before:inset-x-0 before:top-0 before:z-10 before:h-20 before:bg-gradient-to-b before:from-lovable-background/25 before:to-transparent">
       <Image
-        src="/brand/pdp-footer.jpg"
+        src="/brand/pdp-footer.webp"
         alt="SomnoBalance aromatherapy bottle beside dried flowers"
         fill
         sizes="100vw"
@@ -53,7 +53,7 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
               <div className="flex items-center gap-3">
                 <span className="relative flex size-10 items-center justify-center">
                   <Image
-                    src="/brand/somnobalance-icon.png"
+                    src="/brand/somnobalance-icon.webp"
                     alt=""
                     width={40}
                     height={40}

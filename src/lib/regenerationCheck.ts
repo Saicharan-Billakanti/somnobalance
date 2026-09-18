@@ -288,14 +288,14 @@ export const PROFILES: Record<SubscaleKey, ProfileDefinition> = {
       name: "SomnoBalance Regenerationskarten",
       subtitle: "13 Regenerationspunkte & 10 geführte Rituale",
       url: "/shop/somnobalance-regeneration-cards",
-      image: "/products/somnobalance-regeneration-cards.jpg",
+      image: "/products/somnobalance-regeneration-cards.webp",
     },
     addonProduct: {
       slug: "somnobalance-roll-on",
       name: "SomnoBalance Roll-on",
       subtitle: "Aromatischer Duftmoment für unterwegs",
       url: "/shop/somnobalance-roll-on",
-      image: "/products/somnobalance-roll-on.jpg",
+      image: "/products/somnobalance-roll-on.webp",
     },
     ctaButtonText: {
       de: "REGENERATIONSKARTEN ENTDECKEN",
@@ -332,14 +332,14 @@ export const PROFILES: Record<SubscaleKey, ProfileDefinition> = {
       name: "SomnoBalance Starter-Set / Ritual Collection",
       subtitle: "Das vollständige Abendritual für tiefen Schlaf",
       url: "/shop/somnobalance-starter-set",
-      image: "/products/somnobalance-starter-set.jpg",
+      image: "/products/somnobalance-starter-set.webp",
     },
     addonProduct: {
       slug: "somnobalance-regeneration-tea",
       name: "SomnoBalance Regenerationstee",
       subtitle: "Kräuter- & Gewürzmischung für den Abend",
       url: "/shop/somnobalance-regeneration-tea",
-      image: "/products/somnobalance-regeneration-tea.jpg",
+      image: "/products/somnobalance-regeneration-tea.webp",
     },
     ctaButtonText: {
       de: "ABENDRITUAL ENTDECKEN",
@@ -376,14 +376,14 @@ export const PROFILES: Record<SubscaleKey, ProfileDefinition> = {
       name: "SomnoBalance Regenerationskarten",
       subtitle: "Geführte Akupressurpunkte zur Stärkung der inneren Energie",
       url: "/shop/somnobalance-regeneration-cards",
-      image: "/products/somnobalance-regeneration-cards.jpg",
+      image: "/products/somnobalance-regeneration-cards.webp",
     },
     addonProduct: {
       slug: "somnobalance-oil-blend",
       name: "SomnoBalance Ölmischung / Roll-on",
       subtitle: "100% reine ätherische Öle für Raum & Diffuser",
       url: "/shop/somnobalance-oil-blend",
-      image: "/products/somnobalance-oil-blend.jpg",
+      image: "/products/somnobalance-oil-blend.webp",
     },
     ctaButtonText: {
       de: "REGENERATIONSKARTEN ENTDECKEN",
@@ -420,14 +420,14 @@ export const PROFILES: Record<SubscaleKey, ProfileDefinition> = {
       name: "SomnoBalance Regenerationskarten",
       subtitle: "Schritt-für-Schritt Punkte & Rituale für Ausgeglichenheit",
       url: "/shop/somnobalance-regeneration-cards",
-      image: "/products/somnobalance-regeneration-cards.jpg",
+      image: "/products/somnobalance-regeneration-cards.webp",
     },
     addonProduct: {
       slug: "somnobalance-roll-on",
       name: "SomnoBalance Roll-on",
       subtitle: "Unterstützung für bewusste Mikropausen im Alltag",
       url: "/shop/somnobalance-roll-on",
-      image: "/products/somnobalance-roll-on.jpg",
+      image: "/products/somnobalance-roll-on.webp",
     },
     ctaButtonText: {
       de: "DEIN RITUAL ENTDECKEN",
@@ -464,14 +464,14 @@ export const PROFILES: Record<SubscaleKey, ProfileDefinition> = {
       name: "SomnoBalance Roll-on",
       subtitle: "Beruhigende Duftkomposition für emotionale Entlastung",
       url: "/shop/somnobalance-roll-on",
-      image: "/products/somnobalance-roll-on.jpg",
+      image: "/products/somnobalance-roll-on.webp",
     },
     addonProduct: {
       slug: "somnobalance-regeneration-cards",
       name: "SomnoBalance Regenerationskarten",
       subtitle: "Regenerationspunkte zum Beruhigen des Herzens",
       url: "/shop/somnobalance-regeneration-cards",
-      image: "/products/somnobalance-regeneration-cards.jpg",
+      image: "/products/somnobalance-regeneration-cards.webp",
     },
     ctaButtonText: {
       de: "ROLL-ON ENTDECKEN",
@@ -508,14 +508,14 @@ export const PROFILES: Record<SubscaleKey, ProfileDefinition> = {
       name: "SomnoBalance Regenerationskarten",
       subtitle: "Gezielte Punkte zum Unterbrechen kreisender Gedankenschleifen",
       url: "/shop/somnobalance-regeneration-cards",
-      image: "/products/somnobalance-regeneration-cards.jpg",
+      image: "/products/somnobalance-regeneration-cards.webp",
     },
     addonProduct: {
       slug: "somnobalance-roll-on",
       name: "SomnoBalance Roll-on",
       subtitle: "Gezielter Sinnesimpuls zum Durchatmen",
       url: "/shop/somnobalance-roll-on",
-      image: "/products/somnobalance-roll-on.jpg",
+      image: "/products/somnobalance-roll-on.webp",
     },
     ctaButtonText: {
       de: "REGENERATIONSKARTEN ENTDECKEN",
@@ -552,14 +552,14 @@ export const PROFILES: Record<SubscaleKey, ProfileDefinition> = {
       name: "SomnoBalance Regenerationskarten",
       subtitle: "Erdende Punkte für Vertrauen und innere Stabilität",
       url: "/shop/somnobalance-regeneration-cards",
-      image: "/products/somnobalance-regeneration-cards.jpg",
+      image: "/products/somnobalance-regeneration-cards.webp",
     },
     addonProduct: {
       slug: "somnobalance-roll-on",
       name: "SomnoBalance Roll-on",
       subtitle: "Sinnliche Verankerung in Momenten der Verunsicherung",
       url: "/shop/somnobalance-roll-on",
-      image: "/products/somnobalance-roll-on.jpg",
+      image: "/products/somnobalance-roll-on.webp",
     },
     ctaButtonText: {
       de: "DEINE REGENERATIONSPUNKTE ENTDECKEN",
@@ -596,14 +596,14 @@ export const PROFILES: Record<SubscaleKey, ProfileDefinition> = {
       name: "SomnoBalance Regenerationskarten",
       subtitle: "Punkte zur Klärung des Geistes und Schärfung der Wahrnehmung",
       url: "/shop/somnobalance-regeneration-cards",
-      image: "/products/somnobalance-regeneration-cards.jpg",
+      image: "/products/somnobalance-regeneration-cards.webp",
     },
     addonProduct: {
       slug: "somnobalance-roll-on",
       name: "SomnoBalance Roll-on",
       subtitle: "Frischer Duftimpuls für Konzentration und Fokus",
       url: "/shop/somnobalance-roll-on",
-      image: "/products/somnobalance-roll-on.jpg",
+      image: "/products/somnobalance-roll-on.webp",
     },
     ctaButtonText: {
       de: "RITUAL ENTDECKEN",
@@ -640,14 +640,14 @@ export const PROFILES: Record<SubscaleKey, ProfileDefinition> = {
       name: "SomnoBalance Roll-on",
       subtitle: "Dein aromatischer Begleiter für Gelassenheit im Alltag",
       url: "/shop/somnobalance-roll-on",
-      image: "/products/somnobalance-roll-on.jpg",
+      image: "/products/somnobalance-roll-on.webp",
     },
     addonProduct: {
       slug: "somnobalance-regeneration-cards",
       name: "SomnoBalance Regenerationskarten",
       subtitle: "Schnelle 2-Minuten Punkte für Zwischendurch",
       url: "/shop/somnobalance-regeneration-cards",
-      image: "/products/somnobalance-regeneration-cards.jpg",
+      image: "/products/somnobalance-regeneration-cards.webp",
     },
     ctaButtonText: {
       de: "ROLL-ON ENTDECKEN",
@@ -684,14 +684,14 @@ export const PROFILES: Record<SubscaleKey, ProfileDefinition> = {
       name: "SomnoBalance Starter-Set / Ritual Collection",
       subtitle: "Das harmonische Komplettset für ganzheitliche Erholung",
       url: "/shop/somnobalance-starter-set",
-      image: "/products/somnobalance-starter-set.jpg",
+      image: "/products/somnobalance-starter-set.webp",
     },
     addonProduct: {
       slug: "somnobalance-regeneration-cards",
       name: "SomnoBalance Regenerationskarten",
       subtitle: "13 Punkte und 10 Rituale für jede Lebenslage",
       url: "/shop/somnobalance-regeneration-cards",
-      image: "/products/somnobalance-regeneration-cards.jpg",
+      image: "/products/somnobalance-regeneration-cards.webp",
     },
     ctaButtonText: {
       de: "STARTER-SET ENTDECKEN",
@@ -724,7 +724,7 @@ export const LOW_SCORE_PREVENTIVE_PROFILE = {
     name: "SomnoBalance Regenerationskarten",
     subtitle: "Inspiration für kleine, frei gewählte Regenerationsmomente",
     url: "/shop/somnobalance-regeneration-cards",
-    image: "/products/somnobalance-regeneration-cards.jpg",
+    image: "/products/somnobalance-regeneration-cards.webp",
   },
   ctaButtonText: {
     de: "REGENERATION ENTDECKEN",
@@ -852,14 +852,14 @@ export function evaluateRegenerationCheck(
         ? "Das umfassende Set für vielschichtige Regeneration"
         : "Comprehensive set for multifaceted regeneration",
       url: "/shop/somnobalance-starter-set",
-      image: "/products/somnobalance-starter-set.jpg",
+      image: "/products/somnobalance-starter-set.webp",
     };
     addonProduct = {
       slug: "somnobalance-regeneration-cards",
       name: "SomnoBalance Regenerationskarten",
       subtitle: isDe ? "13 Regenerationspunkte & 10 Rituale" : "13 Regeneration Points & 10 Rituals",
       url: "/shop/somnobalance-regeneration-cards",
-      image: "/products/somnobalance-regeneration-cards.jpg",
+      image: "/products/somnobalance-regeneration-cards.webp",
     };
   }
 

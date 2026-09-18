@@ -5,6 +5,7 @@ import { locales, isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/getDictionary";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { LeafBackdrop } from "@/components/LeafBackdrop";
 import { CartProvider } from "@/components/CartProvider";
 import { CookieConsentProvider } from "@/components/CookieConsent";
 import { AuthProvider } from "@/components/AuthProvider";
@@ -63,7 +64,18 @@ export default async function LocaleLayout({
           <CookieConsentProvider dict={dict}>
             <CartProvider>
               <Header lang={lang as Locale} dict={dict} />
-              <main className="flex-1">{children}</main>
+              <main
+                className="relative flex-1"
+                style={{
+                  backgroundImage: "url('/brand/related-bg.webp')",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  backgroundAttachment: "fixed",
+                }}
+              >
+                <LeafBackdrop />
+                {children}
+              </main>
               <Footer lang={lang as Locale} dict={dict} />
             </CartProvider>
           </CookieConsentProvider>

@@ -197,7 +197,7 @@ export function ProductSystemPage({
       className={`${cormorant.variable} ${manrope.variable} relative animate-leaf-drift text-lovable-foreground`}
       style={{
         fontFamily: "var(--font-lovable-sans-loaded)",
-        backgroundImage: "url('/brand/related-bg.png')",
+        backgroundImage: "url('/brand/related-bg.webp')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundAttachment: "fixed",

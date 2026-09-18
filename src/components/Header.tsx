@@ -51,7 +51,7 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
         <div className="flex items-center gap-6">
           <Link href={`/${lang}`} className="shrink-0">
             <Image
-              src="/brand/somnobalance-logo.png"
+              src="/brand/somnobalance-logo.webp"
               alt="SomnoBalance"
               width={876}
               height={267}

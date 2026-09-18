@@ -6,7 +6,6 @@ import { getDictionary } from "@/i18n/getDictionary";
 import { isLocale, type Locale } from "@/i18n/config";
 import { notFound } from "next/navigation";
 import { CycleBar } from "@/components/CycleBar";
-import { LeafBackdrop } from "@/components/LeafBackdrop";
 
 export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -15,17 +14,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
   const l = lang as Locale;
 
   return (
-    <div
-      className="relative"
-      style={{
-        backgroundImage: "url('/brand/related-bg.png')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundAttachment: "fixed",
-      }}
-    >
-      <LeafBackdrop />
-
+    <div>
       <section
         className="relative overflow-hidden"
         style={{ background: "color-mix(in srgb, var(--color-scroll-1) 74%, transparent)" }}
@@ -61,7 +50,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
 
           <div className="relative mx-auto aspect-[4/5] w-full max-w-[320px] overflow-hidden rounded-3xl md:mx-0">
             <Image
-              src="/brand/rollon-styled-stone.jpg"
+              src="/brand/rollon-styled-stone.webp"
               alt=""
               fill
               sizes="(min-width: 768px) 320px, 80vw"
@@ -103,7 +92,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
 
             <div className="relative aspect-[4/3] overflow-hidden rounded-3xl">
               <Image
-                src="/brand/roomspray-styled-stone.jpg"
+                src="/brand/roomspray-styled-stone.webp"
                 alt=""
                 fill
                 sizes="(min-width: 768px) 50vw, 100vw"
@@ -277,7 +266,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
 
           <div className="relative aspect-[4/3] overflow-hidden rounded-3xl">
             <Image
-              src="/products/somnobalance-regeneration-tea.jpg"
+              src="/products/somnobalance-regeneration-tea.webp"
               alt=""
               fill
               sizes="(min-width: 768px) 50vw, 100vw"

@@ -130,7 +130,7 @@ export function AdminDashboardClient({
   const [newProdDesc, setNewProdDesc] = useState("");
   const [newProdIngredients, setNewProdIngredients] = useState("");
   const [newProdDetails, setNewProdDetails] = useState("");
-  const [newProdImage, setNewProdImage] = useState("/products/somnobalance-roll-on.jpg");
+  const [newProdImage, setNewProdImage] = useState("/products/somnobalance-roll-on.webp");
   const [newProdPhase, setNewProdPhase] = useState("REGULATE");
   const [newProdMaxQty, setNewProdMaxQty] = useState("10");
   const [newProdShippingInc, setNewProdShippingInc] = useState(false);
@@ -1418,14 +1418,14 @@ export function AdminDashboardClient({
                 {/* Preset Chips */}
                 <div className="flex flex-wrap gap-2">
                   {[
-                    { label: "Pillow", path: "/products/somnobalance-neck-pillow.jpg" },
-                    { label: "Roll-On", path: "/products/somnobalance-roll-on.jpg" },
-                    { label: "Oil Blend", path: "/products/somnobalance-oil-blend.jpg" },
-                    { label: "Room Spray", path: "/products/somnobalance-room-spray.jpg" },
-                    { label: "Regeneration Tea", path: "/products/somnobalance-regeneration-tea.jpg" },
-                    { label: "Regeneration Cards", path: "/products/somnobalance-regeneration-cards.jpg" },
-                    { label: "Mattress", path: "/products/somnobalance-mattress.jpg" },
-                    { label: "Starter Set", path: "/products/somnobalance-starter-set.jpg" },
+                    { label: "Pillow", path: "/products/somnobalance-neck-pillow.webp" },
+                    { label: "Roll-On", path: "/products/somnobalance-roll-on.webp" },
+                    { label: "Oil Blend", path: "/products/somnobalance-oil-blend.webp" },
+                    { label: "Room Spray", path: "/products/somnobalance-room-spray.webp" },
+                    { label: "Regeneration Tea", path: "/products/somnobalance-regeneration-tea.webp" },
+                    { label: "Regeneration Cards", path: "/products/somnobalance-regeneration-cards.webp" },
+                    { label: "Mattress", path: "/products/somnobalance-mattress.webp" },
+                    { label: "Starter Set", path: "/products/somnobalance-starter-set.webp" },
                   ].map((img) => (
                     <button
                       key={img.path}
@@ -1445,11 +1445,11 @@ export function AdminDashboardClient({
                 <div className="flex items-center gap-4 pt-1">
                   <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl border border-mauve/20 bg-sand/30">
                     <img
-                      src={newProdImage || "/products/somnobalance-roll-on.jpg"}
+                      src={newProdImage || "/products/somnobalance-roll-on.webp"}
                       alt="Preview"
                       className="h-full w-full object-contain"
                       onError={(e) => {
-                        (e.target as HTMLImageElement).src = "/products/somnobalance-roll-on.jpg";
+                        (e.target as HTMLImageElement).src = "/products/somnobalance-roll-on.webp";
                       }}
                     />
                   </div>
@@ -1732,11 +1732,11 @@ export function AdminDashboardClient({
                   <div className="flex items-center gap-3">
                     <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-2xl bg-sand/40 border border-mauve/10">
                       <img
-                        src={prod.image || "/products/somnobalance-roll-on.jpg"}
+                        src={prod.image || "/products/somnobalance-roll-on.webp"}
                         alt={prod.name}
                         className="h-full w-full object-contain p-1"
                         onError={(e) => {
-                          (e.target as HTMLImageElement).src = "/products/somnobalance-roll-on.jpg";
+                          (e.target as HTMLImageElement).src = "/products/somnobalance-roll-on.webp";
                         }}
                       />
                     </div>

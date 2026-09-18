@@ -172,7 +172,7 @@ export async function createBusinessProduct(payload: {
     applicationId: payload.applicationId,
     name: payload.name.trim(),
     description: payload.description?.trim() || null,
-    image: payload.image || "/products/somnobalance-roll-on.jpg",
+    image: payload.image || "/products/somnobalance-roll-on.webp",
     category: payload.category?.trim() || "Business",
     retailPrice: Number(payload.retailPrice),
     discountRate: Math.max(0, Math.min(100, Number(payload.discountRate))),
