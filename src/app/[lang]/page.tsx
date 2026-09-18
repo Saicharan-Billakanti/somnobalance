@@ -6,6 +6,7 @@ import { getDictionary } from "@/i18n/getDictionary";
 import { isLocale, type Locale } from "@/i18n/config";
 import { notFound } from "next/navigation";
 import { CycleBar } from "@/components/CycleBar";
+import { SideWaves } from "@/components/SideWaves";
 
 export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -15,6 +16,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
 
   return (
     <div
+      className="relative"
       style={{
         backgroundImage: "url('/brand/related-bg.png')",
         backgroundSize: "cover",
@@ -22,9 +24,11 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
         backgroundAttachment: "fixed",
       }}
     >
+      <SideWaves />
+
       <section
         className="relative overflow-hidden"
-        style={{ background: "color-mix(in srgb, var(--color-scroll-1) 88%, transparent)" }}
+        style={{ background: "color-mix(in srgb, var(--color-scroll-1) 74%, transparent)" }}
       >
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2 md:py-20">
           <div>
@@ -77,7 +81,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
         </div>
       </section>
 
-      <section style={{ background: "color-mix(in srgb, var(--color-scroll-1) 88%, transparent)" }}>
+      <section style={{ background: "color-mix(in srgb, var(--color-scroll-1) 74%, transparent)" }}>
         <CycleBar label={dict.home.cycleLabel} stages={dict.home.cycle} />
 
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
@@ -158,7 +162,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
 
       <section
         className="py-16"
-        style={{ background: "color-mix(in srgb, var(--color-scroll-2) 88%, transparent)" }}
+        style={{ background: "color-mix(in srgb, var(--color-scroll-2) 74%, transparent)" }}
       >
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <p className="text-xs uppercase tracking-[0.2em] text-teal-dark">
@@ -218,7 +222,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
 
       <section
         className="py-16"
-        style={{ background: "color-mix(in srgb, var(--color-scroll-3) 88%, transparent)" }}
+        style={{ background: "color-mix(in srgb, var(--color-scroll-3) 74%, transparent)" }}
       >
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="flex flex-wrap items-end justify-between gap-6">
@@ -257,7 +261,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
         </div>
       </section>
 
-      <section style={{ background: "color-mix(in srgb, var(--color-scroll-3) 88%, transparent)" }}>
+      <section style={{ background: "color-mix(in srgb, var(--color-scroll-3) 74%, transparent)" }}>
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2">
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-teal-dark">{dict.home.checkEyebrow}</p>
