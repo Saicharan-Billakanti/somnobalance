@@ -144,3 +144,29 @@ body {
   outline: 2px solid var(--color-teal);
   outline-offset: 1px;
 }
+
+/* Slow ambient drift for the dappled-leaf-shadow backdrop (product pages) —
+   suggests soft, moving natural light without drawing attention away from
+   the product itself. Position-only, no opacity/scale change, so it never
+   reads as a loading state. Respects reduced-motion. */
+@keyframes leaf-drift {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 3% 2%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+.animate-leaf-drift {
+  animation: leaf-drift 40s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-leaf-drift {
+    animation: none;
+  }
+}
