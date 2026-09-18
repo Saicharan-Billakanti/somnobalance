@@ -6,7 +6,7 @@ import { getDictionary } from "@/i18n/getDictionary";
 import { isLocale, type Locale } from "@/i18n/config";
 import { notFound } from "next/navigation";
 import { CycleBar } from "@/components/CycleBar";
-import { FallingLeavesOil } from "@/components/FallingLeavesOil";
+import { LeafBackdrop } from "@/components/LeafBackdrop";
 
 export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -24,7 +24,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
         backgroundAttachment: "fixed",
       }}
     >
-      <FallingLeavesOil />
+      <LeafBackdrop />
 
       <section
         className="relative overflow-hidden"
