@@ -1,11 +1,78 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 const SEEN_KEY = "sb-preloader-seen";
-// The clip is 4s; this is the hard ceiling if playback stalls.
+// Total time the lotus takes to draw itself, plus a short hold.
+const DRAW_MS = 3900;
+// Hard ceiling in case the page never reports as loaded.
 const MAX_WAIT_MS = 8000;
 const FADE_MS = 600;
+
+// Left half of the lotus (mirrored for the right half). Coordinates are in
+// a 1190x720 space. [path, delay-s, duration-s]
+const LEFT_PETALS: [string, number, number][] = [
+  ["M125 450 C80 465 45 483 20 500 C80 610 200 685 330 685 C420 685 500 650 560 613", 0, 1.1],
+  ["M446 388 C360 300 200 290 85 318 C110 470 250 590 350 610 C430 625 500 615 562 602", 0.55, 1.1],
+  ["M291 290 C279 240 280 160 297 106 C370 118 425 155 458 194", 1.05, 0.9],
+];
+const CENTRE_PETAL = [
+  "M595 600 C480 505 440 400 447 300 C455 180 520 80 598 15",
+  "M595 600 C710 505 750 400 743 300 C735 180 670 80 598 15",
+];
+
+function Lotus() {
+  const stroke = (d: string, delay: number, dur: number, key: string) => (
+    <path
+      key={key}
+      d={d}
+      pathLength={1}
+      className="lotus-stroke"
+      style={{ ["--d" as string]: `${delay}s`, ["--t" as string]: `${dur}s` }}
+    />
+  );
+
+  return (
+    <svg
+      viewBox="-8 -4 1206 728"
+      className="h-auto w-[clamp(170px,16vw,240px)]"
+      aria-hidden="true"
+    >
+      <g fill="none" stroke="#5f4a72" strokeWidth="9" strokeLinecap="round" strokeLinejoin="round">
+        {LEFT_PETALS.map(([d, delay, dur], i) => stroke(d, delay, dur, `l${i}`))}
+        <g transform="translate(1190 0) scale(-1 1)">
+          {LEFT_PETALS.map(([d, delay, dur], i) => stroke(d, delay, dur, `r${i}`))}
+        </g>
+        {CENTRE_PETAL.map((d, i) => stroke(d, 1.5, 1.1, `c${i}`))}
+      </g>
+      <g fill="none" stroke="#7e927d" strokeWidth="11" strokeLinecap="round" strokeLinejoin="round">
+        {stroke(
+          "M595 368 C570 335 520 335 500 355 C480 380 505 402 535 398 C565 394 585 380 595 368 C605 380 625 394 655 398 C685 402 710 380 690 355 C670 335 620 335 595 368Z",
+          2.5,
+          0.8,
+          "inf"
+        )}
+        {stroke("M570 400 C570 420 578 432 591 437 C604 432 612 420 613 400", 3.1, 0.5, "chin")}
+      </g>
+      <g fill="#7e927d">
+        {[
+          [541, 317, 3.0],
+          [595, 304, 3.15],
+          [651, 317, 3.3],
+        ].map(([cx, cy, delay]) => (
+          <circle
+            key={cx}
+            cx={cx}
+            cy={cy}
+            r="15"
+            className="lotus-dot"
+            style={{ ["--d" as string]: `${delay}s` }}
+          />
+        ))}
+      </g>
+    </svg>
+  );
+}
 
 // Full-screen intro shown once per browser session. It is rendered in the
 // server HTML so the page never flashes before it; the beforeInteractive
@@ -13,7 +80,6 @@ const FADE_MS = 600;
 // same session, reduced-motion) so globals.css hides it before first paint.
 // A CSS failsafe animation also hides it if JS never runs.
 export function Preloader() {
-  const videoRef = useRef<HTMLVideoElement>(null);
   const [fading, setFading] = useState(false);
   const [gone, setGone] = useState(false);
 
@@ -29,7 +95,7 @@ export function Preloader() {
     } catch {}
 
     root.style.overflow = "hidden";
-    let ended = false;
+    let drawn = false;
     let loaded = document.readyState === "complete";
     let finished = false;
 
@@ -41,31 +107,23 @@ export function Preloader() {
       window.setTimeout(() => setGone(true), FADE_MS);
     };
     const maybeFinish = () => {
-      if (ended && loaded) finish();
-    };
-
-    const video = videoRef.current;
-    const onEnded = () => {
-      ended = true;
-      maybeFinish();
+      if (drawn && loaded) finish();
     };
     const onLoad = () => {
       loaded = true;
       maybeFinish();
     };
 
-    video?.addEventListener("ended", onEnded);
-    video?.addEventListener("error", finish);
     if (!loaded) window.addEventListener("load", onLoad);
-
-    // Autoplay can be refused (e.g. iOS low-power mode): skip rather than block.
-    video?.play().catch(finish);
-
+    const drawTimer = window.setTimeout(() => {
+      drawn = true;
+      maybeFinish();
+    }, DRAW_MS);
     const cap = window.setTimeout(finish, MAX_WAIT_MS);
+
     return () => {
+      window.clearTimeout(drawTimer);
       window.clearTimeout(cap);
-      video?.removeEventListener("ended", onEnded);
-      video?.removeEventListener("error", finish);
       window.removeEventListener("load", onLoad);
       root.style.overflow = "";
     };
@@ -80,16 +138,7 @@ export function Preloader() {
       role="status"
       aria-label="Loading"
     >
-      <video
-        ref={videoRef}
-        className="h-auto w-[clamp(220px,26vw,360px)]"
-        src="/preloader/lotus-preloader.mp4"
-        autoPlay
-        muted
-        playsInline
-        preload="auto"
-        aria-hidden="true"
-      />
+      <Lotus />
     </div>
   );
 }

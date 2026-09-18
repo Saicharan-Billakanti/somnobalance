@@ -190,14 +190,34 @@ html[data-preloader="skip"] .site-preloader {
   animation: preloader-failsafe 0.6s ease 9s forwards;
 }
 
-/* The clip is shown small and centred, like a typical preloader. Feather
-   its edges into the overlay colour so the video box is never visible; the
-   lotus sits well inside the solid area. */
-.site-preloader video {
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent),
-    linear-gradient(to bottom, transparent, #000 22%, #000 78%, transparent);
-  -webkit-mask-composite: source-in;
-  mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent),
-    linear-gradient(to bottom, transparent, #000 22%, #000 78%, transparent);
-  mask-composite: intersect;
+/* The lotus draws itself: each stroke has pathLength=1 so the dash can be
+   animated from fully hidden to fully drawn with a per-path delay/duration. */
+@keyframes lotus-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes lotus-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.lotus-stroke {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: lotus-draw var(--t, 1s) cubic-bezier(0.45, 0.05, 0.3, 1) var(--d, 0s) forwards;
+}
+
+.lotus-dot {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lotus-pop 0.35s ease-out var(--d, 0s) forwards;
 }
