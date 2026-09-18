@@ -32,6 +32,8 @@ import {
 import { Button } from "@/components/lovable/Button";
 import type { Dictionary } from "@/i18n/getDictionary";
 import type { Locale } from "@/i18n/config";
+import Link from "next/link";
+import { products, getProductText } from "@/lib/products";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -41,10 +43,10 @@ const cormorant = Cormorant_Garamond({
 const manrope = Manrope({ subsets: ["latin"], variable: "--font-lovable-sans-loaded" });
 
 const gallery = [
-  "/products/pdp-roll-on-main.jpg",
-  "/products/pdp-roll-on-flatlay.jpg",
-  "/products/pdp-roll-on-hand.jpg",
-  "/products/pdp-roll-on-details.jpg",
+  "/products/SomnoBalance Roll-on.png",
+  "/products/SomnoBalance Roll-on.png",
+  "/products/SomnoBalance Roll-on.png",
+  "/products/SomnoBalance Roll-on.png",
 ];
 
 // Placeholder public track — no specific song was supplied. Swap the URI
@@ -162,12 +164,21 @@ export function RollOnPdp({
             </div>
             <button
               type="button"
-              disabled
-              aria-label="Zoom (coming soon)"
-              className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-white text-lovable-foreground shadow transition hover:bg-lovable-muted"
+              onClick={() => moveGallery(-1)}
+              aria-label="Previous image"
+              className="absolute left-4 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 text-lovable-foreground shadow transition hover:bg-white"
             >
-              <Search className="size-4" />
+              <ArrowLeft className="size-4" />
             </button>
+            <button
+              type="button"
+              onClick={() => moveGallery(1)}
+              aria-label="Next image"
+              className="absolute right-4 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 text-lovable-foreground shadow transition hover:bg-white"
+            >
+              <ArrowRight className="size-4" />
+            </button>
+
           </div>
           <div className="mt-4 flex items-center gap-3">
             <Button
@@ -181,7 +192,7 @@ export function RollOnPdp({
             <div className="grid min-w-0 flex-1 grid-cols-4 gap-3">
               {gallery.map((image, index) => (
                 <button
-                  key={image}
+                  key={index}
                   onClick={() => setActive(index)}
                   aria-label={`View product image ${index + 1}`}
                   className={`aspect-square overflow-hidden rounded-sm border bg-lovable-muted transition-colors ${
@@ -274,15 +285,11 @@ export function RollOnPdp({
         </div>
 
         <aside className="relative self-start rounded-md border border-lovable-border bg-lovable-card px-6 py-8 lg:min-h-[530px]">
-          <h2 className="font-lovable-serif text-xl">
-            SomnoBalance
-            <br />
-            Sound
+          <h2 className="font-lovable-serif text-xl whitespace-pre-line">
+            {dict.shop.soundTitle}
           </h2>
-          <p className="mt-2 text-[10px] leading-5 text-lovable-muted-foreground">
-            A quiet atmosphere
-            <br />
-            for your moment.
+          <p className="mt-2 text-[10px] leading-5 text-lovable-muted-foreground whitespace-pre-line">
+            {dict.shop.soundIntro}
           </p>
           <Button
             variant="ghost"
@@ -305,10 +312,8 @@ export function RollOnPdp({
             {formatTime(elapsed)} / {formatTime(duration)}
           </p>
           <div className="my-10 h-px w-9 bg-lovable-border" />
-          <p className="rotate-[-7deg] text-center font-lovable-serif text-2xl italic leading-tight text-lovable-primary/60">
-            A little more calm,
-            <br />
-            wherever you are.
+          <p className="rotate-[-7deg] text-center font-lovable-serif text-2xl italic leading-tight text-lovable-primary/60 whitespace-pre-line">
+            {dict.shop.soundQuote}
           </p>
           {/* Real Spotify playback, controlled via the iFrame API — sized
               to 1x1 and visually hidden so the panel's design is unchanged.
@@ -321,12 +326,10 @@ export function RollOnPdp({
       <section className="bg-gradient-to-b from-lovable-background via-lovable-secondary/30 to-lovable-background py-14 lg:py-20">
         <div className="mx-auto grid max-w-[1500px] items-center gap-8 px-5 md:px-10 lg:grid-cols-[280px_1fr_180px] lg:px-16">
           <div>
-            <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">How to use</p>
+            <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">{dict.shop.howToUseEyebrow}</p>
             <span className="mt-4 block h-px w-8 bg-lovable-primary" />
-            <h2 className="mt-8 font-lovable-serif text-3xl leading-tight md:text-4xl">
-              Apply as part
-              <br />
-              of your routine.
+            <h2 className="mt-8 font-lovable-serif text-3xl leading-tight md:text-4xl whitespace-pre-line">
+              {dict.shop.howToUseTitle}
             </h2>
           </div>
           <div>
@@ -340,7 +343,7 @@ export function RollOnPdp({
               />
             </div>
             <div className="grid grid-cols-4 gap-2 pt-3 text-[9px] sm:text-[11px]">
-              {["Wrists", "Temples", "Neck", "Soles of the feet"].map((label, index) => (
+              {dict.shop.howToUseSteps.map((label, index) => (
                 <span key={label}>
                   <b className="mr-2 font-normal underline underline-offset-8">0{index + 1}</b>
                   {label}
@@ -348,12 +351,8 @@ export function RollOnPdp({
               ))}
             </div>
           </div>
-          <p className="border-l border-lovable-border pl-8 font-lovable-serif text-xl leading-tight">
-            Apply several
-            <br />
-            times a day
-            <br />
-            as needed.
+          <p className="border-l border-lovable-border pl-8 font-lovable-serif text-xl leading-tight whitespace-pre-line">
+            {dict.shop.howToUseNote}
           </p>
         </div>
       </section>
@@ -361,14 +360,14 @@ export function RollOnPdp({
       <section className="mx-auto grid max-w-[1500px] gap-8 px-5 py-14 md:px-10 lg:grid-cols-[0.9fr_1.05fr_0.75fr] lg:gap-0 lg:px-16 lg:py-20">
         <div className="relative min-h-[520px] overflow-hidden rounded-md">
           <Image
-            src="/products/pdp-roll-on-details.jpg"
-            alt="SomnoBalance roll-on with dried flowers"
+            src="/products/SomnoBalance Roll-on.png"
+            alt="SomnoBalance roll-on"
             fill
             className="object-cover"
           />
         </div>
         <div className="px-2 py-4 md:px-8 lg:px-12 lg:py-12">
-          <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">Product details</p>
+          <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">{dict.shop.productDetailsEyebrow}</p>
           <span className="mt-4 block h-px w-8 bg-lovable-primary" />
           <ul className="mt-6 space-y-7 text-xs leading-5">
             <li className="flex gap-5">
@@ -423,6 +422,35 @@ export function RollOnPdp({
             </a>
             {after}
           </p>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-[1500px] px-5 py-14 md:px-10 lg:px-16 lg:py-20">
+        <h2 className="mb-8 font-lovable-serif text-2xl md:text-3xl">{dict.shop.youMightAlsoLike}</h2>
+        <div className="grid grid-cols-2 gap-5 md:grid-cols-4 lg:gap-8">
+          {products
+            .filter((p) => p.slug !== "somnobalance-roll-on")
+            .slice(0, 4)
+            .map((p) => {
+              const pText = getProductText(p, lang);
+              return (
+                <Link key={p.slug} href={`/${lang}/shop/${p.slug}`} className="group block">
+                  <div className="relative mb-4 aspect-[4/5] overflow-hidden rounded-md bg-lovable-muted">
+                    <Image
+                      src={p.image}
+                      alt={pText.name}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                  <h3 className="font-lovable-serif text-lg leading-tight">{pText.name}</h3>
+                  <p className="mt-1 text-xs leading-5 text-lovable-muted-foreground">{pText.tagline}</p>
+                  <div className="mt-3 text-sm font-medium">
+                    {new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(p.price || 0)}
+                  </div>
+                </Link>
+              );
+            })}
         </div>
       </section>
     </div>

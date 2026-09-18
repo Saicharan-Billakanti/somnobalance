@@ -5,12 +5,13 @@ import Link from "next/link";
 import { useAuth } from "@/components/AuthProvider";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/getDictionary";
+import { BedSingle, Leaf, Coffee, Sparkles, MessageCircle, Tag, Zap, Package, Building2, PartyPopper, Pencil, FileText, Truck } from "lucide-react";
 
 interface B2BProductOption {
   id: string;
   name: string;
   retailPrice: number;
-  icon: string;
+  icon: React.ReactNode;
   description: string;
 }
 
@@ -19,28 +20,28 @@ const B2B_PRODUCTS: B2BProductOption[] = [
     id: "pillow",
     name: "SomnoBalance Ergonomic Rest Pillow",
     retailPrice: 89.0,
-    icon: "🛏️",
+    icon: <BedSingle className="size-6" />,
     description: "Adaptive orthopedic memory support for luxury suites & recovery clinics.",
   },
   {
     id: "oil",
     name: "SomnoBalance Botanical Rest Ritual Oil",
     retailPrice: 39.0,
-    icon: "🌿",
+    icon: <Leaf className="size-6" />,
     description: "Lavender & bergamot essential roll-on for guest nightstand rituals.",
   },
   {
     id: "tea",
     name: "SomnoBalance Organic Relaxation Tea",
     retailPrice: 24.0,
-    icon: "🍵",
+    icon: <Coffee className="size-6" />,
     description: "Chamomile, lemon balm & valerian blend for spa amenities and evening turndown.",
   },
   {
     id: "bundle",
     name: "Complete Luxury Hospitality Suite Set",
     retailPrice: 139.0,
-    icon: "✨",
+    icon: <Sparkles className="size-6" />,
     description: "Pillow + Ritual Oil + Evening Tea bundled in premium linen gift packaging.",
   },
 ];
@@ -482,8 +483,8 @@ export function ForBusinessClient({
           {/* Key Advantages Grid */}
           <div className="grid gap-6 sm:grid-cols-3">
             <div className="group rounded-3xl border border-mauve/15 bg-white p-8 shadow-sm transition hover:border-teal/30 hover:shadow-md">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-teal/10 text-2xl text-teal-dark">
-                🛏️
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-teal/10 text-teal-dark">
+                <BedSingle className="size-6" />
               </div>
               <h3 className="mt-5 font-serif text-xl text-ink">
                 {dict.forBusiness?.card1Title || "In-Room Guest Rituals"}
@@ -495,8 +496,8 @@ export function ForBusinessClient({
             </div>
 
             <div className="group rounded-3xl border border-mauve/15 bg-white p-8 shadow-sm transition hover:border-teal/30 hover:shadow-md">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-teal/10 text-2xl text-teal-dark">
-                🏷️
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-teal/10 text-teal-dark">
+                <Tag className="size-6" />
               </div>
               <h3 className="mt-5 font-serif text-xl text-ink">
                 {dict.forBusiness?.card2Title || "Tiered Wholesale Pricing"}
@@ -508,8 +509,8 @@ export function ForBusinessClient({
             </div>
 
             <div className="group rounded-3xl border border-mauve/15 bg-white p-8 shadow-sm transition hover:border-teal/30 hover:shadow-md">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-teal/10 text-2xl text-teal-dark">
-                💬
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-teal/10 text-teal-dark">
+                <MessageCircle className="size-6" />
               </div>
               <h3 className="mt-5 font-serif text-xl text-ink">
                 {dict.forBusiness?.card3Title || "Direct Admin Desk & Support"}
@@ -525,8 +526,8 @@ export function ForBusinessClient({
           <div className="rounded-3xl border border-mauve/20 bg-gradient-to-br from-white via-sand/30 to-teal/5 p-6 shadow-sm sm:p-10">
             <div className="flex flex-wrap items-center justify-between gap-4 border-b border-mauve/10 pb-6">
               <div>
-                <span className="rounded-full bg-teal/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-teal-dark">
-                  ⚡ Interactive Commercial Estimator
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-teal/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-teal-dark">
+                  <Zap className="size-3" /> Interactive Commercial Estimator
                 </span>
                 <h2 className="mt-2 font-serif text-2xl text-ink sm:text-3xl">
                   {lang === "de"
@@ -544,7 +545,7 @@ export function ForBusinessClient({
                 onClick={handleQuickSampleRequest}
                 className="flex items-center gap-2 rounded-full border border-teal/30 bg-white px-5 py-2.5 text-xs font-semibold text-teal-dark shadow-xs hover:bg-teal hover:text-white transition"
               >
-                <span>📦</span>
+                <Package className="size-4" />
                 {lang === "de" ? "Musterpaket anfordern" : "Request Sample Evaluation Kit"}
               </button>
             </div>
@@ -570,8 +571,8 @@ export function ForBusinessClient({
                               : "border-mauve/15 bg-white hover:border-mauve/30"
                           }`}
                         >
-                          <div className="flex items-center justify-between w-full">
-                            <span className="text-2xl">{prod.icon}</span>
+                          <div className="flex items-center justify-between w-full text-teal-dark">
+                            {prod.icon}
                             <span className="text-xs font-medium text-ink/50">
                               Retail: €{prod.retailPrice.toFixed(2)}
                             </span>
@@ -621,7 +622,7 @@ export function ForBusinessClient({
                 {/* Tier Explanation Badge */}
                 <div className="rounded-2xl border border-teal/20 bg-teal/5 p-4 text-xs text-teal-dark">
                   <div className="font-semibold flex items-center gap-1.5">
-                    <span>✨</span> {tierLabel}
+                    <Sparkles className="size-4" /> {tierLabel}
                   </div>
                   <p className="mt-1 text-teal-dark/80 text-[11px]">
                     {calcQuantity < 25
@@ -751,12 +752,15 @@ export function ForBusinessClient({
                   : "For boutique hotels, luxury retreats, wellness clinics, physiotherapy practices & retailers."}
               </p>
             </div>
-            <span className="text-3xl">🏢</span>
+            <Building2 className="size-8 text-ink/40" />
           </div>
 
           {submitSuccess && (
-            <div className="mt-6 rounded-2xl bg-teal/15 p-4 text-sm text-teal-dark animate-fade-in">
-              🎉 <strong>Application submitted successfully!</strong> Your request has been queued in our live system and is under review.
+            <div className="mt-6 rounded-2xl bg-teal/15 p-4 text-sm text-teal-dark animate-fade-in flex items-start gap-2">
+              <PartyPopper className="size-5 shrink-0 mt-0.5" />
+              <div>
+                <strong>Application submitted successfully!</strong> Your request has been queued in our live system and is under review.
+              </div>
             </div>
           )}
 
@@ -953,9 +957,9 @@ export function ForBusinessClient({
                 )}
                 <button
                   onClick={() => setIsEditingDetails(!isEditingDetails)}
-                  className="rounded-full border border-mauve/20 bg-sand/40 px-4 py-2 text-xs font-semibold text-ink/70 hover:bg-sand transition"
+                  className="flex items-center gap-1.5 rounded-full border border-mauve/20 bg-sand/40 px-4 py-2 text-xs font-semibold text-ink/70 hover:bg-sand transition"
                 >
-                  {isEditingDetails ? "Close Editor" : "✏️ Edit Details"}
+                  {isEditingDetails ? "Close Editor" : <><Pencil className="size-3" /> Edit Details</>}
                 </button>
               </div>
             </div>
@@ -1017,10 +1021,13 @@ export function ForBusinessClient({
             {/* Approved Celebration Banner & Shop Link */}
             {app.status === "approved" && (
               <div className="mt-6 rounded-2xl bg-gradient-to-r from-emerald-500/10 via-teal/10 to-sand p-4 text-xs text-ink/80 flex flex-wrap items-center justify-between gap-3 border border-emerald-200">
-                <div>
-                  ✨ <strong>Your Wholesale Account is Active!</strong> Your{" "}
-                  <strong>{app.discountRate || 25}% commercial rate</strong> is unlocked. You can
-                  browse the collection or message our executive desk for custom batches.
+                <div className="flex items-start gap-2">
+                  <Sparkles className="size-4 shrink-0 mt-0.5 text-teal-dark" />
+                  <div>
+                    <strong>Your Wholesale Account is Active!</strong> Your{" "}
+                    <strong>{app.discountRate || 25}% commercial rate</strong> is unlocked. You can
+                    browse the collection or message our executive desk for custom batches.
+                  </div>
                 </div>
                 <Link
                   href={`/${lang}/shop`}
@@ -1222,9 +1229,9 @@ export function ForBusinessClient({
                     "Hello, we would like to request an evaluation sample amenity kit sent to our facility."
                   )
                 }
-                className="rounded-full border border-mauve/20 bg-sand/40 px-3.5 py-1.5 text-xs text-ink/80 hover:border-teal hover:bg-teal/10 hover:text-teal-dark transition"
+                className="flex items-center gap-1.5 rounded-full border border-mauve/20 bg-sand/40 px-3.5 py-1.5 text-xs text-ink/80 hover:border-teal hover:bg-teal/10 hover:text-teal-dark transition"
               >
-                📦 Request Sample Kit
+                <Package className="size-3" /> Request Sample Kit
               </button>
               <button
                 type="button"
@@ -1234,9 +1241,9 @@ export function ForBusinessClient({
                     "Could you provide an official EU VAT Reverse-Charge pro-forma invoice quote for our accounting department?"
                   )
                 }
-                className="rounded-full border border-mauve/20 bg-sand/40 px-3.5 py-1.5 text-xs text-ink/80 hover:border-teal hover:bg-teal/10 hover:text-teal-dark transition"
+                className="flex items-center gap-1.5 rounded-full border border-mauve/20 bg-sand/40 px-3.5 py-1.5 text-xs text-ink/80 hover:border-teal hover:bg-teal/10 hover:text-teal-dark transition"
               >
-                📄 Request Pro-Forma Invoice
+                <FileText className="size-3" /> Request Pro-Forma Invoice
               </button>
               <button
                 type="button"
@@ -1246,9 +1253,9 @@ export function ForBusinessClient({
                     "What are the standard delivery lead times for a 100+ unit restock order?"
                   )
                 }
-                className="rounded-full border border-mauve/20 bg-sand/40 px-3.5 py-1.5 text-xs text-ink/80 hover:border-teal hover:bg-teal/10 hover:text-teal-dark transition"
+                className="flex items-center gap-1.5 rounded-full border border-mauve/20 bg-sand/40 px-3.5 py-1.5 text-xs text-ink/80 hover:border-teal hover:bg-teal/10 hover:text-teal-dark transition"
               >
-                🚚 Ask about Delivery Lead Times
+                <Truck className="size-3" /> Ask about Delivery Lead Times
               </button>
             </div>
 
