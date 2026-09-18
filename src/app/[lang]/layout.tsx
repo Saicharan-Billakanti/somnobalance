@@ -7,7 +7,6 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { LeafBackdrop } from "@/components/LeafBackdrop";
 import { Preloader } from "@/components/Preloader";
-import { SmoothScroll } from "@/components/SmoothScroll";
 import Script from "next/script";
 import { CartProvider } from "@/components/CartProvider";
 import { CookieConsentProvider } from "@/components/CookieConsent";
@@ -74,7 +73,6 @@ export default async function LocaleLayout({
           {`try{if(sessionStorage.getItem("sb-preloader-seen")||matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.setAttribute("data-preloader","skip")}}catch(e){}`}
         </Script>
         <Preloader />
-        <SmoothScroll />
         <AuthProvider>
           <CookieConsentProvider dict={dict}>
             <CartProvider>
