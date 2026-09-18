@@ -194,14 +194,8 @@ export function ProductSystemPage({
 
   return (
     <div
-      className={`${cormorant.variable} ${manrope.variable} relative animate-leaf-drift text-lovable-foreground`}
-      style={{
-        fontFamily: "var(--font-lovable-sans-loaded)",
-        backgroundImage: "url('/brand/related-bg.webp')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundAttachment: "fixed",
-      }}
+      className={`${cormorant.variable} ${manrope.variable} relative text-lovable-foreground`}
+      style={{ fontFamily: "var(--font-lovable-sans-loaded)" }}
     >
       <div
         className="relative"
@@ -432,7 +426,13 @@ export function ProductSystemPage({
           </aside>
         </section>
 
-        <section className="border-y border-lovable-border bg-lovable-secondary/35 py-8">
+        <section
+          className="py-8"
+          style={{
+            background:
+              "color-mix(in srgb, var(--color-lovable-secondary) 25%, transparent)",
+          }}
+        >
           <div className="mx-auto grid max-w-[1500px] items-center gap-8 px-5 md:px-10 lg:grid-cols-[280px_1fr_180px] lg:px-16">
             <div>
               <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
@@ -530,7 +530,13 @@ export function ProductSystemPage({
           </div>
         </section>
 
-        <section className="border-y border-lovable-border bg-lovable-secondary/35 px-5 py-14 md:px-10 lg:px-16">
+        <section
+          className="px-5 py-14 md:px-10 lg:px-16"
+          style={{
+            background:
+              "color-mix(in srgb, var(--color-lovable-secondary) 25%, transparent)",
+          }}
+        >
           <div className="mx-auto max-w-[1500px]">
             <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
               System

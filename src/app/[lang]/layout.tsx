@@ -60,8 +60,15 @@ export default async function LocaleLayout({
   const dict = await getDictionary(lang as Locale);
 
   return (
-    <html lang={lang} className={`${fraunces.variable} ${inter.variable} h-full`} suppressHydrationWarning>
-      <body className="min-h-full flex flex-col font-sans antialiased" suppressHydrationWarning>
+    <html
+      lang={lang}
+      className={`${fraunces.variable} ${inter.variable} h-full`}
+      suppressHydrationWarning
+    >
+      <body
+        className="min-h-full flex flex-col font-sans antialiased"
+        suppressHydrationWarning
+      >
         <Script id="preloader-skip" strategy="beforeInteractive">
           {`try{if(sessionStorage.getItem("sb-preloader-seen")||matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.setAttribute("data-preloader","skip")}}catch(e){}`}
         </Script>
@@ -71,7 +78,7 @@ export default async function LocaleLayout({
             <CartProvider>
               <Header lang={lang as Locale} dict={dict} />
               <main
-                className="relative flex-1"
+                className="relative flex-1 animate-leaf-drift"
                 style={{
                   backgroundImage: "url('/brand/related-bg.webp')",
                   backgroundSize: "cover",

@@ -42,15 +42,7 @@ export default async function ProductPage({
   const [before, after] = dict.shop.withdrawalNote.split("{link}");
 
   return (
-    <div
-      className="relative animate-leaf-drift"
-      style={{
-        backgroundImage: "url('/brand/related-bg.webp')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundAttachment: "fixed",
-      }}
-    >
+    <div className="relative">
       <div
         className="relative mx-auto max-w-[1100px] px-4 pt-12 pb-16 sm:px-6"
         style={{
