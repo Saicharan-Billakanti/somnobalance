@@ -6,7 +6,7 @@ import { getDictionary } from "@/i18n/getDictionary";
 import { isLocale, type Locale } from "@/i18n/config";
 import { notFound } from "next/navigation";
 import { CycleBar } from "@/components/CycleBar";
-import { SideWaves } from "@/components/SideWaves";
+import { LotusField } from "@/components/LotusField";
 
 export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -24,7 +24,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
         backgroundAttachment: "fixed",
       }}
     >
-      <SideWaves />
+      <LotusField />
 
       <section
         className="relative overflow-hidden"
