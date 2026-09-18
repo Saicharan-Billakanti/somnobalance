@@ -82,7 +82,7 @@ export function Preloader() {
     >
       <video
         ref={videoRef}
-        className="h-auto w-[clamp(300px,42vw,540px)]"
+        className="h-auto w-[clamp(220px,26vw,360px)]"
         src="/preloader/lotus-preloader.mp4"
         autoPlay
         muted
