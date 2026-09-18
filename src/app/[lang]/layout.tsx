@@ -6,6 +6,8 @@ import { getDictionary } from "@/i18n/getDictionary";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { LeafBackdrop } from "@/components/LeafBackdrop";
+import { Preloader } from "@/components/Preloader";
+import Script from "next/script";
 import { CartProvider } from "@/components/CartProvider";
 import { CookieConsentProvider } from "@/components/CookieConsent";
 import { AuthProvider } from "@/components/AuthProvider";
@@ -60,6 +62,10 @@ export default async function LocaleLayout({
   return (
     <html lang={lang} className={`${fraunces.variable} ${inter.variable} h-full`} suppressHydrationWarning>
       <body className="min-h-full flex flex-col font-sans antialiased" suppressHydrationWarning>
+        <Script id="preloader-skip" strategy="beforeInteractive">
+          {`try{if(sessionStorage.getItem("sb-preloader-seen")||matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.setAttribute("data-preloader","skip")}}catch(e){}`}
+        </Script>
+        <Preloader />
         <AuthProvider>
           <CookieConsentProvider dict={dict}>
             <CartProvider>

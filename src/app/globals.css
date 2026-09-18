@@ -170,3 +170,38 @@ body {
     animation: none;
   }
 }
+
+/* Intro preloader (see Preloader.tsx). Skipped for return visits in the same
+   session and for reduced-motion users; the animation is a failsafe that
+   hides it if JS never runs. */
+html[data-preloader="skip"] .site-preloader {
+  display: none;
+}
+
+@keyframes preloader-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+.site-preloader {
+  animation: preloader-failsafe 0.6s ease 9s forwards;
+}
+
+/* Portrait screens letterbox the 16:9 clip. Size the video to its own box
+   and feather that box's edges into the overlay colour so no band shows;
+   the lotus sits well inside the solid area. */
+@media (orientation: portrait) {
+  .site-preloader video {
+    width: 100%;
+    height: auto;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent),
+      linear-gradient(to bottom, transparent, #000 20%, #000 80%, transparent);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent),
+      linear-gradient(to bottom, transparent, #000 20%, #000 80%, transparent);
+    mask-composite: intersect;
+  }
+}
