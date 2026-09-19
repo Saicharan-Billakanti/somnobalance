@@ -113,9 +113,10 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               // get the sage tint, both as ~9% tinted background fills.
               const accentColor = i % 2 === 0 ? "var(--color-phase-mauve)" : "var(--color-phase-sage)";
               return (
-                <div
+                <Link
                   key={phase.name}
-                  className="overflow-hidden rounded-2xl"
+                  href={`/${l}/shop?phase=${encodeURIComponent(phase.name)}`}
+                  className="group block overflow-hidden rounded-2xl transition duration-300 hover:-translate-y-1 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mauve"
                   style={{ background: `color-mix(in srgb, ${accentColor} 9%, white)` }}
                 >
                   <div className="relative aspect-[4/3]">
@@ -124,7 +125,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                       alt=""
                       fill
                       sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                      className="object-cover"
+                      className="object-cover transition duration-500 group-hover:scale-105"
                     />
                   </div>
                   <div className="flex items-start justify-between gap-3 p-5">
@@ -137,12 +138,12 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                     </div>
                     <span
                       aria-hidden="true"
-                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-mauve text-white"
+                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-mauve text-white transition group-hover:translate-x-1 group-hover:bg-mauve-dark"
                     >
                       →
                     </span>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>

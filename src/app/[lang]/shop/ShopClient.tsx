@@ -16,14 +16,24 @@ type ShopClientProps = {
   dict: Dictionary;
 };
 
-export function ShopClient({ products, lang, dict }: { products: any[]; lang: Locale; dict: Dictionary }) {
+export function ShopClient({
+  products,
+  lang,
+  dict,
+  initialPhase = "all",
+}: {
+  products: any[];
+  lang: Locale;
+  dict: Dictionary;
+  initialPhase?: string;
+}) {
   const { add } = useCart();
   const { user } = useAuth();
 
   // Filters State
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [selectedPhase, setSelectedPhase] = useState<string>("all");
+  const [selectedPhase, setSelectedPhase] = useState<string>(initialPhase);
   const [priceRange, setPriceRange] = useState<string>("all");
   const [onlyFreeShipping, setOnlyFreeShipping] = useState(false);
   const [sortBy, setSortBy] = useState<"featured" | "price-asc" | "price-desc" | "name">("featured");
