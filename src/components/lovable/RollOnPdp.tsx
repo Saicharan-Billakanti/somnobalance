@@ -256,7 +256,7 @@ export function RollOnPdp({
             <div className="mt-6 flex items-end gap-3">
               <strong className="text-2xl font-medium">19,00 €</strong>
               <span className="pb-1 text-[10px] text-lovable-muted-foreground">
-                incl. VAT, plus shipping
+                {dict.shop.inclVatShipping}
               </span>
             </div>
             <div className="mt-7 flex gap-3">

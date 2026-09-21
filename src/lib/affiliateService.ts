@@ -299,7 +299,7 @@ export async function registerAffiliate(data: {
     bicSwift: data.bicSwift || null,
     paymentMethod: "bank_transfer",
     payoutThreshold: 50.0,
-    defaultCommissionRate: 15.0,
+    defaultCommissionRate: 10.0,
     createdAt: new Date().toISOString(),
   };
 
@@ -369,7 +369,7 @@ export async function createAffiliateCoupon(data: {
     affiliateId: data.affiliateId,
     couponCode: code,
     discountRate: Number(data.discountRate) || 10.0,
-    commissionRate: Number(data.commissionRate) || 15.0,
+    commissionRate: Number(data.commissionRate) || 10.0,
     commissionBaseType: "discounted_value",
     minimumOrderValue: Number(data.minimumOrderValue) || 0,
     usageLimit: null,

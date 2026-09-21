@@ -161,7 +161,7 @@ export function AdminDashboardClient({
   const [creatingCoupon, setCreatingCoupon] = useState(false);
   const [couponCode, setCouponCode] = useState("");
   const [discountRate, setDiscountRate] = useState("10");
-  const [commissionRate, setCommissionRate] = useState("15");
+  const [commissionRate, setCommissionRate] = useState("10");
   const [minOrderValue, setMinOrderValue] = useState("0");
   const [selectedAffiliateId, setSelectedAffiliateId] = useState(
     initialAffiliates[0]?.id || ""
@@ -1004,7 +1004,7 @@ export function AdminDashboardClient({
                 const refRevenue = Math.round(
                   (reportTimeframe === "today" ? 138.0 : reportTimeframe === "week" ? 1104.0 : reportTimeframe === "month" ? 4002.0 : 6624.0)
                 );
-                const commissionsEarned = Math.round(refRevenue * 0.15 * 100) / 100;
+                const commissionsEarned = Math.round(refRevenue * 0.1 * 100) / 100;
                 const stripePayoutsDisbursed =
                   reportTimeframe === "today" ? 0.0 : reportTimeframe === "week" ? 250.0 : reportTimeframe === "month" ? 850.0 : 1450.0;
                 const pendingBalance = Math.max(0, Math.round((commissionsEarned - (reportTimeframe === "all" ? 600 : 0)) * 100) / 100);
@@ -1045,7 +1045,7 @@ export function AdminDashboardClient({
                           {formatPrice(commissionsEarned)}
                         </div>
                         <div className="mt-1.5 text-[11px] text-ink/50">
-                          Avg 15.0% commission tier
+                          Avg 10.0% commission tier
                         </div>
                       </div>
 

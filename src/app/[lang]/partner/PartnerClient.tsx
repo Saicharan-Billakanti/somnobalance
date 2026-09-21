@@ -321,7 +321,7 @@ export function PartnerClient({ lang, dict }: { lang: Locale; dict: Dictionary }
               <div className="rounded-2xl bg-sand/30 p-4 text-xs">
                 <span className="font-semibold text-ink/50 uppercase text-[10px]">Standard Commission Rate</span>
                 <p className="mt-1 font-bold text-teal-dark text-sm">
-                  {portalData.affiliate.defaultCommissionRate || 15}% per verified sale
+                  {portalData.affiliate.defaultCommissionRate || 10}% per verified sale
                 </p>
               </div>
             </div>
@@ -645,9 +645,9 @@ export function PartnerClient({ lang, dict }: { lang: Locale; dict: Dictionary }
               </div>
 
               <div className="rounded-3xl border border-mauve/10 bg-gradient-to-br from-sand/50 to-sand/20 p-8 text-center sm:p-12">
-                <h2 className="font-serif text-2xl text-ink">Ready to partner with SomnoBalance?</h2>
+                <h2 className="font-serif text-2xl text-ink">{dict.partner.readyTitle}</h2>
                 <p className="mx-auto mt-3 max-w-xl text-sm text-ink/70">
-                  Apply in less than two minutes. Once approved, you receive your unique promo code and 15% commission on every referral.
+                  {dict.partner.readyCopy}
                 </p>
                 <div className="mt-6 flex flex-wrap justify-center items-center gap-4">
                   <button

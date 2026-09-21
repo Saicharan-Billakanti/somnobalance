@@ -295,31 +295,31 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
             {isDualRole ? (
               <div className="rounded-2xl border border-teal/20 bg-teal/5 p-3.5 text-xs text-ink/80">
                 <div className="font-semibold text-teal-dark flex items-center gap-1.5">
-                  <Star className="size-4" /> Partner Member
+                  <Star className="size-4" /> {dict.shop.partnerMemberTitle}
                 </div>
                 <p className="mt-1 text-[11px] text-ink/60">
-                  Earn 15% commission on customer referrals.
+                  {dict.shop.partnerMemberCopy}
                 </p>
                 <Link
                   href={`/${lang}/partner`}
                   className="mt-2 block text-center rounded-lg bg-teal py-1.5 text-[11px] font-semibold text-white hover:bg-teal-dark"
                 >
-                  Open Partner Portal →
+                  {dict.shop.partnerMemberCta}
                 </Link>
               </div>
             ) : (
               <div className="rounded-2xl border border-mauve/15 bg-sand/40 p-3.5 text-xs text-ink/80">
                 <div className="font-semibold text-ink flex items-center gap-1.5">
-                  <Sparkles className="size-4" /> Healthcare Professional?
+                  <Sparkles className="size-4" /> {dict.shop.partnerTeaserTitle}
                 </div>
                 <p className="mt-1 text-[11px] text-ink/60">
-                  Join our verified health partner network and earn 15% on client referrals.
+                  {dict.shop.partnerTeaserCopy}
                 </p>
                 <Link
                   href={`/${lang}/partner`}
                   className="mt-2 block text-center rounded-lg bg-mauve py-1.5 text-[11px] font-semibold text-white hover:bg-mauve-dark"
                 >
-                  Become a Partner →
+                  {dict.shop.partnerTeaserCta}
                 </Link>
               </div>
             )}
