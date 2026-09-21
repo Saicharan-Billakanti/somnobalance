@@ -388,42 +388,6 @@ export const products: Product[] = [
       },
     },
   },
-  {
-    slug: "somnobalance-regeneration-bed",
-    name: "SomnoBalance Regenerationsbett",
-    category: "Sleep",
-    price: 4995,
-    tagline: "The night as part of your regeneration — a premium sleep environment designed to complete your SomnoBalance journey.",
-    description:
-      "Regulation and rituals prepare the transition. The sleep environment takes over during the night. The SomnoBalance Regenerationsbett brings together comfort, craftsmanship and a carefully considered sleep environment as the spatial completion of the SomnoBalance regeneration journey.",
-    details: [
-      "Comfort: A premium sleep environment designed around individual comfort and sleeping preferences.",
-      "Construction: Details of the bed construction, base system and mattress integration should be added from the confirmed product specification.",
-      "Configuration: Available configurations, dimensions, upholstery/fabric options and other selectable elements should be listed here.",
-      "Materials: Add the confirmed materials, fabrics, wood elements and upholstery specifications.",
-      "Individual consultation: The bed is a consultation-led product, individually manufactured with personal sleep consultation.",
-    ],
-    phase: "REGENERATE",
-    image: "/products/somnobalance-mattress.webp",
-    returnPeriodDays: 30,
-    refundPolicy: "Individual Consultation & Custom Order",
-    returnEligible: false,
-    translations: {
-      de: {
-        name: "SomnoBalance Regenerationsbett",
-        tagline: "Die Nacht als Teil deiner Regeneration — eine Premium-Schlafumgebung.",
-        description:
-          "Regulation und Rituale bereiten den Übergang vor. Die Schlafumgebung übernimmt in der Nacht. Das SomnoBalance Regenerationsbett vereint Komfort, Handwerkskunst und eine sorgfältig durchdachte Schlafumgebung als räumlichen Abschluss der SomnoBalance-Regenerationsreise.",
-        details: [
-          "Komfort: Eine Premium-Schlafumgebung, die rund um individuellen Komfort und Schlafgewohnheiten entworfen wurde.",
-          "Konstruktion: Details zur Bettkonstruktion, zum Basissystem und zur Matratzenintegration.",
-          "Konfiguration: Verfügbare Konfigurationen, Abmessungen, Polster-/Stoffoptionen und wählbare Elemente.",
-          "Materialien: Bestätigte Materialien, Stoffe, Holzelemente und Polsterspezifikationen.",
-          "Individuelle Beratung: Individuell gefertigte Betten und persönliche Schlafberatung.",
-        ],
-      },
-    },
-  },
 ];
 
 export function getProductReturnInfo(slug: string) {

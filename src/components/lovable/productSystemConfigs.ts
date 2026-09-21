@@ -34,7 +34,6 @@ export const PRODUCT_SYSTEM_SLUGS = new Set([
   "somnobalance-starter-set",
   "somnobalance-neck-pillow",
   "somnobalance-mattress",
-  "somnobalance-regeneration-bed",
 ]);
 
 export function hasProductSystemConfig(slug: string) {
@@ -47,7 +46,6 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
     galleryTagline: ["Loslassen.", "Vorbereiten."],
     howToUseEyebrow: "Anwendung",
     howToUseTitle: ["Wenn der Tag", "leiser werden darf."],
-    howToUseImage: "/products/oil.webp",
     howToUseSteps: [
       { icon: Droplet, label: "Ankommen" },
       { icon: Wind, label: "Duftimpuls" },
@@ -113,7 +111,6 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
     galleryTagline: ["Zeit nehmen.", "Ankommen."],
     howToUseEyebrow: "Zubereitung",
     howToUseTitle: ["Manchmal beginnt Loslassen", "mit etwas ganz Einfachem."],
-    howToUseImage: "/products/teapowder.webp",
     howToUseSteps: [
       { icon: Droplet, label: "Aufbrühen" },
       { icon: Cloud, label: "Ankommen" },
@@ -146,7 +143,6 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
     galleryTagline: ["Welche Begleitung", "brauchst du gerade?"],
     howToUseEyebrow: "Anwendung",
     howToUseTitle: ["Karte wählen.", "Impuls anwenden."],
-    howToUseImage: "/products/cards.webp",
     howToUseSteps: [
       { icon: Sparkles, label: "Karte wählen" },
       { icon: Droplet, label: "Impuls anwenden" },
@@ -272,36 +268,4 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
     },
   },
 
-  "somnobalance-regeneration-bed": {
-    systemRoleLabel: "SCHLAFUMGEBUNG · REGENERIEREN",
-    galleryTagline: ["Die Nacht als Teil", "deiner Regeneration."],
-    howToUseImage: "/products/somnobalance-regeneration-bed.jpg",
-    howToUseEyebrow: "Was dich durch die Nacht trägt",
-    howToUseTitle: ["Die Nacht gibt der", "Regeneration den nötigen Raum."],
-    howToUseSteps: [
-      { icon: Bed, label: "Individueller Komfort" },
-      { icon: Cloud, label: "Ruhiger werden" },
-      { icon: Sun, label: "Zur Ruhe finden" },
-      { icon: Moon, label: "Regenerieren" },
-    ],
-    howToUseNote: ["Regeneration endet", "nicht am Abend."],
-    detailIcons: [Bed, Info, infoIcon],
-    nextCompanionLabel: "Der finale Schritt deiner SomnoBalance Reise.",
-    soundTitle: ["SomnoBalance", "Sound"],
-    soundIntro: ["A quiet atmosphere", "for your moment."],
-    soundQuote: ["A little more calm,", "wherever you are."],
-    brandCloseTagline: ["A small ritual.", "Wherever you are."],
-    brandCloseNote: ["Rest.", "Rebalance.", "Repeat."],
-    translations: {
-      en: {
-        systemRoleLabel: "SLEEP · REGENERATE",
-        galleryTagline: ["The night as part of", "your regeneration."],
-        howToUseEyebrow: "What carries you through the night",
-        howToUseTitle: ["The night gives regeneration", "the space it needs."],
-        howToUseSteps: ["Individual comfort", "Calm down", "Transition", "Regenerate"],
-        howToUseNote: ["Regeneration doesn't", "end with the evening."],
-        nextCompanionLabel: "The final step of your SomnoBalance journey.",
-      },
-    },
-  },
 };

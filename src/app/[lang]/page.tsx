@@ -49,24 +49,22 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             </div>
           </div>
 
-          <div className="relative mx-auto aspect-[4/5] w-full max-w-[320px] overflow-hidden rounded-3xl md:mx-0">
-            <Image
-              src="/brand/rollon-styled-stone.webp"
-              alt=""
-              fill
-              sizes="(min-width: 768px) 320px, 80vw"
-              priority
-              className="object-cover"
-            />
-            <div className="absolute right-6 top-6 max-w-[9rem] text-right font-serif text-lg italic leading-snug text-white drop-shadow-sm">
-              {dict.home.heroBadgeLine1}
+          <div className="relative mx-auto w-full max-w-[280px] md:mx-0">
+            <div className="relative aspect-[3/4] w-full">
+              <Image
+                src="/products/somnobalance-roll-on.webp"
+                alt=""
+                fill
+                sizes="(min-width: 768px) 280px, 70vw"
+                priority
+                className="object-contain"
+              />
+            </div>
+            <p className="mt-4 text-center font-serif text-lg italic leading-snug text-mauve">
+              {dict.home.heroSideTitle}
               <br />
-              {dict.home.heroBadgeLine2}
-            </div>
-            <div className="absolute bottom-6 left-6 rounded-2xl bg-white/90 px-4 py-3">
-              <div className="font-serif text-sm text-ink">{dict.home.heroSideTitle}</div>
-              <div className="font-serif text-sm text-ink">{dict.home.heroSideSubtitle}</div>
-            </div>
+              {dict.home.heroSideSubtitle}
+            </p>
           </div>
         </div>
       </section>
@@ -98,19 +96,21 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               </Link>
             </div>
 
-            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl">
-              <Image
-                src="/brand/roomspray-styled-stone.webp"
-                alt=""
-                fill
-                sizes="(min-width: 768px) 50vw, 100vw"
-                className="object-cover"
-              />
-              <div className="absolute right-6 top-6 text-right font-serif text-lg italic leading-snug text-ink/80">
+            <div className="relative">
+              <div className="relative mx-auto aspect-[3/4] w-full max-w-[220px]">
+                <Image
+                  src="/products/somnobalance-room-spray.webp"
+                  alt=""
+                  fill
+                  sizes="(min-width: 768px) 220px, 60vw"
+                  className="object-contain"
+                />
+              </div>
+              <p className="mt-4 text-center font-serif text-lg italic leading-snug text-mauve">
                 {dict.home.systemTagline1}
                 <br />
                 {dict.home.systemTagline2}
-              </div>
+              </p>
             </div>
           </div>
 
