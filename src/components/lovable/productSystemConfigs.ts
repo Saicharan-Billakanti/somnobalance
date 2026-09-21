@@ -54,7 +54,7 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
     ],
     howToUseNote: ["Für heute", "ist genug."],
     detailIcons: [FlaskConical, Sparkles, Droplet, infoIcon],
-    nextCompanionLabel: "Dein Begleiter für Loslassen & Vorbereiten.",
+    nextCompanionLabel: "Ihr Begleiter für Loslassen & Vorbereiten.",
     soundTitle: ["SomnoBalance", "Sound"],
     soundIntro: ["A quiet atmosphere", "for your moment."],
     soundQuote: ["A little more calm,", "wherever you are."],
@@ -87,7 +87,7 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
     ],
     howToUseNote: ["Verändere nicht den", "ganzen Abend."],
     detailIcons: [FlaskConical, Sparkles, Droplet, infoIcon],
-    nextCompanionLabel: "Dein Begleiter für den Übergang zur Nacht.",
+    nextCompanionLabel: "Ihr Begleiter für den Übergang zur Nacht.",
     soundTitle: ["SomnoBalance", "Sound"],
     soundIntro: ["A quiet atmosphere", "for your moment."],
     soundQuote: ["A little more calm,", "wherever you are."],
@@ -119,7 +119,7 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
     ],
     howToUseNote: ["Ein warmer", "Begleiter."],
     detailIcons: [Leaf, Flower2, Droplet, infoIcon],
-    nextCompanionLabel: "Dein Begleiter für ruhigere Abendmomente.",
+    nextCompanionLabel: "Ihr Begleiter für ruhigere Abendmomente.",
     soundTitle: ["SomnoBalance", "Sound"],
     soundIntro: ["A quiet atmosphere", "for your moment."],
     soundQuote: ["A little more calm,", "wherever you are."],
@@ -140,7 +140,7 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
 
   "somnobalance-regeneration-cards": {
     systemRoleLabel: "SELBSTREGULATION · REGULIEREN · LOSLASSEN · VORBEREITEN",
-    galleryTagline: ["Welche Begleitung", "brauchst du gerade?"],
+    galleryTagline: ["Welche Begleitung", "brauchen Sie gerade?"],
     howToUseEyebrow: "Anwendung",
     howToUseTitle: ["Karte wählen.", "Impuls anwenden."],
     howToUseSteps: [
@@ -171,19 +171,19 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
   },
 
   "somnobalance-starter-set": {
-    systemRoleLabel: "DEIN EINSTIEG IN SOMNOBALANCE",
-    galleryTagline: ["Drei Wochen.", "Dein Weg."],
+    systemRoleLabel: "IHR EINSTIEG IN SOMNOBALANCE",
+    galleryTagline: ["Drei Wochen.", "Ihr Weg."],
     howToUseEyebrow: "21-Tage-Guide",
-    howToUseTitle: ["Drei Wochen.", "Dein Regenerationsweg."],
+    howToUseTitle: ["Drei Wochen.", "Ihr Regenerationsweg."],
     howToUseSteps: [
       { icon: Sun, label: "Woche 1" },
       { icon: Cloud, label: "Woche 2" },
       { icon: Moon, label: "Woche 3" },
       { icon: Sparkles, label: "Weitergehen" },
     ],
-    howToUseNote: ["So greifen deine", "Begleiter ineinander."],
+    howToUseNote: ["So greifen Ihre", "Begleiter ineinander."],
     detailIcons: [Sparkles, FlaskConical, Info, infoIcon],
-    nextCompanionLabel: "Regulieren, Loslassen, Vorbereiten — dein Einstieg.",
+    nextCompanionLabel: "Regulieren, Loslassen, Vorbereiten — Ihr Einstieg.",
     soundTitle: ["SomnoBalance", "Sound"],
     soundIntro: ["A quiet atmosphere", "for your moment."],
     soundQuote: ["A little more calm,", "wherever you are."],
@@ -237,10 +237,10 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
 
   "somnobalance-mattress": {
     systemRoleLabel: "SCHLAFUMGEBUNG · REGENERIEREN",
-    galleryTagline: ["Was dich durch", "die Nacht trägt."],
+    galleryTagline: ["Was Sie durch", "die Nacht trägt."],
     howToUseImage: "/products/bed.webp",
     howToUseEyebrow: "Schlafumgebung",
-    howToUseTitle: ["Was dich durch", "die Nacht trägt."],
+    howToUseTitle: ["Was Sie durch", "die Nacht trägt."],
     howToUseSteps: [
       { icon: Bed, label: "Härtegrad wählen" },
       { icon: Moon, label: "Wenden möglich" },

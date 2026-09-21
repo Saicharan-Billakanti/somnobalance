@@ -90,7 +90,7 @@ export const products: Product[] = [
     translations: {
       de: {
         name: "SomnoBalance Roll-on",
-        tagline: "Dein Duftimpuls für unterwegs und zwischendurch.",
+        tagline: "Ihr Duftimpuls für unterwegs und zwischendurch.",
         description:
           "Der SomnoBalance Roll-on verbindet den charakteristischen Duft der Marke mit einer einfachen, gezielten Anwendung. Lavendel, Clementine, Grapefruit, Weihrauch und Patchouli sind in eine Basis aus Sonnenblumen- und Jojobaöl eingebunden und werden direkt auf die Haut aufgetragen — leicht einzubinden in eine persönliche Pause oder ein Ritual, ob zu Hause, auf Reisen oder als Teil der abendlichen Routine.",
         details: [
@@ -131,7 +131,7 @@ export const products: Product[] = [
     translations: {
       de: {
         name: "SomnoBalance Ölmischung",
-        tagline: "Dein Duftimpuls für bewusste Regenerations- und Abendmomente.",
+        tagline: "Ihr Duftimpuls für bewusste Regenerations- und Abendmomente.",
         description:
           "Die SomnoBalance Ölmischung vereint Lavendel, Clementine, Grapefruit, Weihrauch und Patchouli zur charakteristischen Duftkomposition der Marke. Wenige Tropfen tragen den SomnoBalance-Duft in den Raum — ein einfacher Teil bewusster Abend- und Ruherituale.",
         details: [
@@ -168,7 +168,7 @@ export const products: Product[] = [
     translations: {
       de: {
         name: "SomnoBalance Raumspray",
-        tagline: "Ein Duftimpuls für deinen Raum und bewusste Übergänge.",
+        tagline: "Ein Duftimpuls für Ihren Raum und bewusste Übergänge.",
         description:
           "Der SomnoBalance Raumspray bringt die Duftkomposition der Marke mit wenigen Sprühstößen in einen Raum — als Teil eines Abendrituals, vor einer bewussten Pause oder beim Übergang von einem aktiven Tag in eine ruhigere Umgebung. Laut Produktetikett formuliert auf Basis von Alkohol, Wasser und einer Mischung ätherischer Öle.",
         details: [
@@ -240,7 +240,7 @@ export const products: Product[] = [
     translations: {
       de: {
         name: "SomnoBalance Regenerationskarten",
-        tagline: "Regenerationspunkte und Rituale für deinen Alltag.",
+        tagline: "Regenerationspunkte und Rituale für Ihren Alltag.",
         description:
           "Die SomnoBalance Regenerationskarten machen die SomnoBalance-Methode Schritt für Schritt anwendbar. Das Set besteht aus 13 Regenerationspunkt-Karten und 10 Regenerationsritual-Karten. Die Punktkarten zeigen ausgewählte Punkte am Körper mit Lage, Illustration und Anleitung; die Ritualkarten kombinieren mehrere Punkte zu festen Abfolgen für unterschiedliche Alltagssituationen — darunter Ruhe finden, Gut schlafen, Neue Kraft sammeln, Innere Balance, Gefühle loslassen, Gedanken loslassen, Innere Standfestigkeit finden, Klarheit gewinnen, Den Tag leichter gestalten und Regeneration aktivieren.",
         details: [
@@ -375,7 +375,7 @@ export const products: Product[] = [
     translations: {
       de: {
         name: "SomnoBalance Starter-Set",
-        tagline: "Dein Einstieg in einen Regenerationsweg vom aktiven Tag bis in die Nacht.",
+        tagline: "Ihr Einstieg in einen Regenerationsweg vom aktiven Tag bis in die Nacht.",
         description:
           "Das SomnoBalance Starter-Set vereint den Roll-on, die Ölmischung und die Regenerationskarten mit einem gedruckten 21-Tage-Guide — ein Einstieg in das gesamte SomnoBalance-Ritual, von der aktuellen Phase bis zum passenden Duft und Punkt.",
         details: [
