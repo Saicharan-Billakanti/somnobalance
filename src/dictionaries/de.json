@@ -35,6 +35,8 @@
   "home": {
     "eyebrow": "Regeneration · Ruhe · Balance",
     "title": "Regeneration beginnt lange bevor Sie einschlafen.",
+    "titlePrefix": "Regeneration beginnt lange bevor Sie ",
+    "titleAccent": "einschlafen.",
     "subtitle": "SomnoBalance ist keine Matratzenmarke. Es ist ein Ritual für den Übergang in die Ruhe — sinnlich, unaufgeregt und ganz auf Sie ausgerichtet.",
     "ctaForMe": "Für mich",
     "ctaShop": "Shop entdecken",
@@ -43,27 +45,23 @@
     "heroBadgeLine2": "ausgeglicheneres Ich.",
     "heroSideTitle": "Kleine Rituale.",
     "heroSideSubtitle": "Große Veränderung.",
-    "cycleLabel": "Der SomnoBalance-Kreislauf",
+    "cycleLabel": "Regulieren · Loslassen · Vorbereiten · Regenerieren",
     "cycle": [
       {
-        "name": "TAG",
-        "caption": "Voll leben"
+        "name": "Regulieren",
+        "caption": "Das Nervensystem beruhigen, während der Tag ausklingt."
       },
       {
-        "name": "REGULATION",
-        "caption": "Balance finden"
+        "name": "Loslassen",
+        "caption": "Spannung lösen durch Duft, Wärme, ein stilles Ritual."
       },
       {
-        "name": "LOSLASSEN",
-        "caption": "Sanft loslassen"
+        "name": "Vorbereiten",
+        "caption": "Eine Schlafumgebung, die trägt — nicht nur aufnimmt."
       },
       {
-        "name": "VORBEREITUNG",
-        "caption": "Ruhe schaffen"
-      },
-      {
-        "name": "NACHT",
-        "caption": "Tief ruhen"
+        "name": "Regenerieren",
+        "caption": "Ruhe als Grundlage für Lebensqualität, nicht als Aufgabe."
       }
     ],
     "systemEyebrow": "Rhythmus für ein volleres Leben.",
@@ -74,22 +72,22 @@
     "systemTagline2": "Mehr Sie.",
     "phases": [
       {
-        "name": "REGULATE",
+        "name": "Regulieren",
         "copy": "Das Nervensystem zur Ruhe bringen, während der Tag ausklingt.",
         "image": "/products/somnobalance-roll-on.webp"
       },
       {
-        "name": "LET GO",
+        "name": "Loslassen",
         "copy": "Spannung lösen durch Duft, Wärme und ein stilles Ritual.",
         "image": "/products/somnobalance-oil-blend.webp"
       },
       {
-        "name": "PREPARE",
+        "name": "Vorbereiten",
         "copy": "Eine Schlafumgebung, die Sie trägt — nicht nur aufnimmt.",
         "image": "/products/somnobalance-neck-pillow.webp"
       },
       {
-        "name": "REGENERATE",
+        "name": "Regenerieren",
         "copy": "Ruhe als Grundlage für Lebensqualität, nicht als weitere Aufgabe.",
         "image": "/products/somnobalance-starter-set.webp"
       }
@@ -124,7 +122,7 @@
     "heading": "Das SomnoBalance-Prinzip",
     "p1": "SomnoBalance ist eine Regenerations- und Lifestyle-Marke. Unsere Produkte — Matratzen, Kissen, Öle, Tee und Ritual-Karten — sind Werkzeuge innerhalb eines ganzheitlichen Systems, nicht das Angebot selbst. Das Versprechen dahinter ist einfach: Regeneration, Ruhe, Lebensqualität.",
     "p2": "Wir gehen bewusst einen anderen Weg als High-Tech-Ansätze mit Schlaf-Tracking. Es gibt hier kein Dashboard, keinen Wert, den es zu optimieren gilt. SomnoBalance ist ganzheitlich, sinnlich und ritualbasiert — ein Unterscheidungsmerkmal, keine Lücke.",
-    "p3": "Das System durchläuft vier Phasen — REGULATE, LET GO, PREPARE, REGENERATE — jede mit eigenem Ritual, eigenen Produkten und eigenem Platz im Abend.",
+    "p3": "Das System durchläuft vier Phasen — Regulieren, Loslassen, Vorbereiten, Regenerieren — jede mit eigenem Ritual, eigenen Produkten und eigenem Platz im Abend.",
     "craftTitle": "Handwerk hinter der Marke",
     "craftCopy": "SomnoBalance stützt sich auf mehr als 35 Jahre Erfahrung in der Entwicklung von Schlafumgebungsprodukten. Dieses Erbe steht still im Hintergrund der Marke — die vollständigen rechtlichen Angaben finden Sie in unserem {impressumLink}.",
     "impressumLinkLabel": "Impressum"
@@ -358,10 +356,10 @@
       "Care": "Pflege"
     },
     "phases": {
-      "REGULATE": "REGULATE",
-      "LET GO": "LET GO",
-      "PREPARE": "PREPARE",
-      "REGENERATE": "REGENERATE"
+      "REGULATE": "Regulieren",
+      "LET GO": "Loslassen",
+      "PREPARE": "Vorbereiten",
+      "REGENERATE": "Regenerieren"
     }
   },
   "cart": {

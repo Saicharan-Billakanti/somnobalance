@@ -1,18 +1,22 @@
 @import "tailwindcss";
 
 :root {
-  /* Warm neutral palette (client brief: cream/sand/beige/taupe/warm brown,
-     never cold or technical). `mauve` keeps its role as the primary accent
-     (buttons, links, headings) and `teal` as the secondary/label accent —
-     only the actual colors changed, so every existing usage site inherits
-     the new palette without needing to be touched individually. */
-  --color-mauve: #8a6a4f;
-  --color-mauve-dark: #6b4f39;
-  --color-teal: #a9835f;
-  --color-teal-dark: #7c5a3d;
-  --color-sand: #efe4d3;
-  --color-offwhite: #faf6ef;
-  --color-ink: #3a2f27;
+  /* Binding brand palette per SomnoBalance_Entwickler-Vorgabe.docx §2
+     (2026-09-20): registered with the DPMA trademark filing, not a style
+     preference — no other color world (sand/beige/gold, dark blue/platinum)
+     is permitted for SomnoBalance. `mauve` keeps its role as the primary
+     accent (buttons, links, headings) and `teal` as the secondary/label
+     accent so every existing usage site inherits the corrected palette
+     without needing to be touched individually. */
+  --color-mauve: #6f5784;
+  --color-mauve-dark: #5a4569;
+  --color-teal: #669999;
+  --color-teal-dark: #4d7a7a;
+  --color-sand: #e4dad3;
+  --color-offwhite: #f8f3f1;
+  --color-ink: #241f29;
+  --color-ink-muted: #5c5560;
+  --color-ink-meta: #9a93a0;
   --background: var(--color-offwhite);
   --foreground: var(--color-ink);
 
@@ -20,40 +24,40 @@
      hero deepens slightly so the page reads as a calming descent rather
      than snapping back to a flat background — dark ink text stays legible
      throughout, this never goes fully dark. Scoped to the homepage only;
-     every other page keeps the flat --color-offwhite background. */
-  --color-scroll-1: #faf6ef;
-  --color-scroll-2: #f5ecdd;
-  --color-scroll-3: #eeddc4;
+     every other page keeps the flat --color-offwhite background. Rebased
+     off the corrected #F8F3F1 base per the Entwickler-Vorgabe palette. */
+  --color-scroll-1: #f8f3f1;
+  --color-scroll-2: #f0e9e4;
+  --color-scroll-3: #e7dbd4;
 
-  /* Phase-card tint pair (client spec, 2026-09-16 email): the two brand
-     colors used as very light background fills behind alternating phase
-     cards — REGULATE/PREPARE get the mauve tint, LET GO/REGENERATE get
-     the sage tint. Distinct from --color-mauve/--color-teal (the site's
-     own accent tokens) since the client gave these as specific hex
-     values to match exactly, not to be substituted with our palette. */
+  /* Phase-card tint pair: now identical to --color-mauve/--color-teal
+     since both were corrected to the same DPMA-registered hex values
+     (Entwickler-Vorgabe.docx §2) — kept as separate tokens only because
+     call sites already reference them by this name. */
   --color-phase-mauve: #6f5784;
   --color-phase-sage: #669999;
 
-  /* Lovable PDP design-system tokens (exact port from the client's
-     Lovable export, src/styles.css) — used only by src/components/lovable/*
-     and the roll-on PDP body. Kept separate from the site's own mauve/ink/
-     sand palette rather than merged, since this is a like-for-like port
-     to be reconciled/swapped later, not a redesign of the shared palette. */
-  --lovable-background: oklch(0.975 0.012 78);
-  --lovable-foreground: oklch(0.27 0.025 55);
-  --lovable-card: oklch(0.985 0.009 76);
-  --lovable-card-foreground: oklch(0.27 0.025 55);
-  --lovable-primary: oklch(0.49 0.07 59);
-  --lovable-primary-foreground: oklch(0.98 0.01 78);
-  --lovable-secondary: oklch(0.91 0.025 72);
-  --lovable-secondary-foreground: oklch(0.3 0.03 55);
-  --lovable-muted: oklch(0.94 0.018 74);
-  --lovable-muted-foreground: oklch(0.54 0.025 58);
-  --lovable-accent: oklch(0.88 0.045 68);
-  --lovable-accent-foreground: oklch(0.29 0.03 55);
-  --lovable-border: oklch(0.86 0.025 69);
-  --lovable-input: oklch(0.86 0.025 69);
-  --lovable-ring: oklch(0.49 0.07 59);
+  /* Lovable PDP design-system tokens — rebased onto the binding brand
+     palette (Entwickler-Vorgabe.docx §2: #6F5784 primary, #669999 accent,
+     #F8F3F1 base, #241F29 text) instead of the earlier warm-brown port.
+     Tonal steps (card/muted/secondary/accent/border) keep the same
+     lightness relationships as the original tokens, just recomputed on
+     the corrected hue (~308° primary, ~196° accent) instead of ~59°/78°. */
+  --lovable-background: oklch(0.967 0.006 43.3);
+  --lovable-foreground: oklch(0.249 0.02 307.6);
+  --lovable-card: oklch(0.98 0.004 43.3);
+  --lovable-card-foreground: oklch(0.249 0.02 307.6);
+  --lovable-primary: oklch(0.499 0.075 308.3);
+  --lovable-primary-foreground: oklch(0.967 0.006 43.3);
+  --lovable-secondary: oklch(0.91 0.02 308.3);
+  --lovable-secondary-foreground: oklch(0.32 0.03 307.6);
+  --lovable-muted: oklch(0.94 0.012 308.3);
+  --lovable-muted-foreground: oklch(0.46 0.02 313.5);
+  --lovable-accent: oklch(0.88 0.03 195.9);
+  --lovable-accent-foreground: oklch(0.3 0.025 307.6);
+  --lovable-border: oklch(0.894 0.015 57.6);
+  --lovable-input: oklch(0.894 0.015 57.6);
+  --lovable-ring: oklch(0.499 0.075 308.3);
 }
 
 @theme inline {
@@ -64,6 +68,8 @@
   --color-sand: var(--color-sand);
   --color-offwhite: var(--color-offwhite);
   --color-ink: var(--color-ink);
+  --color-ink-muted: var(--color-ink-muted);
+  --color-ink-meta: var(--color-ink-meta);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-scroll-1: var(--color-scroll-1);

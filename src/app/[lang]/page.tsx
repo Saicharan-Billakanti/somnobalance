@@ -5,7 +5,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { getDictionary } from "@/i18n/getDictionary";
 import { isLocale, type Locale } from "@/i18n/config";
 import { notFound } from "next/navigation";
-import { CycleBar } from "@/components/CycleBar";
+import { PhaseProgressStrip } from "@/components/PhaseProgressStrip";
 
 export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -23,7 +23,8 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
           <div>
             <p className="text-sm uppercase tracking-[0.2em] text-teal-dark">{dict.home.eyebrow}</p>
             <h1 className="mt-4 font-serif text-4xl leading-tight text-ink md:text-5xl">
-              {dict.home.title}
+              {dict.home.titlePrefix}
+              <em className="text-mauve italic">{dict.home.titleAccent}</em>
             </h1>
             <p className="mt-6 max-w-md text-lg leading-relaxed text-ink/70">
               {dict.home.subtitle}
@@ -71,7 +72,14 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
       </section>
 
       <section style={{ background: "color-mix(in srgb, var(--color-scroll-1) 74%, transparent)" }}>
-        <CycleBar label={dict.home.cycleLabel} stages={dict.home.cycle} />
+        <div className="bg-sand/40 py-10">
+          <p className="text-center text-[0.65rem] uppercase tracking-[0.2em] text-ink-meta">
+            {dict.home.cycleLabel}
+          </p>
+          <div className="mt-6">
+            <PhaseProgressStrip phases={dict.home.cycle} />
+          </div>
+        </div>
 
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
           <div className="grid items-center gap-10 md:grid-cols-2">

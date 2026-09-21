@@ -105,10 +105,10 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
 
   const phases = [
     { key: "all", label: lang === "de" ? "Alle Phasen" : "All Phases" },
-    { key: "REGULATE", label: "01 · REGULATE" },
-    { key: "LET GO", label: "02 · LET GO" },
-    { key: "PREPARE", label: "03 · PREPARE" },
-    { key: "REGENERATE", label: "04 · REGENERATE" },
+    { key: "REGULATE", label: `01 · ${dict.shop.phases.REGULATE}` },
+    { key: "LET GO", label: `02 · ${dict.shop.phases["LET GO"]}` },
+    { key: "PREPARE", label: `03 · ${dict.shop.phases.PREPARE}` },
+    { key: "REGENERATE", label: `04 · ${dict.shop.phases.REGENERATE}` },
   ];
 
   const handleQuickAddToCart = (e: React.MouseEvent, product: any) => {

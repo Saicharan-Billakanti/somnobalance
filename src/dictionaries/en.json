@@ -35,6 +35,8 @@
   "home": {
     "eyebrow": "Regeneration · Calm · Balance",
     "title": "Regeneration begins long before you fall asleep.",
+    "titlePrefix": "Regeneration begins long before you ",
+    "titleAccent": "fall asleep.",
     "subtitle": "SomnoBalance is not a mattress brand. It's a ritual for the transition into rest — sensory, unhurried, and built around you.",
     "ctaForMe": "For me",
     "ctaShop": "Explore the shop",
@@ -43,27 +45,23 @@
     "heroBadgeLine2": "more balanced you.",
     "heroSideTitle": "Small rituals.",
     "heroSideSubtitle": "Big change.",
-    "cycleLabel": "The SomnoBalance cycle",
+    "cycleLabel": "Regulate · Let Go · Prepare · Regenerate",
     "cycle": [
       {
-        "name": "DAY",
-        "caption": "Live fully"
+        "name": "Regulate",
+        "caption": "Settling the nervous system as the day winds down."
       },
       {
-        "name": "REGULATE",
-        "caption": "Find balance"
+        "name": "Let Go",
+        "caption": "Releasing tension through scent, warmth, a quiet ritual."
       },
       {
-        "name": "LET GO",
-        "caption": "Release gently"
+        "name": "Prepare",
+        "caption": "A sleep environment that holds you, not just contains you."
       },
       {
-        "name": "PREPARE",
-        "caption": "Create rest"
-      },
-      {
-        "name": "NIGHT",
-        "caption": "Rest deeply"
+        "name": "Regenerate",
+        "caption": "Rest as the foundation of quality of life, not another task."
       }
     ],
     "systemEyebrow": "Rhythm for a fuller life.",
@@ -358,10 +356,10 @@
       "Care": "Care"
     },
     "phases": {
-      "REGULATE": "REGULATE",
-      "LET GO": "LET GO",
-      "PREPARE": "PREPARE",
-      "REGENERATE": "REGENERATE"
+      "REGULATE": "Regulate",
+      "LET GO": "Let Go",
+      "PREPARE": "Prepare",
+      "REGENERATE": "Regenerate"
     }
   },
   "cart": {
