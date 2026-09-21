@@ -127,13 +127,22 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                   style={{ background: `color-mix(in srgb, ${accentColor} 9%, white)` }}
                 >
                   <div className="relative aspect-[4/3]">
-                    <Image
-                      src={phase.image}
-                      alt=""
-                      fill
-                      sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                      className="object-cover"
-                    />
+                    {phase.image ? (
+                      <Image
+                        src={phase.image}
+                        alt=""
+                        fill
+                        sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                        className="object-cover"
+                      />
+                    ) : (
+                      <div
+                        className="flex h-full w-full items-center justify-center text-[10px] uppercase tracking-[0.2em] text-ink/30"
+                        style={{ background: `color-mix(in srgb, ${accentColor} 14%, white)` }}
+                      >
+                        {phase.name}
+                      </div>
+                    )}
                   </div>
                   <div className="flex items-start justify-between gap-3 p-5">
                     <div>

@@ -86,8 +86,7 @@
       },
       {
         "name": "Regenerieren",
-        "copy": "Ruhe als Grundlage für Lebensqualität, nicht als weitere Aufgabe.",
-        "image": "/products/somnobalance-starter-set.webp"
+        "copy": "Ruhe als Grundlage für Lebensqualität, nicht als weitere Aufgabe."
       }
     ],
     "fromShop": "Aus dem Shop",
@@ -183,7 +182,8 @@
       "submit": "Bewerbung absenden",
       "submitting": "Wird übermittelt…",
       "successTitle": "Bewerbung eingegangen!",
-      "successCopy": "Vielen Dank für Ihre Bewerbung. Unser Partnerteam prüft Ihre Angaben und aktiviert Ihren persönlichen Gutscheincode innerhalb von 24–48 Stunden."
+      "successCopy": "Vielen Dank für Ihre Bewerbung. Unser Partnerteam prüft Ihre Angaben und aktiviert Ihren persönlichen Gutscheincode innerhalb von 24–48 Stunden.",
+      "successLoginLink": "Zu Ihrem Konto anmelden"
     },
     "portal": {
       "loginTitle": "Partner-Portal Anmeldung",

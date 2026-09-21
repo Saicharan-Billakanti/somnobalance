@@ -686,7 +686,7 @@ export function PartnerClient({ lang, dict }: { lang: Locale; dict: Dictionary }
                     href={`/${lang}/login`}
                     className="mt-6 inline-block rounded-full bg-mauve px-6 py-2.5 text-sm text-white hover:bg-mauve-dark"
                   >
-                    Log In to Your Account
+                    {dict.partner.form?.successLoginLink || "Log In to Your Account"}
                   </Link>
                 </div>
               ) : (

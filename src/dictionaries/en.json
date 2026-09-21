@@ -70,24 +70,23 @@
     "systemTagline2": "More you.",
     "phases": [
       {
-        "name": "REGULATE",
+        "name": "Regulate",
         "copy": "Settling the nervous system as the day winds down.",
         "image": "/products/somnobalance-roll-on.webp"
       },
       {
-        "name": "LET GO",
+        "name": "Let Go",
         "copy": "Releasing tension through scent, warmth, and quiet ritual.",
         "image": "/products/somnobalance-oil-blend.webp"
       },
       {
-        "name": "PREPARE",
+        "name": "Prepare",
         "copy": "A sleep environment built to hold you, not just contain you.",
         "image": "/products/somnobalance-neck-pillow.webp"
       },
       {
-        "name": "REGENERATE",
-        "copy": "Rest as the foundation of quality of life, not a chore to optimise.",
-        "image": "/products/somnobalance-starter-set.webp"
+        "name": "Regenerate",
+        "copy": "Rest as the foundation of quality of life, not a chore to optimise."
       }
     ],
     "fromShop": "From the shop",
@@ -120,7 +119,7 @@
     "heading": "The SomnoBalance principle",
     "p1": "SomnoBalance is a regeneration and lifestyle brand. Our products — mattresses, pillows, oils, tea, and ritual cards — are tools within a holistic system, not the offer itself. The promise underneath all of it is simple: regeneration, calm, quality of life.",
     "p2": "We deliberately take a different path from high-tech, sleep-tracking approaches. There is no dashboard here, no score to optimise. SomnoBalance is holistic, sensory, and ritual-based — a point of difference, not a gap.",
-    "p3": "The system moves through four phases — REGULATE, LET GO, PREPARE, REGENERATE — each paired with its own ritual, its own products, and its own place in an evening.",
+    "p3": "The system moves through four phases — Regulate, Let Go, Prepare, Regenerate — each paired with its own ritual, its own products, and its own place in an evening.",
     "craftTitle": "Craftsmanship behind the brand",
     "craftCopy": "SomnoBalance draws on more than 35 years of experience developing sleep-environment products. That heritage sits quietly behind the brand — see our {impressumLink} for the full legal detail.",
     "impressumLinkLabel": "Impressum"
@@ -183,7 +182,8 @@
       "submit": "Submit Application",
       "submitting": "Submitting…",
       "successTitle": "Application Received!",
-      "successCopy": "Thank you for applying. Our partner team will review your application and activate your custom coupon code within 24–48 hours."
+      "successCopy": "Thank you for applying. Our partner team will review your application and activate your custom coupon code within 24–48 hours.",
+      "successLoginLink": "Log In to Your Account"
     },
     "portal": {
       "loginTitle": "Partner Portal Login",
