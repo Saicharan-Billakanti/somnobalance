@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { formatPrice } from "@/lib/products";
 import { useAuth } from "@/components/AuthProvider";
+import { getSupabaseBrowser } from "@/lib/supabase-browser";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/getDictionary";
 
@@ -21,7 +23,17 @@ export function AccountClient({
   initialOrders,
 }: AccountClientProps) {
   const { user, setUser } = useAuth();
+  const router = useRouter();
   const [tab, setTab] = useState<"orders" | "profile">("orders");
+
+  const logout = async () => {
+    const supabase = await getSupabaseBrowser();
+    await supabase.auth.signOut();
+    await fetch("/api/auth/logout", { method: "POST" });
+    setUser(null);
+    router.push(`/${lang}`);
+    router.refresh();
+  };
 
   // Orders & Return State
   const [orders, setOrders] = useState(initialOrders || []);
@@ -721,6 +733,18 @@ export function AccountClient({
             </button>
           </div>
         </form>
+      )}
+
+      {tab === "profile" && (
+        <div className="mt-6 max-w-3xl border-t border-mauve/10 pt-6">
+          <button
+            type="button"
+            onClick={logout}
+            className="text-sm font-semibold text-ink/70 underline underline-offset-4 hover:text-ink"
+          >
+            {dict.nav.logout}
+          </button>
+        </div>
       )}
 
       {/* RETURN & REFUND REQUEST MODAL */}

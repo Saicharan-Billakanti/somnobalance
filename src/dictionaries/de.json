@@ -14,6 +14,66 @@
     "logout": "Abmelden",
     "greeting": "Hallo, {name}"
   },
+  "authPages": {
+    "login": {
+      "title": "Anmelden",
+      "subtitle": "Melden Sie sich mit E-Mail oder Telefonnummer und Passwort an.",
+      "email": "E-Mail",
+      "phone": "Telefon",
+      "emailPlaceholder": "E-Mail-Adresse",
+      "phonePlaceholder": "+49 170 0000000",
+      "passwordPlaceholder": "Passwort",
+      "submit": "Anmelden",
+      "submitting": "Anmeldung läuft…",
+      "forgotPassword": "Passwort vergessen?",
+      "noAccount": "Noch kein Konto?",
+      "createAccount": "Jetzt registrieren"
+    },
+    "register": {
+      "title": "Konto erstellen",
+      "subtitle": "Verifizieren Sie Ihre E-Mail oder Telefonnummer, um Ihr Konto zu erstellen, und melden Sie sich anschließend mit Ihrem Passwort an.",
+      "verifyByEmail": "Per E-Mail verifizieren",
+      "verifyByPhone": "Per Telefon verifizieren",
+      "firstName": "Vorname",
+      "lastName": "Nachname",
+      "email": "E-Mail-Adresse",
+      "phone": "Telefon, z. B. +49 170 0000000",
+      "password": "Passwort (mind. 8 Zeichen)",
+      "confirmPassword": "Passwort bestätigen",
+      "passwordMismatch": "Die Passwörter stimmen nicht überein.",
+      "sendCode": "Bestätigungscode senden",
+      "sending": "Wird gesendet…",
+      "codeSentEmail": "Bestätigungscode gesendet. Bitte prüfen Sie Ihre E-Mails.",
+      "codeSentPhone": "Bestätigungscode per SMS gesendet.",
+      "codePlaceholder": "Bestätigungscode",
+      "verify": "E-Mail bestätigen und Konto erstellen",
+      "verifying": "Wird überprüft…",
+      "useDifferentEmail": "Andere E-Mail-Adresse verwenden",
+      "alreadyHaveAccount": "Bereits registriert?",
+      "signIn": "Jetzt anmelden"
+    },
+    "forgotPassword": {
+      "title": "Passwort zurücksetzen",
+      "subtitle": "Geben Sie Ihre E-Mail-Adresse ein. Wir senden Ihnen einen Link zum Zurücksetzen Ihres Passworts.",
+      "emailPlaceholder": "E-Mail-Adresse",
+      "submit": "Link zum Zurücksetzen senden",
+      "submitting": "Wird gesendet…",
+      "success": "Falls ein Konto mit dieser E-Mail-Adresse existiert, wurde ein Link zum Zurücksetzen gesendet.",
+      "backToLogin": "Zurück zur Anmeldung"
+    },
+    "resetPassword": {
+      "title": "Neues Passwort festlegen",
+      "subtitle": "Wählen Sie ein neues Passwort für Ihr Konto.",
+      "passwordPlaceholder": "Neues Passwort (mind. 8 Zeichen)",
+      "confirmPasswordPlaceholder": "Neues Passwort bestätigen",
+      "passwordMismatch": "Die Passwörter stimmen nicht überein.",
+      "submit": "Passwort speichern",
+      "submitting": "Wird gespeichert…",
+      "success": "Ihr Passwort wurde aktualisiert. Sie werden angemeldet…",
+      "invalidLink": "Dieser Link ist ungültig oder abgelaufen. Bitte fordern Sie einen neuen an.",
+      "requestNewLink": "Neuen Link anfordern"
+    }
+  },
   "footer": {
     "tagline": "Regeneration beginnt lange bevor Sie einschlafen. Ein ruhiges, sinnliches System für den Übergang in die Ruhe.",
     "explore": "Entdecken",

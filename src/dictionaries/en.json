@@ -14,6 +14,66 @@
     "logout": "Log out",
     "greeting": "Hi, {name}"
   },
+  "authPages": {
+    "login": {
+      "title": "Sign in",
+      "subtitle": "Sign in with your email or phone and password.",
+      "email": "Email",
+      "phone": "Phone",
+      "emailPlaceholder": "Email address",
+      "phonePlaceholder": "+49 170 0000000",
+      "passwordPlaceholder": "Password",
+      "submit": "Sign in",
+      "submitting": "Signing in…",
+      "forgotPassword": "Forgot password?",
+      "noAccount": "Don't have an account?",
+      "createAccount": "Create one"
+    },
+    "register": {
+      "title": "Create account",
+      "subtitle": "Verify your email or phone to create your account, then use your password to sign in.",
+      "verifyByEmail": "Verify by email",
+      "verifyByPhone": "Verify by phone",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email address",
+      "phone": "Phone, e.g. +49 170 0000000",
+      "password": "Password (at least 8 characters)",
+      "confirmPassword": "Confirm password",
+      "passwordMismatch": "Passwords don't match.",
+      "sendCode": "Send verification code",
+      "sending": "Sending…",
+      "codeSentEmail": "Verification code sent. Check your email.",
+      "codeSentPhone": "Verification code sent via SMS.",
+      "codePlaceholder": "Verification code",
+      "verify": "Verify and create account",
+      "verifying": "Verifying…",
+      "useDifferentEmail": "Use a different email",
+      "alreadyHaveAccount": "Already have an account?",
+      "signIn": "Sign in"
+    },
+    "forgotPassword": {
+      "title": "Reset password",
+      "subtitle": "Enter your email address and we'll send you a link to reset your password.",
+      "emailPlaceholder": "Email address",
+      "submit": "Send reset link",
+      "submitting": "Sending…",
+      "success": "If an account exists for that email, a reset link has been sent.",
+      "backToLogin": "Back to sign in"
+    },
+    "resetPassword": {
+      "title": "Set a new password",
+      "subtitle": "Choose a new password for your account.",
+      "passwordPlaceholder": "New password (at least 8 characters)",
+      "confirmPasswordPlaceholder": "Confirm new password",
+      "passwordMismatch": "Passwords don't match.",
+      "submit": "Save password",
+      "submitting": "Saving…",
+      "success": "Your password has been updated. Signing you in…",
+      "invalidLink": "This link is invalid or has expired. Please request a new one.",
+      "requestNewLink": "Request a new link"
+    }
+  },
   "footer": {
     "tagline": "Regeneration begins long before you fall asleep. A calm, sensory system for transitioning into rest.",
     "explore": "Explore",
