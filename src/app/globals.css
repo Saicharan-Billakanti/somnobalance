@@ -201,3 +201,21 @@ html[data-preloader="skip"] .site-preloader {
   transform-origin: center;
   animation: lotus-pop 0.35s ease-out var(--d, 0s) forwards;
 }
+
+/* Site-wide square-corner design pass: every button, photo container, and
+   card uses sharp 0-radius corners instead of Tailwind's rounded-* scale,
+   for one consistent look across the whole site. Overriding the utility
+   classes centrally here (rather than editing each of the ~50 files that
+   use rounded-*) means new components stay square automatically without
+   needing to remember to omit rounded-* by hand. */
+.rounded-full,
+.rounded-xs,
+.rounded-sm,
+.rounded-md,
+.rounded-lg,
+.rounded-xl,
+.rounded-2xl,
+.rounded-3xl,
+.rounded {
+  border-radius: 0;
+}
