@@ -72,17 +72,20 @@
       {
         "name": "Regulate",
         "copy": "Settling the nervous system as the day winds down.",
-        "image": "/products/somnobalance-roll-on.webp"
+        "image": "/products/somnobalance-roll-on.webp",
+        "slug": "somnobalance-roll-on"
       },
       {
         "name": "Let Go",
         "copy": "Releasing tension through scent, warmth, and quiet ritual.",
-        "image": "/products/somnobalance-oil-blend.webp"
+        "image": "/products/somnobalance-oil-blend.webp",
+        "slug": "somnobalance-oil-blend"
       },
       {
         "name": "Prepare",
         "copy": "A sleep environment built to hold you, not just contain you.",
-        "image": "/products/somnobalance-neck-pillow.webp"
+        "image": "/products/somnobalance-neck-pillow.webp",
+        "slug": "somnobalance-neck-pillow"
       },
       {
         "name": "Regenerate",

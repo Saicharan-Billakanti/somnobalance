@@ -72,17 +72,20 @@
       {
         "name": "Regulieren",
         "copy": "Das Nervensystem zur Ruhe bringen, während der Tag ausklingt.",
-        "image": "/products/somnobalance-roll-on.webp"
+        "image": "/products/somnobalance-roll-on.webp",
+        "slug": "somnobalance-roll-on"
       },
       {
         "name": "Loslassen",
         "copy": "Spannung lösen durch Duft, Wärme und ein stilles Ritual.",
-        "image": "/products/somnobalance-oil-blend.webp"
+        "image": "/products/somnobalance-oil-blend.webp",
+        "slug": "somnobalance-oil-blend"
       },
       {
         "name": "Vorbereiten",
         "copy": "Eine Schlafumgebung, die Sie trägt — nicht nur aufnimmt.",
-        "image": "/products/somnobalance-neck-pillow.webp"
+        "image": "/products/somnobalance-neck-pillow.webp",
+        "slug": "somnobalance-neck-pillow"
       },
       {
         "name": "Regenerieren",

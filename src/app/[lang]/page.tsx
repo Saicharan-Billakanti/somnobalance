@@ -117,20 +117,22 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               // index) get the mauve tint, LET GO/REGENERATE (odd index)
               // get the sage tint, both as ~9% tinted background fills.
               const accentColor = i % 2 === 0 ? "var(--color-phase-mauve)" : "var(--color-phase-sage)";
+              const href = phase.slug ? `/${l}/shop/${phase.slug}` : `/${l}/shop`;
               return (
-                <div
+                <Link
                   key={phase.name}
-                  className="overflow-hidden rounded-2xl"
+                  href={href}
+                  className="group block overflow-hidden rounded-2xl transition hover:shadow-md"
                   style={{ background: `color-mix(in srgb, ${accentColor} 9%, white)` }}
                 >
-                  <div className="relative aspect-[4/3]">
+                  <div className="relative aspect-[4/3] bg-white">
                     {phase.image ? (
                       <Image
                         src={phase.image}
                         alt=""
                         fill
                         sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                        className="object-cover"
+                        className="object-contain object-top p-4 transition duration-300 group-hover:scale-105"
                       />
                     ) : (
                       <div
@@ -151,12 +153,12 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                     </div>
                     <span
                       aria-hidden="true"
-                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-mauve text-white"
+                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-mauve text-white transition group-hover:bg-mauve-dark"
                     >
                       →
                     </span>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>
