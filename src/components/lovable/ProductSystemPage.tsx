@@ -83,6 +83,7 @@ export type RitualStep = { icon: LucideIcon; label: string };
 export type ProductSystemConfig = {
   systemRoleLabel: string; // e.g. "RITUAL · REGULATE" shown top-left of hero
   galleryTagline: string[]; // lines shown over the hero image, top-left
+  galleryImages?: string[]; // real additional angles for the hero gallery; falls back to repeating product.image when unset
   howToUseEyebrow: string;
   howToUseTitle: string[];
   howToUseImage?: string; // real application-sequence photo; leave unset to show a placeholder until one exists
@@ -131,7 +132,9 @@ export function ProductSystemPage({
 
   const [quantity, setQuantity] = useState(1);
   const [active, setActive] = useState(0);
-  const gallery = [product.image, product.image, product.image, product.image];
+  const gallery = config.galleryImages?.length
+    ? config.galleryImages
+    : [product.image, product.image, product.image, product.image];
   const moveGallery = (step: number) =>
     setActive((current) => (current + step + gallery.length) % gallery.length);
   const [selectedVariant, setSelectedVariant] = useState<

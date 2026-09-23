@@ -205,6 +205,11 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
   "somnobalance-neck-pillow": {
     systemRoleLabel: "SCHLAFUMGEBUNG · REGENERIEREN",
     galleryTagline: ["Die Nacht braucht", "andere Bedingungen."],
+    galleryImages: [
+      "/products/somnobalance-neck-pillow.webp",
+      "/products/neck-pillow-detail-top.webp",
+      "/products/neck-pillow-detail-corner.webp",
+    ],
     howToUseEyebrow: "Schlafumgebung",
     howToUseTitle: ["Die Nacht braucht andere", "Bedingungen als der Tag."],
     howToUseImage: "/products/pillow.webp",
@@ -238,6 +243,12 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
   "somnobalance-mattress": {
     systemRoleLabel: "SCHLAFUMGEBUNG · REGENERIEREN",
     galleryTagline: ["Was Sie durch", "die Nacht trägt."],
+    galleryImages: [
+      "/products/somnobalance-mattress.webp",
+      "/products/mattress-detail-quilting.webp",
+      "/products/mattress-detail-vitalize.webp",
+      "/products/mattress-detail-handle.webp",
+    ],
     howToUseImage: "/products/bed.webp",
     howToUseEyebrow: "Schlafumgebung",
     howToUseTitle: ["Was Sie durch", "die Nacht trägt."],
