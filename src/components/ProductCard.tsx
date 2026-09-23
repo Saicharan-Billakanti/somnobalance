@@ -31,14 +31,15 @@ export function ProductCard({
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className="object-cover transition duration-500 group-hover:scale-105"
         />
-        <span className="absolute right-3 top-3 rounded-full bg-white/90 px-3 py-1 text-[0.65rem] uppercase tracking-[0.1em] text-ink/70">
-          {dict.shop.categories[product.category]}
-        </span>
       </Link>
 
       <div className="pt-4">
         <Link href={href}>
-          <h3 className="font-serif text-lg text-ink group-hover:text-mauve-dark">{text.name}</h3>
+          <div className="text-[0.65rem] uppercase tracking-[0.1em] text-ink/50">
+            {dict.shop.categories[product.category]}
+            {product.phase && <> · {dict.shop.phases[product.phase]}</>}
+          </div>
+          <h3 className="mt-1.5 font-serif text-lg text-ink group-hover:text-mauve-dark">{text.name}</h3>
           <p className="mt-1 text-sm leading-relaxed text-ink/60">{text.tagline}</p>
         </Link>
         <div className="mt-2.5 flex items-center justify-between">

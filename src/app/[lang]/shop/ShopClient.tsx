@@ -502,26 +502,15 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
                           sizes="(min-width: 1280px) 25vw, (min-width: 640px) 50vw, 100vw"
                           className="object-cover transition duration-300 group-hover:scale-105"
                         />
-                        <div className="absolute left-3 top-3 flex flex-col gap-1">
-                          <span className="rounded-full bg-white/90 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-teal-dark backdrop-blur">
-                            {p.category}
-                          </span>
-                          {p.phase && (
-                            <span className="rounded-full bg-ink/80 px-2.5 py-0.5 text-[9px] font-medium tracking-wider text-white backdrop-blur">
-                              {p.phase}
-                            </span>
-                          )}
-                        </div>
-
-                        {p.shippingIncluded && (
-                          <div className="absolute right-3 top-3 rounded-full bg-emerald-700/90 px-2.5 py-0.5 text-[9px] font-medium text-white backdrop-blur">
-                            Free Delivery
-                          </div>
-                        )}
                       </div>
 
                       <div className="p-5">
-                        <h3 className="font-serif text-lg font-bold text-ink group-hover:text-mauve-dark transition">
+                        <div className="text-[10px] uppercase tracking-wider text-ink/50">
+                          {(dict.shop.categories as Record<string, string>)?.[p.category] || p.category}
+                          {p.phase && <> · {(dict.shop.phases as Record<string, string>)[p.phase]}</>}
+                          {p.shippingIncluded && <> · {dict.shop.freeDelivery}</>}
+                        </div>
+                        <h3 className="mt-1 font-serif text-lg font-bold text-ink group-hover:text-mauve-dark transition">
                           {text.name}
                         </h3>
                         <p className="mt-1 text-xs line-clamp-2 text-ink/60">{text.tagline}</p>
