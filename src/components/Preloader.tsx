@@ -38,14 +38,14 @@ function Lotus() {
       className="h-auto w-[clamp(170px,16vw,240px)]"
       aria-hidden="true"
     >
-      <g fill="none" stroke="#5f4a72" strokeWidth="9" strokeLinecap="round" strokeLinejoin="round">
+      <g fill="none" stroke="#6F5784" strokeWidth="9" strokeLinecap="round" strokeLinejoin="round">
         {LEFT_PETALS.map(([d, delay, dur], i) => stroke(d, delay, dur, `l${i}`))}
         <g transform="translate(1190 0) scale(-1 1)">
           {LEFT_PETALS.map(([d, delay, dur], i) => stroke(d, delay, dur, `r${i}`))}
         </g>
         {CENTRE_PETAL.map((d, i) => stroke(d, 1.5, 1.1, `c${i}`))}
       </g>
-      <g fill="none" stroke="#7e927d" strokeWidth="11" strokeLinecap="round" strokeLinejoin="round">
+      <g fill="none" stroke="#669999" strokeWidth="11" strokeLinecap="round" strokeLinejoin="round">
         {stroke(
           "M595 368 C570 335 520 335 500 355 C480 380 505 402 535 398 C565 394 585 380 595 368 C605 380 625 394 655 398 C685 402 710 380 690 355 C670 335 620 335 595 368Z",
           2.5,
@@ -54,7 +54,7 @@ function Lotus() {
         )}
         {stroke("M570 400 C570 420 578 432 591 437 C604 432 612 420 613 400", 3.1, 0.5, "chin")}
       </g>
-      <g fill="#7e927d">
+      <g fill="#669999">
         {[
           [541, 317, 3.0],
           [595, 304, 3.15],
@@ -133,12 +133,22 @@ export function Preloader() {
 
   return (
     <div
-      className="site-preloader fixed inset-0 z-[200] flex items-center justify-center bg-[#EDDFD0] transition-opacity ease-out"
+      className="site-preloader fixed inset-0 z-[200] flex items-center justify-center bg-[#F8F3F1] transition-opacity ease-out"
       style={{ opacity: fading ? 0 : 1, transitionDuration: `${FADE_MS}ms` }}
       role="status"
       aria-label="Loading"
     >
-      <Lotus />
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(circle at 50% 50%, color-mix(in srgb, #6F5784 14%, transparent), transparent 55%)",
+        }}
+        aria-hidden="true"
+      />
+      <div className="relative">
+        <Lotus />
+      </div>
     </div>
   );
 }

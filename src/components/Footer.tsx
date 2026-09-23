@@ -39,7 +39,7 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
     <footer className="relative overflow-hidden text-lovable-primary-foreground before:pointer-events-none before:absolute before:inset-x-0 before:top-0 before:z-10 before:h-20 before:bg-gradient-to-b before:from-lovable-background/25 before:to-transparent">
       <Image
         src="/brand/pdp-footer.webp"
-        alt="SomnoBalance aromatherapy bottle beside dried flowers"
+        alt="SomnoBalance room spray"
         fill
         sizes="100vw"
         className="object-cover object-left"
