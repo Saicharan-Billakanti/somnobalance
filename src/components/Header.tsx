@@ -67,7 +67,7 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
                 href={`/${lang}/shop`}
                 className="rounded-full px-3 py-1 text-ink/70 hover:text-ink transition"
               >
-                🛒 {lang === "de" ? "Kunden-Shop" : "Customer Shop"}
+                {lang === "de" ? "Kunden-Shop" : "Customer Shop"}
               </Link>
               <Link
                 href={`/${lang}/partner`}
@@ -108,8 +108,8 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
                   href={`/${lang}/admin`}
                   className="flex flex-col text-right group hover:opacity-80 transition"
                 >
-                  <span className="text-xs font-semibold text-ink group-hover:text-mauve-dark flex items-center justify-end gap-1">
-                    <span>🛡️</span> {user.firstName || "Admin"}
+                  <span className="text-xs font-semibold text-ink group-hover:text-mauve-dark">
+                    {user.firstName || "Admin"}
                   </span>
                   <span className="text-[10px] text-teal-dark font-medium underline">
                     Admin Hub &amp; Staff Roles
@@ -120,8 +120,8 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
                   href={`/${lang}/account`}
                   className="flex flex-col text-right group hover:opacity-80 transition"
                 >
-                  <span className="text-xs font-semibold text-ink group-hover:text-mauve-dark flex items-center justify-end gap-1">
-                    <span>👤</span> {dict.nav.greeting.replace("{name}", user.firstName)}
+                  <span className="text-xs font-semibold text-ink group-hover:text-mauve-dark">
+                    {dict.nav.greeting.replace("{name}", user.firstName)}
                   </span>
                   <span className="text-[10px] text-teal-dark font-medium underline">
                     My Orders &amp; Profile
@@ -185,7 +185,7 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
                 className="rounded-lg bg-white py-2 text-ink shadow-sm"
                 onClick={() => setOpen(false)}
               >
-                🛒 Customer Shop
+                Customer Shop
               </Link>
               <Link
                 href={`/${lang}/partner`}
@@ -240,7 +240,7 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
                   className="group flex flex-col"
                 >
                   <span className="block text-sm font-semibold text-ink group-hover:text-mauve-dark">
-                    🛡️ {user.firstName || "Admin"}
+                    {user.firstName || "Admin"}
                   </span>
                   <span className="block text-[11px] text-teal-dark font-medium underline">
                     Admin Portal & Staff Roles →
@@ -253,7 +253,7 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
                   className="group flex flex-col"
                 >
                   <span className="block text-sm font-semibold text-ink group-hover:text-mauve-dark">
-                    👤 {dict.nav.greeting.replace("{name}", user.firstName)}
+                    {dict.nav.greeting.replace("{name}", user.firstName)}
                   </span>
                   <span className="block text-[11px] text-teal-dark font-medium underline">
                     My Orders & Profile Settings →

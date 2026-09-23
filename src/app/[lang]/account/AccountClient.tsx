@@ -181,12 +181,12 @@ export function AccountClient({
               </span>
               {isDualRole && (
                 <span className="rounded-full bg-mauve/15 px-3 py-0.5 text-xs font-semibold text-mauve-dark">
-                  ⭐ Partner
+                  Partner
                 </span>
               )}
               {isBusiness && (
                 <span className="rounded-full bg-emerald-100 px-3 py-0.5 text-xs font-semibold text-emerald-800">
-                  🏢 B2B Member
+                  B2B Member
                 </span>
               )}
             </div>
@@ -203,7 +203,7 @@ export function AccountClient({
               href={`/${lang}/shop`}
               className="rounded-full bg-teal px-5 py-2.5 text-xs font-semibold text-white hover:bg-teal-dark transition shadow-sm"
             >
-              🛒 Continue Shopping
+              Continue Shopping
             </Link>
           </div>
         </div>
@@ -219,7 +219,7 @@ export function AccountClient({
               : "border border-mauve/20 bg-white text-ink/70 hover:bg-sand"
           }`}
         >
-          <span>📦</span> My Orders & Tracking ({orders.length})
+          My Orders & Tracking ({orders.length})
         </button>
 
         <button
@@ -230,7 +230,7 @@ export function AccountClient({
               : "border border-mauve/20 bg-white text-ink/70 hover:bg-sand"
           }`}
         >
-          <span>👤</span> Profile & Shipping Address
+          Profile & Shipping Address
         </button>
       </div>
 
@@ -239,8 +239,7 @@ export function AccountClient({
         <div className="mt-8 space-y-6">
           {orders.length === 0 ? (
             <div className="rounded-3xl border border-mauve/15 bg-white p-12 text-center">
-              <span className="text-3xl">📦</span>
-              <h3 className="mt-3 font-serif text-xl text-ink">No orders found yet</h3>
+              <h3 className="font-serif text-xl text-ink">No orders found yet</h3>
               <p className="mx-auto mt-2 max-w-sm text-xs text-ink/60">
                 You haven't placed any orders yet. Explore our sleep and ritual collection to begin.
               </p>
@@ -319,7 +318,7 @@ export function AccountClient({
                                 isRefunded ? "bg-emerald-600" : "bg-teal"
                               }`}
                             >
-                              {isRefunded ? "✓" : "🛡️"}
+                              {isRefunded ? "✓" : "i"}
                             </span>
                             <div>
                               <div className="flex items-center gap-2">
@@ -343,7 +342,7 @@ export function AccountClient({
                                   </span>
                                 ) : isReturnRequested ? (
                                   <span className="font-semibold text-amber-700">
-                                    🔄 Return request received — DHL GoGreen prepaid return QR code generated.
+                                    Return request received — DHL GoGreen prepaid return QR code generated.
                                   </span>
                                 ) : isReturnActive ? (
                                   <>
@@ -385,7 +384,7 @@ export function AccountClient({
                                 }}
                                 className="rounded-full bg-white border border-teal/30 px-4 py-2 text-xs font-semibold text-teal-dark hover:bg-teal hover:text-white transition shadow-sm"
                               >
-                                🔄 Request Return / Refund
+                                Request Return / Refund
                               </button>
                             ) : (
                               <span className="text-[11px] text-ink/40 font-medium italic">
@@ -441,7 +440,7 @@ export function AccountClient({
                             isInTransit ? "bg-teal text-white animate-pulse" : "bg-teal text-white"
                           }`}
                         >
-                          🚚
+                          2
                         </div>
                         <span className="mt-2 font-semibold text-teal-dark">In Transit</span>
                         <span className="text-[10px] text-ink/50">DHL Hub</span>
@@ -453,7 +452,7 @@ export function AccountClient({
                             isDelivered ? "bg-teal text-white" : "bg-sand-dark text-ink/40"
                           }`}
                         >
-                          {isDelivered ? "✓" : "🏠"}
+                          {isDelivered ? "✓" : "3"}
                         </div>
                         <span className={`mt-2 font-semibold ${isDelivered ? "text-ink" : "text-ink/40"}`}>
                           Delivery
@@ -493,7 +492,7 @@ export function AccountClient({
                                   <span className="font-medium text-ink">{item.name}</span>
                                   {item.refundPolicy && (
                                     <span className="rounded-full bg-teal/10 px-2 py-0.5 text-[9px] font-semibold text-teal-dark">
-                                      🛡️ {item.refundPolicy}
+                                      {item.refundPolicy}
                                     </span>
                                   )}
                                 </div>
@@ -738,9 +737,6 @@ export function AccountClient({
             {!returnSubmitted ? (
               <div>
                 <div className="flex items-center gap-3">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-teal/15 text-xl">
-                    🛡️
-                  </span>
                   <div>
                     <h3 className="font-serif text-xl font-bold text-ink">
                       Request Return & Refund
@@ -831,7 +827,7 @@ export function AccountClient({
                   </div>
 
                   <div className="rounded-xl border border-teal/20 bg-teal/5 p-3 text-[11px] text-teal-dark">
-                    💡 <strong>100% Zero Hassle:</strong> Somnobalance generates an instant prepaid DHL GoGreen QR code. Simply show it at any DHL Packstation or parcel shop. Full refund will be credited to your original payment method.
+                    <strong>100% Zero Hassle:</strong> Somnobalance generates an instant prepaid DHL GoGreen QR code. Simply show it at any DHL Packstation or parcel shop. Full refund will be credited to your original payment method.
                   </div>
 
                   <div className="flex gap-3 pt-2">

@@ -15,7 +15,7 @@
 // chosen.
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { Cormorant_Garamond, Manrope } from "next/font/google";
+import { Newsreader, Work_Sans } from "next/font/google";
 import {
   ArrowLeft,
   ArrowRight,
@@ -35,12 +35,12 @@ import type { Locale } from "@/i18n/config";
 import Link from "next/link";
 import { products, getProductText } from "@/lib/products";
 
-const cormorant = Cormorant_Garamond({
+const newsreader = Newsreader({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   variable: "--font-lovable-serif-loaded",
 });
-const manrope = Manrope({
+const workSans = Work_Sans({
   subsets: ["latin"],
   variable: "--font-lovable-sans-loaded",
 });
@@ -152,7 +152,7 @@ export function RollOnPdp({
 
   return (
     <div
-      className={`${cormorant.variable} ${manrope.variable} relative text-lovable-foreground`}
+      className={`${newsreader.variable} ${workSans.variable} relative text-lovable-foreground`}
       style={{ fontFamily: "var(--font-lovable-sans-loaded)" }}
     >
       <div

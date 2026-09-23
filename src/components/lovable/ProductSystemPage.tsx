@@ -3,10 +3,10 @@
 // Generalized version of RollOnPdp.tsx for the other 8 products, following
 // the client's master-system briefing (SomnoBalance_Produktseiten_Design_
 // Content_Briefing.docx): same visual system (typography, spacing, warm
-// editorial imagery, Cormorant Garamond/Manrope) and the same 6-part
-// architecture — hero, ritual/application, details, system role, next
-// companion, brand close — but content is per-product, driven by the
-// config passed in rather than hardcoded.
+// editorial imagery, Newsreader/Work Sans per Entwickler-Vorgabe.docx §3)
+// and the same 6-part architecture — hero, ritual/application, details,
+// system role, next companion, brand close — but content is per-product,
+// driven by the config passed in rather than hardcoded.
 //
 // Per the briefing's explicit warning (§14): body-part instructions,
 // ingredients, warnings and quantities are NOT copied from the Roll-on
@@ -16,7 +16,7 @@
 // gallery image rather than inventing a fake "different angle."
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { Cormorant_Garamond, Manrope } from "next/font/google";
+import { Newsreader, Work_Sans } from "next/font/google";
 import {
   ArrowLeft,
   ArrowRight,
@@ -39,12 +39,12 @@ import {
   type ProductVariant,
 } from "@/lib/products";
 
-const cormorant = Cormorant_Garamond({
+const newsreader = Newsreader({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   variable: "--font-lovable-serif-loaded",
 });
-const manrope = Manrope({
+const workSans = Work_Sans({
   subsets: ["latin"],
   variable: "--font-lovable-sans-loaded",
 });
@@ -194,7 +194,7 @@ export function ProductSystemPage({
 
   return (
     <div
-      className={`${cormorant.variable} ${manrope.variable} relative text-lovable-foreground`}
+      className={`${newsreader.variable} ${workSans.variable} relative text-lovable-foreground`}
       style={{ fontFamily: "var(--font-lovable-sans-loaded)" }}
     >
       <div

@@ -658,9 +658,9 @@ export function PartnerClient({ lang, dict }: { lang: Locale; dict: Dictionary }
                   </button>
                   <Link
                     href={`/${lang}/login`}
-                    className="rounded-full border border-mauve/30 bg-white px-6 py-3 text-sm font-medium text-mauve-dark hover:bg-sand transition"
+                    className="text-sm font-medium text-mauve-dark underline underline-offset-4"
                   >
-                    Already a partner? Log in →
+                    {dict.partner.alreadyPartnerLogin}
                   </Link>
                 </div>
               </div>

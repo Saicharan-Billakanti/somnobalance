@@ -96,7 +96,7 @@
     "personaIntro": "Whether for your personal routine, your business, or a shared vision — SomnoBalance supports you on your way to more calm, clarity, and regeneration.",
     "forMeTitle": "For me",
     "forMeCopy": "A personal ritual for calmer nights and steadier days.",
-    "forMeImage": "/products/somnobalance-regeneration-tea-styled.webp",
+    "forMeImage": "/products/somnobalance-regeneration-tea.webp",
     "forBusinessTitle": "For my business",
     "forBusinessCopy": "A sense of calm your guests remember, for hospitality and wellness spaces.",
     "forBusinessImage": "/products/somnobalance-mattress.webp",
@@ -159,6 +159,7 @@
     "card3Copy": "Live dashboard, track clicks, referred orders, commission payouts, and in-app alerts.",
     "readyTitle": "Ready to become a SomnoBalance partner?",
     "readyCopy": "Apply in less than two minutes. Once approved, you receive your personal referral code and up to 10% commission on every referred order.",
+    "alreadyPartnerLogin": "Already a partner? Log in →",
     "tabs": {
       "overview": "Overview & Values",
       "apply": "Partner Application",

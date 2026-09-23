@@ -154,7 +154,6 @@ export function CartClient({ lang, dict }: { lang: Locale; dict: Dictionary }) {
               {isHighQty && (
                 <div className="animate-fade-in flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-amber-300 bg-amber-50/80 p-3.5 text-xs text-amber-950">
                   <div className="flex items-center gap-2">
-                    <span className="text-lg">💼</span>
                     <div>
                       <strong className="text-amber-950">High Volume Order ({line.qty} units):</strong>{" "}
                       <span className="text-amber-900/80">
@@ -273,7 +272,7 @@ export function CartClient({ lang, dict }: { lang: Locale; dict: Dictionary }) {
                 href={`/${lang}/register?redirect=${encodeURIComponent(
                   appliedCoupon ? `/${lang}/checkout?coupon=${encodeURIComponent(appliedCoupon.code)}` : `/${lang}/checkout`,
                 )}`}
-                className="flex w-full items-center justify-center rounded-full border border-mauve/30 py-3 text-sm font-medium text-mauve-dark transition hover:bg-sand"
+                className="flex w-full items-center justify-center py-3 text-sm font-medium text-mauve-dark underline underline-offset-4"
               >
                 {dict.cart.registerAndCheckout || "Create account & Checkout"}
               </Link>

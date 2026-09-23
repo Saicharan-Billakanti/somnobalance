@@ -107,7 +107,6 @@ export function ProductPurchasePanel({
       {isVolumeOrder && (
         <div className="animate-fade-in rounded-2xl border border-amber-300 bg-amber-50/70 p-4 shadow-sm">
           <div className="flex items-start gap-3">
-            <span className="text-xl">💼</span>
             <div className="space-y-1 text-xs">
               <div className="font-bold text-amber-950">Ordering in bulk ({qty} units)? Get Business Discounts!</div>
               <p className="leading-relaxed text-amber-900/80">
@@ -135,8 +134,8 @@ export function ProductPurchasePanel({
       {/* Return Policy & Seal Breakage Rule Guarantee Box */}
       <div className="space-y-2 rounded-2xl border border-mauve/15 bg-sand/30 p-4 text-xs">
         <div className="flex items-center justify-between">
-          <span className="flex items-center gap-1.5 font-bold text-teal-dark">
-            <span>🛡️</span> {product.refundPolicy || `${product.returnPeriodDays || 30}-Day Money-Back Guarantee`}
+          <span className="font-bold text-teal-dark">
+            {product.refundPolicy || `${product.returnPeriodDays || 30}-Day Money-Back Guarantee`}
           </span>
           <span className="rounded-full bg-teal/10 px-2.5 py-0.5 text-[10px] font-semibold text-teal-dark">
             {product.returnPeriodDays || 30} Days Return
@@ -144,7 +143,7 @@ export function ProductPurchasePanel({
         </div>
 
         <div className="border-t border-mauve/10 pt-1 text-[11px] leading-relaxed text-ink/70">
-          <strong className="font-semibold text-ink">🔒 Return & Refund Condition:</strong>{" "}
+          <strong className="font-semibold text-ink">Return & Refund Condition:</strong>{" "}
           {product.refundRules || "Hygienic seal must be intact upon return; items must be in original unsoiled packaging."}
         </div>
       </div>

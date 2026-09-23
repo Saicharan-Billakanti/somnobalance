@@ -77,8 +77,8 @@
   --color-scroll-3: var(--color-scroll-3);
   --color-phase-mauve: var(--color-phase-mauve);
   --color-phase-sage: var(--color-phase-sage);
-  --font-serif: var(--font-fraunces);
-  --font-sans: var(--font-inter);
+  --font-serif: var(--font-newsreader);
+  --font-sans: var(--font-work-sans);
 
   --color-lovable-background: var(--lovable-background);
   --color-lovable-foreground: var(--lovable-foreground);

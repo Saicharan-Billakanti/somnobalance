@@ -29,17 +29,14 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             <p className="mt-6 max-w-md text-lg leading-relaxed text-ink/70">
               {dict.home.subtitle}
             </p>
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div className="mt-8 flex flex-wrap items-center gap-6">
               <Link
                 href={`/${l}/for-me`}
                 className="rounded-full bg-mauve px-6 py-3 text-sm text-white hover:bg-mauve-dark"
               >
                 {dict.home.ctaForMe}
               </Link>
-              <Link
-                href={`/${l}/shop`}
-                className="rounded-full border border-mauve/40 px-6 py-3 text-sm text-mauve-dark hover:bg-sand"
-              >
+              <Link href={`/${l}/shop`} className="text-sm text-mauve-dark underline underline-offset-4">
                 {dict.home.ctaShop}
               </Link>
             </div>
@@ -281,22 +278,24 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             </Link>
           </div>
 
-          <div className="relative aspect-[4/3] overflow-hidden rounded-3xl">
-            <Image
-              src="/products/somnobalance-regeneration-tea.webp"
-              alt=""
-              fill
-              sizes="(min-width: 768px) 50vw, 100vw"
-              className="object-cover"
-            />
-            <div className="absolute right-6 top-6 max-w-[9rem] text-right font-serif text-lg italic leading-snug text-white drop-shadow-sm">
+          <div className="relative">
+            <div className="relative mx-auto aspect-[3/4] w-full max-w-[220px]">
+              <Image
+                src="/products/somnobalance-regeneration-tea.webp"
+                alt=""
+                fill
+                sizes="(min-width: 768px) 220px, 60vw"
+                className="object-contain"
+              />
+            </div>
+            <p className="mt-4 text-center font-serif text-lg italic leading-snug text-mauve">
               {dict.home.checkTagline.split("\n").map((line, i) => (
                 <span key={i}>
                   {line}
-                  <br />
+                  {i < dict.home.checkTagline.split("\n").length - 1 && <br />}
                 </span>
               ))}
-            </div>
+            </p>
           </div>
         </div>
       </section>

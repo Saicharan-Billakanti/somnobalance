@@ -718,7 +718,7 @@ export function ForBusinessClient({
                 ? "Reichen Sie Ihren Antrag in 2 Minuten ein. Unser Team prüft Ihre Angaben und schaltet Ihren Großhandelsrabatt frei."
                 : "Submit your business application in under 2 minutes. Our executive team reviews credentials and unlocks your custom wholesale rates."}
             </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-6">
               <button
                 onClick={() => setTab("apply")}
                 className="rounded-full bg-mauve px-8 py-3.5 text-sm font-semibold text-white shadow-md hover:bg-mauve-dark transition"
@@ -727,7 +727,7 @@ export function ForBusinessClient({
               </button>
               <button
                 onClick={handleQuickSampleRequest}
-                className="rounded-full border border-mauve/30 bg-white px-6 py-3.5 text-sm font-semibold text-ink/80 hover:bg-sand transition"
+                className="text-sm font-semibold text-ink/80 underline underline-offset-4"
               >
                 {lang === "de" ? "Musterbox anfordern" : "Request Amenity Sample Kit"}
               </button>

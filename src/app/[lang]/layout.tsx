@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Newsreader, Work_Sans } from "next/font/google";
 import "../globals.css";
 import { locales, isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/getDictionary";
@@ -12,14 +12,14 @@ import { CookieConsentProvider } from "@/components/CookieConsent";
 import { AuthProvider } from "@/components/AuthProvider";
 import { notFound } from "next/navigation";
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+const workSans = Work_Sans({
+  variable: "--font-work-sans",
   subsets: ["latin"],
 });
 
@@ -61,7 +61,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={lang}
-      className={`${fraunces.variable} ${inter.variable} h-full`}
+      className={`${newsreader.variable} ${workSans.variable} h-full`}
       suppressHydrationWarning
     >
       <body
