@@ -6,7 +6,10 @@ import { getBusinessApplicationByEmail } from "@/lib/businessService";
 import { ForBusinessClient } from "./ForBusinessClient";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "For my business & Hospitality — SomnoBalance" };
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  return { title: lang === "de" ? "Für mein Unternehmen & Hotellerie — SomnoBalance" : "For my business & Hospitality — SomnoBalance" };
+}
 
 export default async function ForBusinessPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;

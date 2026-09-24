@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useLang } from "@/lib/useLang";
 
 const SEEN_KEY = "sb-preloader-seen";
 // Total time the lotus takes to draw itself, plus a short hold.
@@ -80,6 +81,7 @@ function Lotus() {
 // same session, reduced-motion) so globals.css hides it before first paint.
 // A CSS failsafe animation also hides it if JS never runs.
 export function Preloader() {
+  const { tx } = useLang();
   const [fading, setFading] = useState(false);
   const [gone, setGone] = useState(false);
 
@@ -136,7 +138,7 @@ export function Preloader() {
       className="site-preloader fixed inset-0 z-[200] flex items-center justify-center bg-[#EDDFD0] transition-opacity ease-out"
       style={{ opacity: fading ? 0 : 1, transitionDuration: `${FADE_MS}ms` }}
       role="status"
-      aria-label="Loading"
+      aria-label={tx("Loading", "Wird geladen")}
     >
       <Lotus />
     </div>

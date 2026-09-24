@@ -3,7 +3,10 @@ import { isLocale, type Locale } from "@/i18n/config";
 import { notFound } from "next/navigation";
 import { PartnerClient } from "./PartnerClient";
 
-export const metadata = { title: "Become a partner — SomnoBalance" };
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  return { title: lang === "de" ? "Partner werden — SomnoBalance" : "Become a partner — SomnoBalance" };
+}
 
 export default async function PartnerPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;

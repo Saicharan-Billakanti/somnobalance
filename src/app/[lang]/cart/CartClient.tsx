@@ -1,4 +1,5 @@
 "use client";
+import { localizeError } from "@/lib/localizeError";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -58,7 +59,7 @@ export function CartClient({ lang, dict }: { lang: Locale; dict: Dictionary }) {
       });
       const data = await res.json();
       if (!res.ok) {
-        setCouponError(data.error || "Invalid coupon code");
+        setCouponError(localizeError(data.error || "Invalid coupon code", lang));
         setAppliedCoupon(null);
       } else {
         setAppliedCoupon({
@@ -73,7 +74,7 @@ export function CartClient({ lang, dict }: { lang: Locale; dict: Dictionary }) {
         }
       }
     } catch {
-      setCouponError("Could not validate coupon");
+      setCouponError(localizeError("Could not validate coupon", lang));
     } finally {
       setValidatingCoupon(false);
     }
@@ -156,10 +157,19 @@ export function CartClient({ lang, dict }: { lang: Locale; dict: Dictionary }) {
                   <div className="flex items-center gap-2">
                     <span className="text-lg">💼</span>
                     <div>
-                      <strong className="text-amber-950">High Volume Order ({line.qty} units):</strong>{" "}
+                      <strong className="text-amber-950">{lang === "de" ? `Großbestellung (${line.qty} Stück):` : `High Volume Order (${line.qty} units):`}</strong>{" "}
                       <span className="text-amber-900/80">
-                        Ordering for a clinic, hotel, or wellness center? Get <strong>15% - 30% OFF</strong> with a
-                        Business Account.
+                        {lang === "de" ? (
+                          <>
+                            Bestellung für Klinik, Hotel oder Wellnesscenter? Sichern Sie sich <strong>15 % - 30 % Rabatt</strong> mit
+                            einem Geschäftskonto.
+                          </>
+                        ) : (
+                          <>
+                            Ordering for a clinic, hotel, or wellness center? Get <strong>15% - 30% OFF</strong> with a
+                            Business Account.
+                          </>
+                        )}
                       </span>
                     </div>
                   </div>
@@ -248,7 +258,7 @@ export function CartClient({ lang, dict }: { lang: Locale; dict: Dictionary }) {
             <button
               onClick={() => setShowAuthModal(false)}
               className="absolute right-4 top-4 text-ink/40 hover:text-ink"
-              aria-label="Close"
+              aria-label={lang === "de" ? "Schließen" : "Close"}
             >
               ✕
             </button>

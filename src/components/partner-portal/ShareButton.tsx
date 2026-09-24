@@ -1,6 +1,9 @@
 "use client";
 
+import { useLang } from "@/lib/useLang";
+
 export function ShareButton({ value }: { value: string }) {
+  const { tx } = useLang();
   return (
     <button
       type="button"
@@ -11,7 +14,7 @@ export function ShareButton({ value }: { value: string }) {
       }}
       className="rounded-full border border-mauve/30 px-4 py-2 text-xs font-medium text-mauve-dark transition hover:bg-sand"
     >
-      Share Link
+      {tx("Share Link", "Link teilen")}
     </button>
   );
 }

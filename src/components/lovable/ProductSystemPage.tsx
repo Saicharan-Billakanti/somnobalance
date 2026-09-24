@@ -126,6 +126,7 @@ export function ProductSystemPage({
   config: ProductSystemConfig;
   onAddToCart: (quantity: number, variant?: string) => void;
 }) {
+  const tx = (en: string, de: string) => (lang === "de" ? de : en);
   const text = lang === "de" ? product.translations.de : product;
   const SOUND_DURATION = 120;
 
@@ -226,7 +227,7 @@ export function ProductSystemPage({
               <button
                 type="button"
                 onClick={() => moveGallery(-1)}
-                aria-label="Previous image"
+                aria-label={tx("Previous image", "Vorheriges Bild")}
                 className="absolute left-4 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 text-lovable-foreground shadow transition hover:bg-white"
               >
                 <ArrowLeft className="size-4" />
@@ -234,7 +235,7 @@ export function ProductSystemPage({
               <button
                 type="button"
                 onClick={() => moveGallery(1)}
-                aria-label="Next image"
+                aria-label={tx("Next image", "Nächstes Bild")}
                 className="absolute right-4 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 text-lovable-foreground shadow transition hover:bg-white"
               >
                 <ArrowRight className="size-4" />
@@ -245,7 +246,7 @@ export function ProductSystemPage({
                 variant="outline"
                 className="size-10 shrink-0 rounded-full px-0"
                 onClick={() => moveGallery(-1)}
-                aria-label="Previous image"
+                aria-label={tx("Previous image", "Vorheriges Bild")}
               >
                 <ArrowLeft className="size-4" />
               </Button>
@@ -254,7 +255,7 @@ export function ProductSystemPage({
                   <button
                     key={index}
                     onClick={() => setActive(index)}
-                    aria-label={`View product image ${index + 1}`}
+                    aria-label={`${tx("View product image", "Produktbild ansehen")} ${index + 1}`}
                     className={`aspect-square overflow-hidden rounded-sm border bg-lovable-muted transition-colors ${
                       active === index
                         ? "border-lovable-primary"
@@ -275,7 +276,7 @@ export function ProductSystemPage({
                 variant="outline"
                 className="size-10 shrink-0 rounded-full px-0"
                 onClick={() => moveGallery(1)}
-                aria-label="Next image"
+                aria-label={tx("Next image", "Nächstes Bild")}
               >
                 <ArrowRight className="size-4" />
               </Button>
@@ -329,7 +330,7 @@ export function ProductSystemPage({
                   variant="ghost"
                   className="h-full min-h-0 px-3"
                   onClick={() => setQuantity((v) => Math.max(1, v - 1))}
-                  aria-label="Decrease quantity"
+                  aria-label={tx("Decrease quantity", "Menge verringern")}
                 >
                   <Minus className="size-3" />
                 </Button>
@@ -340,7 +341,7 @@ export function ProductSystemPage({
                   variant="ghost"
                   className="h-full min-h-0 px-3"
                   onClick={() => setQuantity((v) => v + 1)}
-                  aria-label="Increase quantity"
+                  aria-label={tx("Increase quantity", "Menge erhöhen")}
                 >
                   <Plus className="size-3" />
                 </Button>
@@ -392,7 +393,7 @@ export function ProductSystemPage({
               variant="ghost"
               className="mx-auto mt-6 size-16 rounded-full bg-lovable-secondary px-0"
               onClick={toggleSound}
-              aria-label={playing ? "Pause sound" : "Play sound"}
+              aria-label={playing ? tx("Pause sound", "Sound pausieren") : tx("Play sound", "Sound abspielen")}
             >
               {playing ? (
                 <Pause className="size-6 fill-current" />
@@ -457,7 +458,7 @@ export function ProductSystemPage({
                   />
                 ) : (
                   <div className="flex aspect-[2.15/1] w-full items-center justify-center border border-dashed border-lovable-border bg-lovable-muted text-[10px] uppercase tracking-[0.2em] text-lovable-muted-foreground">
-                    Image coming soon
+                    {tx("Image coming soon", "Bild folgt in Kürze")}
                   </div>
                 )}
               </div>
@@ -539,7 +540,7 @@ export function ProductSystemPage({
         >
           <div className="mx-auto max-w-[1500px]">
             <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
-              System
+              {tx("System", "System")}
             </p>
             <p className="mt-3 max-w-lg font-lovable-serif text-2xl italic leading-snug text-lovable-primary">
               {c.nextCompanionLabel}

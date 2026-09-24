@@ -12,6 +12,7 @@ import type { Dictionary } from "@/i18n/getDictionary";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 
 export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
+  const tx = (en: string, de: string) => (lang === "de" ? de : en);
   const { count } = useCart();
   const { user, setUser } = useAuth();
   const router = useRouter();
@@ -166,7 +167,7 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
 
           <button
             className="rounded-lg p-1.5 text-ink hover:bg-sand md:hidden"
-            aria-label="Toggle menu"
+            aria-label={tx("Toggle menu", "Menü umschalten")}
             onClick={() => setOpen((v) => !v)}
           >
             ☰

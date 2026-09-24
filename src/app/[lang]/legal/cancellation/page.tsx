@@ -4,7 +4,10 @@ import { getDictionary } from "@/i18n/getDictionary";
 import { isLocale, type Locale } from "@/i18n/config";
 import { notFound } from "next/navigation";
 
-export const metadata = { title: "Cancellation Policy — SomnoBalance" };
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  return { title: lang === "de" ? "Stornierungsbedingungen — SomnoBalance" : "Cancellation Policy — SomnoBalance" };
+}
 
 export default async function CancellationPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;

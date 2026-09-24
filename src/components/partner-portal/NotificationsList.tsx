@@ -1,10 +1,14 @@
+"use client";
+
+import { useLang } from "@/lib/useLang";
 import type { NotificationEntry } from "@/lib/affiliateMockData";
 
 export function NotificationsList({ notifications }: { notifications: NotificationEntry[] }) {
+  const { lang, tx } = useLang();
   if (notifications.length === 0) {
     return (
       <div className="rounded-2xl border border-mauve/10 bg-white/60 p-10 text-center">
-        <p className="text-ink/70">You are all caught up.</p>
+        <p className="text-ink/70">{tx("You are all caught up.", "Sie sind auf dem neuesten Stand.")}</p>
       </div>
     );
   }
@@ -17,7 +21,7 @@ export function NotificationsList({ notifications }: { notifications: Notificati
           <div className={n.read ? "ml-5" : ""}>
             <p className="text-sm text-ink/80">{n.message}</p>
             <p className="mt-1 text-xs text-ink/40">
-              {new Date(n.date).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}
+              {new Date(n.date).toLocaleDateString(lang === "de" ? "de-DE" : "en-GB", { day: "numeric", month: "short", year: "numeric" })}
             </p>
           </div>
         </li>

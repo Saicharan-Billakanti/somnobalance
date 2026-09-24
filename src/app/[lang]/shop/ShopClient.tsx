@@ -27,6 +27,7 @@ export function ShopClient({
   dict: Dictionary;
   initialPhase?: string;
 }) {
+  const tx = (en: string, de: string) => (lang === "de" ? de : en);
   const { add } = useCart();
   const { user } = useAuth();
 
@@ -170,14 +171,14 @@ export function ShopClient({
           <div className="sticky top-24 rounded-3xl border border-mauve/15 bg-white p-6 shadow-sm space-y-6">
             <div className="flex items-center justify-between border-b border-mauve/10 pb-3">
               <h3 className="font-serif text-lg font-bold text-ink flex items-center gap-2">
-                <SlidersHorizontal className="size-4" /> Filters
+                <SlidersHorizontal className="size-4" /> {tx("Filters", "Filter")}
               </h3>
               {hasActiveFilters && (
                 <button
                   onClick={resetFilters}
                   className="text-xs font-semibold text-mauve-dark hover:underline"
                 >
-                  Reset All
+                  {tx("Reset All", "Alle zurücksetzen")}
                 </button>
               )}
             </div>
@@ -185,14 +186,14 @@ export function ShopClient({
             {/* 1. Search Bar */}
             <div>
               <label className="text-xs font-semibold uppercase tracking-wider text-ink/60">
-                Search Catalog
+                {tx("Search Catalog", "Katalog durchsuchen")}
               </label>
               <div className="relative mt-2">
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="e.g. Pillow, Roll-on, Tea..."
+                  placeholder={tx("e.g. Pillow, Roll-on, Tea...", "z. B. Kissen, Roll-on, Tee...")}
                   className="input-field text-xs pl-8"
                 />
                 <Search className="absolute left-2.5 top-2.5 size-4 text-ink/40" />
@@ -202,7 +203,7 @@ export function ShopClient({
             {/* 2. Categories */}
             <div>
               <label className="text-xs font-semibold uppercase tracking-wider text-ink/60">
-                Categories
+                {tx("Categories", "Kategorien")}
               </label>
               <div className="mt-2 space-y-1">
                 {categories.map((cat) => {
@@ -237,7 +238,7 @@ export function ShopClient({
             {/* 3. System Phase */}
             <div>
               <label className="text-xs font-semibold uppercase tracking-wider text-ink/60">
-                SomnoBalance Phase
+                {tx("SomnoBalance Phase", "SomnoBalance-Phase")}
               </label>
               <div className="mt-2 space-y-1">
                 {phases.map((ph) => {
@@ -263,14 +264,14 @@ export function ShopClient({
             {/* 4. Price Ranges */}
             <div>
               <label className="text-xs font-semibold uppercase tracking-wider text-ink/60">
-                Price Range
+                {tx("Price Range", "Preisspanne")}
               </label>
               <div className="mt-2 space-y-1 text-xs">
                 {[
-                  { key: "all", label: "All Prices" },
-                  { key: "under-25", label: "Under €25.00" },
-                  { key: "25-100", label: "€25.00 — €100.00" },
-                  { key: "over-100", label: "Over €100.00" },
+                  { key: "all", label: tx("All Prices", "Alle Preise") },
+                  { key: "under-25", label: tx("Under €25.00", "Unter 25,00 €") },
+                  { key: "25-100", label: tx("€25.00 — €100.00", "25,00 € — 100,00 €") },
+                  { key: "over-100", label: tx("Over €100.00", "Über 100,00 €") },
                 ].map((pr) => (
                   <button
                     key={pr.key}
@@ -297,7 +298,7 @@ export function ShopClient({
                   onChange={(e) => setOnlyFreeShipping(e.target.checked)}
                   className="rounded border-mauve/30 text-teal focus:ring-teal"
                 />
-                <span className="text-xs text-ink/80 font-medium">Free Shipping Included Items</span>
+                <span className="text-xs text-ink/80 font-medium">{tx("Free Shipping Included Items", "Nur Artikel mit kostenlosem Versand")}</span>
               </label>
             </div>
 
@@ -305,31 +306,31 @@ export function ShopClient({
             {isDualRole ? (
               <div className="rounded-2xl border border-teal/20 bg-teal/5 p-3.5 text-xs text-ink/80">
                 <div className="font-semibold text-teal-dark flex items-center gap-1.5">
-                  <Star className="size-4" /> Partner Member
+                  <Star className="size-4" /> {tx("Partner Member", "Partner-Mitglied")}
                 </div>
                 <p className="mt-1 text-[11px] text-ink/60">
-                  Earn 15% commission on customer referrals.
+                  {tx("Earn 15% commission on customer referrals.", "Verdiene 15 % Provision auf Kundenempfehlungen.")}
                 </p>
                 <Link
                   href={`/${lang}/partner`}
                   className="mt-2 block text-center rounded-lg bg-teal py-1.5 text-[11px] font-semibold text-white hover:bg-teal-dark"
                 >
-                  Open Partner Portal →
+                  {tx("Open Partner Portal →", "Partnerportal öffnen →")}
                 </Link>
               </div>
             ) : (
               <div className="rounded-2xl border border-mauve/15 bg-sand/40 p-3.5 text-xs text-ink/80">
                 <div className="font-semibold text-ink flex items-center gap-1.5">
-                  <Sparkles className="size-4" /> Healthcare Professional?
+                  <Sparkles className="size-4" /> {tx("Healthcare Professional?", "Gesundheitsfachkraft?")}
                 </div>
                 <p className="mt-1 text-[11px] text-ink/60">
-                  Join our verified health partner network and earn 15% on client referrals.
+                  {tx("Join our verified health partner network and earn 15% on client referrals.", "Werde Teil unseres verifizierten Gesundheitspartner-Netzwerks und verdiene 15 % auf Empfehlungen.")}
                 </p>
                 <Link
                   href={`/${lang}/partner`}
                   className="mt-2 block text-center rounded-lg bg-mauve py-1.5 text-[11px] font-semibold text-white hover:bg-mauve-dark"
                 >
-                  Become a Partner →
+                  {tx("Become a Partner →", "Partner werden →")}
                 </Link>
               </div>
             )}
@@ -348,29 +349,29 @@ export function ShopClient({
                 onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
                 className="flex items-center gap-1.5 rounded-full border border-mauve/20 bg-sand px-3 py-1.5 text-xs font-semibold text-ink lg:hidden"
               >
-                <SlidersHorizontal className="size-4" /> Filters
+                <SlidersHorizontal className="size-4" /> {tx("Filters", "Filter")}
                 {hasActiveFilters && (
                   <span className="h-2 w-2 rounded-full bg-teal" />
                 )}
               </button>
 
               <span className="text-xs text-ink/60">
-                Showing <strong className="text-ink">{filteredProducts.length}</strong> of {products.length} products
+                {tx("Showing", "Zeige")} <strong className="text-ink">{filteredProducts.length}</strong> {tx("of", "von")} {products.length} {tx("products", "Produkten")}
               </span>
             </div>
 
             {/* Sort Dropdown */}
             <div className="flex items-center gap-2 text-xs">
-              <span className="text-ink/60 font-medium">Sort By:</span>
+              <span className="text-ink/60 font-medium">{tx("Sort By:", "Sortieren nach:")}</span>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
                 className="rounded-xl border border-mauve/20 bg-sand/30 px-3 py-1.5 text-xs font-medium text-ink focus:border-teal focus:outline-none"
               >
-                <option value="featured">Featured Collection</option>
-                <option value="price-asc">Price: Low to High</option>
-                <option value="price-desc">Price: High to Low</option>
-                <option value="name">Product Name (A-Z)</option>
+                <option value="featured">{tx("Featured Collection", "Empfohlene Kollektion")}</option>
+                <option value="price-asc">{tx("Price: Low to High", "Preis: aufsteigend")}</option>
+                <option value="price-desc">{tx("Price: High to Low", "Preis: absteigend")}</option>
+                <option value="name">{tx("Product Name (A-Z)", "Produktname (A–Z)")}</option>
               </select>
             </div>
           </div>
@@ -378,7 +379,7 @@ export function ShopClient({
           {/* Active Filter Chips */}
           {hasActiveFilters && (
             <div className="flex flex-wrap items-center gap-2 pt-1">
-              <span className="text-xs text-ink/50">Active:</span>
+              <span className="text-xs text-ink/50">{tx("Active:", "Aktiv:")}</span>
               {searchQuery && (
                 <span className="inline-flex items-center gap-1 rounded-full bg-sand px-3 py-1 text-xs text-ink">
                   "{searchQuery}"
@@ -387,25 +388,25 @@ export function ShopClient({
               )}
               {selectedCategory !== "all" && (
                 <span className="inline-flex items-center gap-1 rounded-full bg-teal/15 px-3 py-1 text-xs text-teal-dark font-medium">
-                  Category: {selectedCategory}
+                  {tx("Category", "Kategorie")}: {categories.find((c) => c.key === selectedCategory)?.label ?? selectedCategory}
                   <button onClick={() => setSelectedCategory("all")} className="hover:text-teal"><X className="size-3" /></button>
                 </span>
               )}
               {selectedPhase !== "all" && (
                 <span className="inline-flex items-center gap-1 rounded-full bg-mauve/15 px-3 py-1 text-xs text-mauve-dark font-medium">
-                  Phase: {selectedPhase}
+                  {tx("Phase", "Phase")}: {selectedPhase}
                   <button onClick={() => setSelectedPhase("all")} className="hover:text-mauve"><X className="size-3" /></button>
                 </span>
               )}
               {priceRange !== "all" && (
                 <span className="inline-flex items-center gap-1 rounded-full bg-sand px-3 py-1 text-xs text-ink">
-                  {priceRange === "under-25" ? "Under €25" : priceRange === "25-100" ? "€25 - €100" : "Over €100"}
+                  {priceRange === "under-25" ? tx("Under €25", "Unter 25 €") : priceRange === "25-100" ? tx("€25 - €100", "25 € - 100 €") : tx("Over €100", "Über 100 €")}
                   <button onClick={() => setPriceRange("all")} className="text-ink/50 hover:text-ink"><X className="size-3" /></button>
                 </span>
               )}
               {onlyFreeShipping && (
                 <span className="inline-flex items-center gap-1 rounded-full bg-teal/15 px-3 py-1 text-xs text-teal-dark">
-                  Free Shipping
+                  {tx("Free Shipping", "Kostenloser Versand")}
                   <button onClick={() => setOnlyFreeShipping(false)}><X className="size-3" /></button>
                 </span>
               )}
@@ -413,7 +414,7 @@ export function ShopClient({
                 onClick={resetFilters}
                 className="text-xs text-mauve-dark underline hover:opacity-80 ml-2"
               >
-                Clear all
+                {tx("Clear all", "Alle löschen")}
               </button>
             </div>
           )}
@@ -422,17 +423,17 @@ export function ShopClient({
           {mobileFilterOpen && (
             <div className="rounded-3xl border border-teal/20 bg-white p-6 shadow-md lg:hidden space-y-4">
               <div className="flex items-center justify-between border-b border-mauve/10 pb-3">
-                <h3 className="font-serif text-lg text-ink font-bold">Filter Products</h3>
+                <h3 className="font-serif text-lg text-ink font-bold">{tx("Filter Products", "Produkte filtern")}</h3>
                 <button
                   onClick={() => setMobileFilterOpen(false)}
                   className="rounded-full bg-sand flex items-center gap-1 p-1 px-2.5 text-xs text-ink"
                 >
-                  <X className="size-3" /> Close
+                  <X className="size-3" /> {tx("Close", "Schließen")}
                 </button>
               </div>
 
               <div>
-                <label className="text-xs font-semibold uppercase text-ink/60">Category</label>
+                <label className="text-xs font-semibold uppercase text-ink/60">{tx("Category", "Kategorie")}</label>
                 <div className="grid grid-cols-2 gap-2 mt-2">
                   {categories.map((cat) => (
                     <button
@@ -470,7 +471,7 @@ export function ShopClient({
                   onClick={() => setMobileFilterOpen(false)}
                   className="w-full rounded-full bg-teal py-2.5 text-xs font-semibold text-white"
                 >
-                  Apply Filters ({filteredProducts.length} results)
+                  {tx("Apply Filters", "Filter anwenden")} ({filteredProducts.length} {tx("results", "Ergebnisse")})
                 </button>
               </div>
             </div>
@@ -480,15 +481,15 @@ export function ShopClient({
           {filteredProducts.length === 0 ? (
             <div className="rounded-3xl border border-mauve/15 bg-white p-12 text-center flex flex-col items-center">
               <Leaf className="size-8 text-ink/40" />
-              <h3 className="mt-3 font-serif text-xl text-ink">No matching products found</h3>
+              <h3 className="mt-3 font-serif text-xl text-ink">{tx("No matching products found", "Keine passenden Produkte gefunden")}</h3>
               <p className="mx-auto mt-2 max-w-sm text-xs text-ink/60">
-                Try adjusting your search query, price ranges, or phase filters.
+                {tx("Try adjusting your search query, price ranges, or phase filters.", "Passe deine Suche, Preisspanne oder Phasenfilter an.")}
               </p>
               <button
                 onClick={resetFilters}
                 className="mt-6 rounded-full bg-mauve px-6 py-2.5 text-xs font-semibold text-white hover:bg-mauve-dark"
               >
-                Reset All Filters
+                {tx("Reset All Filters", "Alle Filter zurücksetzen")}
               </button>
             </div>
           ) : (
@@ -525,7 +526,7 @@ export function ShopClient({
 
                         {p.shippingIncluded && (
                           <div className="absolute right-3 top-3 rounded-full bg-emerald-700/90 px-2.5 py-0.5 text-[9px] font-medium text-white backdrop-blur">
-                            Free Delivery
+                            {tx("Free Delivery", "Kostenlose Lieferung")}
                           </div>
                         )}
                       </div>
@@ -542,10 +543,10 @@ export function ShopClient({
                     <div className="flex items-center justify-between border-t border-mauve/10 px-5 py-3.5 bg-sand/10">
                       <div>
                         <div className="font-serif text-base font-bold text-mauve-dark">
-                          {fromPrice && <span className="text-xs font-normal text-ink/50">From </span>}
+                          {fromPrice && <span className="text-xs font-normal text-ink/50">{tx("From", "Ab")} </span>}
                           {formatPrice(price)}
                         </div>
-                        <span className="text-[10px] text-ink/40">incl. VAT</span>
+                        <span className="text-[10px] text-ink/40">{tx("incl. VAT", "inkl. MwSt.")}</span>
                       </div>
 
                       <button
@@ -559,10 +560,10 @@ export function ShopClient({
                         }`}
                       >
                         {isJustAdded
-                          ? "✓ Added"
+                          ? `✓ ${tx("Added", "Hinzugefügt")}`
                           : p.variants && p.variants.length > 0
-                          ? "Select Size →"
-                          : "+ Add to Cart"}
+                          ? tx("Select Size →", "Größe wählen →")
+                          : `+ ${dict.shop?.addToCart || tx("Add to Cart", "In den Warenkorb")}`}
                       </button>
                     </div>
                   </div>

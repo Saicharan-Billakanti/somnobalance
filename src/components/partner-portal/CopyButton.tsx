@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { useLang } from "@/lib/useLang";
 
 export function CopyButton({ value, label }: { value: string; label: string }) {
+  const { tx } = useLang();
   const [copied, setCopied] = useState(false);
 
   async function handleCopy() {
@@ -21,7 +23,7 @@ export function CopyButton({ value, label }: { value: string; label: string }) {
       onClick={handleCopy}
       className="rounded-full border border-mauve/30 px-4 py-2 text-xs font-medium text-mauve-dark transition hover:bg-sand"
     >
-      {copied ? "Copied to clipboard" : label}
+      {copied ? tx("Copied to clipboard", "In die Zwischenablage kopiert") : label}
     </button>
   );
 }

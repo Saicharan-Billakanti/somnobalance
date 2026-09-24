@@ -4,7 +4,10 @@ import { getDictionary } from "@/i18n/getDictionary";
 import { isLocale, type Locale } from "@/i18n/config";
 import { notFound } from "next/navigation";
 
-export const metadata = { title: "Right of Withdrawal — SomnoBalance" };
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  return { title: lang === "de" ? "Widerrufsrecht — SomnoBalance" : "Right of Withdrawal — SomnoBalance" };
+}
 
 export default async function WithdrawalPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
