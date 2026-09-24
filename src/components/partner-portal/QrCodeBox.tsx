@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useLang } from "@/lib/useLang";
 import QRCode from "qrcode";
 
 export function QrCodeBox({ value }: { value: string }) {
+  const { tx } = useLang();
   const [dataUrl, setDataUrl] = useState<string | null>(null);
 
   useEffect(() => {
@@ -24,10 +26,10 @@ export function QrCodeBox({ value }: { value: string }) {
     <div className="flex flex-col items-center gap-3 rounded-2xl border border-mauve/10 bg-white/60 p-5">
       {dataUrl ? (
         // eslint-disable-next-line @next/next/no-img-element -- small client-generated data URL, not worth Next/Image's pipeline
-        <img src={dataUrl} alt="QR code for your referral link" width={160} height={160} className="rounded-lg" />
+        <img src={dataUrl} alt={tx("QR code for your referral link", "QR-Code für Ihren Empfehlungslink")} width={160} height={160} className="rounded-lg" />
       ) : (
         <div className="flex h-40 w-40 items-center justify-center rounded-lg bg-sand/60 text-xs text-ink/40">
-          Generating…
+          {tx("Generating…", "Wird erstellt…")}
         </div>
       )}
       {dataUrl && (
@@ -36,7 +38,7 @@ export function QrCodeBox({ value }: { value: string }) {
           download="somnobalance-referral-qr.png"
           className="rounded-full border border-mauve/30 px-4 py-2 text-xs font-medium text-mauve-dark transition hover:bg-sand"
         >
-          Download QR Code
+          {tx("Download QR Code", "QR-Code herunterladen")}
         </a>
       )}
     </div>

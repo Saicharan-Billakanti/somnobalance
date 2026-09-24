@@ -28,6 +28,21 @@ export function ProductPurchasePanel({
     ? (product.variants.find((v) => v.label === selected) ?? product.variants[0])
     : null;
   const price = variant ? variant.price : (product.price ?? 0);
+  const de = lang === "de";
+  const tx = (en: string, deText: string) => (de ? deText : en);
+  const policyDe: Record<string, string> = {
+    "14-Day Money-Back Guarantee": "14 Tage Geld-zurück-Garantie",
+    "30-Day Money-Back Guarantee": "30 Tage Geld-zurück-Garantie",
+    "30-Night Sleep Trial & Full Refund Guarantee": "30 Nächte Probeschlafen & volle Rückerstattung",
+    "100-Night Risk-Free Sleep Trial & Free Return Pickup": "100 Nächte risikofreies Probeschlafen & kostenlose Rückholung",
+    "Individual Consultation & Custom Order": "Individuelle Beratung & Sonderanfertigung",
+  };
+  const rulesDe: Record<string, string> = {
+    "Hygienic seal must be intact upon return; items must be in original condition and packaging.":
+      "Das Hygienesiegel muss bei der Rücksendung intakt sein; Artikel müssen sich in Originalzustand und Originalverpackung befinden.",
+    "Hygienic seal must be intact upon return; items must be in original unsoiled packaging.":
+      "Das Hygienesiegel muss bei der Rücksendung intakt sein; Artikel müssen sich in unbeschmutzter Originalverpackung befinden.",
+  };
   const variantNotes: Record<string, string> = dict.shop.variantNotes;
 
   const maxRetailLimit = product.maxRetailQuantity || 10;
@@ -80,7 +95,7 @@ export function ProductPurchasePanel({
             type="button"
             onClick={() => setQty((prev) => Math.max(1, prev - 1))}
             className="shadow-xs flex h-8 w-8 items-center justify-center rounded-full bg-white text-sm font-bold text-ink/70 transition hover:bg-sand"
-            aria-label="Decrease quantity"
+            aria-label={tx("Decrease quantity", "Menge verringern")}
           >
             –
           </button>
@@ -96,7 +111,7 @@ export function ProductPurchasePanel({
             type="button"
             onClick={() => setQty((prev) => prev + 1)}
             className="shadow-xs flex h-8 w-8 items-center justify-center rounded-full bg-white text-sm font-bold text-ink/70 transition hover:bg-sand"
-            aria-label="Increase quantity"
+            aria-label={tx("Increase quantity", "Menge erhöhen")}
           >
             +
           </button>
@@ -108,17 +123,26 @@ export function ProductPurchasePanel({
         <div className="animate-fade-in rounded-2xl border border-amber-300 bg-amber-50/70 p-4 shadow-sm">
           <div className="flex items-start gap-3">
             <div className="space-y-1 text-xs">
-              <div className="font-bold text-amber-950">Ordering in bulk ({qty} units)? Get Business Discounts!</div>
+              <div className="font-bold text-amber-950">{de ? `Größere Menge bestellen (${qty} Stück)? Sichern Sie sich Geschäftskunden-Rabatte!` : `Ordering in bulk (${qty} units)? Get Business Discounts!`}</div>
               <p className="leading-relaxed text-amber-900/80">
-                Hotels, clinics, yoga studios, and corporate practices unlock <strong>15% to 30% OFF</strong> and
-                custom tax invoicing via our B2B program.
+                {de ? (
+                  <>
+                    Hotels, Kliniken, Yogastudios und Unternehmenspraxen erhalten über unser B2B-Programm{" "}
+                    <strong>15 % bis 30 % Rabatt</strong> und individuelle Rechnungsstellung.
+                  </>
+                ) : (
+                  <>
+                    Hotels, clinics, yoga studios, and corporate practices unlock <strong>15% to 30% OFF</strong> and
+                    custom tax invoicing via our B2B program.
+                  </>
+                )}
               </p>
               <div className="pt-1.5">
                 <Link
                   href={`/${lang}/for-business`}
                   className="inline-flex items-center gap-1 font-bold text-teal-dark hover:underline"
                 >
-                  Switch to Business Portal & Unlock Wholesale Pricing →
+                  {tx("Switch to Business Portal & Unlock Wholesale Pricing →", "Zum Geschäftskundenbereich wechseln & Großhandelspreise freischalten →")}
                 </Link>
               </div>
             </div>
@@ -135,16 +159,22 @@ export function ProductPurchasePanel({
       <div className="space-y-2 rounded-2xl border border-mauve/15 bg-sand/30 p-4 text-xs">
         <div className="flex items-center justify-between">
           <span className="font-bold text-teal-dark">
-            {product.refundPolicy || `${product.returnPeriodDays || 30}-Day Money-Back Guarantee`}
+            {(() => {
+              const p = product.refundPolicy || `${product.returnPeriodDays || 30}-Day Money-Back Guarantee`;
+              return de ? (policyDe[p] ?? p.replace(/^(\d+)-Day Money-Back Guarantee$/, "$1 Tage Geld-zurück-Garantie")) : p;
+            })()}
           </span>
           <span className="rounded-full bg-teal/10 px-2.5 py-0.5 text-[10px] font-semibold text-teal-dark">
-            {product.returnPeriodDays || 30} Days Return
+            {product.returnPeriodDays || 30} {tx("Days Return", "Tage Rückgabe")}
           </span>
         </div>
 
         <div className="border-t border-mauve/10 pt-1 text-[11px] leading-relaxed text-ink/70">
-          <strong className="font-semibold text-ink">Return & Refund Condition:</strong>{" "}
-          {product.refundRules || "Hygienic seal must be intact upon return; items must be in original unsoiled packaging."}
+          <strong className="font-semibold text-ink">{tx("Return & Refund Condition:", "Rückgabe- & Erstattungsbedingung:")}</strong>{" "}
+          {(() => {
+            const r = product.refundRules || "Hygienic seal must be intact upon return; items must be in original unsoiled packaging.";
+            return de ? (rulesDe[r] ?? r) : r;
+          })()}
         </div>
       </div>
     </div>

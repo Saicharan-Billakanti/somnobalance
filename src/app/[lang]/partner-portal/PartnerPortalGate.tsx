@@ -13,23 +13,24 @@ import type { Locale } from "@/i18n/config";
 
 export function PartnerPortalGate({ lang, children }: { lang: Locale; children: React.ReactNode }) {
   const { user, loading } = useAuth();
+  const tx = (en: string, de: string) => (lang === "de" ? de : en);
 
   if (loading) {
-    return <div className="mx-auto max-w-7xl px-4 py-20 text-center text-ink/50 sm:px-6">Loading…</div>;
+    return <div className="mx-auto max-w-7xl px-4 py-20 text-center text-ink/50 sm:px-6">{tx("Loading…", "Wird geladen…")}</div>;
   }
 
   if (!user) {
     return (
       <div className="mx-auto max-w-md px-4 py-24 text-center sm:px-6">
-        <h1 className="font-serif text-2xl text-ink">Please log in</h1>
+        <h1 className="font-serif text-2xl text-ink">{tx("Please log in", "Bitte anmelden")}</h1>
         <p className="mt-3 text-ink/70">
-          The Partner Portal is only available to logged-in affiliates.
+          {tx("The Partner Portal is only available to logged-in affiliates.", "Das Partner-Portal ist nur für angemeldete Partner verfügbar.")}
         </p>
         <Link
           href={`/${lang}/login`}
           className="mt-6 inline-flex rounded-full bg-mauve px-6 py-3 text-sm text-white hover:bg-mauve-dark"
         >
-          Log in
+          {tx("Log in", "Anmelden")}
         </Link>
       </div>
     );

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useLang } from "@/lib/useLang";
 import Image from "next/image";
 
 export function ProductGallery({
@@ -12,6 +13,7 @@ export function ProductGallery({
   alt: string;
   overlay?: React.ReactNode;
 }) {
+  const { tx } = useLang();
   const [active, setActive] = useState(0);
 
   const showControls = images.length > 1;
@@ -31,7 +33,7 @@ export function ProductGallery({
         <button
           type="button"
           disabled
-          aria-label="Zoom (coming soon)"
+          aria-label={tx("Zoom (coming soon)", "Zoom (demnächst)")}
           className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-white text-ink shadow transition hover:bg-sand"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -44,7 +46,7 @@ export function ProductGallery({
         <div className="mt-4 flex items-center justify-between gap-4">
           <button
             type="button"
-            aria-label="Previous"
+            aria-label={tx("Previous", "Zurück")}
             onClick={() => setActive((i) => (i - 1 + images.length) % images.length)}
             className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-mauve/30 bg-transparent text-ink/70 transition hover:border-mauve hover:text-mauve-dark"
           >
@@ -71,7 +73,7 @@ export function ProductGallery({
           </div>
           <button
             type="button"
-            aria-label="Next"
+            aria-label={tx("Next", "Weiter")}
             onClick={() => setActive((i) => (i + 1) % images.length)}
             className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-mauve/30 bg-transparent text-ink/70 transition hover:border-mauve hover:text-mauve-dark"
           >

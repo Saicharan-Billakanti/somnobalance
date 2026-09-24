@@ -1,17 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import { useLang } from "@/lib/useLang";
 import type { SupportMessage } from "@/lib/affiliateMockData";
 
 const QUICK_ACTIONS = [
-  "Ask about my commission",
-  "Ask about a payout",
-  "Ask about Stripe verification",
-  "Report an incorrect order",
-  "Contact support",
+  { en: "Ask about my commission", de: "Frage zu meiner Provision" },
+  { en: "Ask about a payout", de: "Frage zu einer Auszahlung" },
+  { en: "Ask about Stripe verification", de: "Frage zur Stripe-Verifizierung" },
+  { en: "Report an incorrect order", de: "Fehlerhafte Bestellung melden" },
+  { en: "Contact support", de: "Support kontaktieren" },
 ];
 
 export function SupportChat({ initialMessages }: { initialMessages: SupportMessage[] }) {
+  const { lang, tx } = useLang();
   const [messages, setMessages] = useState(initialMessages);
   const [draft, setDraft] = useState("");
 
@@ -29,12 +31,12 @@ export function SupportChat({ initialMessages }: { initialMessages: SupportMessa
       <div className="flex flex-wrap gap-2">
         {QUICK_ACTIONS.map((action) => (
           <button
-            key={action}
+            key={action.en}
             type="button"
-            onClick={() => send(action)}
+            onClick={() => send(tx(action.en, action.de))}
             className="rounded-full border border-mauve/20 px-3 py-1.5 text-xs text-ink/70 transition hover:bg-sand"
           >
-            {action}
+            {tx(action.en, action.de)}
           </button>
         ))}
       </div>
@@ -49,8 +51,8 @@ export function SupportChat({ initialMessages }: { initialMessages: SupportMessa
             >
               <p>{m.text}</p>
               <p className={`mt-1 text-[10px] ${m.from === "affiliate" ? "text-white/70" : "text-ink/40"}`}>
-                {new Date(m.date).toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
-                {!m.read && m.from === "admin" && " · New"}
+                {new Date(m.date).toLocaleString(lang === "de" ? "de-DE" : "en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
+                {!m.read && m.from === "admin" && ` · ${tx("New", "Neu")}`}
               </p>
             </div>
           </div>
@@ -67,11 +69,11 @@ export function SupportChat({ initialMessages }: { initialMessages: SupportMessa
         <input
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
-          placeholder="Type a message…"
+          placeholder={tx("Type a message…", "Nachricht eingeben…")}
           className="input-field flex-1"
         />
         <button type="submit" className="rounded-full bg-mauve px-5 py-2.5 text-sm text-white hover:bg-mauve-dark">
-          Send
+          {tx("Send", "Senden")}
         </button>
       </form>
     </div>

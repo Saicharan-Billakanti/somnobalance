@@ -1,4 +1,5 @@
 "use client";
+import { localizeError } from "@/lib/localizeError";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -22,6 +23,14 @@ export function AccountClient({
   initialProfile,
   initialOrders,
 }: AccountClientProps) {
+  const tx = (en: string, de: string) => (lang === "de" ? de : en);
+  const localizePolicy = (p: string) =>
+    lang === "de"
+      ? p
+          .replace(/^(\d+)-Day Money-Back Guarantee$/, "$1 Tage Geld-zurück-Garantie")
+          .replace("30-Night Sleep Trial & Full Refund Guarantee", "30 Nächte Probeschlafen & volle Rückerstattung")
+          .replace("100-Night Risk-Free Sleep Trial & Free Return Pickup", "100 Nächte risikofreies Probeschlafen & kostenlose Rückholung")
+      : p;
   const { user, setUser } = useAuth();
   const router = useRouter();
   const [tab, setTab] = useState<"orders" | "profile">("orders");
@@ -88,7 +97,7 @@ export function AccountClient({
       });
       const data = await res.json();
       if (!res.ok) {
-        setOtpError(data.error || "SMS-Code konnte nicht gesendet werden.");
+        setOtpError(data.error ? localizeError(data.error, lang) : "SMS-Code konnte nicht gesendet werden.");
         if (data.cooldownSeconds) setCooldown(data.cooldownSeconds);
         return;
       }
@@ -123,7 +132,7 @@ export function AccountClient({
       });
       const data = await res.json();
       if (!res.ok) {
-        setOtpError(data.error || "Ungültiger Code.");
+        setOtpError(data.error ? localizeError(data.error, lang) : "Ungültiger Code.");
         return;
       }
       setVerificationToken(data.verificationToken);
@@ -165,14 +174,14 @@ export function AccountClient({
       });
       const data = await res.json();
       if (!res.ok) {
-        setProfileError(data.error || "Failed to update profile");
+        setProfileError(localizeError(data.error || "Failed to update profile", lang));
         return;
       }
       setUser(data.profile);
       setProfileSuccess(true);
       setTimeout(() => setProfileSuccess(false), 3500);
     } catch {
-      setProfileError("Network error. Please try again.");
+      setProfileError(tx("Network error. Please try again.", "Netzwerkfehler. Bitte versuchen Sie es erneut."));
     } finally {
       setSavingProfile(false);
     }
@@ -189,24 +198,24 @@ export function AccountClient({
           <div>
             <div className="flex items-center gap-2">
               <span className="rounded-full bg-teal/15 px-3 py-0.5 text-xs font-semibold text-teal-dark uppercase tracking-wider">
-                Customer Account & Orders
+                {tx("Customer Account & Orders", "Kundenkonto & Bestellungen")}
               </span>
               {isDualRole && (
                 <span className="rounded-full bg-mauve/15 px-3 py-0.5 text-xs font-semibold text-mauve-dark">
-                  Partner
+                  {tx("Partner", "Partner")}
                 </span>
               )}
               {isBusiness && (
                 <span className="rounded-full bg-emerald-100 px-3 py-0.5 text-xs font-semibold text-emerald-800">
-                  B2B Member
+                  {tx("B2B Member", "B2B-Mitglied")}
                 </span>
               )}
             </div>
             <h1 className="mt-2 font-serif text-3xl text-ink sm:text-4xl">
-              Hello, {firstName || user?.firstName || "Customer"} {lastName || user?.lastName || ""}
+              {tx("Hello", "Hallo")}, {firstName || user?.firstName || tx("Customer", "Kunde")} {lastName || user?.lastName || ""}
             </h1>
             <p className="text-xs text-ink/60 mt-0.5">
-              {initialProfile?.email || user?.email} • Member since 2026
+              {initialProfile?.email || user?.email} • {tx("Member since 2026", "Mitglied seit 2026")}
             </p>
           </div>
 
@@ -215,7 +224,7 @@ export function AccountClient({
               href={`/${lang}/shop`}
               className="rounded-full bg-teal px-5 py-2.5 text-xs font-semibold text-white hover:bg-teal-dark transition shadow-sm"
             >
-              Continue Shopping
+              {tx("Continue Shopping", "Weiter einkaufen")}
             </Link>
           </div>
         </div>
@@ -231,7 +240,7 @@ export function AccountClient({
               : "border border-mauve/20 bg-white text-ink/70 hover:bg-sand"
           }`}
         >
-          My Orders & Tracking ({orders.length})
+          <span>📦</span> {tx("My Orders & Tracking", "Meine Bestellungen & Sendungsverfolgung")} ({orders.length})
         </button>
 
         <button
@@ -242,7 +251,7 @@ export function AccountClient({
               : "border border-mauve/20 bg-white text-ink/70 hover:bg-sand"
           }`}
         >
-          Profile & Shipping Address
+          <span>👤</span> {tx("Profile & Shipping Address", "Profil & Lieferadresse")}
         </button>
       </div>
 
@@ -251,15 +260,16 @@ export function AccountClient({
         <div className="mt-8 space-y-6">
           {orders.length === 0 ? (
             <div className="rounded-3xl border border-mauve/15 bg-white p-12 text-center">
-              <h3 className="font-serif text-xl text-ink">No orders found yet</h3>
+              <span className="text-3xl">📦</span>
+              <h3 className="mt-3 font-serif text-xl text-ink">{tx("No orders found yet", "Noch keine Bestellungen gefunden")}</h3>
               <p className="mx-auto mt-2 max-w-sm text-xs text-ink/60">
-                You haven't placed any orders yet. Explore our sleep and ritual collection to begin.
+                {tx("You haven't placed any orders yet. Explore our sleep and ritual collection to begin.", "Sie haben noch keine Bestellungen aufgegeben. Entdecken Sie unsere Schlaf- und Ritualkollektion.")}
               </p>
               <Link
                 href={`/${lang}/shop`}
                 className="mt-6 inline-block rounded-full bg-mauve px-6 py-2.5 text-xs font-semibold text-white hover:bg-mauve-dark"
               >
-                Browse Shop →
+                {tx("Browse Shop →", "Zum Shop →")}
               </Link>
             </div>
           ) : (
@@ -277,7 +287,7 @@ export function AccountClient({
                     <div>
                       <div className="flex items-center gap-2">
                         <span className="font-serif text-lg font-bold text-ink">
-                          Order #{order.id.slice(0, 12)}
+                          {tx("Order", "Bestellung")} #{order.id.slice(0, 12)}
                         </span>
                         <span
                           className={`rounded-full px-3 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${
@@ -286,16 +296,16 @@ export function AccountClient({
                               : "bg-teal/15 text-teal-dark"
                           }`}
                         >
-                          ● {isDelivered ? "Delivered" : "In Transit"}
+                          ● {isDelivered ? tx("Delivered", "Zugestellt") : tx("In Transit", "Unterwegs")}
                         </span>
                       </div>
                       <p className="mt-1 text-xs text-ink/50">
-                        Placed on {new Date(order.createdAt).toLocaleDateString("de-DE", { day: "2-digit", month: "short", year: "numeric" })} • Payment: {order.paymentMethod || "Card / PayPal"}
+                        {tx("Placed on", "Bestellt am")} {new Date(order.createdAt).toLocaleDateString(lang === "de" ? "de-DE" : "en-GB", { day: "2-digit", month: "short", year: "numeric" })} • {tx("Payment", "Zahlung")}: {order.paymentMethod || tx("Card / PayPal", "Karte / PayPal")}
                       </p>
                     </div>
 
                     <div className="text-right">
-                      <span className="text-xs text-ink/50">Total Amount</span>
+                      <span className="text-xs text-ink/50">{tx("Total Amount", "Gesamtbetrag")}</span>
                       <div className="font-serif text-xl font-bold text-teal-dark">
                         {formatPrice(order.total)}
                       </div>
@@ -335,7 +345,7 @@ export function AccountClient({
                             <div>
                               <div className="flex items-center gap-2">
                                 <span className="font-serif text-sm font-bold text-ink">
-                                  {isRefunded ? "Refund Processed via Stripe" : refundPolicy}
+                                  {isRefunded ? tx("Refund Processed via Stripe", "Erstattung über Stripe verarbeitet") : localizePolicy(refundPolicy)}
                                 </span>
                                 <span
                                   className={`rounded-full px-2.5 py-0.5 text-[10px] font-semibold ${
@@ -344,24 +354,24 @@ export function AccountClient({
                                       : "bg-teal/15 text-teal-dark"
                                   }`}
                                 >
-                                  {isRefunded ? "Payment Reimbursed" : `${returnDays} Days Return Window`}
+                                  {isRefunded ? tx("Payment Reimbursed", "Zahlung erstattet") : `${returnDays} ${tx("Days Return Window", "Tage Rückgabefrist")}`}
                                 </span>
                               </div>
                               <p className="mt-1 text-xs text-ink/70">
                                 {isRefunded ? (
                                   <span className="font-medium text-emerald-800">
-                                    Full refund of <strong>{formatPrice(order.total)}</strong> credited back via Stripe to your original payment method. {order.refundTransactionId ? `(Ref: ${order.refundTransactionId})` : ""}
+                                    {tx("Full refund of", "Vollständige Erstattung von")} <strong>{formatPrice(order.total)}</strong> {tx("credited back via Stripe to your original payment method.", "wurde über Stripe auf Ihre ursprüngliche Zahlungsmethode zurückgebucht.")} {order.refundTransactionId ? `(${tx("Ref", "Ref.")}: ${order.refundTransactionId})` : ""}
                                   </span>
                                 ) : isReturnRequested ? (
                                   <span className="font-semibold text-amber-700">
-                                    Return request received — DHL GoGreen prepaid return QR code generated.
+                                    {tx("Return request received — DHL GoGreen prepaid return QR code generated.", "Rücksendeanfrage erhalten — vorfrankierter DHL-GoGreen-Rücksende-QR-Code wurde erstellt.")}
                                   </span>
                                 ) : isReturnActive ? (
                                   <>
                                     <span className="font-semibold text-teal-dark">
-                                      {daysRemaining} day{daysRemaining === 1 ? "" : "s"} left
+                                      {lang === "de" ? `Noch ${daysRemaining} ${daysRemaining === 1 ? "Tag" : "Tage"}` : `${daysRemaining} day${daysRemaining === 1 ? "" : "s"} left`}
                                     </span>{" "}
-                                    to trial & request full refund (Eligible until{" "}
+                                    {tx("to trial & request full refund (Eligible until", "zum Testen & für die volle Erstattung (Möglich bis")}{" "}
                                     <strong className="text-ink">
                                       {deadline.toLocaleDateString("de-DE", { day: "2-digit", month: "short", year: "numeric" })}
                                     </strong>
@@ -369,7 +379,7 @@ export function AccountClient({
                                   </>
                                 ) : (
                                   <span className="text-ink/50">
-                                    Return window expired on{" "}
+                                    {tx("Return window expired on", "Rückgabefrist abgelaufen am")}{" "}
                                     {deadline.toLocaleDateString("de-DE", { day: "2-digit", month: "short", year: "numeric" })}
                                   </span>
                                 )}
@@ -380,11 +390,11 @@ export function AccountClient({
                           <div>
                             {isRefunded ? (
                               <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-100 px-4 py-1.5 text-xs font-semibold text-emerald-800">
-                                ✓ Refund Completed
+                                ✓ {tx("Refund Completed", "Erstattung abgeschlossen")}
                               </span>
                             ) : isReturnRequested ? (
                               <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-100 px-4 py-1.5 text-xs font-semibold text-amber-800">
-                                ⏳ Return In Review
+                                ⏳ {tx("Return In Review", "Rücksendung in Prüfung")}
                               </span>
                             ) : isReturnActive ? (
                               <button
@@ -396,11 +406,11 @@ export function AccountClient({
                                 }}
                                 className="rounded-full bg-white border border-teal/30 px-4 py-2 text-xs font-semibold text-teal-dark hover:bg-teal hover:text-white transition shadow-sm"
                               >
-                                Request Return / Refund
+                                {tx("Request Return / Refund", "Rückgabe / Erstattung anfragen")}
                               </button>
                             ) : (
                               <span className="text-[11px] text-ink/40 font-medium italic">
-                                Window Closed
+                                {tx("Window Closed", "Frist abgelaufen")}
                               </span>
                             )}
                           </div>
@@ -413,18 +423,18 @@ export function AccountClient({
                   <div className="mt-6 rounded-2xl bg-sand/40 p-5">
                     <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-mauve/10">
                       <div className="flex items-center gap-2 text-xs">
-                        <span className="font-bold text-ink">Courier:</span>
+                        <span className="font-bold text-ink">{tx("Courier:", "Versanddienstleister:")}</span>
                         <span className="rounded bg-white px-2 py-0.5 text-xs text-teal-dark font-semibold">
                           {order.carrier || "DHL GoGreen"}
                         </span>
-                        <span className="font-bold text-ink ml-2">Tracking No:</span>
+                        <span className="font-bold text-ink ml-2">{tx("Tracking No:", "Sendungsnummer:")}</span>
                         <span className="font-mono text-xs text-ink/80 bg-white px-2 py-0.5 rounded">
                           {order.trackingNumber || "DHL-DE-8921471094"}
                         </span>
                       </div>
 
                       <span className="text-[11px] text-ink/60 font-medium">
-                        {isDelivered ? "Delivered to recipient" : "Estimated Arrival: 1-2 Business Days"}
+                        {isDelivered ? tx("Delivered to recipient", "An Empfänger zugestellt") : tx("Estimated Arrival: 1-2 Business Days", "Voraussichtliche Ankunft: 1–2 Werktage")}
                       </span>
                     </div>
 
@@ -434,16 +444,16 @@ export function AccountClient({
                         <div className="flex h-8 w-8 items-center justify-center rounded-full bg-teal text-white text-xs font-bold shadow-sm">
                           ✓
                         </div>
-                        <span className="mt-2 font-semibold text-ink">Order Paid</span>
-                        <span className="text-[10px] text-ink/50">Verified</span>
+                        <span className="mt-2 font-semibold text-ink">{tx("Order Paid", "Bestellung bezahlt")}</span>
+                        <span className="text-[10px] text-ink/50">{tx("Verified", "Bestätigt")}</span>
                       </div>
 
                       <div className="flex flex-col items-center">
                         <div className="flex h-8 w-8 items-center justify-center rounded-full bg-teal text-white text-xs font-bold shadow-sm">
                           ✓
                         </div>
-                        <span className="mt-2 font-semibold text-ink">Packed</span>
-                        <span className="text-[10px] text-ink/50">Logistics Hub</span>
+                        <span className="mt-2 font-semibold text-ink">{tx("Packed", "Verpackt")}</span>
+                        <span className="text-[10px] text-ink/50">{tx("Logistics Hub", "Logistikzentrum")}</span>
                       </div>
 
                       <div className="flex flex-col items-center">
@@ -454,8 +464,8 @@ export function AccountClient({
                         >
                           2
                         </div>
-                        <span className="mt-2 font-semibold text-teal-dark">In Transit</span>
-                        <span className="text-[10px] text-ink/50">DHL Hub</span>
+                        <span className="mt-2 font-semibold text-teal-dark">{tx("In Transit", "Unterwegs")}</span>
+                        <span className="text-[10px] text-ink/50">{tx("DHL Hub", "DHL-Hub")}</span>
                       </div>
 
                       <div className="flex flex-col items-center">
@@ -467,9 +477,9 @@ export function AccountClient({
                           {isDelivered ? "✓" : "3"}
                         </div>
                         <span className={`mt-2 font-semibold ${isDelivered ? "text-ink" : "text-ink/40"}`}>
-                          Delivery
+                          {tx("Delivery", "Zustellung")}
                         </span>
-                        <span className="text-[10px] text-ink/40">Recipient</span>
+                        <span className="text-[10px] text-ink/40">{tx("Recipient", "Empfänger")}</span>
                       </div>
                     </div>
                   </div>
@@ -478,13 +488,13 @@ export function AccountClient({
                   <div className="mt-6 space-y-3">
                     <div className="flex items-center justify-between">
                       <h4 className="font-serif text-sm font-bold text-ink">
-                        Items in this Parcel ({(order.items || []).length})
+                        {tx("Items in this Parcel", "Artikel in diesem Paket")} ({(order.items || []).length})
                       </h4>
                       <button
                         onClick={() => setExpandedOrderId(isExpanded ? null : order.id)}
                         className="text-xs text-teal-dark font-medium hover:underline"
                       >
-                        {isExpanded ? "Hide Details ▲" : "Show Full Details ▼"}
+                        {isExpanded ? tx("Hide Details ▲", "Details ausblenden ▲") : tx("Show Full Details ▼", "Alle Details anzeigen ▼")}
                       </button>
                     </div>
 
@@ -504,12 +514,12 @@ export function AccountClient({
                                   <span className="font-medium text-ink">{item.name}</span>
                                   {item.refundPolicy && (
                                     <span className="rounded-full bg-teal/10 px-2 py-0.5 text-[9px] font-semibold text-teal-dark">
-                                      {item.refundPolicy}
+                                      {localizePolicy(item.refundPolicy)}
                                     </span>
                                   )}
                                 </div>
                                 <div className="text-[11px] text-ink/50 font-mono">
-                                  {item.slug} • Return period: {item.returnPeriodDays ?? order.returnPeriodDays ?? 30} days
+                                  {item.slug} • {tx("Return period", "Rückgabefrist")}: {item.returnPeriodDays ?? order.returnPeriodDays ?? 30} {tx("days", "Tage")}
                                 </div>
                               </div>
                             </div>
@@ -521,7 +531,7 @@ export function AccountClient({
 
                         {/* Delivery Address Details */}
                         <div className="mt-4 rounded-xl bg-sand/30 p-4 text-xs text-ink/70">
-                          <strong className="text-ink">Delivery Destination:</strong>
+                          <strong className="text-ink">{tx("Delivery Destination:", "Lieferadresse:")}</strong>
                           <div className="mt-1">
                             {order.firstName} {order.lastName} • {order.street}, {order.postalCode} {order.city}, {order.country}
                           </div>
@@ -543,15 +553,15 @@ export function AccountClient({
           className="mt-8 max-w-3xl rounded-3xl border border-mauve/15 bg-white p-6 shadow-sm sm:p-10 space-y-6"
         >
           <div>
-            <h2 className="font-serif text-2xl text-ink">Profile Details & Delivery Address</h2>
+            <h2 className="font-serif text-2xl text-ink">{tx("Profile Details & Delivery Address", "Profildaten & Lieferadresse")}</h2>
             <p className="text-xs text-ink/60 mt-1">
-              Update your contact information, phone number, and primary shipping address for fast checkout.
+              {tx("Update your contact information, phone number, and primary shipping address for fast checkout.", "Aktualisieren Sie Ihre Kontaktdaten, Telefonnummer und Hauptlieferadresse für eine schnellere Kasse.")}
             </p>
           </div>
 
           {profileSuccess && (
             <div className="rounded-2xl bg-teal/15 p-4 text-xs font-semibold text-teal-dark">
-              ✓ Profile information updated successfully!
+              ✓ {tx("Profile information updated successfully!", "Profildaten erfolgreich aktualisiert!")}
             </div>
           )}
 
@@ -563,7 +573,7 @@ export function AccountClient({
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label className="text-xs font-medium text-ink/70">First Name *</label>
+              <label className="text-xs font-medium text-ink/70">{tx("First Name *", "Vorname *")}</label>
               <input
                 required
                 type="text"
@@ -573,7 +583,7 @@ export function AccountClient({
               />
             </div>
             <div>
-              <label className="text-xs font-medium text-ink/70">Last Name *</label>
+              <label className="text-xs font-medium text-ink/70">{tx("Last Name *", "Nachname *")}</label>
               <input
                 required
                 type="text"
@@ -586,7 +596,7 @@ export function AccountClient({
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label className="text-xs font-medium text-ink/70">Email Address (Account ID)</label>
+              <label className="text-xs font-medium text-ink/70">{tx("Email Address (Account ID)", "E-Mail-Adresse (Konto-ID)")}</label>
               <input
                 disabled
                 type="email"
@@ -670,22 +680,22 @@ export function AccountClient({
           </div>
 
           <div className="border-t border-mauve/10 pt-4 space-y-4">
-            <h3 className="font-serif text-base font-bold text-ink">Primary Shipping Address</h3>
+            <h3 className="font-serif text-base font-bold text-ink">{tx("Primary Shipping Address", "Hauptlieferadresse")}</h3>
 
             <div>
-              <label className="text-xs font-medium text-ink/70">Street & House Number</label>
+              <label className="text-xs font-medium text-ink/70">{tx("Street & House Number", "Straße & Hausnummer")}</label>
               <input
                 type="text"
                 value={street}
                 onChange={(e) => setStreet(e.target.value)}
-                placeholder="e.g. Maximilianstraße 22"
+                placeholder={tx("e.g. Maximilianstraße 22", "z. B. Maximilianstraße 22")}
                 className="input-field mt-1"
               />
             </div>
 
             <div className="grid gap-4 sm:grid-cols-3">
               <div>
-                <label className="text-xs font-medium text-ink/70">Postal Code</label>
+                <label className="text-xs font-medium text-ink/70">{tx("Postal Code", "Postleitzahl")}</label>
                 <input
                   type="text"
                   value={postalCode}
@@ -695,7 +705,7 @@ export function AccountClient({
                 />
               </div>
               <div className="sm:col-span-2">
-                <label className="text-xs font-medium text-ink/70">City</label>
+                <label className="text-xs font-medium text-ink/70">{tx("City", "Stadt")}</label>
                 <input
                   type="text"
                   value={city}
@@ -707,18 +717,18 @@ export function AccountClient({
             </div>
 
             <div>
-              <label className="text-xs font-medium text-ink/70">Country</label>
+              <label className="text-xs font-medium text-ink/70">{tx("Country", "Land")}</label>
               <select
                 value={country}
                 onChange={(e) => setCountry(e.target.value)}
                 className="input-field mt-1"
               >
-                <option value="Germany">Germany (Deutschland)</option>
-                <option value="Austria">Austria (Österreich)</option>
-                <option value="Switzerland">Switzerland (Schweiz)</option>
-                <option value="Netherlands">Netherlands</option>
-                <option value="France">France</option>
-                <option value="Italy">Italy</option>
+                <option value="Germany">{tx("Germany", "Deutschland")}</option>
+                <option value="Austria">{tx("Austria", "Österreich")}</option>
+                <option value="Switzerland">{tx("Switzerland", "Schweiz")}</option>
+                <option value="Netherlands">{tx("Netherlands", "Niederlande")}</option>
+                <option value="France">{tx("France", "Frankreich")}</option>
+                <option value="Italy">{tx("Italy", "Italien")}</option>
               </select>
             </div>
           </div>
@@ -729,7 +739,7 @@ export function AccountClient({
               disabled={savingProfile}
               className="rounded-full bg-mauve px-8 py-3.5 text-sm font-semibold text-white hover:bg-mauve-dark disabled:opacity-60 transition shadow-sm"
             >
-              {savingProfile ? "Saving Details…" : "Save Profile Details"}
+              {savingProfile ? tx("Saving Details…", "Wird gespeichert…") : tx("Save Profile Details", "Profildaten speichern")}
             </button>
           </div>
         </form>
@@ -763,36 +773,36 @@ export function AccountClient({
                 <div className="flex items-center gap-3">
                   <div>
                     <h3 className="font-serif text-xl font-bold text-ink">
-                      Request Return & Refund
+                      {tx("Request Return & Refund", "Rückgabe & Erstattung anfragen")}
                     </h3>
                     <p className="text-xs text-ink/60">
-                      Order #{selectedReturnOrder.id.slice(0, 12)} • {selectedReturnOrder.refundPolicy || `${selectedReturnOrder.returnPeriodDays || 30}-Day Guarantee`}
+                      {tx("Order", "Bestellung")} #{selectedReturnOrder.id.slice(0, 12)} • {selectedReturnOrder.refundPolicy ? localizePolicy(selectedReturnOrder.refundPolicy) : `${selectedReturnOrder.returnPeriodDays || 30}${tx("-Day Guarantee", "-Tage-Garantie")}`}
                     </p>
                   </div>
                 </div>
 
                 <div className="mt-4 rounded-2xl bg-sand/40 p-4 text-xs text-ink/70 space-y-2">
                   <div className="flex justify-between">
-                    <span>Refund Amount:</span>
+                    <span>{tx("Refund Amount:", "Erstattungsbetrag:")}</span>
                     <strong className="text-ink font-serif">{formatPrice(selectedReturnOrder.total)}</strong>
                   </div>
                   <div className="flex justify-between">
-                    <span>Return Policy:</span>
-                    <strong className="text-teal-dark">{selectedReturnOrder.returnPeriodDays || 30} Days Guarantee</strong>
+                    <span>{tx("Return Policy:", "Rückgaberegelung:")}</span>
+                    <strong className="text-teal-dark">{selectedReturnOrder.returnPeriodDays || 30} {tx("Days Guarantee", "Tage Garantie")}</strong>
                   </div>
                   <div className="flex justify-between">
-                    <span>Courier Service:</span>
-                    <span className="text-ink font-medium">DHL GoGreen (Prepaid Drop-off)</span>
+                    <span>{tx("Courier Service:", "Versanddienstleister:")}</span>
+                    <span className="text-ink font-medium">{tx("DHL GoGreen (Prepaid Drop-off)", "DHL GoGreen (vorfrankierte Abgabe)")}</span>
                   </div>
 
                   {/* Specific Admin Return Rules & Seal Breakage Condition */}
                   <div className="mt-2 rounded-xl border border-amber-300 bg-amber-50/80 p-3 text-[11px] text-amber-950">
                     <strong className="font-bold flex items-center gap-1 text-amber-950">
-                      <span>⚠️ Mandatory Return Condition:</span>
+                      <span>⚠️ {tx("Mandatory Return Condition:", "Verbindliche Rückgabebedingung:")}</span>
                     </strong>
                     <p className="mt-1 leading-relaxed text-amber-900">
                       {selectedReturnOrder.refundRules ||
-                        "Hygienic seal must be intact and unbroken upon return. Items must be in original unsoiled packaging to qualify for a full refund."}
+                        tx("Hygienic seal must be intact and unbroken upon return. Items must be in original unsoiled packaging to qualify for a full refund.", "Das Hygienesiegel muss bei der Rücksendung intakt und unversehrt sein. Artikel müssen sich in unbeschmutzter Originalverpackung befinden, um eine volle Erstattung zu erhalten.")}
                     </p>
                   </div>
                 </div>
@@ -800,7 +810,7 @@ export function AccountClient({
                 <div className="mt-5 space-y-4">
                   <div>
                     <label className="text-xs font-semibold text-ink">
-                      Reason for Return *
+                      {tx("Reason for Return *", "Rückgabegrund *")}
                     </label>
                     <select
                       value={returnReason}
@@ -808,30 +818,30 @@ export function AccountClient({
                       className="input-field mt-1"
                     >
                       <option value="comfort_expectation">
-                        Trial sleep comfort did not match expectations
+                        {tx("Trial sleep comfort did not match expectations", "Der Schlafkomfort beim Probeschlafen entsprach nicht den Erwartungen")}
                       </option>
                       <option value="wrong_size_or_variant">
-                        Incorrect size, color, or ergonomic fit
+                        {tx("Incorrect size, color, or ergonomic fit", "Falsche Größe, Farbe oder ergonomische Passform")}
                       </option>
                       <option value="arrived_damaged">
-                        Product arrived damaged or defective
+                        {tx("Product arrived damaged or defective", "Produkt ist beschädigt oder defekt angekommen")}
                       </option>
                       <option value="mind_changed">
-                        Changed mind within statutory return window
+                        {tx("Changed mind within statutory return window", "Umentschieden innerhalb der gesetzlichen Widerrufsfrist")}
                       </option>
-                      <option value="other">Other reason</option>
+                      <option value="other">{tx("Other reason", "Anderer Grund")}</option>
                     </select>
                   </div>
 
                   <div>
                     <label className="text-xs font-semibold text-ink">
-                      Additional Notes / Feedback (Optional)
+                      {tx("Additional Notes / Feedback (Optional)", "Zusätzliche Hinweise / Feedback (optional)")}
                     </label>
                     <textarea
                       rows={2}
                       value={returnNote}
                       onChange={(e) => setReturnNote(e.target.value)}
-                      placeholder="Tell us what could be improved or any details about your return..."
+                      placeholder={tx("Tell us what could be improved or any details about your return...", "Teilen Sie uns mit, was wir verbessern können, oder weitere Details zu Ihrer Rücksendung...")}
                       className="input-field mt-1 resize-none text-xs"
                     />
                   </div>
@@ -846,12 +856,12 @@ export function AccountClient({
                       className="mt-0.5 rounded border-mauve/30 text-teal focus:ring-teal"
                     />
                     <label htmlFor="sealBreakageCheck" className="text-[11px] text-ink/80 leading-relaxed cursor-pointer select-none">
-                      <strong>I confirm that the product condition meets the return rules</strong> (e.g. hygienic seal intact, unsoiled, and complete in original packaging).
+                      <strong>{tx("I confirm that the product condition meets the return rules", "Ich bestätige, dass der Produktzustand den Rückgaberegeln entspricht")}</strong> {tx("(e.g. hygienic seal intact, unsoiled, and complete in original packaging).", "(z. B. Hygienesiegel intakt, unbeschmutzt und vollständig in der Originalverpackung).")}
                     </label>
                   </div>
 
                   <div className="rounded-xl border border-teal/20 bg-teal/5 p-3 text-[11px] text-teal-dark">
-                    <strong>100% Zero Hassle:</strong> Somnobalance generates an instant prepaid DHL GoGreen QR code. Simply show it at any DHL Packstation or parcel shop. Full refund will be credited to your original payment method.
+                    <strong>{tx("100% Zero Hassle:", "100 % unkompliziert:")}</strong> {tx("Somnobalance generates an instant prepaid DHL GoGreen QR code. Simply show it at any DHL Packstation or parcel shop. Full refund will be credited to your original payment method.", "Somnobalance erstellt sofort einen vorfrankierten DHL-GoGreen-QR-Code. Zeigen Sie ihn einfach an einer DHL-Packstation oder in einem Paketshop vor. Die volle Erstattung wird Ihrer ursprünglichen Zahlungsmethode gutgeschrieben.")}
                   </div>
 
                   <div className="flex gap-3 pt-2">
@@ -863,7 +873,7 @@ export function AccountClient({
                       }}
                       className="flex-1 rounded-full border border-mauve/20 bg-white py-3 text-xs font-semibold text-ink/70 hover:bg-sand"
                     >
-                      Cancel
+                      {tx("Cancel", "Abbrechen")}
                     </button>
                     <button
                       type="button"
@@ -921,7 +931,7 @@ export function AccountClient({
                       }}
                       className="flex-1 rounded-full bg-teal py-3 text-xs font-semibold text-white hover:bg-teal-dark disabled:opacity-50 transition shadow-sm"
                     >
-                      {submittingReturn ? "Processing…" : "Submit Return Request"}
+                      {submittingReturn ? tx("Processing…", "Wird verarbeitet…") : tx("Submit Return Request", "Rücksendeanfrage absenden")}
                     </button>
                   </div>
                 </div>
@@ -933,39 +943,39 @@ export function AccountClient({
                 </div>
                 <div>
                   <h3 className="font-serif text-2xl font-bold text-ink">
-                    Return Request Approved!
+                    {tx("Return Request Approved!", "Rücksendeanfrage genehmigt!")}
                   </h3>
                   <p className="mt-1 text-xs text-ink/60 max-w-sm mx-auto">
-                    Your prepaid DHL GoGreen return label has been generated for Order #{selectedReturnOrder.id.slice(0, 12)}.
+                    {tx("Your prepaid DHL GoGreen return label has been generated for Order", "Ihr vorfrankiertes DHL-GoGreen-Rücksendeetikett wurde erstellt für Bestellung")} #{selectedReturnOrder.id.slice(0, 12)}.
                   </p>
                 </div>
 
                 {/* Simulated DHL QR Code / Return Voucher */}
                 <div className="rounded-2xl border border-dashed border-teal/30 bg-sand/30 p-5 text-center">
                   <div className="font-mono text-xs font-bold text-ink tracking-wider">
-                    DHL RETÜRE: RET-DHL-{selectedReturnOrder.id.slice(0, 8).toUpperCase()}
+                    DHL RETOURE: RET-DHL-{selectedReturnOrder.id.slice(0, 8).toUpperCase()}
                   </div>
                   <div className="my-3 inline-block rounded-lg bg-white p-3 shadow-inner">
                     <div className="flex h-24 w-24 items-center justify-center bg-ink text-white font-mono text-[9px] text-center p-2 rounded">
                       [ DHL QR CODE ]
                       <br />
-                      Scan at DHL Packstation
+                      {tx("Scan at DHL Packstation", "An der DHL-Packstation scannen")}
                     </div>
                   </div>
                   <p className="text-[11px] text-ink/60">
-                    Show this QR code at any DHL post branch or Packstation without needing a printer.
+                    {tx("Show this QR code at any DHL post branch or Packstation without needing a printer.", "Zeigen Sie diesen QR-Code in jeder DHL-Filiale oder an jeder Packstation vor — ein Drucker ist nicht nötig.")}
                   </p>
                 </div>
 
                 <div className="text-xs text-ink/70">
-                  Refund of <strong className="text-ink font-serif">{formatPrice(selectedReturnOrder.total)}</strong> will be processed within 2-3 business days after drop-off.
+                  {tx("Refund of", "Die Erstattung von")} <strong className="text-ink font-serif">{formatPrice(selectedReturnOrder.total)}</strong> {tx("will be processed within 2-3 business days after drop-off.", "wird innerhalb von 2–3 Werktagen nach der Abgabe bearbeitet.")}
                 </div>
 
                 <button
                   onClick={() => setSelectedReturnOrder(null)}
                   className="w-full rounded-full bg-mauve py-3 text-xs font-semibold text-white hover:bg-mauve-dark transition"
                 >
-                  Close & Back to Orders
+                  {tx("Close & Back to Orders", "Schließen & zurück zu den Bestellungen")}
                 </button>
               </div>
             )}

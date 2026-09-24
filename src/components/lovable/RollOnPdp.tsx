@@ -90,6 +90,7 @@ export function RollOnPdp({
   dict: Dictionary;
   onAddToCart: (quantity: number) => void;
 }) {
+  const tx = (en: string, de: string) => (lang === "de" ? de : en);
   const SOUND_DURATION = 120; // 2:00, matches the "/ 02:00" label
 
   const [active, setActive] = useState(0);
@@ -167,7 +168,7 @@ export function RollOnPdp({
             <div className="relative aspect-square overflow-hidden rounded-md bg-lovable-muted">
               <Image
                 src={gallery[active]}
-                alt="SomnoBalance Anti-Stress aromatherapy roll-on"
+                alt={tx("SomnoBalance Anti-Stress aromatherapy roll-on", "SomnoBalance Anti-Stress Aromatherapie-Roll-on")}
                 width={1200}
                 height={1200}
                 className="h-full w-full object-cover"
@@ -184,7 +185,7 @@ export function RollOnPdp({
               <button
                 type="button"
                 onClick={() => moveGallery(-1)}
-                aria-label="Previous image"
+                aria-label={tx("Previous image", "Vorheriges Bild")}
                 className="absolute left-4 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 text-lovable-foreground shadow transition hover:bg-white"
               >
                 <ArrowLeft className="size-4" />
@@ -192,7 +193,7 @@ export function RollOnPdp({
               <button
                 type="button"
                 onClick={() => moveGallery(1)}
-                aria-label="Next image"
+                aria-label={tx("Next image", "Nächstes Bild")}
                 className="absolute right-4 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 text-lovable-foreground shadow transition hover:bg-white"
               >
                 <ArrowRight className="size-4" />
@@ -203,7 +204,7 @@ export function RollOnPdp({
                 variant="outline"
                 className="size-10 shrink-0 rounded-full px-0"
                 onClick={() => moveGallery(-1)}
-                aria-label="Previous image"
+                aria-label={tx("Previous image", "Vorheriges Bild")}
               >
                 <ArrowLeft className="size-4" />
               </Button>
@@ -212,7 +213,7 @@ export function RollOnPdp({
                   <button
                     key={index}
                     onClick={() => setActive(index)}
-                    aria-label={`View product image ${index + 1}`}
+                    aria-label={`${tx("View product image", "Produktbild ansehen")} ${index + 1}`}
                     className={`aspect-square overflow-hidden rounded-sm border bg-lovable-muted transition-colors ${
                       active === index
                         ? "border-lovable-primary"
@@ -233,7 +234,7 @@ export function RollOnPdp({
                 variant="outline"
                 className="size-10 shrink-0 rounded-full px-0"
                 onClick={() => moveGallery(1)}
-                aria-label="Next image"
+                aria-label={tx("Next image", "Nächstes Bild")}
               >
                 <ArrowRight className="size-4" />
               </Button>
@@ -249,9 +250,9 @@ export function RollOnPdp({
               SomnoBalance Roll-on
             </h1>
             <p className="mt-3 max-w-md font-lovable-serif text-xl leading-tight text-lovable-muted-foreground">
-              A scent moment to carry with you,
+              {tx("A scent moment to carry with you,", "Ein Duftmoment zum Mitnehmen,")}
               <br />
-              at home or on the go.
+              {tx("at home or on the go.", "zu Hause oder unterwegs.")}
             </p>
             <div className="mt-6 flex items-end gap-3">
               <strong className="text-2xl font-medium">19,00 €</strong>
@@ -265,7 +266,7 @@ export function RollOnPdp({
                   variant="ghost"
                   className="h-full min-h-0 px-3"
                   onClick={() => setQuantity((v) => Math.max(1, v - 1))}
-                  aria-label="Decrease quantity"
+                  aria-label={tx("Decrease quantity", "Menge verringern")}
                 >
                   <Minus className="size-3" />
                 </Button>
@@ -276,7 +277,7 @@ export function RollOnPdp({
                   variant="ghost"
                   className="h-full min-h-0 px-3"
                   onClick={() => setQuantity((v) => v + 1)}
-                  aria-label="Increase quantity"
+                  aria-label={tx("Increase quantity", "Menge erhöhen")}
                 >
                   <Plus className="size-3" />
                 </Button>
@@ -289,7 +290,7 @@ export function RollOnPdp({
                   window.setTimeout(() => setAdded(false), 1800);
                 }}
               >
-                <span>{added ? `${quantity} added` : "Add to cart"}</span>
+                <span>{added ? `${quantity} ${tx("added", "hinzugefügt")}` : dict.shop.addToCart}</span>
                 <ArrowRight className="size-4" />
               </Button>
             </div>
@@ -304,16 +305,14 @@ export function RollOnPdp({
               </span>
               <span className="flex items-center gap-2">
                 <Sparkles className="size-5 stroke-[1.2]" />
-                External use
+                {tx("External use", "Äußerliche Anwendung")}
               </span>
             </div>
             <p className="text-xs leading-6 text-lovable-muted-foreground">
-              The SomnoBalance Roll-on pairs the brand&rsquo;s signature scent
-              with a simple, targeted application. Lavender, clementine,
-              grapefruit, frankincense and patchouli are blended into a base of
-              sunflower and jojoba oil, applied directly to the skin — easy to
-              fold into a personal pause or ritual, whether at home, travelling,
-              or as part of an evening routine.
+              {tx(
+                "The SomnoBalance Roll-on pairs the brand’s signature scent with a simple, targeted application. Lavender, clementine, grapefruit, frankincense and patchouli are blended into a base of sunflower and jojoba oil, applied directly to the skin — easy to fold into a personal pause or ritual, whether at home, travelling, or as part of an evening routine.",
+                "Das SomnoBalance Roll-on verbindet den Signaturduft der Marke mit einer einfachen, gezielten Anwendung. Lavendel, Clementine, Grapefruit, Weihrauch und Patchouli werden in einer Basis aus Sonnenblumen- und Jojobaöl gemischt und direkt auf die Haut aufgetragen — ideal für eine persönliche Pause oder ein Ritual, zu Hause, auf Reisen oder als Teil der Abendroutine.",
+              )}
             </p>
           </div>
 
@@ -328,7 +327,7 @@ export function RollOnPdp({
               variant="ghost"
               className="mx-auto mt-6 size-16 rounded-full bg-lovable-secondary px-0"
               onClick={toggleSound}
-              aria-label={playing ? "Pause sound" : "Play sound"}
+              aria-label={playing ? tx("Pause sound", "Sound pausieren") : tx("Play sound", "Sound abspielen")}
             >
               {playing ? (
                 <Pause className="size-6 fill-current" />
@@ -387,7 +386,7 @@ export function RollOnPdp({
               <div className="aspect-[2.15/1] overflow-hidden">
                 <Image
                   src="/products/pdp-roll-on-rituals.webp"
-                  alt="Four ways to apply the SomnoBalance roll-on"
+                  alt={tx("Four ways to apply the SomnoBalance roll-on", "Vier Möglichkeiten, das SomnoBalance Roll-on anzuwenden")}
                   width={1600}
                   height={720}
                   className="h-full w-full object-cover"
@@ -414,7 +413,7 @@ export function RollOnPdp({
           <div className="relative min-h-[520px] overflow-hidden rounded-md">
             <Image
               src="/products/SomnoBalance Roll-on.webp"
-              alt="SomnoBalance roll-on"
+              alt={tx("SomnoBalance roll-on", "SomnoBalance Roll-on")}
               fill
               className="object-cover"
             />
@@ -427,26 +426,26 @@ export function RollOnPdp({
             <ul className="mt-6 space-y-7 text-xs leading-5">
               <li className="flex gap-5">
                 <FlaskConical className="size-6 shrink-0 stroke-[1.2]" />
-                <span>10 ml roll-on bottle</span>
+                <span>{tx("10 ml roll-on bottle", "10-ml-Roll-on-Flasche")}</span>
               </li>
               <li className="flex gap-5">
                 <Leaf className="size-6 shrink-0 stroke-[1.2]" />
-                <span>Base oils: sunflower oil, jojoba oil</span>
+                <span>{tx("Base oils: sunflower oil, jojoba oil", "Basisöle: Sonnenblumenöl, Jojobaöl")}</span>
               </li>
               <li className="flex gap-5">
                 <Sparkles className="size-6 shrink-0 stroke-[1.2]" />
                 <span>
-                  Scent: lavender, clementine, grapefruit,
+                  {tx("Scent: lavender, clementine, grapefruit,", "Duft: Lavendel, Clementine, Grapefruit,")}
                   <br />
-                  frankincense, patchouli
+                  {tx("frankincense, patchouli", "Weihrauch, Patchouli")}
                 </span>
               </li>
               <li className="flex gap-5">
                 <Sparkles className="size-6 shrink-0 stroke-[1.2]" />
                 <span>
-                  Apply to wrists, temples, neck, or soles
+                  {tx("Apply to wrists, temples, neck, or soles", "Auf Handgelenke, Schläfen, Nacken oder Fußsohlen")}
                   <br />
-                  of the feet — several times a day as needed
+                  {tx("of the feet — several times a day as needed", "auftragen — mehrmals täglich nach Bedarf")}
                 </span>
               </li>
               <li className="flex gap-5">
@@ -454,9 +453,9 @@ export function RollOnPdp({
                   i
                 </span>
                 <span>
-                  For external use only; discontinue if skin
+                  {tx("For external use only; discontinue if skin", "Nur zur äußerlichen Anwendung; bei Hautreizungen")}
                   <br />
-                  irritation occurs.
+                  {tx("irritation occurs.", "die Anwendung abbrechen.")}
                 </span>
               </li>
             </ul>
@@ -464,7 +463,7 @@ export function RollOnPdp({
           <div className="px-2 py-4 md:px-8 lg:border-l lg:border-lovable-border/60 lg:px-7 lg:py-12">
             <div className="rounded-md border border-lovable-border bg-lovable-card p-6">
               <p className="text-[9px] uppercase tracking-[0.18em]">
-                Ingredients (INCI)
+                {tx("Ingredients (INCI)", "Inhaltsstoffe (INCI)")}
               </p>
               <p className="mt-5 text-[10px] leading-5 text-lovable-muted-foreground">
                 Helianthus Annuus Seed Oil, Simmondsia Chinensis Seed Oil,

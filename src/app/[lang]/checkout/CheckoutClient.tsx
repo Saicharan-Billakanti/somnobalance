@@ -1,4 +1,5 @@
 "use client";
+import { localizeError } from "@/lib/localizeError";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -68,7 +69,7 @@ export function CheckoutClient({ lang, dict }: { lang: Locale; dict: Dictionary 
       });
       const data = await res.json();
       if (!res.ok) {
-        setCouponError(data.error || "Invalid coupon code");
+        setCouponError(localizeError(data.error || "Invalid coupon code", lang));
         setAppliedCoupon(null);
       } else {
         setAppliedCoupon({
@@ -80,7 +81,7 @@ export function CheckoutClient({ lang, dict }: { lang: Locale; dict: Dictionary 
         setCouponInput(data.couponCode);
       }
     } catch {
-      setCouponError("Could not validate coupon");
+      setCouponError(localizeError("Could not validate coupon", lang));
     } finally {
       setValidatingCoupon(false);
     }
@@ -196,7 +197,7 @@ export function CheckoutClient({ lang, dict }: { lang: Locale; dict: Dictionary 
             const data = await res.json();
 
             if (!res.ok) {
-              setError(data.error || dict.checkout.genericError);
+              setError(data.error ? localizeError(data.error, lang) : dict.checkout.genericError);
               setSubmitting(false);
               return;
             }

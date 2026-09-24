@@ -1,4 +1,5 @@
 "use client";
+import { localizeError } from "@/lib/localizeError";
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
@@ -10,6 +11,8 @@ import { BedSingle, Leaf, Coffee, Sparkles, MessageCircle, Tag, Zap, Package, Bu
 interface B2BProductOption {
   id: string;
   name: string;
+  nameDe: string;
+  descriptionDe: string;
   retailPrice: number;
   icon: React.ReactNode;
   description: string;
@@ -19,6 +22,8 @@ const B2B_PRODUCTS: B2BProductOption[] = [
   {
     id: "pillow",
     name: "SomnoBalance Ergonomic Rest Pillow",
+    nameDe: "SomnoBalance Ergonomisches Ruhekissen",
+    descriptionDe: "Adaptive orthopädische Memory-Unterstützung für Luxussuiten & Erholungskliniken.",
     retailPrice: 89.0,
     icon: <BedSingle className="size-6" />,
     description: "Adaptive orthopedic memory support for luxury suites & recovery clinics.",
@@ -26,6 +31,8 @@ const B2B_PRODUCTS: B2BProductOption[] = [
   {
     id: "oil",
     name: "SomnoBalance Botanical Rest Ritual Oil",
+    nameDe: "SomnoBalance Botanisches Ruhe-Ritualöl",
+    descriptionDe: "Roll-on mit ätherischem Lavendel- & Bergamotteöl für Gäste-Nachttisch-Rituale.",
     retailPrice: 39.0,
     icon: <Leaf className="size-6" />,
     description: "Lavender & bergamot essential roll-on for guest nightstand rituals.",
@@ -33,6 +40,8 @@ const B2B_PRODUCTS: B2BProductOption[] = [
   {
     id: "tea",
     name: "SomnoBalance Organic Relaxation Tea",
+    nameDe: "SomnoBalance Bio-Entspannungstee",
+    descriptionDe: "Kamille, Zitronenmelisse & Baldrian für Spa-Amenities und den abendlichen Turndown-Service.",
     retailPrice: 24.0,
     icon: <Coffee className="size-6" />,
     description: "Chamomile, lemon balm & valerian blend for spa amenities and evening turndown.",
@@ -40,6 +49,8 @@ const B2B_PRODUCTS: B2BProductOption[] = [
   {
     id: "bundle",
     name: "Complete Luxury Hospitality Suite Set",
+    nameDe: "Komplettes Luxus-Hospitality-Suite-Set",
+    descriptionDe: "Kissen + Ritualöl + Abendtee in hochwertiger Leinen-Geschenkverpackung.",
     retailPrice: 139.0,
     icon: <Sparkles className="size-6" />,
     description: "Pillow + Ritual Oil + Evening Tea bundled in premium linen gift packaging.",
@@ -56,6 +67,7 @@ export function ForBusinessClient({
   initialApp: any;
 }) {
   const { user } = useAuth();
+  const tx = (en: string, de: string) => (lang === "de" ? de : en);
   const [tab, setTab] = useState<"overview" | "apply" | "portal">(initialApp ? "portal" : "overview");
   const [app, setApp] = useState<any>(initialApp);
 
@@ -194,7 +206,7 @@ export function ForBusinessClient({
   const selectedProduct = B2B_PRODUCTS.find((p) => p.id === calcProduct) || B2B_PRODUCTS[0];
   let discountRate = 20;
   let tierLabel = lang === "de" ? "Stufe 1: Basis-Partner (20%)" : "Tier 1: Boutique Partner (20% OFF)";
-  let tierBadge = "20% Wholesale";
+  let tierBadge = tx("20% Wholesale", "20 % Großhandel");
 
   if (calcQuantity >= 100) {
     discountRate = 40;
@@ -202,14 +214,14 @@ export function ForBusinessClient({
       lang === "de"
         ? "Stufe 3: Strategischer Großkunde (40%) + Kostenlose Display-Sets"
         : "Tier 3: Strategic Enterprise Partner (40% OFF) + Display Kits";
-    tierBadge = "40% Elite Commercial";
+    tierBadge = tx("40% Elite Commercial", "40 % Elite-Gewerbe");
   } else if (calcQuantity >= 25) {
     discountRate = 30;
     tierLabel =
       lang === "de"
         ? "Stufe 2: Hospitality Preferred (30%)"
         : "Tier 2: Hospitality Preferred (30% OFF)";
-    tierBadge = "30% Preferred Volume";
+    tierBadge = tx("30% Preferred Volume", "30 % Vorzugsmenge");
   }
 
   const retailUnit = selectedProduct.retailPrice;
@@ -241,7 +253,7 @@ export function ForBusinessClient({
     setSubmitError(null);
 
     if (!user) {
-      setSubmitError("Please log in or sign up before sending a business request so we can keep track of it.");
+      setSubmitError(localizeError("Please log in or sign up before sending a business request so we can keep track of it.", lang));
       setSubmitting(false);
       return;
     }
@@ -265,7 +277,7 @@ export function ForBusinessClient({
       });
       const data = await res.json();
       if (!res.ok) {
-        setSubmitError(data.error || "Failed to submit application");
+        setSubmitError(localizeError(data.error || "Failed to submit application", lang));
         return;
       }
       setApp(data.application);
@@ -278,7 +290,7 @@ export function ForBusinessClient({
       setSubmitSuccess(true);
       setTab("portal");
     } catch {
-      setSubmitError("Network error. Please try again.");
+      setSubmitError(tx("Network error. Please try again.", "Netzwerkfehler. Bitte versuchen Sie es erneut."));
     } finally {
       setSubmitting(false);
     }
@@ -401,14 +413,14 @@ export function ForBusinessClient({
       });
       const data = await res.json();
       if (!res.ok) {
-        setCatalogError(data.error || "Unable to add this product to your business catalog.");
+        setCatalogError(localizeError(data.error || "Unable to add this product to your business catalog.", lang));
         return;
       }
       if (data.application) {
         setApp(data.application);
       }
     } catch {
-      setCatalogError("Network error. Please try again.");
+      setCatalogError(tx("Network error. Please try again.", "Netzwerkfehler. Bitte versuchen Sie es erneut."));
     } finally {
       setAddingCatalogProduct(null);
     }
@@ -467,7 +479,7 @@ export function ForBusinessClient({
               {lang === "de" ? "Mein B2B-Portal & Live-Desk" : "My B2B Portal & Live Desk"}
               {app.status === "approved" && (
                 <span className="rounded-full bg-white/20 px-2 py-0.5 text-[10px] text-white">
-                  ✓ Active
+                  ✓ {tx("Active", "Aktiv")}
                 </span>
               )}
             </button>
@@ -527,7 +539,7 @@ export function ForBusinessClient({
             <div className="flex flex-wrap items-center justify-between gap-4 border-b border-mauve/10 pb-6">
               <div>
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-teal/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-teal-dark">
-                  <Zap className="size-3" /> Interactive Commercial Estimator
+                  <Zap className="size-3" /> {tx("Interactive Commercial Estimator", "Interaktiver Gewerbe-Rechner")}
                 </span>
                 <h2 className="mt-2 font-serif text-2xl text-ink sm:text-3xl">
                   {lang === "de"
@@ -555,7 +567,7 @@ export function ForBusinessClient({
               <div className="space-y-6 lg:col-span-7">
                 <div>
                   <label className="text-xs font-semibold uppercase tracking-wider text-ink/70">
-                    1. Select Product or Hospitality Bundle
+                    {tx("1. Select Product or Hospitality Bundle", "1. Produkt oder Hospitality-Set wählen")}
                   </label>
                   <div className="mt-3 grid gap-3 sm:grid-cols-2">
                     {B2B_PRODUCTS.map((prod) => {
@@ -574,12 +586,12 @@ export function ForBusinessClient({
                           <div className="flex items-center justify-between w-full text-teal-dark">
                             {prod.icon}
                             <span className="text-xs font-medium text-ink/50">
-                              Retail: €{prod.retailPrice.toFixed(2)}
+                              {tx("Retail", "Endkundenpreis")}: €{prod.retailPrice.toFixed(2)}
                             </span>
                           </div>
-                          <strong className="mt-2 text-sm font-serif text-ink">{prod.name}</strong>
+                          <strong className="mt-2 text-sm font-serif text-ink">{lang === "de" ? prod.nameDe : prod.name}</strong>
                           <p className="mt-1 text-[11px] text-ink/60 line-clamp-2">
-                            {prod.description}
+                            {lang === "de" ? prod.descriptionDe : prod.description}
                           </p>
                         </button>
                       );
@@ -591,9 +603,9 @@ export function ForBusinessClient({
                 <div>
                   <div className="flex items-center justify-between">
                     <label className="text-xs font-semibold uppercase tracking-wider text-ink/70">
-                      2. Volume / Suite Count:{" "}
+                      {tx("2. Volume / Suite Count:", "2. Menge / Anzahl Suiten:")}{" "}
                       <span className="font-serif text-base font-bold text-teal-dark">
-                        {calcQuantity} units
+                        {calcQuantity} {tx("units", "Stück")}
                       </span>
                     </label>
                     <span className="rounded-full bg-sand px-3 py-0.5 text-xs font-semibold text-ink/80">
@@ -612,10 +624,10 @@ export function ForBusinessClient({
                   />
 
                   <div className="mt-2 flex justify-between text-[11px] text-ink/50">
-                    <span>5 units</span>
-                    <span>25 units (Tier 2: 30%)</span>
-                    <span>100+ units (Tier 3: 40%)</span>
-                    <span>200+ units</span>
+                    <span>5 {tx("units", "Stück")}</span>
+                    <span>25 {tx("units (Tier 2: 30%)", "Stück (Stufe 2: 30 %)")}</span>
+                    <span>100+ {tx("units (Tier 3: 40%)", "Stück (Stufe 3: 40 %)")}</span>
+                    <span>200+ {tx("units", "Stück")}</span>
                   </div>
                 </div>
 
@@ -626,10 +638,10 @@ export function ForBusinessClient({
                   </div>
                   <p className="mt-1 text-teal-dark/80 text-[11px]">
                     {calcQuantity < 25
-                      ? "Order 25+ units to unlock Tier 2 (30% discount) and complimentary guest instruction cards."
+                      ? tx("Order 25+ units to unlock Tier 2 (30% discount) and complimentary guest instruction cards.", "Bestellen Sie 25+ Stück, um Stufe 2 (30 % Rabatt) und kostenlose Gäste-Anleitungskarten freizuschalten.")
                       : calcQuantity < 100
-                      ? "Order 100+ units to unlock Tier 3 (40% discount), free wooden display amenities, and dedicated concierge dispatch."
-                      : "Maximum commercial wholesale tier active! Includes complimentary custom embossing & DHL Express freight."}
+                      ? tx("Order 100+ units to unlock Tier 3 (40% discount), free wooden display amenities, and dedicated concierge dispatch.", "Bestellen Sie 100+ Stück, um Stufe 3 (40 % Rabatt), kostenlose Holz-Display-Amenities und persönlichen Concierge-Versand freizuschalten.")
+                      : tx("Maximum commercial wholesale tier active! Includes complimentary custom embossing & DHL Express freight.", "Höchste Großhandelsstufe aktiv! Inklusive kostenloser individueller Prägung & DHL-Express-Fracht.")}
                   </p>
                 </div>
               </div>
@@ -639,48 +651,48 @@ export function ForBusinessClient({
                 <div>
                   <div className="flex items-center justify-between border-b border-mauve/10 pb-4">
                     <span className="text-xs font-medium uppercase tracking-wider text-ink/60">
-                      Live Wholesale Quote
+                      {tx("Live Wholesale Quote", "Live-Großhandelsangebot")}
                     </span>
                     <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-[11px] font-bold text-emerald-800">
-                      -{discountRate}% APPLIED
+                      -{discountRate}% {tx("APPLIED", "ANGEWENDET")}
                     </span>
                   </div>
 
                   <div className="mt-4 space-y-3 text-xs">
                     <div className="flex justify-between text-ink/70">
-                      <span>Selected Product:</span>
-                      <strong className="text-ink truncate max-w-[180px]">{selectedProduct.name}</strong>
+                      <span>{tx("Selected Product:", "Gewähltes Produkt:")}</span>
+                      <strong className="text-ink truncate max-w-[180px]">{lang === "de" ? selectedProduct.nameDe : selectedProduct.name}</strong>
                     </div>
                     <div className="flex justify-between text-ink/70">
-                      <span>Standard Retail Unit Price:</span>
+                      <span>{tx("Standard Retail Unit Price:", "Regulärer Endkundenpreis je Stück:")}</span>
                       <span>€{retailUnit.toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between text-ink/70">
-                      <span>Wholesale Rate per Unit:</span>
+                      <span>{tx("Wholesale Rate per Unit:", "Großhandelspreis je Stück:")}</span>
                       <strong className="text-teal-dark font-serif text-sm">
                         €{wholesaleUnit.toFixed(2)}
                       </strong>
                     </div>
                     <div className="flex justify-between text-ink/70">
-                      <span>Total Retail Value ({calcQuantity}x):</span>
+                      <span>{tx("Total Retail Value", "Gesamter Endkundenwert")} ({calcQuantity}x):</span>
                       <span className="line-through text-ink/40">€{totalRetail.toFixed(2)}</span>
                     </div>
 
                     <div className="my-3 border-t border-mauve/10 pt-3 flex justify-between items-baseline">
-                      <span className="text-sm font-semibold text-ink">Commercial Total:</span>
+                      <span className="text-sm font-semibold text-ink">{tx("Commercial Total:", "Gewerblicher Gesamtbetrag:")}</span>
                       <div className="text-right">
                         <div className="font-serif text-2xl font-bold text-teal-dark">
                           €{totalWholesale.toFixed(2)}
                         </div>
                         <span className="text-[10px] text-ink/50">
-                          excl. VAT / Reverse charge eligible
+                          {tx("excl. VAT / Reverse charge eligible", "zzgl. MwSt. / Reverse-Charge möglich")}
                         </span>
                       </div>
                     </div>
 
                     <div className="rounded-xl bg-sand/60 p-3 text-center">
                       <span className="text-xs text-ink/70">
-                        Estimated Savings & Facility Margin:
+                        {tx("Estimated Savings & Facility Margin:", "Geschätzte Ersparnis & Marge:")}
                       </span>
                       <div className="font-serif text-lg font-bold text-emerald-700">
                         + €{totalSavings.toFixed(2)} ({discountRate}%)
@@ -699,7 +711,7 @@ export function ForBusinessClient({
                       : "Apply for this Wholesale Tier →"}
                   </button>
                   <p className="text-center text-[10px] text-ink/50">
-                    No upfront payment required. Rates validated upon business credential review.
+                    {tx("No upfront payment required. Rates validated upon business credential review.", "Keine Vorauszahlung erforderlich. Konditionen werden nach Prüfung Ihrer Geschäftsdaten bestätigt.")}
                   </p>
                 </div>
               </div>
@@ -759,7 +771,7 @@ export function ForBusinessClient({
             <div className="mt-6 rounded-2xl bg-teal/15 p-4 text-sm text-teal-dark animate-fade-in flex items-start gap-2">
               <PartyPopper className="size-5 shrink-0 mt-0.5" />
               <div>
-                <strong>Application submitted successfully!</strong> Your request has been queued in our live system and is under review.
+                <strong>{tx("Application submitted successfully!", "Antrag erfolgreich übermittelt!")}</strong> {tx("Your request has been queued in our live system and is under review.", "Ihre Anfrage wurde in unserem System erfasst und wird geprüft.")}
               </div>
             </div>
           )}
@@ -773,24 +785,24 @@ export function ForBusinessClient({
           <form onSubmit={handleSubmitApplication} className="mt-8 space-y-5">
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
-                <label className="text-xs font-medium text-ink/70">Company / Facility Name *</label>
+                <label className="text-xs font-medium text-ink/70">{tx("Company / Facility Name *", "Firmen- / Einrichtungsname *")}</label>
                 <input
                   required
                   type="text"
                   value={companyName}
                   onChange={(e) => setCompanyName(e.target.value)}
-                  placeholder="e.g. Grand Wellness Hotel Tegernsee"
+                  placeholder={tx("e.g. Grand Wellness Hotel Tegernsee", "z. B. Grand Wellness Hotel Tegernsee")}
                   className="input-field mt-1"
                 />
               </div>
               <div>
-                <label className="text-xs font-medium text-ink/70">Contact Person *</label>
+                <label className="text-xs font-medium text-ink/70">{tx("Contact Person *", "Ansprechpartner:in *")}</label>
                 <input
                   required
                   type="text"
                   value={contactName}
                   onChange={(e) => setContactName(e.target.value)}
-                  placeholder="First and last name"
+                  placeholder={tx("First and last name", "Vor- und Nachname")}
                   className="input-field mt-1"
                 />
               </div>
@@ -798,7 +810,7 @@ export function ForBusinessClient({
 
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
-                <label className="text-xs font-medium text-ink/70">Business Email *</label>
+                <label className="text-xs font-medium text-ink/70">{tx("Business Email *", "Geschäftliche E-Mail *")}</label>
                 <input
                   required
                   type="email"
@@ -809,7 +821,7 @@ export function ForBusinessClient({
                 />
               </div>
               <div>
-                <label className="text-xs font-medium text-ink/70">Direct Phone Number</label>
+                <label className="text-xs font-medium text-ink/70">{tx("Direct Phone Number", "Direkte Telefonnummer")}</label>
                 <input
                   type="tel"
                   value={phone}
@@ -822,27 +834,27 @@ export function ForBusinessClient({
 
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
-                <label className="text-xs font-medium text-ink/70">Business Type</label>
+                <label className="text-xs font-medium text-ink/70">{tx("Business Type", "Unternehmensart")}</label>
                 <select
                   value={businessType}
                   onChange={(e) => setBusinessType(e.target.value)}
                   className="input-field mt-1"
                 >
-                  <option value="Boutique Hotel / Luxury Resort">Boutique Hotel / Luxury Resort</option>
-                  <option value="Health Clinic / Medical Rehab">Health Clinic / Medical Rehab</option>
-                  <option value="Physiotherapy / Private Practice">Physiotherapy / Private Practice</option>
-                  <option value="Wellness & Spa Center">Wellness & Day Spa Center</option>
-                  <option value="Retailer / Concept Store">Retailer / Concept Store</option>
-                  <option value="Corporate Gifting">Corporate Gifting / Employee Wellness</option>
+                  <option value="Boutique Hotel / Luxury Resort">{tx("Boutique Hotel / Luxury Resort", "Boutique-Hotel / Luxus-Resort")}</option>
+                  <option value="Health Clinic / Medical Rehab">{tx("Health Clinic / Medical Rehab", "Gesundheitsklinik / Rehabilitation")}</option>
+                  <option value="Physiotherapy / Private Practice">{tx("Physiotherapy / Private Practice", "Physiotherapie / Privatpraxis")}</option>
+                  <option value="Wellness & Spa Center">{tx("Wellness & Day Spa Center", "Wellness- & Day-Spa-Center")}</option>
+                  <option value="Retailer / Concept Store">{tx("Retailer / Concept Store", "Einzelhändler / Concept Store")}</option>
+                  <option value="Corporate Gifting">{tx("Corporate Gifting / Employee Wellness", "Firmengeschenke / Mitarbeiter-Wellness")}</option>
                 </select>
               </div>
               <div>
-                <label className="text-xs font-medium text-ink/70">EU VAT ID (USt-IdNr.)</label>
+                <label className="text-xs font-medium text-ink/70">{tx("EU VAT ID (USt-IdNr.)", "EU-USt-IdNr.")}</label>
                 <input
                   type="text"
                   value={vatId}
                   onChange={(e) => setVatId(e.target.value)}
-                  placeholder="e.g. DE318921445"
+                  placeholder={tx("e.g. DE318921445", "z. B. DE318921445")}
                   className="input-field mt-1"
                 />
               </div>
@@ -850,22 +862,22 @@ export function ForBusinessClient({
 
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
-                <label className="text-xs font-medium text-ink/70">Street Address</label>
+                <label className="text-xs font-medium text-ink/70">{tx("Street Address", "Straße & Hausnummer")}</label>
                 <input
                   type="text"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
-                  placeholder="Street and house number"
+                  placeholder={tx("Street and house number", "Straße und Hausnummer")}
                   className="input-field mt-1"
                 />
               </div>
               <div>
-                <label className="text-xs font-medium text-ink/70">City & Postal Code</label>
+                <label className="text-xs font-medium text-ink/70">{tx("City & Postal Code", "PLZ & Stadt")}</label>
                 <input
                   type="text"
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
-                  placeholder="e.g. 80331 Munich, Germany"
+                  placeholder={tx("e.g. 80331 Munich, Germany", "z. B. 80331 München, Deutschland")}
                   className="input-field mt-1"
                 />
               </div>
@@ -873,26 +885,26 @@ export function ForBusinessClient({
 
             <div>
               <label className="text-xs font-medium text-ink/70">
-                Estimated Monthly Need / Suite Count / Trial Scope
+                {tx("Estimated Monthly Need / Suite Count / Trial Scope", "Geschätzter Monatsbedarf / Anzahl Suiten / Testumfang")}
               </label>
               <input
                 type="text"
                 value={estimatedVolume}
                 onChange={(e) => setEstimatedVolume(e.target.value)}
-                placeholder="e.g. 35 luxury suites / restock every 2 months"
+                placeholder={tx("e.g. 35 luxury suites / restock every 2 months", "z. B. 35 Luxussuiten / Nachbestellung alle 2 Monate")}
                 className="input-field mt-1"
               />
             </div>
 
             <div>
               <label className="text-xs font-medium text-ink/70">
-                Inquiry / Specific Product Requirements / Custom Notes
+                {tx("Inquiry / Specific Product Requirements / Custom Notes", "Anfrage / Produktanforderungen / Anmerkungen")}
               </label>
               <textarea
                 rows={3}
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
-                placeholder="Let us know about your property, desired sample delivery date, or custom batch requirements..."
+                placeholder={tx("Let us know about your property, desired sample delivery date, or custom batch requirements...", "Erzählen Sie uns von Ihrem Haus, dem gewünschten Liefertermin für Muster oder besonderen Anforderungen...")}
                 className="input-field mt-1"
               />
             </div>
@@ -905,10 +917,10 @@ export function ForBusinessClient({
               {submitting ? (
                 <>
                   <span className="h-4 w-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
-                  Submitting Application…
+                  {tx("Submitting Application…", "Antrag wird übermittelt…")}
                 </>
               ) : (
-                "Submit Business Application & Open Portal →"
+                tx("Submit Business Application & Open Portal →", "Geschäftsantrag absenden & Portal öffnen →")
               )}
             </button>
           </form>
@@ -935,12 +947,12 @@ export function ForBusinessClient({
                         : "bg-amber-100 text-amber-800"
                     }`}
                   >
-                    Status: {app.status === "approved" ? "✓ Approved" : app.status}
+                    Status: {app.status === "approved" ? `✓ ${tx("Approved", "Genehmigt")}` : app.status === "pending" ? tx("pending", "in Prüfung") : app.status === "rejected" ? tx("rejected", "abgelehnt") : app.status}
                   </span>
                 </div>
                 <p className="mt-1.5 text-xs text-ink/60">
-                  Contact: <strong className="text-ink">{app.contactName}</strong> ({app.email}) •{" "}
-                  VAT ID: {app.vatId || "Not specified"} • Location: {app.city || "Germany"}
+                  {tx("Contact", "Kontakt")}: <strong className="text-ink">{app.contactName}</strong> ({app.email}) •{" "}
+                  {tx("VAT ID", "USt-IdNr.")}: {app.vatId || tx("Not specified", "Nicht angegeben")} • {tx("Location", "Standort")}: {app.city || tx("Germany", "Deutschland")}
                 </p>
               </div>
 
@@ -948,10 +960,10 @@ export function ForBusinessClient({
                 {app.status === "approved" && (
                   <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-3 text-right">
                     <span className="text-[10px] uppercase tracking-wider text-emerald-900 font-semibold">
-                      Assigned Wholesale Rate
+                      {tx("Assigned Wholesale Rate", "Zugewiesener Großhandelspreis")}
                     </span>
                     <div className="font-serif text-2xl font-bold text-emerald-800">
-                      {app.discountRate || 25}% OFF
+                      {app.discountRate || 25}% {tx("OFF", "RABATT")}
                     </div>
                   </div>
                 )}
@@ -959,7 +971,7 @@ export function ForBusinessClient({
                   onClick={() => setIsEditingDetails(!isEditingDetails)}
                   className="flex items-center gap-1.5 rounded-full border border-mauve/20 bg-sand/40 px-4 py-2 text-xs font-semibold text-ink/70 hover:bg-sand transition"
                 >
-                  {isEditingDetails ? "Close Editor" : <><Pencil className="size-3" /> Edit Details</>}
+                  {isEditingDetails ? tx("Close Editor", "Editor schließen") : <><Pencil className="size-3" /> {tx("Edit Details", "Daten bearbeiten")}</>}
                 </button>
               </div>
             </div>
@@ -971,7 +983,7 @@ export function ForBusinessClient({
                   <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
                     ✓
                   </span>
-                  <span>1. Application Queued</span>
+                  <span>{tx("1. Application Queued", "1. Antrag eingegangen")}</span>
                 </div>
                 <div className="h-0.5 flex-1 bg-emerald-300 mx-2" />
                 <div
@@ -990,7 +1002,7 @@ export function ForBusinessClient({
                   >
                     {app.status !== "pending" ? "✓" : "2"}
                   </span>
-                  <span>2. Desk Review</span>
+                  <span>{tx("2. Desk Review", "2. Prüfung")}</span>
                 </div>
                 <div
                   className={`h-0.5 flex-1 mx-2 ${
@@ -1013,7 +1025,7 @@ export function ForBusinessClient({
                   >
                     {app.status === "approved" ? "✓" : "3"}
                   </span>
-                  <span>3. Wholesale Active</span>
+                  <span>{tx("3. Wholesale Active", "3. Großhandel aktiv")}</span>
                 </div>
               </div>
             </div>
@@ -1024,16 +1036,15 @@ export function ForBusinessClient({
                 <div className="flex items-start gap-2">
                   <Sparkles className="size-4 shrink-0 mt-0.5 text-teal-dark" />
                   <div>
-                    <strong>Your Wholesale Account is Active!</strong> Your{" "}
-                    <strong>{app.discountRate || 25}% commercial rate</strong> is unlocked. You can
-                    browse the collection or message our executive desk for custom batches.
+                    <strong>{tx("Your Wholesale Account is Active!", "Ihr Großhandelskonto ist aktiv!")}</strong> {tx("Your", "Ihr")}{" "}
+                    <strong>{app.discountRate || 25}% {tx("commercial rate", "Gewerbetarif")}</strong> {tx("is unlocked. You can browse the collection or message our executive desk for custom batches.", "ist freigeschaltet. Sie können die Kollektion durchstöbern oder unserem Executive Desk für individuelle Chargen schreiben.")}
                   </div>
                 </div>
                 <Link
                   href={`/${lang}/shop`}
                   className="rounded-full bg-teal px-5 py-2 text-xs font-semibold text-white shadow-xs hover:bg-teal-dark transition"
                 >
-                  Browse Catalog →
+                  {tx("Browse Catalog →", "Katalog ansehen →")}
                 </Link>
               </div>
             )}
@@ -1045,11 +1056,11 @@ export function ForBusinessClient({
                 className="mt-6 space-y-4 rounded-2xl border border-mauve/20 bg-sand/30 p-5 animate-fade-in"
               >
                 <h4 className="text-xs font-bold uppercase tracking-wider text-ink/70">
-                  Update Facility & Billing Details
+                  {tx("Update Facility & Billing Details", "Einrichtungs- & Rechnungsdaten aktualisieren")}
                 </h4>
                 <div className="grid gap-3 sm:grid-cols-3">
                   <div>
-                    <label className="text-[11px] text-ink/60">Phone</label>
+                    <label className="text-[11px] text-ink/60">{tx("Phone", "Telefon")}</label>
                     <input
                       type="text"
                       value={app.phone || ""}
@@ -1058,7 +1069,7 @@ export function ForBusinessClient({
                     />
                   </div>
                   <div>
-                    <label className="text-[11px] text-ink/60">EU VAT ID</label>
+                    <label className="text-[11px] text-ink/60">{tx("EU VAT ID", "EU-USt-IdNr.")}</label>
                     <input
                       type="text"
                       value={app.vatId || ""}
@@ -1067,7 +1078,7 @@ export function ForBusinessClient({
                     />
                   </div>
                   <div>
-                    <label className="text-[11px] text-ink/60">Est. Volume</label>
+                    <label className="text-[11px] text-ink/60">{tx("Est. Volume", "Gesch. Menge")}</label>
                     <input
                       type="text"
                       value={app.estimatedVolume || ""}
@@ -1082,14 +1093,14 @@ export function ForBusinessClient({
                     onClick={() => setIsEditingDetails(false)}
                     className="rounded-full px-4 py-1.5 text-xs text-ink/60 hover:text-ink"
                   >
-                    Cancel
+                    {tx("Cancel", "Abbrechen")}
                   </button>
                   <button
                     type="submit"
                     disabled={savingDetails}
                     className="rounded-full bg-teal px-5 py-1.5 text-xs font-semibold text-white hover:bg-teal-dark transition"
                   >
-                    {savingDetails ? "Saving…" : "Save Changes"}
+                    {savingDetails ? tx("Saving…", "Wird gespeichert…") : tx("Save Changes", "Änderungen speichern")}
                   </button>
                 </div>
               </form>
@@ -1100,11 +1111,11 @@ export function ForBusinessClient({
             <div className="rounded-3xl border border-mauve/15 bg-white p-6 shadow-sm sm:p-8">
               <div className="border-b border-mauve/10 pb-4">
                 <span className="text-[10px] font-semibold uppercase tracking-wider text-teal-dark">
-                  Customer catalog
+                  {tx("Customer catalog", "Kundenkatalog")}
                 </span>
-                <h3 className="font-serif text-2xl text-ink">Add products to your business catalog</h3>
+                <h3 className="font-serif text-2xl text-ink">{tx("Add products to your business catalog", "Produkte zu Ihrem Geschäftskatalog hinzufügen")}</h3>
                 <p className="text-xs text-ink/60">
-                  Select any available customer product. Your assigned business discount will be applied.
+                  {tx("Select any available customer product. Your assigned business discount will be applied.", "Wählen Sie ein beliebiges verfügbares Kundenprodukt. Ihr zugewiesener Geschäftsrabatt wird angewendet.")}
                 </p>
               </div>
               {catalogError && (
@@ -1127,7 +1138,7 @@ export function ForBusinessClient({
                         />
                         <h4 className="mt-3 font-semibold text-ink">{product.name}</h4>
                         <p className="mt-1 line-clamp-2 text-xs text-ink/60">
-                          {product.description || product.tagline || "SomnoBalance product"}
+                          {product.description || product.tagline || tx("SomnoBalance product", "SomnoBalance Produkt")}
                         </p>
                         <div className="mt-4 flex items-center justify-between gap-3">
                           <span className="font-serif text-lg font-bold text-teal-dark">
@@ -1140,10 +1151,10 @@ export function ForBusinessClient({
                             className="rounded-full bg-teal px-4 py-2 text-xs font-semibold text-white hover:bg-teal-dark disabled:cursor-not-allowed disabled:opacity-50"
                           >
                             {alreadyAdded
-                              ? "Added"
+                              ? tx("Added", "Hinzugefügt")
                               : addingCatalogProduct === productKey
-                              ? "Adding..."
-                              : "Add product"}
+                              ? tx("Adding...", "Wird hinzugefügt...")
+                              : tx("Add product", "Produkt hinzufügen")}
                           </button>
                         </div>
                       </div>
@@ -1152,7 +1163,7 @@ export function ForBusinessClient({
                 </div>
               ) : (
                 <p className="mt-6 rounded-2xl bg-sand/30 p-6 text-center text-sm text-ink/60">
-                  No customer products are available yet.
+                  {tx("No customer products are available yet.", "Noch keine Kundenprodukte verfügbar.")}
                 </p>
               )}
             </div>
@@ -1162,12 +1173,12 @@ export function ForBusinessClient({
           <div className="rounded-3xl border border-teal/20 bg-white p-6 shadow-sm sm:p-8">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-mauve/10 pb-4">
               <div>
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-teal-dark">Your business catalog</span>
-                <h3 className="font-serif text-2xl text-ink">Products and quantities</h3>
-                <p className="text-xs text-ink/60">Choose the quantities you need. Your assigned account discount is applied per product.</p>
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-teal-dark">{tx("Your business catalog", "Ihr Geschäftskatalog")}</span>
+                <h3 className="font-serif text-2xl text-ink">{tx("Products and quantities", "Produkte und Mengen")}</h3>
+                <p className="text-xs text-ink/60">{tx("Choose the quantities you need. Your assigned account discount is applied per product.", "Wählen Sie die benötigten Mengen. Ihr zugewiesener Kontorabatt wird je Produkt angewendet.")}</p>
               </div>
               <button type="button" onClick={handleRequestBusinessOrder} className="rounded-full bg-teal px-5 py-2 text-xs font-semibold text-white hover:bg-teal-dark disabled:opacity-50" disabled={!Object.values(businessQuantities).some((quantity) => quantity > 0)}>
-                Request business order
+                {tx("Request business order", "Geschäftsbestellung anfragen")}
               </button>
             </div>
             {app.products?.length ? (
@@ -1180,27 +1191,27 @@ export function ForBusinessClient({
                       <div className="flex items-start justify-between gap-3">
                         <div>
                           <h4 className="font-semibold text-ink">{product.name}</h4>
-                          <p className="mt-1 text-xs text-ink/60">{product.description || "Business product"}</p>
+                          <p className="mt-1 text-xs text-ink/60">{product.description || tx("Business product", "Geschäftsprodukt")}</p>
                         </div>
-                        <span className="rounded-full bg-emerald-100 px-2 py-1 text-[10px] font-bold text-emerald-800">{product.discountRate}% off</span>
+                        <span className="rounded-full bg-emerald-100 px-2 py-1 text-[10px] font-bold text-emerald-800">{product.discountRate}% {tx("off", "Rabatt")}</span>
                       </div>
                       <div className="mt-4 flex items-end justify-between gap-3">
                         <div>
                           <span className="text-[10px] text-ink/50 line-through">€{Number(product.retailPrice).toFixed(2)}</span>
-                          <p className="font-serif text-xl font-bold text-teal-dark">€{unitPrice.toFixed(2)} <span className="text-[10px] font-sans font-normal text-ink/50">per unit</span></p>
+                          <p className="font-serif text-xl font-bold text-teal-dark">€{unitPrice.toFixed(2)} <span className="text-[10px] font-sans font-normal text-ink/50">{tx("per unit", "pro Stück")}</span></p>
                         </div>
                         <label className="text-right text-[10px] font-semibold uppercase text-ink/50">
-                          Quantity
+                          {tx("Quantity", "Menge")}
                           <input type="number" min={0} max={product.maxQuantity || 1000} value={quantity} onChange={(event) => setBusinessQuantities((current) => ({ ...current, [product.id]: Number(event.target.value) }))} className="input-field mt-1 w-24 text-center text-sm" />
                         </label>
                       </div>
-                      <p className="mt-2 text-right text-xs font-semibold text-ink">Subtotal: €{(unitPrice * quantity).toFixed(2)}</p>
+                      <p className="mt-2 text-right text-xs font-semibold text-ink">{tx("Subtotal", "Zwischensumme")}: €{(unitPrice * quantity).toFixed(2)}</p>
                     </div>
                   );
                 })}
               </div>
             ) : (
-              <p className="mt-6 rounded-2xl bg-sand/30 p-6 text-center text-sm text-ink/60">Your business products will appear here after the admin assigns them to your account.</p>
+              <p className="mt-6 rounded-2xl bg-sand/30 p-6 text-center text-sm text-ink/60">{tx("Your business products will appear here after the admin assigns them to your account.", "Ihre Geschäftsprodukte erscheinen hier, sobald sie Ihrem Konto vom Admin zugewiesen wurden.")}</p>
             )}
           </div>
 
@@ -1208,14 +1219,14 @@ export function ForBusinessClient({
           <div className="rounded-3xl border border-mauve/15 bg-white p-6 shadow-sm sm:p-8">
             <div className="flex items-center justify-between border-b border-mauve/10 pb-4">
               <div>
-                <h3 className="font-serif text-xl text-ink">SomnoBalance Executive B2B Desk</h3>
+                <h3 className="font-serif text-xl text-ink">{tx("SomnoBalance Executive B2B Desk", "SomnoBalance Executive B2B Desk")}</h3>
                 <p className="text-xs text-ink/60">
-                  Direct live line with your dedicated commercial account director
+                  {tx("Direct live line with your dedicated commercial account director", "Direkter Draht zu Ihrem persönlichen Geschäftskunden-Betreuer")}
                 </p>
               </div>
               <div className="flex items-center gap-2">
                 <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-[11px] font-medium text-emerald-700">Live Desk Online</span>
+                <span className="text-[11px] font-medium text-emerald-700">{tx("Live Desk Online", "Live-Desk online")}</span>
               </div>
             </div>
 
@@ -1226,36 +1237,36 @@ export function ForBusinessClient({
                 onClick={() =>
                   handleSendMessage(
                     null as any,
-                    "Hello, we would like to request an evaluation sample amenity kit sent to our facility."
+                    tx("Hello, we would like to request an evaluation sample amenity kit sent to our facility.", "Guten Tag, wir möchten ein Evaluations-Musterset für unsere Einrichtung anfordern.")
                   )
                 }
                 className="flex items-center gap-1.5 rounded-full border border-mauve/20 bg-sand/40 px-3.5 py-1.5 text-xs text-ink/80 hover:border-teal hover:bg-teal/10 hover:text-teal-dark transition"
               >
-                <Package className="size-3" /> Request Sample Kit
+                <Package className="size-3" /> {tx("Request Sample Kit", "Musterset anfordern")}
               </button>
               <button
                 type="button"
                 onClick={() =>
                   handleSendMessage(
                     null as any,
-                    "Could you provide an official EU VAT Reverse-Charge pro-forma invoice quote for our accounting department?"
+                    tx("Could you provide an official EU VAT Reverse-Charge pro-forma invoice quote for our accounting department?", "Könnten Sie uns ein offizielles Pro-forma-Angebot mit EU-Reverse-Charge für unsere Buchhaltung zusenden?")
                   )
                 }
                 className="flex items-center gap-1.5 rounded-full border border-mauve/20 bg-sand/40 px-3.5 py-1.5 text-xs text-ink/80 hover:border-teal hover:bg-teal/10 hover:text-teal-dark transition"
               >
-                <FileText className="size-3" /> Request Pro-Forma Invoice
+                <FileText className="size-3" /> {tx("Request Pro-Forma Invoice", "Proforma-Rechnung anfordern")}
               </button>
               <button
                 type="button"
                 onClick={() =>
                   handleSendMessage(
                     null as any,
-                    "What are the standard delivery lead times for a 100+ unit restock order?"
+                    tx("What are the standard delivery lead times for a 100+ unit restock order?", "Wie lang sind die üblichen Lieferzeiten für eine Nachbestellung ab 100 Stück?")
                   )
                 }
                 className="flex items-center gap-1.5 rounded-full border border-mauve/20 bg-sand/40 px-3.5 py-1.5 text-xs text-ink/80 hover:border-teal hover:bg-teal/10 hover:text-teal-dark transition"
               >
-                <Truck className="size-3" /> Ask about Delivery Lead Times
+                <Truck className="size-3" /> {tx("Ask about Delivery Lead Times", "Lieferzeiten erfragen")}
               </button>
             </div>
 
@@ -1263,7 +1274,7 @@ export function ForBusinessClient({
             <div className="mt-6 max-h-[420px] space-y-4 overflow-y-auto pr-2 rounded-2xl bg-sand/20 p-4 border border-mauve/10">
               {!app.messages || app.messages.length === 0 ? (
                 <p className="text-center text-sm text-ink/50 py-10">
-                  No messages yet. Send a note below or click one of the quick actions above.
+                  {tx("No messages yet. Send a note below or click one of the quick actions above.", "Noch keine Nachrichten. Schreiben Sie unten eine Nachricht oder nutzen Sie eine der Schnellaktionen oben.")}
                 </p>
               ) : (
                 app.messages.map((msg: any) => {
@@ -1275,16 +1286,16 @@ export function ForBusinessClient({
                     >
                       <div className="flex items-center gap-2 text-[11px] text-ink/50 mb-1">
                         <span className="font-semibold text-ink/70">
-                          {isAdminMsg ? "SomnoBalance Executive Desk" : msg.senderName || "You"}
+                          {isAdminMsg ? "SomnoBalance Executive Desk" : msg.senderName || tx("You", "Sie")}
                         </span>
                         <span>•</span>
                         <span>
                           {msg.createdAt
-                            ? new Date(msg.createdAt).toLocaleTimeString([], {
+                            ? new Date(msg.createdAt).toLocaleTimeString(lang === "de" ? "de-DE" : "en-GB", {
                                 hour: "2-digit",
                                 minute: "2-digit",
                               })
-                            : "Just now"}
+                            : tx("Just now", "Gerade eben")}
                         </span>
                       </div>
                       <div
@@ -1309,7 +1320,7 @@ export function ForBusinessClient({
                 type="text"
                 value={chatMessage}
                 onChange={(e) => setChatMessage(e.target.value)}
-                placeholder="Type your inquiry or custom batch requirement..."
+                placeholder={tx("Type your inquiry or custom batch requirement...", "Geben Sie Ihre Anfrage oder individuelle Anforderung ein...")}
                 className="input-field flex-1 text-sm"
               />
               <button
@@ -1320,10 +1331,10 @@ export function ForBusinessClient({
                 {sendingMsg ? (
                   <>
                     <span className="h-3 w-3 border-2 border-white/40 border-t-white rounded-full animate-spin" />
-                    Sending…
+                    {tx("Sending…", "Wird gesendet…")}
                   </>
                 ) : (
-                  "Send Message"
+                  tx("Send Message", "Nachricht senden")
                 )}
               </button>
             </form>

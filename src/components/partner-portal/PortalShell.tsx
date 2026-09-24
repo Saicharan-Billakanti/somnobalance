@@ -6,18 +6,19 @@ import { useState } from "react";
 import type { Locale } from "@/i18n/config";
 
 const NAV_ITEMS = [
-  { key: "", label: "Overview" },
-  { key: "referral-tools", label: "Referral Tools" },
-  { key: "commissions", label: "Commissions" },
-  { key: "payouts", label: "Payouts" },
-  { key: "payment-settings", label: "Payment Settings" },
-  { key: "messages", label: "Messages" },
-  { key: "profile", label: "Profile" },
-  { key: "help", label: "Help" },
+  { key: "", en: "Overview", de: "Übersicht" },
+  { key: "referral-tools", en: "Referral Tools", de: "Empfehlungs-Tools" },
+  { key: "commissions", en: "Commissions", de: "Provisionen" },
+  { key: "payouts", en: "Payouts", de: "Auszahlungen" },
+  { key: "payment-settings", en: "Payment Settings", de: "Zahlungseinstellungen" },
+  { key: "messages", en: "Messages", de: "Nachrichten" },
+  { key: "profile", en: "Profile", de: "Profil" },
+  { key: "help", en: "Help", de: "Hilfe" },
 ];
 
 export function PortalShell({ lang, children }: { lang: Locale; children: React.ReactNode }) {
   const pathname = usePathname();
+  const tx = (en: string, de: string) => (lang === "de" ? de : en);
   const [mobileOpen, setMobileOpen] = useState(false);
   const base = `/${lang}/partner-portal`;
 
@@ -32,7 +33,7 @@ export function PortalShell({ lang, children }: { lang: Locale; children: React.
       <aside className="hidden w-56 shrink-0 lg:block">
         <div className="sticky top-24">
           <div className="mb-6 px-2">
-            <div className="text-xs uppercase tracking-[0.2em] text-teal-dark">Partner Portal</div>
+            <div className="text-xs uppercase tracking-[0.2em] text-teal-dark">{tx("Partner Portal", "Partner-Portal")}</div>
           </div>
           <nav className="space-y-1">
             {NAV_ITEMS.map((item) => {
@@ -46,7 +47,7 @@ export function PortalShell({ lang, children }: { lang: Locale; children: React.
                     active ? "bg-mauve text-white" : "text-ink/70 hover:bg-sand"
                   }`}
                 >
-                  {item.label}
+                  {tx(item.en, item.de)}
                 </Link>
               );
             })}
@@ -61,7 +62,7 @@ export function PortalShell({ lang, children }: { lang: Locale; children: React.
           onClick={() => setMobileOpen((v) => !v)}
           className="flex w-full items-center justify-between px-4 py-3 text-sm font-medium text-ink"
         >
-          <span>Menu</span>
+          <span>{tx("Menu", "Menü")}</span>
           <span aria-hidden="true">{mobileOpen ? "−" : "+"}</span>
         </button>
         {mobileOpen && (
@@ -78,7 +79,7 @@ export function PortalShell({ lang, children }: { lang: Locale; children: React.
                     active ? "bg-mauve text-white" : "bg-sand/60 text-ink/70"
                   }`}
                 >
-                  {item.label}
+                  {tx(item.en, item.de)}
                 </Link>
               );
             })}

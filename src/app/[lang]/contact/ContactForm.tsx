@@ -38,8 +38,7 @@ export function ContactForm({ dict }: { dict: Dictionary }) {
             body: JSON.stringify(payload),
           });
           if (!res.ok) {
-            const data = await res.json().catch(() => ({}));
-            setError(data.error || dict.contact.form.genericError);
+            setError(dict.contact.form.genericError);
             return;
           }
           setSent(true);

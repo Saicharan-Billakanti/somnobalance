@@ -6,7 +6,10 @@ import { getUserById, getUserOrders } from "@/lib/userService";
 import { AccountClient } from "./AccountClient";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "My Account & Orders — SomnoBalance" };
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  return { title: lang === "de" ? "Mein Konto & Bestellungen — SomnoBalance" : "My Account & Orders — SomnoBalance" };
+}
 
 export default async function AccountPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
