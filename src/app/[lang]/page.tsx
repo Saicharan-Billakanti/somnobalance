@@ -1,11 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
-import { products } from "@/lib/products";
-import { ProductCard } from "@/components/ProductCard";
+import { getProduct, getProductText, getDisplayPrice, formatPrice } from "@/lib/products";
 import { getDictionary } from "@/i18n/getDictionary";
 import { isLocale, type Locale } from "@/i18n/config";
 import { notFound } from "next/navigation";
-import { PhaseProgressStrip } from "@/components/PhaseProgressStrip";
+import { RegenerationCircuit } from "@/components/RegenerationCircuit";
 
 export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -67,107 +66,208 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
       </section>
 
       <section style={{ background: "color-mix(in srgb, var(--color-scroll-1) 74%, transparent)" }}>
-        <div className="bg-sand/40 py-10">
-          <p className="text-center text-[0.65rem] uppercase tracking-[0.2em] text-ink-meta">
-            {dict.home.cycleLabel}
+        {/* Section 2 — "Der SomnoBalance Gedanke": pure typography, no
+            cards, no photo, no CTA. Per the brief this is deliberately
+            quiet after the hero — the visitor is in "understand", not
+            "buy". A light divider line stands in for the four-phase
+            system without yet explaining it (that's Section 3). */}
+        <div className="mx-auto max-w-2xl px-4 py-24 sm:px-6 sm:py-32">
+          <p className="text-xs uppercase tracking-[0.2em] text-mauve">
+            {dict.homeSections.concept.eyebrow}
           </p>
-          <div className="mt-6">
-            <PhaseProgressStrip phases={dict.home.cycle} />
+          <h2 className="mt-6 font-serif text-3xl leading-tight text-ink md:text-4xl">
+            {dict.homeSections.concept.headline}
+          </h2>
+          <p className="mt-8 max-w-lg text-base leading-relaxed text-ink/70">
+            {dict.homeSections.concept.body}
+          </p>
+          <p className="mt-16 font-serif text-2xl italic leading-snug text-ink md:text-3xl">
+            {dict.homeSections.concept.statement}
+          </p>
+          <p className="mt-10 text-sm text-ink-meta">{dict.homeSections.concept.transition}</p>
+          <div className="mt-10 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs uppercase tracking-[0.15em] text-ink-meta">
+            {dict.homeSections.concept.phaseStrip.map((name, i) => (
+              <span key={name} className="flex items-center gap-3">
+                {i > 0 && <span aria-hidden="true">—</span>}
+                {name}
+              </span>
+            ))}
           </div>
         </div>
+      </section>
 
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-          <div className="grid items-center gap-10 md:grid-cols-2">
-            <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-teal-dark">
-                {dict.home.systemEyebrow}
-              </p>
-              <h2 className="mt-3 font-serif text-3xl text-ink">{dict.home.systemTitle}</h2>
-              <p className="mt-4 max-w-md text-ink/70">{dict.home.systemSubtitle}</p>
-              <Link
-                href={`/${l}/shop`}
-                className="mt-6 inline-flex items-center gap-2 rounded-full bg-mauve px-6 py-3 text-sm text-white hover:bg-mauve-dark"
+      {/* Section 3 — "Der SomnoBalance Regenerationskreislauf": its own
+          component since it owns a scroll-driven background color shift
+          through the four-tone scale, independent of the page's normal
+          --color-scroll-* dramaturgy. */}
+      <RegenerationCircuit
+        eyebrow={dict.homeSections.circuit.eyebrow}
+        headline={dict.homeSections.circuit.headline}
+        intro={dict.homeSections.circuit.intro}
+        phases={dict.homeSections.circuit.phases}
+        closing={dict.homeSections.circuit.closing}
+        closingSub={dict.homeSections.circuit.closingSub}
+      />
+
+      {/* Section 4 — "Was brauchen Sie gerade?": four self-recognition
+          statements (no product links yet), then the Regenerationscheck
+          CTA. Background lightens again after Section 3's dark close. */}
+      <section
+        className="py-20 sm:py-24"
+        style={{ background: "color-mix(in srgb, var(--color-scroll-2) 74%, transparent)" }}
+      >
+        <div className="mx-auto max-w-5xl px-4 sm:px-6">
+          <p className="text-xs uppercase tracking-[0.2em] text-teal-dark">
+            {dict.homeSections.moment.eyebrow}
+          </p>
+          <h2 className="mt-3 max-w-xl font-serif text-3xl leading-tight text-ink md:text-4xl">
+            {dict.homeSections.moment.headline}
+          </h2>
+          <p className="mt-5 max-w-lg text-ink/70">{dict.homeSections.moment.intro}</p>
+          <p className="mt-3 max-w-lg text-ink/70">{dict.homeSections.moment.sub}</p>
+
+          <div className="mt-14 grid gap-x-10 gap-y-10 sm:grid-cols-2">
+            {dict.homeSections.moment.situations.map((situation) => (
+              <div
+                key={situation.quote}
+                className="border-l border-mauve/20 pl-6"
               >
-                {dict.home.systemCta}
-                <span aria-hidden="true">→</span>
-              </Link>
-            </div>
-
-            <div className="relative">
-              <div className="relative mx-auto aspect-[3/4] w-full max-w-[220px]">
-                <Image
-                  src="/products/somnobalance-room-spray.webp"
-                  alt=""
-                  fill
-                  sizes="(min-width: 768px) 220px, 60vw"
-                  className="object-contain"
-                />
+                <p className="font-serif text-lg italic leading-snug text-ink">
+                  &ldquo;{situation.quote}&rdquo;
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-ink/70">{situation.reflection}</p>
               </div>
-              <p className="mt-4 text-center font-serif text-lg italic leading-snug text-mauve">
-                {dict.home.systemTagline1}
-                <br />
-                {dict.home.systemTagline2}
-              </p>
-            </div>
+            ))}
           </div>
 
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {dict.home.phases.map((phase, i) => {
-              // Client spec (email, 2026-09-16): REGULATE/PREPARE (even
-              // index) get the mauve tint, LET GO/REGENERATE (odd index)
-              // get the sage tint, both as ~9% tinted background fills.
-              const accentColor = i % 2 === 0 ? "var(--color-phase-mauve)" : "var(--color-phase-sage)";
-              const href = phase.slug ? `/${l}/shop/${phase.slug}` : `/${l}/shop`;
+          <div className="mt-20 border-t border-mauve/15 pt-14 text-center">
+            <p className="text-xs uppercase tracking-[0.2em] text-mauve">
+              {dict.homeSections.moment.checkEyebrow}
+            </p>
+            <h3 className="mx-auto mt-4 max-w-xl font-serif text-2xl leading-snug text-ink md:text-3xl">
+              {dict.homeSections.moment.checkHeadline}
+            </h3>
+            <p className="mx-auto mt-4 max-w-lg text-ink/70">{dict.homeSections.moment.checkBody}</p>
+            <Link
+              href={`/${l}/regenerationscheck`}
+              className="mt-8 inline-flex items-center gap-2 rounded-full bg-mauve px-7 py-3 text-sm text-white hover:bg-mauve-dark"
+            >
+              {dict.homeSections.moment.checkCta}
+            </Link>
+            <p className="mt-3 text-xs text-ink-meta">{dict.homeSections.moment.checkNote}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 5 — "SomnoBalance für Sie": editorial product dramaturgy,
+          not a flat product-card wall. Each product keeps the same
+          REGULIEREN—LOSLASSEN—VORBEREITEN—REGENERIEREN phase strip with
+          its relevant phases highlighted, per the brief's "products are
+          flexible companions, not locked to one phase" rule. */}
+      <section
+        className="py-20 sm:py-24"
+        style={{ background: "color-mix(in srgb, var(--color-scroll-3) 74%, transparent)" }}
+      >
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <p className="text-xs uppercase tracking-[0.2em] text-teal-dark">
+            {dict.homeSections.forYou.eyebrow}
+          </p>
+          <h2 className="mt-3 max-w-xl font-serif text-3xl leading-tight text-ink md:text-4xl">
+            {dict.homeSections.forYou.headline}
+          </h2>
+          <p className="mt-5 max-w-lg text-ink/70">{dict.homeSections.forYou.intro}</p>
+
+          <div className="mt-8 max-w-md border-t border-mauve/15 pt-8">
+            <p className="font-serif text-xl italic leading-snug text-mauve">
+              {dict.homeSections.forYou.rhythmHeadline}
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-ink/70">
+              {dict.homeSections.forYou.rhythmBody}
+            </p>
+          </div>
+
+          <div className="mt-16 flex flex-col gap-16">
+            {dict.homeSections.forYou.products.map((entry) => {
+              const product = getProduct(entry.slug);
+              if (!product) return null;
+              const text = getProductText(product, l);
+              const { price, fromPrice } = getDisplayPrice(product);
               return (
-                <Link
-                  key={phase.name}
-                  href={href}
-                  className="group block overflow-hidden rounded-2xl transition hover:shadow-md"
-                  style={{ background: `color-mix(in srgb, ${accentColor} 9%, white)` }}
+                <div
+                  key={entry.slug}
+                  className="grid items-center gap-8 md:grid-cols-[1fr_1.3fr] md:gap-14"
                 >
-                  <div className="relative aspect-[4/3] bg-white">
-                    {phase.image ? (
-                      <Image
-                        src={phase.image}
-                        alt=""
-                        fill
-                        sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                        className="object-contain object-top p-4 transition duration-300 group-hover:scale-105"
-                      />
-                    ) : (
-                      <div
-                        className="flex h-full w-full items-center justify-center text-[10px] uppercase tracking-[0.2em] text-ink/30"
-                        style={{ background: `color-mix(in srgb, ${accentColor} 14%, white)` }}
-                      >
-                        {phase.name}
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex items-start justify-between gap-3 p-5">
-                    <div>
-                      <div className="text-xs font-semibold tracking-[0.15em] text-teal-dark">
-                        {phase.name}
-                      </div>
-                      <div className="mt-2 h-[3px] w-8 rounded-full" style={{ background: accentColor }} />
-                      <p className="mt-3 text-sm leading-relaxed text-ink/70">{phase.copy}</p>
+                  <Link
+                    href={`/${l}/shop/${entry.slug}`}
+                    className="group relative block aspect-[4/5] overflow-hidden rounded-3xl bg-white/60"
+                  >
+                    <Image
+                      src={product.image}
+                      alt={text.name}
+                      fill
+                      sizes="(min-width: 768px) 40vw, 90vw"
+                      className="object-contain p-10 transition duration-500 group-hover:scale-105"
+                    />
+                  </Link>
+                  <div>
+                    <p className="font-serif text-lg italic text-mauve">{entry.subheadline}</p>
+                    <h3 className="mt-3 font-serif text-2xl text-ink">{text.name}</h3>
+                    <p className="mt-4 max-w-md leading-relaxed text-ink/70">{entry.copy}</p>
+                    <div className="mt-5 flex flex-wrap gap-x-3 gap-y-1.5 text-xs uppercase tracking-[0.12em]">
+                      {dict.homeSections.forYou.phaseLabels.map((label, i) => (
+                        <span
+                          key={label}
+                          className={entry.activePhases[i] ? "font-semibold text-mauve-dark" : "text-ink-meta"}
+                        >
+                          {label}
+                        </span>
+                      ))}
                     </div>
-                    <span
-                      aria-hidden="true"
-                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-mauve text-white transition group-hover:bg-mauve-dark"
+                    <div className="mt-5 text-sm text-ink/50">
+                      {fromPrice && <span>{dict.shop.from} </span>}
+                      {formatPrice(price)} <span className="text-ink/35">{dict.shop.inclVat}</span>
+                    </div>
+                    <Link
+                      href={`/${l}/shop/${entry.slug}`}
+                      className="mt-4 inline-flex items-center gap-2 text-sm text-mauve-dark underline underline-offset-4 hover:text-ink"
                     >
-                      →
-                    </span>
+                      {entry.cta}
+                    </Link>
                   </div>
-                </Link>
+                </div>
               );
             })}
+          </div>
+
+          <div className="mt-20 border-t border-mauve/15 pt-14 text-center">
+            <p className="text-xs uppercase tracking-[0.2em] text-teal-dark">
+              {dict.homeSections.forYou.closingEyebrow}
+            </p>
+            <h3 className="mx-auto mt-4 max-w-xl font-serif text-2xl leading-snug text-ink md:text-3xl">
+              {dict.homeSections.forYou.closingHeadline}
+            </h3>
+            <p className="mx-auto mt-4 max-w-lg text-ink/70">{dict.homeSections.forYou.closingBody}</p>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+              <Link
+                href={`/${l}/shop`}
+                className="inline-flex items-center gap-2 rounded-full bg-mauve px-7 py-3 text-sm text-white hover:bg-mauve-dark"
+              >
+                {dict.homeSections.forYou.closingCtaPrimary}
+              </Link>
+              <Link
+                href={`/${l}/regenerationscheck`}
+                className="text-sm text-mauve-dark underline underline-offset-4"
+              >
+                {dict.homeSections.forYou.closingCtaSecondary}
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
       <section
         className="py-16"
-        style={{ background: "color-mix(in srgb, var(--color-scroll-2) 74%, transparent)" }}
+        style={{ background: "color-mix(in srgb, var(--color-scroll-3) 74%, transparent)" }}
       >
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <p className="text-xs uppercase tracking-[0.2em] text-teal-dark">
@@ -221,83 +321,6 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                 </div>
               </Link>
             ))}
-          </div>
-        </div>
-      </section>
-
-      <section
-        className="py-16"
-        style={{ background: "color-mix(in srgb, var(--color-scroll-3) 74%, transparent)" }}
-      >
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-teal-dark">{dict.home.shopEyebrow}</p>
-              <h2 className="mt-3 font-serif text-3xl text-ink">{dict.home.fromShop}</h2>
-              <p className="mt-4 max-w-md text-ink/70">{dict.home.shopIntro}</p>
-              <Link
-                href={`/${l}/shop`}
-                className="mt-6 inline-flex items-center gap-2 rounded-full bg-mauve px-6 py-3 text-sm text-white hover:bg-mauve-dark"
-              >
-                {dict.home.shopViewAllCta}
-              </Link>
-            </div>
-
-            <div className="flex flex-col items-end gap-4">
-              <p className="max-w-[12rem] text-right font-serif text-lg italic leading-snug text-ink/70">
-                {dict.home.shopTagline}
-              </p>
-              <div className="hidden items-center gap-2 sm:flex" aria-hidden="true">
-                <span className="flex h-9 w-9 items-center justify-center rounded-full border border-mauve/30 text-mauve-dark">
-                  ←
-                </span>
-                <span className="flex h-9 w-9 items-center justify-center rounded-full border border-mauve/30 text-mauve-dark">
-                  →
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {products.slice(0, 3).map((p) => (
-              <ProductCard key={p.slug} product={p} lang={l} dict={dict} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section style={{ background: "color-mix(in srgb, var(--color-scroll-3) 74%, transparent)" }}>
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2">
-          <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-teal-dark">{dict.home.checkEyebrow}</p>
-            <h2 className="mt-3 font-serif text-3xl text-ink">{dict.home.checkTitle}</h2>
-            <p className="mt-4 max-w-md text-ink/70">{dict.home.checkIntro}</p>
-            <Link
-              href={`/${l}/regenerationscheck`}
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-mauve px-6 py-3 text-sm text-white hover:bg-mauve-dark"
-            >
-              {dict.home.checkCta}
-            </Link>
-          </div>
-
-          <div className="relative">
-            <div className="relative mx-auto aspect-[3/4] w-full max-w-[220px]">
-              <Image
-                src="/products/somnobalance-regeneration-tea.webp"
-                alt=""
-                fill
-                sizes="(min-width: 768px) 220px, 60vw"
-                className="object-contain"
-              />
-            </div>
-            <p className="mt-4 text-center font-serif text-lg italic leading-snug text-mauve">
-              {dict.home.checkTagline.split("\n").map((line, i) => (
-                <span key={i}>
-                  {line}
-                  {i < dict.home.checkTagline.split("\n").length - 1 && <br />}
-                </span>
-              ))}
-            </p>
           </div>
         </div>
       </section>

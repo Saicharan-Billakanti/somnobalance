@@ -37,6 +37,18 @@
   --color-phase-mauve: #6f5784;
   --color-phase-sage: #669999;
 
+  /* Homepage section 3 "Regenerationskreislauf" scroll-story scale, per
+     SomnoBalance_Startseite_Abschnitte-2-5.docx (2026-09-30): four
+     mandatory tones, all lightenings/darkenings of the same ~270° hue as
+     the wordmark #6F5784 — deliberately NOT a new brand color, just a
+     tonal scale of the existing violet. #669999 (logo accent) is
+     explicitly excluded from this gradient per the brief. Hex values are
+     binding, not a design choice. */
+  --color-circuit-regulate: #f8f3f4;
+  --color-circuit-letgo: #e3c7d2;
+  --color-circuit-prepare: #8f7495;
+  --color-circuit-regenerate: #332839;
+
   /* Lovable PDP design-system tokens — rebased onto the binding brand
      palette (Entwickler-Vorgabe.docx §2: #6F5784 primary, #669999 accent,
      #F8F3F1 base, #241F29 text) instead of the earlier warm-brown port.
@@ -77,6 +89,10 @@
   --color-scroll-3: var(--color-scroll-3);
   --color-phase-mauve: var(--color-phase-mauve);
   --color-phase-sage: var(--color-phase-sage);
+  --color-circuit-regulate: var(--color-circuit-regulate);
+  --color-circuit-letgo: var(--color-circuit-letgo);
+  --color-circuit-prepare: var(--color-circuit-prepare);
+  --color-circuit-regenerate: var(--color-circuit-regenerate);
   --font-serif: var(--font-newsreader);
   --font-sans: var(--font-work-sans);
 
