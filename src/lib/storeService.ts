@@ -67,12 +67,23 @@ export async function updateStoreSettings(settings: StoreSettings): Promise<Stor
   return formatSettings(data);
 }
 
+// Admin-added "custom products" are a bonus on top of the hardcoded
+// catalog in products.ts, not the catalog itself — every real, sellable
+// product lives in products.ts and needs no database at all. A storefront
+// page must never 500 just because this optional lookup failed (wrong
+// env var, a paused/deleted Supabase project, a network blip); it should
+// degrade to catalog-only and let the admin panel surface the real error
+// for whoever needs to fix the database side.
 export async function getCombinedProducts(): Promise<any[]> {
   let customProducts: any[] = [];
   if (supabaseConfigured()) {
-    const { data, error } = await getSupabase().from("CustomProduct").select("*").order("createdAt", { ascending: false });
-    if (error) throw new Error(`Failed to load custom products: ${error.message}`);
-    customProducts = data || [];
+    try {
+      const { data, error } = await getSupabase().from("CustomProduct").select("*").order("createdAt", { ascending: false });
+      if (error) throw new Error(error.message);
+      customProducts = data || [];
+    } catch (err) {
+      console.error("getCombinedProducts: failed to load custom products, falling back to catalog only:", err);
+    }
   }
   return [...catalogProducts, ...customProducts.map((product) => ({ ...product, isCustom: true }))];
 }
