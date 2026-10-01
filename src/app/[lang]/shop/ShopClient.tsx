@@ -501,7 +501,7 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
                           alt={text.name}
                           fill
                           sizes="(min-width: 1280px) 25vw, (min-width: 640px) 50vw, 100vw"
-                          className="object-cover transition duration-300 group-hover:scale-105"
+                          className="object-contain p-6 transition duration-300 group-hover:scale-105"
                         />
                       </div>
 

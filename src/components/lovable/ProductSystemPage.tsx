@@ -84,6 +84,7 @@ export type ProductSystemConfig = {
   systemRoleLabel: string; // e.g. "RITUAL · REGULATE" shown top-left of hero
   galleryTagline: string[]; // lines shown over the hero image, top-left
   galleryImages?: string[]; // real additional angles for the hero gallery; falls back to repeating product.image when unset
+  galleryCaptions?: Record<number, string>; // de captions keyed by index into galleryImages, e.g. explaining a firmness-layer photo; untagged images show no caption
   howToUseEyebrow: string;
   howToUseTitle: string[];
   howToUseImage?: string; // real application-sequence photo; leave unset to show a placeholder until one exists
@@ -100,6 +101,7 @@ export type ProductSystemConfig = {
     en?: {
       systemRoleLabel?: string;
       galleryTagline?: string[];
+      galleryCaptions?: Record<number, string>;
       howToUseEyebrow?: string;
       howToUseTitle?: string[];
       howToUseSteps?: string[];
@@ -216,7 +218,7 @@ export function ProductSystemPage({
                 alt={text.name}
                 width={1200}
                 height={1200}
-                className="h-full w-full object-cover"
+                className="h-full w-full object-contain"
               />
               <div className="absolute bottom-10 left-10 hidden text-[11px] uppercase leading-[2] tracking-[0.25em] text-lovable-primary md:block">
                 {c.galleryTagline.map((line, i) => (
@@ -244,6 +246,9 @@ export function ProductSystemPage({
                 <ArrowRight className="size-4" />
               </button>
             </div>
+            {c.galleryCaptions?.[active] && (
+              <p className="mt-3 text-sm text-lovable-muted-foreground">{c.galleryCaptions[active]}</p>
+            )}
             <div className="mt-4 flex items-center gap-3">
               <Button
                 variant="outline"
@@ -270,7 +275,7 @@ export function ProductSystemPage({
                       alt=""
                       width={300}
                       height={300}
-                      className="h-full w-full object-cover"
+                      className="h-full w-full object-contain"
                     />
                   </button>
                 ))}

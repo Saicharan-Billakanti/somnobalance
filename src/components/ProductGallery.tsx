@@ -26,7 +26,7 @@ export function ProductGallery({
           alt={alt}
           fill
           sizes="(min-width: 1024px) 50vw, 100vw"
-          className="object-cover"
+          className="object-contain"
           priority
         />
         {overlay}
@@ -66,7 +66,7 @@ export function ProductGallery({
                 }`}
               >
                 <div className="relative h-full w-full overflow-hidden rounded-lg">
-                  <Image src={imgSrc} alt="" fill className="object-cover" />
+                  <Image src={imgSrc} alt="" fill className="object-contain" />
                 </div>
               </button>
             ))}

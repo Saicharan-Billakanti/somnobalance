@@ -209,7 +209,11 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
       "/products/somnobalance-neck-pillow.webp",
       "/products/neck-pillow-detail-top.webp",
       "/products/neck-pillow-detail-corner.webp",
+      "/products/neck-pillow-height-settings.webp",
     ],
+    galleryCaptions: {
+      3: "Sechs Höheneinstellungen: Kissen wenden für höhere oder niedrigere Nackenrolle, dazu 0, 1 oder 2 Einlegeplatten — von ca. 8 cm bis ca. 15 cm.",
+    },
     howToUseEyebrow: "Schlafumgebung",
     howToUseTitle: ["Die Nacht braucht andere", "Bedingungen als der Tag."],
     howToUseImage: "/products/pillow.webp",
@@ -231,6 +235,9 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
       en: {
         systemRoleLabel: "SLEEP ENVIRONMENT · REGENERATE",
         galleryTagline: ["The night needs", "different conditions."],
+        galleryCaptions: {
+          3: "Six height settings: flip the pillow for a higher or lower neck roll, then add 0, 1 or 2 insert plates — from approx. 8 cm to approx. 15 cm.",
+        },
         howToUseEyebrow: "Sleep Environment",
         howToUseTitle: ["The night needs different", "conditions than the day."],
         howToUseSteps: ["Adjust height", "Find position", "Settle down", "Regenerate"],
@@ -245,10 +252,16 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
     galleryTagline: ["Was Sie durch", "die Nacht trägt."],
     galleryImages: [
       "/products/somnobalance-mattress.webp",
+      "/products/mattress-layers-h2-h3.webp",
+      "/products/mattress-layers-h3-h4.webp",
       "/products/mattress-detail-quilting.webp",
       "/products/mattress-detail-vitalize.webp",
       "/products/mattress-detail-handle.webp",
     ],
+    galleryCaptions: {
+      1: "Variante H2/H3: Visko-Gel-Topper (blau/weiß marmoriert) · H2 türkisgrün · Kern · H3 anthrazit",
+      2: "Variante H3/H4: Visko-Gel-Topper (blau/weiß marmoriert) · H3 anthrazit · Kern · H4 fliederfarben",
+    },
     howToUseImage: "/products/bed.webp",
     howToUseEyebrow: "Schlafumgebung",
     howToUseTitle: ["Was Sie durch", "die Nacht trägt."],
@@ -270,6 +283,10 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
       en: {
         systemRoleLabel: "SLEEP ENVIRONMENT · REGENERATE",
         galleryTagline: ["What carries you", "through the night."],
+        galleryCaptions: {
+          1: "H2/H3 edition: Viscogel topper (blue/white marbled) · H2 turquoise · core · H3 anthracite",
+          2: "H3/H4 edition: Viscogel topper (blue/white marbled) · H3 anthracite · core · H4 lilac",
+        },
         howToUseEyebrow: "Sleep Environment",
         howToUseTitle: ["What carries you", "through the night."],
         howToUseSteps: ["Choose firmness", "Can be flipped", "Settle down", "Regenerate"],
