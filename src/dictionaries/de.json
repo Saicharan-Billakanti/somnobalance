@@ -75,12 +75,11 @@
     }
   },
   "footer": {
-    "tagline": "Regeneration beginnt lange bevor Sie einschlafen. Ein ruhiges, sinnliches System für den Übergang in die Ruhe.",
+    "tagline": "Regeneration beginnt am Tag und wirkt bis in die Nacht. Ein ruhiges, sinnliches System für den Übergang in die Ruhe.",
     "explore": "Entdecken",
     "legal": "Rechtliches",
     "contact": "Kontakt",
-    "rights": "Alle Rechte vorbehalten.",
-    "handwrittenTagline": "Mehr als Schlaf."
+    "rights": "Alle Rechte vorbehalten."
   },
   "legalNav": {
     "impressum": "Impressum",
@@ -94,9 +93,9 @@
   },
   "home": {
     "eyebrow": "Regeneration · Ruhe · Balance",
-    "title": "Regeneration beginnt lange bevor Sie einschlafen.",
-    "titlePrefix": "Regeneration beginnt lange bevor Sie ",
-    "titleAccent": "einschlafen.",
+    "title": "Regeneration beginnt am Tag und wirkt bis in die Nacht.",
+    "titlePrefix": "Regeneration beginnt am Tag und wirkt ",
+    "titleAccent": "bis in die Nacht.",
     "subtitle": "SomnoBalance ist keine Matratzenmarke. Es ist ein Ritual für den Übergang in die Ruhe — sinnlich, unaufgeregt und ganz auf Sie ausgerichtet.",
     "ctaForMe": "Für mich",
     "ctaShop": "Shop entdecken",
@@ -346,14 +345,14 @@
     "title": "Gemeinsame Werte, transparente Provision.",
     "intro": "Wir arbeiten mit Menschen und Häusern, die Regeneration bereits im Alltag ihrer Patient:innen, Klient:innen oder Gäste begleiten — Physiotherapeut:innen, Heilpraktiker:innen, Kinesiolog:innen, Masseur:innen sowie Hotels, die ihren Gästen etwas mitgeben möchten, an das sie glauben.",
     "card1Title": "So funktioniert die Empfehlung",
-    "card1Copy": "Sie empfehlen SomnoBalance weiter. Ihre Patient:innen, Klient:innen oder Gäste kaufen über Ihren persönlichen Link mit 5% Nachlass. Sie selbst erhalten bis zu 10% Provision auf jeden vermittelten Verkauf — klar nachverfolgt und ausgewiesen.",
+    "card1Copy": "Sie empfehlen SomnoBalance weiter. Ihre Patient:innen, Klient:innen oder Gäste kaufen über Ihren persönlichen Link mit einem Nachlass. Sie selbst erhalten eine Provision auf jeden vermittelten Verkauf — klar nachverfolgt und ausgewiesen.",
     "card2Title": "Passender Ton",
     "card2Copy": "Kein rabattgetriebenes Marketing, kein Verkaufsdruck — eine Empfehlung, die zu Ihrer Praxis oder Ihrem Haus passt.",
     "cta": "Jetzt Partner werden",
     "card3Title": "Eigenes Partner-Portal",
     "card3Copy": "Live-Dashboard, Klicks verfolgen, vermittelte Bestellungen, Provisionsauszahlungen und Benachrichtigungen.",
     "readyTitle": "Bereit, SomnoBalance-Partnerin zu werden?",
-    "readyCopy": "In weniger als zwei Minuten bewerben. Nach der Freigabe erhalten Sie Ihren persönlichen Empfehlungscode und bis zu 10% Provision auf jede vermittelte Bestellung.",
+    "readyCopy": "In weniger als zwei Minuten bewerben. Nach der Freigabe erhalten Sie Ihren persönlichen Empfehlungscode und eine Provision auf jede vermittelte Bestellung.",
     "alreadyPartnerLogin": "Bereits Partnerin? Anmelden →",
     "tabs": {
       "overview": "Übersicht & Werte",
@@ -520,10 +519,10 @@
     "inclVatShipping": "inkl. MwSt. · versandkostenfrei ab 59 €",
     "freeDelivery": "Kostenfreier Versand",
     "partnerMemberTitle": "Partnerin",
-    "partnerMemberCopy": "Sie erhalten bis zu 10% Provision auf Kundinnen-Empfehlungen.",
+    "partnerMemberCopy": "Sie erhalten eine Provision auf Kundinnen-Empfehlungen.",
     "partnerMemberCta": "Partner-Portal öffnen →",
     "partnerTeaserTitle": "Gesundheitsfachkraft?",
-    "partnerTeaserCopy": "Werden Sie SomnoBalance-Kompetenzpartnerin und profitieren Sie von bis zu 10% Provision auf Patient:innen-Empfehlungen.",
+    "partnerTeaserCopy": "Werden Sie SomnoBalance-Kompetenzpartnerin und profitieren Sie von einer Provision auf Patient:innen-Empfehlungen.",
     "partnerTeaserCta": "Partner werden →",
     "ingredients": "Inhaltsstoffe (INCI)",
     "withdrawalNote": "14-tägiges Widerrufsrecht innerhalb der EU. Siehe {link}.",

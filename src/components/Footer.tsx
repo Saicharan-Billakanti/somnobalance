@@ -50,18 +50,13 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
         <div className="flex min-w-0 flex-col">
           <div className="grid gap-10 md:grid-cols-[1.25fr_0.8fr_0.95fr_1.1fr] md:gap-0">
             <div className="md:pr-10">
-              <div className="flex items-center gap-3">
-                <span className="relative flex size-10 items-center justify-center">
-                  <Image
-                    src="/brand/somnobalance-icon.webp"
-                    alt=""
-                    width={40}
-                    height={40}
-                    className="h-9 w-9 object-contain"
-                  />
-                </span>
-                <span className="font-serif text-3xl leading-none">SomnoBalance</span>
-              </div>
+              <Image
+                src="/brand/somnobalance-logo.webp"
+                alt="SomnoBalance"
+                width={876}
+                height={267}
+                className="h-10 w-auto"
+              />
               <p className="mt-5 max-w-[260px] text-[11px] leading-5 text-lovable-primary-foreground/70">
                 {dict.footer.tagline}
               </p>
@@ -124,13 +119,6 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
             <span>
               © {new Date().getFullYear()} SomnoBalance. {dict.footer.rights}
             </span>
-            <div className="flex items-center gap-4 text-lovable-primary-foreground/80">
-              <span className="h-px w-10 bg-lovable-primary-foreground/40" />
-              <span className="rotate-[-5deg] font-serif text-2xl italic">
-                {dict.footer.handwrittenTagline}
-              </span>
-              <span className="h-px w-10 bg-lovable-primary-foreground/40" />
-            </div>
           </div>
         </div>
       </div>

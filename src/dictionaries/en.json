@@ -75,12 +75,11 @@
     }
   },
   "footer": {
-    "tagline": "Regeneration begins long before you fall asleep. A calm, sensory system for transitioning into rest.",
+    "tagline": "Regeneration begins in the day and reaches into the night. A calm, sensory system for transitioning into rest.",
     "explore": "Explore",
     "legal": "Legal",
     "contact": "Contact",
-    "rights": "All rights reserved.",
-    "handwrittenTagline": "More than sleep."
+    "rights": "All rights reserved."
   },
   "legalNav": {
     "impressum": "Impressum",
@@ -94,9 +93,9 @@
   },
   "home": {
     "eyebrow": "Regeneration · Calm · Balance",
-    "title": "Regeneration begins long before you fall asleep.",
-    "titlePrefix": "Regeneration begins long before you ",
-    "titleAccent": "fall asleep.",
+    "title": "Regeneration begins in the day and reaches into the night.",
+    "titlePrefix": "Regeneration begins in the day and reaches ",
+    "titleAccent": "into the night.",
     "subtitle": "SomnoBalance is not a mattress brand. It's a ritual for the transition into rest — sensory, unhurried, and built around you.",
     "ctaForMe": "For me",
     "ctaShop": "Explore the shop",
@@ -346,14 +345,14 @@
     "title": "Shared values, transparent commission.",
     "intro": "We work with people and properties who already accompany regeneration in the everyday lives of their patients, clients, or guests — physiotherapists, alternative practitioners, kinesiologists, massage therapists, and hotels who want to give their guests something they believe in.",
     "card1Title": "How the referral works",
-    "card1Copy": "You recommend SomnoBalance. Your patients, clients, or guests buy through your personal link with a 5% discount. You receive up to 10% commission on every referred sale — clearly tracked and reported.",
+    "card1Copy": "You recommend SomnoBalance. Your patients, clients, or guests buy through your personal link with a discount. You receive a commission on every referred sale — clearly tracked and reported.",
     "card2Title": "Aligned tone",
     "card2Copy": "No discount-driven marketing, no pressure tactics — a recommendation that fits your practice or property.",
     "cta": "Apply to become a partner",
     "card3Title": "Dedicated portal",
     "card3Copy": "Live dashboard, track clicks, referred orders, commission payouts, and in-app alerts.",
     "readyTitle": "Ready to become a SomnoBalance partner?",
-    "readyCopy": "Apply in less than two minutes. Once approved, you receive your personal referral code and up to 10% commission on every referred order.",
+    "readyCopy": "Apply in less than two minutes. Once approved, you receive your personal referral code and a commission on every referred order.",
     "alreadyPartnerLogin": "Already a partner? Log in →",
     "tabs": {
       "overview": "Overview & Values",
@@ -520,10 +519,10 @@
     "inclVatShipping": "incl. VAT · free shipping from €59",
     "freeDelivery": "Free Delivery",
     "partnerMemberTitle": "Partner Member",
-    "partnerMemberCopy": "You earn up to 10% commission on customer referrals.",
+    "partnerMemberCopy": "You earn a commission on customer referrals.",
     "partnerMemberCta": "Open Partner Portal →",
     "partnerTeaserTitle": "Healthcare Professional?",
-    "partnerTeaserCopy": "Join our verified health partner network and earn up to 10% on client referrals.",
+    "partnerTeaserCopy": "Join our verified health partner network and earn a commission on client referrals.",
     "partnerTeaserCta": "Become a partner →",
     "ingredients": "Ingredients (INCI)",
     "withdrawalNote": "14-day right of withdrawal within the EU. See {link}.",
