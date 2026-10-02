@@ -11,6 +11,14 @@
 --
 -- Foreign key enforcement requires PRAGMA foreign_keys = ON per connection.
 -- The D1 binding in src/lib/db.ts issues this pragma on every connection.
+--
+-- 2026-10-02: "User".phone / emailVerifiedAt / phoneVerifiedAt added after
+-- the fact — feature/cloudflare-d1-migration's getUserByEmail/getUserByPhone/
+-- createUser (src/lib/db.ts) and the DbUser type all expect these three
+-- nullable columns, but the schema originally applied here didn't have them,
+-- which would have made login fail with "no such column: phone". Applied
+-- directly to the remote somnobalance-db via ALTER TABLE ADD COLUMN and
+-- folded into this file so it matches what's actually live.
 
 -- ─── Order ────────────────────────────────────────────────────────────────────
 
@@ -61,12 +69,15 @@ CREATE TABLE IF NOT EXISTS "ContactMessage" (
 -- Existing hashes remain valid — no password resets required.
 
 CREATE TABLE IF NOT EXISTS "User" (
-  "id"           TEXT NOT NULL PRIMARY KEY,
-  "createdAt"    TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
-  "email"        TEXT NOT NULL UNIQUE,
-  "passwordHash" TEXT NOT NULL,
-  "firstName"    TEXT NOT NULL,
-  "lastName"     TEXT NOT NULL
+  "id"              TEXT NOT NULL PRIMARY KEY,
+  "createdAt"       TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
+  "email"           TEXT NOT NULL UNIQUE,
+  "passwordHash"    TEXT NOT NULL,
+  "firstName"       TEXT NOT NULL,
+  "lastName"        TEXT NOT NULL,
+  "phone"           TEXT,
+  "emailVerifiedAt" TEXT,
+  "phoneVerifiedAt" TEXT
 );
 
 -- ─── Indexes ──────────────────────────────────────────────────────────────────
