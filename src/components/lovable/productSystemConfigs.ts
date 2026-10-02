@@ -252,15 +252,23 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
     galleryTagline: ["Was Sie durch", "die Nacht trägt."],
     galleryImages: [
       "/products/somnobalance-mattress.webp",
-      "/products/mattress-layers-h2-h3.webp",
-      "/products/mattress-layers-h3-h4.webp",
+      "/products/mattress-layers-h2h3-h2side.webp",
+      "/products/mattress-layers-h2h3-h3side.webp",
+      "/products/mattress-layers-h3h4-h3side.webp",
       "/products/mattress-detail-quilting.webp",
       "/products/mattress-detail-vitalize.webp",
       "/products/mattress-detail-handle.webp",
     ],
+    // Per the client's reference diagram (SomnoBalance_Produktinformation_
+    // Matratze_1Seite.pdf): each Variante is the SAME wendbarer Innenkern
+    // shown from both sides, since the whole point is that flipping it
+    // swaps the firmness. We have 3 of the 4 reference renders — missing
+    // only the H3/H4 variant's H4-side photo (not supplied in the source
+    // folder); flagged to the client rather than invented.
     galleryCaptions: {
-      1: "Variante H2/H3: Visko-Gel-Topper (blau/weiß marmoriert) · H2 türkisgrün · Kern · H3 anthrazit",
-      2: "Variante H3/H4: Visko-Gel-Topper (blau/weiß marmoriert) · H3 anthrazit · Kern · H4 fliederfarben",
+      1: "Variante H2/H3, H2-Seite: Visko-Gel-Topper (blau/weiß marmoriert) · H2 türkisgrün · Kern · H3 anthrazit",
+      2: "Variante H2/H3, H3-Seite (gewendet): Visko-Gel-Topper (blau/weiß marmoriert) · H3 anthrazit · Kern · H2 türkisgrün",
+      3: "Variante H3/H4, H3-Seite: Visko-Gel-Topper (blau/weiß marmoriert) · H3 anthrazit · Kern · H4 fliederfarben",
     },
     howToUseImage: "/products/bed.webp",
     howToUseEyebrow: "Schlafumgebung",
@@ -284,8 +292,9 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
         systemRoleLabel: "SLEEP ENVIRONMENT · REGENERATE",
         galleryTagline: ["What carries you", "through the night."],
         galleryCaptions: {
-          1: "H2/H3 edition: Viscogel topper (blue/white marbled) · H2 turquoise · core · H3 anthracite",
-          2: "H3/H4 edition: Viscogel topper (blue/white marbled) · H3 anthracite · core · H4 lilac",
+          1: "H2/H3 edition, H2 side: Viscogel topper (blue/white marbled) · H2 turquoise · core · H3 anthracite",
+          2: "H2/H3 edition, H3 side (flipped): Viscogel topper (blue/white marbled) · H3 anthracite · core · H2 turquoise",
+          3: "H3/H4 edition, H3 side: Viscogel topper (blue/white marbled) · H3 anthracite · core · H4 lilac",
         },
         howToUseEyebrow: "Sleep Environment",
         howToUseTitle: ["What carries you", "through the night."],
