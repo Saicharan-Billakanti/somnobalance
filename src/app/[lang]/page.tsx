@@ -187,7 +187,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
           </div>
 
           <div className="mt-16 flex flex-col gap-16">
-            {dict.homeSections.forYou.products.map((entry) => {
+            {dict.homeSections.forYou.products.map((entry, index) => {
               const product = getProduct(entry.slug);
               if (!product) return null;
               const text = getProductText(product, l);
@@ -199,12 +199,13 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                 >
                   <Link
                     href={`/${l}/shop/${entry.slug}`}
-                    className="group relative block aspect-[4/5] overflow-hidden rounded-3xl bg-white/60"
+                    className="group relative block aspect-[4/5] overflow-hidden rounded-3xl bg-sand/50"
                   >
                     <Image
                       src={product.image}
                       alt={text.name}
                       fill
+                      priority={index === 0}
                       sizes="(min-width: 768px) 40vw, 90vw"
                       className="object-contain p-10 transition duration-500 group-hover:scale-105"
                     />
