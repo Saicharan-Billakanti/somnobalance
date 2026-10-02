@@ -244,7 +244,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                         fill
                         priority
                         sizes="(min-width: 768px) 55vw, 90vw"
-                        className="object-cover transition duration-500 group-hover:scale-105"
+                        className="object-contain p-10 transition duration-500 group-hover:scale-105"
                       />
                     </Link>
                     <div>
@@ -286,7 +286,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                                 alt={text.name}
                                 fill
                                 sizes="(min-width: 640px) 30vw, 90vw"
-                                className="object-cover transition duration-500 group-hover:scale-105"
+                                className="object-contain p-8 transition duration-500 group-hover:scale-105"
                               />
                             </Link>
                             <p className="mt-4 font-serif text-base italic text-mauve">{entry.subheadline}</p>
@@ -324,7 +324,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                               alt={text.name}
                               fill
                               sizes="(min-width: 640px) 45vw, 90vw"
-                              className="object-cover transition duration-500 group-hover:scale-105"
+                              className="object-contain p-8 transition duration-500 group-hover:scale-105"
                             />
                           </Link>
                           <p className="mt-4 font-serif text-base italic text-mauve">{entry.subheadline}</p>
@@ -357,14 +357,14 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                         <div key={entry.slug} className="flex flex-col">
                           <Link
                             href={`/${l}/shop/${entry.slug}`}
-                            className="group relative block aspect-[4/5] overflow-hidden rounded-3xl bg-ink/5"
+                            className="group relative block aspect-[4/5] overflow-hidden rounded-3xl bg-sand/50"
                           >
                             <Image
                               src={entry.image}
                               alt={text.name}
                               fill
                               sizes="(min-width: 768px) 45vw, 90vw"
-                              className="object-cover transition duration-500 group-hover:scale-105"
+                              className="object-contain p-8 transition duration-500 group-hover:scale-105"
                             />
                           </Link>
                           <p className="mt-5 font-serif text-lg italic text-mauve">{entry.subheadline}</p>

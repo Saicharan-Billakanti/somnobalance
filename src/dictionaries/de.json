@@ -158,13 +158,13 @@
     "personaIntro": "Ob für Ihre persönliche Routine, Ihr Unternehmen oder eine gemeinsame Vision — SomnoBalance begleitet Sie auf Ihrem Weg zu mehr Ruhe, Klarheit und Regeneration.",
     "forMeTitle": "Für mich",
     "forMeCopy": "Ein persönliches Ritual für ruhigere Nächte und ausgeglichenere Tage.",
-    "forMeImage": "/products/pdp-roll-on-hand.webp",
+    "forMeImage": "/products/somnobalance-regeneration-tea.webp",
     "forBusinessTitle": "Für mein Unternehmen",
     "forBusinessCopy": "Ein Gefühl von Ruhe, an das sich Ihre Gäste erinnern — für Hotellerie und Wellness.",
-    "forBusinessImage": "/brand/pdp-bedroom.webp",
+    "forBusinessImage": "/products/somnobalance-mattress.webp",
     "partnerTitle": "Partner werden",
     "partnerCopy": "Gemeinsame Werte, transparente Konditionen — für Gesundheitsfachkräfte.",
-    "partnerImage": "/products/partner-tile-lifestyle.webp",
+    "partnerImage": "/products/somnobalance-regeneration-cards.webp",
     "discover": "Entdecken →",
     "shopEyebrow": "Natürliche Rituale, sorgfältig kuratiert",
     "shopIntro": "Sorgfältig ausgewählte Produkte, die Ihre SomnoBalance-Reise unterstützen.",
@@ -258,7 +258,7 @@
           "copy": "Die SomnoBalance Regenerationskarten verbinden gezielte Regenerationspunkte mit alltagstauglichen Ritualen. Nutzen Sie sie intuitiv — für einen bewussten Moment zwischendurch, zum Loslassen nach einem aktiven Tag oder als Teil Ihrer persönlichen Abendroutine.",
           "activePhases": [true, true, true, false],
           "cta": "Regenerationskarten entdecken →",
-          "image": "/products/regeneration-cards-application.webp"
+          "image": "/products/somnobalance-regeneration-cards.webp"
         },
         {
           "slug": "somnobalance-roll-on",
@@ -266,7 +266,7 @@
           "copy": "Der SomnoBalance Roll-on lässt sich unkompliziert in den Alltag integrieren — für einen bewussten Moment zwischendurch, als Begleitung beim Loslassen oder als Teil eines persönlichen Abendrituals.",
           "activePhases": [true, true, true, false],
           "cta": "Roll-on entdecken →",
-          "image": "/brand/rollon-styled-stone.webp"
+          "image": "/products/somnobalance-roll-on.webp"
         },
         {
           "slug": "somnobalance-oil-blend",
@@ -274,7 +274,7 @@
           "copy": "Die SomnoBalance Ölmischung begleitet bewusste Übergänge und Rituale. Ihr Duft kann zu einem wiederkehrenden Sinnesimpuls werden, der mit Ruhe und bewussten Regenerationsmomenten verbunden wird.",
           "activePhases": [true, true, true, false],
           "cta": "Ölmischung entdecken →",
-          "image": "/products/oil-blend-application.webp"
+          "image": "/products/somnobalance-oil-blend.webp"
         },
         {
           "slug": "somnobalance-room-spray",
@@ -282,7 +282,7 @@
           "copy": "Ein kurzer Duftimpuls verändert die Wahrnehmung eines Raumes und kann zu einem festen Bestandteil persönlicher Übergänge werden — vom aktiven Alltag in ruhigere Momente und den Abend.",
           "activePhases": [false, true, true, false],
           "cta": "Raumspray entdecken →",
-          "image": "/brand/roomspray-styled-stone.webp"
+          "image": "/products/somnobalance-room-spray.webp"
         },
         {
           "slug": "somnobalance-regeneration-tea",
@@ -290,7 +290,7 @@
           "copy": "Eine bewusst zubereitete Tasse Tee schafft einen Moment des Innehaltens und kann zu einem wiederkehrenden Bestandteil der persönlichen Abendroutine werden.",
           "activePhases": [false, true, true, false],
           "cta": "Regenerationstee entdecken →",
-          "image": "/products/somnobalance-regeneration-tea-styled.webp"
+          "image": "/products/somnobalance-regeneration-tea.webp"
         },
         {
           "slug": "somnobalance-starter-set",
@@ -306,7 +306,7 @@
           "copy": "Eine passende Lagerung von Kopf und Nacken ist Teil einer bewusst gestalteten Schlafumgebung. Das SomnoBalance Nackenstützkissen lässt sich individuell anpassen und unterstützt eine komfortable Lagerung — als Grundlage für körperliches Zur-Ruhe-Kommen und Regeneration in der Nacht.",
           "activePhases": [true, false, true, true],
           "cta": "Nackenstützkissen entdecken →",
-          "image": "/products/neck-pillow-lifestyle.webp"
+          "image": "/products/somnobalance-neck-pillow.webp"
         },
         {
           "slug": "somnobalance-mattress",
@@ -314,7 +314,7 @@
           "copy": "Eine Matratze beeinflusst, wie der Körper während der Nacht gelagert und unterstützt wird. Die SomnoBalance Matratze verbindet individuell abgestimmten Liegekomfort mit dem Anspruch, gute Voraussetzungen für körperliches Zur-Ruhe-Kommen und nächtliche Regeneration zu schaffen.",
           "activePhases": [true, false, true, true],
           "cta": "Matratze entdecken →",
-          "image": "/products/mattress-lifestyle.webp"
+          "image": "/products/somnobalance-mattress.webp"
         }
       ],
       "closingEyebrow": "SOMNOBALANCE ENTDECKEN",

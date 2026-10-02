@@ -158,13 +158,13 @@
     "personaIntro": "Whether for your personal routine, your business, or a shared vision — SomnoBalance supports you on your way to more calm, clarity, and regeneration.",
     "forMeTitle": "For me",
     "forMeCopy": "A personal ritual for calmer nights and steadier days.",
-    "forMeImage": "/products/pdp-roll-on-hand.webp",
+    "forMeImage": "/products/somnobalance-regeneration-tea.webp",
     "forBusinessTitle": "For my business",
     "forBusinessCopy": "A sense of calm your guests remember, for hospitality and wellness spaces.",
-    "forBusinessImage": "/brand/pdp-bedroom.webp",
+    "forBusinessImage": "/products/somnobalance-mattress.webp",
     "partnerTitle": "Become a partner",
     "partnerCopy": "Shared values, transparent terms, for health professionals.",
-    "partnerImage": "/products/partner-tile-lifestyle.webp",
+    "partnerImage": "/products/somnobalance-regeneration-cards.webp",
     "discover": "Discover →",
     "shopEyebrow": "Natural rituals, thoughtfully curated",
     "shopIntro": "Carefully selected products to support your SomnoBalance journey.",
@@ -258,7 +258,7 @@
           "copy": "SomnoBalance Regeneration Cards combine targeted regeneration points with rituals that fit everyday life. Use them intuitively — for a conscious moment in between, to let go after an active day, or as part of your personal evening routine.",
           "activePhases": [true, true, true, false],
           "cta": "Discover the Regeneration Cards →",
-          "image": "/products/regeneration-cards-application.webp"
+          "image": "/products/somnobalance-regeneration-cards.webp"
         },
         {
           "slug": "somnobalance-roll-on",
@@ -266,7 +266,7 @@
           "copy": "The SomnoBalance Roll-on fits easily into everyday life — for a conscious moment in between, as a companion while letting go, or as part of a personal evening ritual.",
           "activePhases": [true, true, true, false],
           "cta": "Discover the Roll-on →",
-          "image": "/brand/rollon-styled-stone.webp"
+          "image": "/products/somnobalance-roll-on.webp"
         },
         {
           "slug": "somnobalance-oil-blend",
@@ -274,7 +274,7 @@
           "copy": "The SomnoBalance Oil Blend accompanies conscious transitions and rituals. Its scent can become a recurring sensory cue associated with calm and conscious moments of regeneration.",
           "activePhases": [true, true, true, false],
           "cta": "Discover the Oil Blend →",
-          "image": "/products/oil-blend-application.webp"
+          "image": "/products/somnobalance-oil-blend.webp"
         },
         {
           "slug": "somnobalance-room-spray",
@@ -282,7 +282,7 @@
           "copy": "A brief scent impulse changes how a room feels and can become a fixed part of personal transitions — from the active everyday into calmer moments and the evening.",
           "activePhases": [false, true, true, false],
           "cta": "Discover the Room Spray →",
-          "image": "/brand/roomspray-styled-stone.webp"
+          "image": "/products/somnobalance-room-spray.webp"
         },
         {
           "slug": "somnobalance-regeneration-tea",
@@ -290,7 +290,7 @@
           "copy": "A consciously prepared cup of tea creates a moment to pause, and can become a recurring part of your personal evening routine.",
           "activePhases": [false, true, true, false],
           "cta": "Discover the Regeneration Tea →",
-          "image": "/products/somnobalance-regeneration-tea-styled.webp"
+          "image": "/products/somnobalance-regeneration-tea.webp"
         },
         {
           "slug": "somnobalance-starter-set",
@@ -306,7 +306,7 @@
           "copy": "The right positioning of head and neck is part of a consciously designed sleep environment. The SomnoBalance Neck Support Pillow adjusts individually and supports comfortable positioning — a foundation for physically settling down and regenerating at night.",
           "activePhases": [true, false, true, true],
           "cta": "Discover the Neck Support Pillow →",
-          "image": "/products/neck-pillow-lifestyle.webp"
+          "image": "/products/somnobalance-neck-pillow.webp"
         },
         {
           "slug": "somnobalance-mattress",
@@ -314,7 +314,7 @@
           "copy": "A mattress shapes how the body is positioned and supported through the night. The SomnoBalance Mattress combines individually matched lying comfort with the aim of creating the right conditions for physically settling down and regenerating at night.",
           "activePhases": [true, false, true, true],
           "cta": "Discover the Mattress →",
-          "image": "/products/mattress-lifestyle.webp"
+          "image": "/products/somnobalance-mattress.webp"
         }
       ],
       "closingEyebrow": "DISCOVER SOMNOBALANCE",
