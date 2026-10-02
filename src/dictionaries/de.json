@@ -252,6 +252,13 @@
       "phaseLabels": ["Regulieren", "Loslassen", "Vorbereiten", "Regenerieren"],
       "products": [
         {
+          "slug": "somnobalance-starter-set",
+          "subheadline": "Vier Begleiter, ein Einstieg.",
+          "copy": "Das SomnoBalance Starter-Set vereint den 21-Tage-Guide, die Regenerationskarten, den Anti-Stress Roll-on und die ätherische Ölmischung — Ihr Einstieg in den Regenerationsweg vom aktiven Tag bis in die Nacht. Sie müssen nicht alles gleichzeitig anwenden: Der Guide gibt Ihnen die Orientierung, Karten und Aromaprodukte begleiten Sie passend zu Ihrem Tag.",
+          "activePhases": [true, true, true, false],
+          "cta": "Starter-Set entdecken →"
+        },
+        {
           "slug": "somnobalance-regeneration-cards",
           "subheadline": "Impulse, die Sie durch den Tag begleiten.",
           "copy": "Die SomnoBalance Regenerationskarten verbinden gezielte Regenerationspunkte mit alltagstauglichen Ritualen. Nutzen Sie sie intuitiv — für einen bewussten Moment zwischendurch, zum Loslassen nach einem aktiven Tag oder als Teil Ihrer persönlichen Abendroutine.",

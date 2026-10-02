@@ -252,6 +252,13 @@
       "phaseLabels": ["Regulate", "Let Go", "Prepare", "Regenerate"],
       "products": [
         {
+          "slug": "somnobalance-starter-set",
+          "subheadline": "Four companions, one entry point.",
+          "copy": "The SomnoBalance Starter Set brings together the 21-day guide, the Regeneration Cards, the Anti-Stress Roll-on and the essential oil blend — your entry into the regeneration path from the active day into the night. You don't need to use everything at once: the guide gives you orientation, while the cards and aroma products accompany you in whatever way fits your day.",
+          "activePhases": [true, true, true, false],
+          "cta": "Discover the Starter Set →"
+        },
+        {
           "slug": "somnobalance-regeneration-cards",
           "subheadline": "Impulses that accompany you through the day.",
           "copy": "SomnoBalance Regeneration Cards combine targeted regeneration points with rituals that fit everyday life. Use them intuitively — for a conscious moment in between, to let go after an active day, or as part of your personal evening routine.",

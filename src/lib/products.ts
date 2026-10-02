@@ -362,15 +362,15 @@ export const products: Product[] = [
     slug: "somnobalance-starter-set",
     name: "SomnoBalance Starter Set",
     category: "Care",
-    price: 55,
-    tagline: "Roll-on, oil blend, card set and a printed 21-day guide, together.",
+    price: 59,
+    tagline: "Four companions for your regeneration path — from the active day into the night.",
     description:
-      "The SomnoBalance Starter Set brings together the Roll-on, the Oil Blend and the Regeneration Cards with a printed 21-day guide — one entry point into the full SomnoBalance ritual, from the phase you're in to the scent and the point that supports it.",
+      "You don't need to use everything at once. The 21-day guide gives you orientation — the cards and aroma products accompany you in whatever way fits your day.",
     details: [
-      "1× SomnoBalance Roll-on (10 ml)",
-      "1× SomnoBalance Oil Blend (10 ml)",
-      "1× SomnoBalance Regeneration Cards (23 cards)",
-      "1× printed 21-day guide",
+      "21-day guide: your thread through the next 21 days — small impulses and rituals that help you build regulation and regeneration into your everyday life, step by step",
+      "Regeneration cards: draw one intuitively, or choose one that fits your current need — concrete impulses and simple ways to come to rest in between and support your self-regulation",
+      "Anti-stress roll-on: your uncomplicated companion for on the go — apply to pulse points, take in the scent consciously, and use a short moment to pause",
+      "Essential oil blend: for conscious moments of regeneration at home — a few drops in the diffuser create a pleasant scent atmosphere and can accompany your personal evening or rest ritual",
       "In stock, ships immediately as a single DHL parcel",
     ],
     phase: "REGULATE",
@@ -378,19 +378,17 @@ export const products: Product[] = [
     returnPeriodDays: 30,
     refundPolicy: "30-Day Money-Back Guarantee",
     returnEligible: true,
-    legalNote:
-      "This bundle is referenced in the shipping, returns and about-us policy documents but its retail price was not specified there — the €55 shown is a placeholder only and must be confirmed with SomnoBalance before this page is used for real sales.",
     translations: {
       de: {
         name: "SomnoBalance Starter-Set",
-        tagline: "Ihr Einstieg in einen Regenerationsweg vom aktiven Tag bis in die Nacht.",
+        tagline: "Vier Begleiter für Ihren Regenerationsweg — vom aktiven Tag bis in die Nacht.",
         description:
-          "Das SomnoBalance Starter-Set vereint den Roll-on, die Ölmischung und die Regenerationskarten mit einem gedruckten 21-Tage-Guide — ein Einstieg in das gesamte SomnoBalance-Ritual, von der aktuellen Phase bis zum passenden Duft und Punkt.",
+          "Sie müssen nicht alles gleichzeitig anwenden. Der 21-Tage-Guide gibt Ihnen die Orientierung — Karten und Aromaprodukte begleiten Sie passend zu Ihrem Tag.",
         details: [
-          "1× SomnoBalance Roll-on (10 ml)",
-          "1× SomnoBalance Ölmischung (10 ml)",
-          "1× SomnoBalance Regenerationskarten (23 Karten)",
-          "1× gedruckter 21-Tage-Guide",
+          "21-Tage-Guide: Ihr roter Faden durch die nächsten 21 Tage. Kleine Impulse und Rituale begleiten Sie Schritt für Schritt dabei, Regulation und Regeneration bewusster in Ihren Alltag zu integrieren",
+          "Regenerationskarten: Ziehen Sie intuitiv eine Karte oder wählen Sie passend zu Ihrem aktuellen Bedürfnis. Die Karten geben Ihnen konkrete Impulse und zeigen Ihnen einfache Möglichkeiten, zwischendurch zur Ruhe zu kommen und Ihre Selbstregulation zu unterstützen",
+          "Anti-Stress Roll-on: Ihr unkomplizierter Begleiter für unterwegs und im Alltag. Auf die Pulspunkte auftragen, den Duft bewusst wahrnehmen und einen kurzen Moment zum Innehalten nutzen",
+          "Ätherische Ölmischung: Für Ihre bewussten Regenerationsmomente zu Hause. Einige Tropfen im Diffuser schaffen eine angenehme Duftatmosphäre und können Ihr persönliches Ruhe- oder Abendritual begleiten",
           "Auf Lager, Versand als einzelnes DHL-Paket",
         ],
       },
