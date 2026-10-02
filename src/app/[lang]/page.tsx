@@ -186,59 +186,206 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             </p>
           </div>
 
-          <div className="mt-16 flex flex-col gap-16">
-            {dict.homeSections.forYou.products.map((entry, index) => {
-              const product = getProduct(entry.slug);
+          {(() => {
+            // Editorial dramaturgy per the brief, not a repeating product
+            // wall: Regeneration Cards large and alone -> Roll-on/Oil
+            // Blend/Room Spray as one grouped "ritual world" -> Tea paired
+            // with the Starter Set -> Neck Pillow/Mattress large and
+            // generous as the night-facing close. Reads from the same
+            // flat `products` array (ordered to match this grouping) so
+            // the copy/pricing/phase data stays single-sourced.
+            const products = dict.homeSections.forYou.products;
+            const byslug = (slug: string) => products.find((p) => p.slug === slug);
+            const cards = byslug("somnobalance-regeneration-cards");
+            const ritualTrio = ["somnobalance-roll-on", "somnobalance-oil-blend", "somnobalance-room-spray"]
+              .map(byslug)
+              .filter((p): p is NonNullable<typeof p> => Boolean(p));
+            const teaPair = ["somnobalance-regeneration-tea", "somnobalance-starter-set"]
+              .map(byslug)
+              .filter((p): p is NonNullable<typeof p> => Boolean(p));
+            const nightPair = ["somnobalance-neck-pillow", "somnobalance-mattress"]
+              .map(byslug)
+              .filter((p): p is NonNullable<typeof p> => Boolean(p));
+
+            const PhaseStrip = ({ activePhases }: { activePhases: boolean[] }) => (
+              <div className="mt-4 flex flex-wrap gap-x-3 gap-y-1.5 text-xs uppercase tracking-[0.12em]">
+                {dict.homeSections.forYou.phaseLabels.map((label, i) => (
+                  <span key={label} className={activePhases[i] ? "font-semibold text-mauve-dark" : "text-ink-meta"}>
+                    {label}
+                  </span>
+                ))}
+              </div>
+            );
+
+            const PriceLine = ({ slug }: { slug: string }) => {
+              const product = getProduct(slug);
               if (!product) return null;
-              const text = getProductText(product, l);
               const { price, fromPrice } = getDisplayPrice(product);
               return (
-                <div
-                  key={entry.slug}
-                  className="grid items-center gap-8 md:grid-cols-[1fr_1.3fr] md:gap-14"
-                >
-                  <Link
-                    href={`/${l}/shop/${entry.slug}`}
-                    className="group relative block aspect-[4/5] overflow-hidden rounded-3xl bg-sand/50"
-                  >
-                    <Image
-                      src={product.image}
-                      alt={text.name}
-                      fill
-                      priority={index === 0}
-                      sizes="(min-width: 768px) 40vw, 90vw"
-                      className="object-contain p-10 transition duration-500 group-hover:scale-105"
-                    />
-                  </Link>
-                  <div>
-                    <p className="font-serif text-lg italic text-mauve">{entry.subheadline}</p>
-                    <h3 className="mt-3 font-serif text-2xl text-ink">{text.name}</h3>
-                    <p className="mt-4 max-w-md leading-relaxed text-ink/70">{entry.copy}</p>
-                    <div className="mt-5 flex flex-wrap gap-x-3 gap-y-1.5 text-xs uppercase tracking-[0.12em]">
-                      {dict.homeSections.forYou.phaseLabels.map((label, i) => (
-                        <span
-                          key={label}
-                          className={entry.activePhases[i] ? "font-semibold text-mauve-dark" : "text-ink-meta"}
-                        >
-                          {label}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="mt-5 text-sm text-ink/50">
-                      {fromPrice && <span>{dict.shop.from} </span>}
-                      {formatPrice(price)} <span className="text-ink/35">{dict.shop.inclVat}</span>
-                    </div>
-                    <Link
-                      href={`/${l}/shop/${entry.slug}`}
-                      className="mt-4 inline-flex items-center gap-2 text-sm text-mauve-dark underline underline-offset-4 hover:text-ink"
-                    >
-                      {entry.cta}
-                    </Link>
-                  </div>
+                <div className="mt-4 text-sm text-ink/50">
+                  {fromPrice && <span>{dict.shop.from} </span>}
+                  {formatPrice(price)} <span className="text-ink/35">{dict.shop.inclVat}</span>
                 </div>
               );
-            })}
-          </div>
+            };
+
+            return (
+              <div className="mt-16 flex flex-col gap-24">
+                {/* Group 1 — Regenerationskarten, large as its own application moment */}
+                {cards && (
+                  <div className="grid items-center gap-10 md:grid-cols-[1.2fr_1fr] md:gap-16">
+                    <Link
+                      href={`/${l}/shop/${cards.slug}`}
+                      className="group relative block aspect-[4/3] overflow-hidden rounded-3xl bg-sand/50 md:aspect-[5/4]"
+                    >
+                      <Image
+                        src={cards.image}
+                        alt={getProductText(getProduct(cards.slug)!, l).name}
+                        fill
+                        priority
+                        sizes="(min-width: 768px) 55vw, 90vw"
+                        className="object-cover transition duration-500 group-hover:scale-105"
+                      />
+                    </Link>
+                    <div>
+                      <p className="font-serif text-lg italic text-mauve">{cards.subheadline}</p>
+                      <h3 className="mt-3 font-serif text-2xl text-ink">
+                        {getProductText(getProduct(cards.slug)!, l).name}
+                      </h3>
+                      <p className="mt-4 max-w-md leading-relaxed text-ink/70">{cards.copy}</p>
+                      <PhaseStrip activePhases={cards.activePhases} />
+                      <PriceLine slug={cards.slug} />
+                      <Link
+                        href={`/${l}/shop/${cards.slug}`}
+                        className="mt-4 inline-flex items-center gap-2 text-sm text-mauve-dark underline underline-offset-4 hover:text-ink"
+                      >
+                        {cards.cta}
+                      </Link>
+                    </div>
+                  </div>
+                )}
+
+                {/* Group 2 — Roll-on + Oil Blend + Room Spray as one ritual world */}
+                {ritualTrio.length > 0 && (
+                  <div>
+                    <p className="font-serif text-xl italic text-mauve">
+                      {dict.homeSections.forYou.ritualGroupLabel}
+                    </p>
+                    <div className="mt-6 grid gap-6 sm:grid-cols-3">
+                      {ritualTrio.map((entry) => {
+                        const product = getProduct(entry.slug)!;
+                        const text = getProductText(product, l);
+                        return (
+                          <div key={entry.slug} className="flex flex-col">
+                            <Link
+                              href={`/${l}/shop/${entry.slug}`}
+                              className="group relative block aspect-[4/5] overflow-hidden rounded-2xl bg-sand/50"
+                            >
+                              <Image
+                                src={entry.image}
+                                alt={text.name}
+                                fill
+                                sizes="(min-width: 640px) 30vw, 90vw"
+                                className="object-cover transition duration-500 group-hover:scale-105"
+                              />
+                            </Link>
+                            <p className="mt-4 font-serif text-base italic text-mauve">{entry.subheadline}</p>
+                            <h3 className="mt-2 font-serif text-xl text-ink">{text.name}</h3>
+                            <p className="mt-2 text-sm leading-relaxed text-ink/70">{entry.copy}</p>
+                            <PhaseStrip activePhases={entry.activePhases} />
+                            <PriceLine slug={entry.slug} />
+                            <Link
+                              href={`/${l}/shop/${entry.slug}`}
+                              className="mt-3 inline-flex items-center gap-2 text-sm text-mauve-dark underline underline-offset-4 hover:text-ink"
+                            >
+                              {entry.cta}
+                            </Link>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* Group 3 — Tee + Starter-Set paired */}
+                {teaPair.length > 0 && (
+                  <div className="grid gap-10 sm:grid-cols-2 sm:gap-8">
+                    {teaPair.map((entry) => {
+                      const product = getProduct(entry.slug)!;
+                      const text = getProductText(product, l);
+                      return (
+                        <div key={entry.slug} className="flex flex-col">
+                          <Link
+                            href={`/${l}/shop/${entry.slug}`}
+                            className="group relative block aspect-[4/5] overflow-hidden rounded-2xl bg-sand/50"
+                          >
+                            <Image
+                              src={entry.image}
+                              alt={text.name}
+                              fill
+                              sizes="(min-width: 640px) 45vw, 90vw"
+                              className="object-cover transition duration-500 group-hover:scale-105"
+                            />
+                          </Link>
+                          <p className="mt-4 font-serif text-base italic text-mauve">{entry.subheadline}</p>
+                          <h3 className="mt-2 font-serif text-xl text-ink">{text.name}</h3>
+                          <p className="mt-2 text-sm leading-relaxed text-ink/70">{entry.copy}</p>
+                          <PhaseStrip activePhases={entry.activePhases} />
+                          <PriceLine slug={entry.slug} />
+                          <Link
+                            href={`/${l}/shop/${entry.slug}`}
+                            className="mt-3 inline-flex items-center gap-2 text-sm text-mauve-dark underline underline-offset-4 hover:text-ink"
+                          >
+                            {entry.cta}
+                          </Link>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {/* Visual transition toward night, per the brief */}
+                <div className="h-px w-full bg-gradient-to-r from-transparent via-mauve/25 to-transparent" />
+
+                {/* Group 4 — Nackenstützkissen + Matratze, large and generous with real sleep-room photography */}
+                {nightPair.length > 0 && (
+                  <div className="grid gap-12 md:grid-cols-2 md:gap-10">
+                    {nightPair.map((entry) => {
+                      const product = getProduct(entry.slug)!;
+                      const text = getProductText(product, l);
+                      return (
+                        <div key={entry.slug} className="flex flex-col">
+                          <Link
+                            href={`/${l}/shop/${entry.slug}`}
+                            className="group relative block aspect-[4/5] overflow-hidden rounded-3xl bg-ink/5"
+                          >
+                            <Image
+                              src={entry.image}
+                              alt={text.name}
+                              fill
+                              sizes="(min-width: 768px) 45vw, 90vw"
+                              className="object-cover transition duration-500 group-hover:scale-105"
+                            />
+                          </Link>
+                          <p className="mt-5 font-serif text-lg italic text-mauve">{entry.subheadline}</p>
+                          <h3 className="mt-3 font-serif text-2xl text-ink">{text.name}</h3>
+                          <p className="mt-4 max-w-md leading-relaxed text-ink/70">{entry.copy}</p>
+                          <PhaseStrip activePhases={entry.activePhases} />
+                          <PriceLine slug={entry.slug} />
+                          <Link
+                            href={`/${l}/shop/${entry.slug}`}
+                            className="mt-4 inline-flex items-center gap-2 text-sm text-mauve-dark underline underline-offset-4 hover:text-ink"
+                          >
+                            {entry.cta}
+                          </Link>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            );
+          })()}
 
           <div className="mt-20 border-t border-mauve/15 pt-14 text-center">
             <p className="text-xs uppercase tracking-[0.2em] text-teal-dark">

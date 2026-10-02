@@ -250,62 +250,71 @@
       "rhythmHeadline": "Your rhythm decides.",
       "rhythmBody": "SomnoBalance gives you impulses — you decide when and how they fit you and your everyday life. Some accompany you through several phases of the day, others create the right conditions for the night. Step by step, your own personal regeneration rhythm takes shape.",
       "phaseLabels": ["Regulate", "Let Go", "Prepare", "Regenerate"],
+      "ritualGroupLabel": "Your scent ritual.",
       "products": [
-        {
-          "slug": "somnobalance-starter-set",
-          "subheadline": "Four companions, one entry point.",
-          "copy": "The SomnoBalance Starter Set brings together the 21-day guide, the Regeneration Cards, the Anti-Stress Roll-on and the essential oil blend — your entry into the regeneration path from the active day into the night. You don't need to use everything at once: the guide gives you orientation, while the cards and aroma products accompany you in whatever way fits your day.",
-          "activePhases": [true, true, true, false],
-          "cta": "Discover the Starter Set →"
-        },
         {
           "slug": "somnobalance-regeneration-cards",
           "subheadline": "Impulses that accompany you through the day.",
           "copy": "SomnoBalance Regeneration Cards combine targeted regeneration points with rituals that fit everyday life. Use them intuitively — for a conscious moment in between, to let go after an active day, or as part of your personal evening routine.",
           "activePhases": [true, true, true, false],
-          "cta": "Discover the Regeneration Cards →"
+          "cta": "Discover the Regeneration Cards →",
+          "image": "/products/regeneration-cards-application.webp"
         },
         {
           "slug": "somnobalance-roll-on",
           "subheadline": "A scent impulse for conscious moments.",
           "copy": "The SomnoBalance Roll-on fits easily into everyday life — for a conscious moment in between, as a companion while letting go, or as part of a personal evening ritual.",
           "activePhases": [true, true, true, false],
-          "cta": "Discover the Roll-on →"
+          "cta": "Discover the Roll-on →",
+          "image": "/brand/rollon-styled-stone.webp"
         },
         {
           "slug": "somnobalance-oil-blend",
           "subheadline": "Consciously shaping atmosphere.",
           "copy": "The SomnoBalance Oil Blend accompanies conscious transitions and rituals. Its scent can become a recurring sensory cue associated with calm and conscious moments of regeneration.",
           "activePhases": [true, true, true, false],
-          "cta": "Discover the Oil Blend →"
+          "cta": "Discover the Oil Blend →",
+          "image": "/products/oil-blend-application.webp"
         },
         {
           "slug": "somnobalance-room-spray",
           "subheadline": "A conscious shift in atmosphere.",
           "copy": "A brief scent impulse changes how a room feels and can become a fixed part of personal transitions — from the active everyday into calmer moments and the evening.",
           "activePhases": [false, true, true, false],
-          "cta": "Discover the Room Spray →"
+          "cta": "Discover the Room Spray →",
+          "image": "/brand/roomspray-styled-stone.webp"
         },
         {
           "slug": "somnobalance-regeneration-tea",
           "subheadline": "A ritual for calmer moments.",
           "copy": "A consciously prepared cup of tea creates a moment to pause, and can become a recurring part of your personal evening routine.",
           "activePhases": [false, true, true, false],
-          "cta": "Discover the Regeneration Tea →"
+          "cta": "Discover the Regeneration Tea →",
+          "image": "/products/somnobalance-regeneration-tea-styled.webp"
+        },
+        {
+          "slug": "somnobalance-starter-set",
+          "subheadline": "Four companions, one entry point.",
+          "copy": "The SomnoBalance Starter Set brings together the 21-day guide, the Regeneration Cards, the Anti-Stress Roll-on and the essential oil blend — your entry into the regeneration path from the active day into the night. You don't need to use everything at once: the guide gives you orientation, while the cards and aroma products accompany you in whatever way fits your day.",
+          "activePhases": [true, true, true, false],
+          "cta": "Discover the Starter Set →",
+          "image": "/products/somnobalance-starter-set.webp"
         },
         {
           "slug": "somnobalance-neck-pillow",
           "subheadline": "Relief begins with the right support.",
           "copy": "The right positioning of head and neck is part of a consciously designed sleep environment. The SomnoBalance Neck Support Pillow adjusts individually and supports comfortable positioning — a foundation for physically settling down and regenerating at night.",
           "activePhases": [true, false, true, true],
-          "cta": "Discover the Neck Support Pillow →"
+          "cta": "Discover the Neck Support Pillow →",
+          "image": "/products/neck-pillow-lifestyle.webp"
         },
         {
           "slug": "somnobalance-mattress",
           "subheadline": "The foundation for a sleep environment that supports regeneration.",
           "copy": "A mattress shapes how the body is positioned and supported through the night. The SomnoBalance Mattress combines individually matched lying comfort with the aim of creating the right conditions for physically settling down and regenerating at night.",
           "activePhases": [true, false, true, true],
-          "cta": "Discover the Mattress →"
+          "cta": "Discover the Mattress →",
+          "image": "/products/mattress-lifestyle.webp"
         }
       ],
       "closingEyebrow": "DISCOVER SOMNOBALANCE",
