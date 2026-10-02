@@ -67,6 +67,9 @@ export type DbUser = {
   passwordHash: string;
   firstName: string;
   lastName: string;
+  phone?: string | null;
+  emailVerifiedAt?: string | null;
+  phoneVerifiedAt?: string | null;
 };
 
 export type DbOrder = {
@@ -116,7 +119,7 @@ export async function getUserById(
 ): Promise<DbUser | null> {
   return db
     .prepare(
-      `SELECT id, createdAt, email, passwordHash, firstName, lastName
+      `SELECT id, createdAt, email, passwordHash, firstName, lastName, phone, emailVerifiedAt, phoneVerifiedAt
        FROM "User" WHERE id = ?`
     )
     .bind(id)
@@ -129,10 +132,23 @@ export async function getUserByEmail(
 ): Promise<DbUser | null> {
   return db
     .prepare(
-      `SELECT id, createdAt, email, passwordHash, firstName, lastName
+      `SELECT id, createdAt, email, passwordHash, firstName, lastName, phone, emailVerifiedAt, phoneVerifiedAt
        FROM "User" WHERE email = ?`
     )
     .bind(email)
+    .first<DbUser>();
+}
+
+export async function getUserByPhone(
+  db: D1Database,
+  phone: string
+): Promise<DbUser | null> {
+  return db
+    .prepare(
+      `SELECT id, createdAt, email, passwordHash, firstName, lastName, phone, emailVerifiedAt, phoneVerifiedAt
+       FROM "User" WHERE phone = ?`
+    )
+    .bind(phone)
     .first<DbUser>();
 }
 
@@ -149,15 +165,80 @@ export async function getUserEmailExists(
 
 export async function insertUser(
   db: D1Database,
-  user: { id: string; email: string; passwordHash: string; firstName: string; lastName: string }
+  user: {
+    id: string;
+    email: string;
+    passwordHash: string;
+    firstName: string;
+    lastName: string;
+    phone?: string | null;
+    emailVerifiedAt?: string | null;
+    phoneVerifiedAt?: string | null;
+  }
 ): Promise<void> {
   await db
     .prepare(
-      `INSERT INTO "User" (id, email, passwordHash, firstName, lastName)
-       VALUES (?, ?, ?, ?, ?)`
+      `INSERT INTO "User" (id, email, passwordHash, firstName, lastName, phone, emailVerifiedAt, phoneVerifiedAt)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
     )
-    .bind(user.id, user.email, user.passwordHash, user.firstName, user.lastName)
+    .bind(
+      user.id,
+      user.email,
+      user.passwordHash,
+      user.firstName,
+      user.lastName,
+      user.phone ?? null,
+      user.emailVerifiedAt ?? null,
+      user.phoneVerifiedAt ?? null
+    )
     .run();
+}
+
+export async function updateUserEmailVerified(
+  db: D1Database,
+  userId: string,
+  timestamp = new Date().toISOString()
+): Promise<void> {
+  await db
+    .prepare(`UPDATE "User" SET emailVerifiedAt = ? WHERE id = ?`)
+    .bind(timestamp, userId)
+    .run();
+}
+
+export async function updateUserPhoneVerified(
+  db: D1Database,
+  userId: string,
+  timestamp = new Date().toISOString()
+): Promise<void> {
+  await db
+    .prepare(`UPDATE "User" SET phoneVerifiedAt = ? WHERE id = ?`)
+    .bind(timestamp, userId)
+    .run();
+}
+
+export async function updateUserVerifications(
+  db: D1Database,
+  userId: string,
+  emailVerified = true,
+  phoneVerified = true
+): Promise<void> {
+  const now = new Date().toISOString();
+  if (emailVerified && phoneVerified) {
+    await db
+      .prepare(`UPDATE "User" SET emailVerifiedAt = COALESCE(emailVerifiedAt, ?), phoneVerifiedAt = COALESCE(phoneVerifiedAt, ?) WHERE id = ?`)
+      .bind(now, now, userId)
+      .run();
+  } else if (emailVerified) {
+    await db
+      .prepare(`UPDATE "User" SET emailVerifiedAt = COALESCE(emailVerifiedAt, ?) WHERE id = ?`)
+      .bind(now, userId)
+      .run();
+  } else if (phoneVerified) {
+    await db
+      .prepare(`UPDATE "User" SET phoneVerifiedAt = COALESCE(phoneVerifiedAt, ?) WHERE id = ?`)
+      .bind(now, userId)
+      .run();
+  }
 }
 
 // ─── Order queries ────────────────────────────────────────────────────────────
