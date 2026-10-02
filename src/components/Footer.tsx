@@ -50,13 +50,15 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
         <div className="flex min-w-0 flex-col">
           <div className="grid gap-10 md:grid-cols-[1.25fr_0.8fr_0.95fr_1.1fr] md:gap-0">
             <div className="md:pr-10">
-              <Image
-                src="/brand/somnobalance-logo.webp"
-                alt="SomnoBalance"
-                width={876}
-                height={267}
-                className="h-10 w-auto"
-              />
+              <Link href={`/${lang}`} className="inline-block shrink-0">
+                <Image
+                  src="/brand/somnobalance-logo.webp"
+                  alt="SomnoBalance"
+                  width={876}
+                  height={267}
+                  className="h-10 w-auto"
+                />
+              </Link>
               <p className="mt-5 max-w-[260px] text-[11px] leading-5 text-lovable-primary-foreground/70">
                 {dict.footer.tagline}
               </p>
