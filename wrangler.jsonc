@@ -1,0 +1,50 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "somnobalance",
+  "compatibility_date": "2026-09-03",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "main": "vinext/server/fetch-handler",
+  "assets": {
+    "directory": "dist/client",
+    "not_found_handling": "none",
+    "binding": "ASSETS"
+  },
+  "cache": {
+    "enabled": true
+  },
+  "version_metadata": {
+    "binding": "CF_VERSION_METADATA"
+  },
+
+  "account_id": "fa3367bd68fc743fc113e65cba64435f",
+
+  // ─── D1 Database ────────────────────────────────────────────────────────────
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "somnobalance-db",
+      "database_id": "44a3b55e-a932-455e-b80d-1f440fb16168"
+    }
+  ]
+
+  // ─── Secrets (set via wrangler secret put, never committed) ─────────────────
+  // Required secrets:
+  //   SESSION_SECRET          — HMAC key for sb_session cookies (keep identical to current value)
+  //   ADMIN_PASSWORD          — admin panel password
+  //   STRIPE_SECRET_KEY       — Stripe secret key
+  //   STRIPE_WEBHOOK_SECRET   — Stripe webhook signing secret
+  //   RESEND_API_KEY          — Resend transactional email API key
+  //
+  // Required plain env vars (set in wrangler.jsonc [vars] or Cloudflare dashboard):
+  //   MAIL_FROM               — verified sender, e.g. "SomnoBalance <noreply@yourdomain.com>"
+  //   MAIL_TO                 — notification recipient, e.g. "faw@willing1863.com"
+  //
+  // Removed after migration:
+  //   SUPABASE_URL            — no longer needed
+  //   SUPABASE_SERVICE_ROLE_KEY — no longer needed
+  //   DATABASE_URL            — only needed for Prisma CLI, not runtime
+  //   DIRECT_URL              — only needed for Prisma CLI, not runtime
+  //   SMTP_HOST / SMTP_PORT / SMTP_USER / SMTP_PASS — replaced by RESEND_API_KEY
+}
