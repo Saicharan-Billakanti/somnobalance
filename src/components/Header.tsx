@@ -24,7 +24,6 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   const isBusiness = Boolean(user?.isBusiness && !isAffiliate && user?.role !== "admin");
 
   const nav = [
-    { href: `/${lang}/for-me`, label: dict.nav.forMe },
     { href: `/${lang}/shop`, label: dict.nav.shop },
     { href: `/${lang}/for-business`, label: isBusiness ? (lang === "de" ? "Mein B2B-Portal" : "Business Portal") : dict.nav.forBusiness },
     {

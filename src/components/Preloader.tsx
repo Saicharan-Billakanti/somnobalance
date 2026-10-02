@@ -87,7 +87,20 @@ export function Preloader() {
 
   useEffect(() => {
     const root = document.documentElement;
-    if (root.getAttribute("data-preloader") === "skip") {
+    // The html[data-preloader="skip"] attribute is set by a
+    // beforeInteractive script, which only runs once per real page load —
+    // not on a client-side navigation into a different [lang] segment
+    // (e.g. the locale switcher's router.push + router.refresh), which
+    // remounts this component without that script re-running. Checking
+    // sessionStorage directly here as well closes that gap, so the
+    // preloader doesn't reappear after switching languages mid-session.
+    let alreadySeen = root.getAttribute("data-preloader") === "skip";
+    if (!alreadySeen) {
+      try {
+        alreadySeen = sessionStorage.getItem(SEEN_KEY) === "1";
+      } catch {}
+    }
+    if (alreadySeen) {
       setGone(true);
       return;
     }

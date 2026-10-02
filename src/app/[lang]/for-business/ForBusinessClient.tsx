@@ -6,56 +6,7 @@ import Link from "next/link";
 import { useAuth } from "@/components/AuthProvider";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/getDictionary";
-import { BedSingle, Leaf, Coffee, Sparkles, MessageCircle, Tag, Zap, Package, Building2, PartyPopper, Pencil, FileText, Truck } from "lucide-react";
-
-interface B2BProductOption {
-  id: string;
-  name: string;
-  nameDe: string;
-  descriptionDe: string;
-  retailPrice: number;
-  icon: React.ReactNode;
-  description: string;
-}
-
-const B2B_PRODUCTS: B2BProductOption[] = [
-  {
-    id: "pillow",
-    name: "SomnoBalance Ergonomic Rest Pillow",
-    nameDe: "SomnoBalance Ergonomisches Ruhekissen",
-    descriptionDe: "Adaptive orthopädische Memory-Unterstützung für Luxussuiten & Erholungskliniken.",
-    retailPrice: 89.0,
-    icon: <BedSingle className="size-6" />,
-    description: "Adaptive orthopedic memory support for luxury suites & recovery clinics.",
-  },
-  {
-    id: "oil",
-    name: "SomnoBalance Botanical Rest Ritual Oil",
-    nameDe: "SomnoBalance Botanisches Ruhe-Ritualöl",
-    descriptionDe: "Roll-on mit ätherischem Lavendel- & Bergamotteöl für Gäste-Nachttisch-Rituale.",
-    retailPrice: 39.0,
-    icon: <Leaf className="size-6" />,
-    description: "Lavender & bergamot essential roll-on for guest nightstand rituals.",
-  },
-  {
-    id: "tea",
-    name: "SomnoBalance Organic Relaxation Tea",
-    nameDe: "SomnoBalance Bio-Entspannungstee",
-    descriptionDe: "Kamille, Zitronenmelisse & Baldrian für Spa-Amenities und den abendlichen Turndown-Service.",
-    retailPrice: 24.0,
-    icon: <Coffee className="size-6" />,
-    description: "Chamomile, lemon balm & valerian blend for spa amenities and evening turndown.",
-  },
-  {
-    id: "bundle",
-    name: "Complete Luxury Hospitality Suite Set",
-    nameDe: "Komplettes Luxus-Hospitality-Suite-Set",
-    descriptionDe: "Kissen + Ritualöl + Abendtee in hochwertiger Leinen-Geschenkverpackung.",
-    retailPrice: 139.0,
-    icon: <Sparkles className="size-6" />,
-    description: "Pillow + Ritual Oil + Evening Tea bundled in premium linen gift packaging.",
-  },
-];
+import { MessageCircle, Package, Building2, PartyPopper, Pencil, FileText, Truck, Sparkles } from "lucide-react";
 
 export function ForBusinessClient({
   lang,
@@ -68,12 +19,8 @@ export function ForBusinessClient({
 }) {
   const { user } = useAuth();
   const tx = (en: string, de: string) => (lang === "de" ? de : en);
-  const [tab, setTab] = useState<"overview" | "apply" | "portal">(initialApp ? "portal" : "overview");
+  const [tab, setTab] = useState<"apply" | "portal">(initialApp ? "portal" : "apply");
   const [app, setApp] = useState<any>(initialApp);
-
-  // Dynamic Wholesale Tier Calculator State
-  const [calcProduct, setCalcProduct] = useState<string>("pillow");
-  const [calcQuantity, setCalcQuantity] = useState<number>(25);
 
   // Application form state
   const [companyName, setCompanyName] = useState("");
@@ -201,50 +148,6 @@ export function ForBusinessClient({
       scrollToBottom();
     }
   }, [app?.messages, tab]);
-
-  // Calculate Wholesale Pricing
-  const selectedProduct = B2B_PRODUCTS.find((p) => p.id === calcProduct) || B2B_PRODUCTS[0];
-  let discountRate = 20;
-  let tierLabel = lang === "de" ? "Stufe 1: Basis-Partner (20%)" : "Tier 1: Boutique Partner (20% OFF)";
-  let tierBadge = tx("20% Wholesale", "20 % Großhandel");
-
-  if (calcQuantity >= 100) {
-    discountRate = 40;
-    tierLabel =
-      lang === "de"
-        ? "Stufe 3: Strategischer Großkunde (40%) + Kostenlose Display-Sets"
-        : "Tier 3: Strategic Enterprise Partner (40% OFF) + Display Kits";
-    tierBadge = tx("40% Elite Commercial", "40 % Elite-Gewerbe");
-  } else if (calcQuantity >= 25) {
-    discountRate = 30;
-    tierLabel =
-      lang === "de"
-        ? "Stufe 2: Hospitality Preferred (30%)"
-        : "Tier 2: Hospitality Preferred (30% OFF)";
-    tierBadge = tx("30% Preferred Volume", "30 % Vorzugsmenge");
-  }
-
-  const retailUnit = selectedProduct.retailPrice;
-  const wholesaleUnit = Math.round(retailUnit * (1 - discountRate / 100) * 100) / 100;
-  const totalRetail = Math.round(retailUnit * calcQuantity * 100) / 100;
-  const totalWholesale = Math.round(wholesaleUnit * calcQuantity * 100) / 100;
-  const totalSavings = Math.round((totalRetail - totalWholesale) * 100) / 100;
-
-  // Transfer calculator configuration into application form
-  const handleApplyWithConfig = () => {
-    setEstimatedVolume(`${calcQuantity} units / order (${selectedProduct.name})`);
-    setNotes(
-      `Interested in ordering ~${calcQuantity} units of ${selectedProduct.name} under ${tierLabel}. Estimated batch budget: €${totalWholesale.toFixed(2)}.`
-    );
-    setTab("apply");
-  };
-
-  // Quick 1-click sample kit configuration
-  const handleQuickSampleRequest = () => {
-    setEstimatedVolume("1 Sample Amenity Kit (Full Evaluation Batch)");
-    setNotes("Requesting a SomnoBalance Evaluation Sample Box for property review.");
-    setTab("apply");
-  };
 
   // Handle Form Submission
   const handleSubmitApplication = async (e: React.FormEvent) => {
@@ -443,30 +346,23 @@ export function ForBusinessClient({
         </p>
       </div>
 
-      {/* Dynamic Tabs Navigation */}
-      <div className="mt-10 flex justify-center">
-        <div className="inline-flex flex-wrap items-center justify-center gap-1.5 rounded-full bg-sand/80 p-1.5 text-sm font-medium shadow-inner">
-          <button
-            onClick={() => setTab("overview")}
-            className={`rounded-full px-5 py-2 transition ${
-              tab === "overview"
-                ? "bg-white text-ink shadow-sm font-semibold"
-                : "text-ink/60 hover:text-ink"
-            }`}
-          >
-            {lang === "de" ? "Übersicht & Rechner" : "Overview & Wholesale Simulator"}
-          </button>
-          <button
-            onClick={() => setTab("apply")}
-            className={`rounded-full px-5 py-2 transition ${
-              tab === "apply"
-                ? "bg-white text-ink shadow-sm font-semibold"
-                : "text-ink/60 hover:text-ink"
-            }`}
-          >
-            {lang === "de" ? "B2B-Konto beantragen" : "Apply for Business Terms"}
-          </button>
-          {app && (
+      {/* Tab switch: only shown once a business has an application on file,
+          to move between the Apply form and their own Portal/Live Desk —
+          the Overview/Wholesale Simulator tab was removed per the client's
+          "only keep apply for business section" instruction. */}
+      {app && (
+        <div className="mt-10 flex justify-center">
+          <div className="inline-flex flex-wrap items-center justify-center gap-1.5 rounded-full bg-sand/80 p-1.5 text-sm font-medium shadow-inner">
+            <button
+              onClick={() => setTab("apply")}
+              className={`rounded-full px-5 py-2 transition ${
+                tab === "apply"
+                  ? "bg-white text-ink shadow-sm font-semibold"
+                  : "text-ink/60 hover:text-ink"
+              }`}
+            >
+              {lang === "de" ? "B2B-Konto beantragen" : "Apply for Business Terms"}
+            </button>
             <button
               onClick={() => setTab("portal")}
               className={`flex items-center gap-2 rounded-full px-5 py-2 transition ${
@@ -483,267 +379,6 @@ export function ForBusinessClient({
                 </span>
               )}
             </button>
-          )}
-        </div>
-      </div>
-
-      {/* ========================================================================= */}
-      {/* TAB 1: OVERVIEW & DYNAMIC WHOLESALE CALCULATOR */}
-      {/* ========================================================================= */}
-      {tab === "overview" && (
-        <div className="mt-12 space-y-12">
-          {/* Key Advantages Grid */}
-          <div className="grid gap-6 sm:grid-cols-3">
-            <div className="group rounded-3xl border border-mauve/15 bg-white p-8 shadow-sm transition hover:border-teal/30 hover:shadow-md">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-teal/10 text-teal-dark">
-                <BedSingle className="size-6" />
-              </div>
-              <h3 className="mt-5 font-serif text-xl text-ink">
-                {dict.forBusiness?.card1Title || "In-Room Guest Rituals"}
-              </h3>
-              <p className="mt-3 text-sm leading-relaxed text-ink/70">
-                {dict.forBusiness?.card1Copy ||
-                  "Compact nightstand sets — ergonomic neck pillows, ritual roll-on oils, and herbal relaxation teas presented seamlessly as premium room amenities."}
-              </p>
-            </div>
-
-            <div className="group rounded-3xl border border-mauve/15 bg-white p-8 shadow-sm transition hover:border-teal/30 hover:shadow-md">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-teal/10 text-teal-dark">
-                <Tag className="size-6" />
-              </div>
-              <h3 className="mt-5 font-serif text-xl text-ink">
-                {dict.forBusiness?.card2Title || "Tiered Wholesale Pricing"}
-              </h3>
-              <p className="mt-3 text-sm leading-relaxed text-ink/70">
-                {dict.forBusiness?.card2Copy ||
-                  "Direct commercial terms (20% to 40% wholesale discount), EU VAT-free invoicing for registered enterprises, and priority DHL replenishment."}
-              </p>
-            </div>
-
-            <div className="group rounded-3xl border border-mauve/15 bg-white p-8 shadow-sm transition hover:border-teal/30 hover:shadow-md">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-teal/10 text-teal-dark">
-                <MessageCircle className="size-6" />
-              </div>
-              <h3 className="mt-5 font-serif text-xl text-ink">
-                {dict.forBusiness?.card3Title || "Direct Admin Desk & Support"}
-              </h3>
-              <p className="mt-3 text-sm leading-relaxed text-ink/70">
-                {dict.forBusiness?.card3Copy ||
-                  "Real-time 2-way communication with the SomnoBalance executive desk for custom batches, sample kits, and tailored logistics."}
-              </p>
-            </div>
-          </div>
-
-          {/* DYNAMIC WHOLESALE & VOLUME CALCULATOR */}
-          <div className="rounded-3xl border border-mauve/20 bg-gradient-to-br from-white via-sand/30 to-teal/5 p-6 shadow-sm sm:p-10">
-            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-mauve/10 pb-6">
-              <div>
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-teal/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-teal-dark">
-                  <Zap className="size-3" /> {tx("Interactive Commercial Estimator", "Interaktiver Gewerbe-Rechner")}
-                </span>
-                <h2 className="mt-2 font-serif text-2xl text-ink sm:text-3xl">
-                  {lang === "de"
-                    ? "Großhandels- & Margenrechner"
-                    : "Wholesale Tier & Margin Calculator"}
-                </h2>
-                <p className="mt-1 text-sm text-ink/70">
-                  {lang === "de"
-                    ? "Wählen Sie ein Produkt und die gewünschte Stückzahl, um Ihre Rabattstufe und Einsparungen live zu berechnen."
-                    : "Select a product and suite volume to preview your dynamic wholesale discount tier, savings, and batch totals."}
-                </p>
-              </div>
-
-              <button
-                onClick={handleQuickSampleRequest}
-                className="flex items-center gap-2 rounded-full border border-teal/30 bg-white px-5 py-2.5 text-xs font-semibold text-teal-dark shadow-xs hover:bg-teal hover:text-white transition"
-              >
-                <Package className="size-4" />
-                {lang === "de" ? "Musterpaket anfordern" : "Request Sample Evaluation Kit"}
-              </button>
-            </div>
-
-            <div className="mt-8 grid gap-8 lg:grid-cols-12">
-              {/* Product & Volume Controls */}
-              <div className="space-y-6 lg:col-span-7">
-                <div>
-                  <label className="text-xs font-semibold uppercase tracking-wider text-ink/70">
-                    {tx("1. Select Product or Hospitality Bundle", "1. Produkt oder Hospitality-Set wählen")}
-                  </label>
-                  <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                    {B2B_PRODUCTS.map((prod) => {
-                      const isSel = calcProduct === prod.id;
-                      return (
-                        <button
-                          key={prod.id}
-                          type="button"
-                          onClick={() => setCalcProduct(prod.id)}
-                          className={`flex flex-col items-start rounded-2xl border p-4 text-left transition ${
-                            isSel
-                              ? "border-teal bg-teal/5 ring-2 ring-teal/30 shadow-xs"
-                              : "border-mauve/15 bg-white hover:border-mauve/30"
-                          }`}
-                        >
-                          <div className="flex items-center justify-between w-full text-teal-dark">
-                            {prod.icon}
-                            <span className="text-xs font-medium text-ink/50">
-                              {tx("Retail", "Endkundenpreis")}: €{prod.retailPrice.toFixed(2)}
-                            </span>
-                          </div>
-                          <strong className="mt-2 text-sm font-serif text-ink">{lang === "de" ? prod.nameDe : prod.name}</strong>
-                          <p className="mt-1 text-[11px] text-ink/60 line-clamp-2">
-                            {lang === "de" ? prod.descriptionDe : prod.description}
-                          </p>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* Volume Slider */}
-                <div>
-                  <div className="flex items-center justify-between">
-                    <label className="text-xs font-semibold uppercase tracking-wider text-ink/70">
-                      {tx("2. Volume / Suite Count:", "2. Menge / Anzahl Suiten:")}{" "}
-                      <span className="font-serif text-base font-bold text-teal-dark">
-                        {calcQuantity} {tx("units", "Stück")}
-                      </span>
-                    </label>
-                    <span className="rounded-full bg-sand px-3 py-0.5 text-xs font-semibold text-ink/80">
-                      {tierBadge}
-                    </span>
-                  </div>
-
-                  <input
-                    type="range"
-                    min={5}
-                    max={200}
-                    step={5}
-                    value={calcQuantity}
-                    onChange={(e) => setCalcQuantity(Number(e.target.value))}
-                    className="mt-3 h-2.5 w-full cursor-pointer appearance-none rounded-lg bg-mauve/20 accent-teal"
-                  />
-
-                  <div className="mt-2 flex justify-between text-[11px] text-ink/50">
-                    <span>5 {tx("units", "Stück")}</span>
-                    <span>25 {tx("units (Tier 2: 30%)", "Stück (Stufe 2: 30 %)")}</span>
-                    <span>100+ {tx("units (Tier 3: 40%)", "Stück (Stufe 3: 40 %)")}</span>
-                    <span>200+ {tx("units", "Stück")}</span>
-                  </div>
-                </div>
-
-                {/* Tier Explanation Badge */}
-                <div className="rounded-2xl border border-teal/20 bg-teal/5 p-4 text-xs text-teal-dark">
-                  <div className="font-semibold flex items-center gap-1.5">
-                    <Sparkles className="size-4" /> {tierLabel}
-                  </div>
-                  <p className="mt-1 text-teal-dark/80 text-[11px]">
-                    {calcQuantity < 25
-                      ? tx("Order 25+ units to unlock Tier 2 (30% discount) and complimentary guest instruction cards.", "Bestellen Sie 25+ Stück, um Stufe 2 (30 % Rabatt) und kostenlose Gäste-Anleitungskarten freizuschalten.")
-                      : calcQuantity < 100
-                      ? tx("Order 100+ units to unlock Tier 3 (40% discount), free wooden display amenities, and dedicated concierge dispatch.", "Bestellen Sie 100+ Stück, um Stufe 3 (40 % Rabatt), kostenlose Holz-Display-Amenities und persönlichen Concierge-Versand freizuschalten.")
-                      : tx("Maximum commercial wholesale tier active! Includes complimentary custom embossing & DHL Express freight.", "Höchste Großhandelsstufe aktiv! Inklusive kostenloser individueller Prägung & DHL-Express-Fracht.")}
-                  </p>
-                </div>
-              </div>
-
-              {/* Dynamic Live Quote Card */}
-              <div className="flex flex-col justify-between rounded-3xl border border-mauve/20 bg-white p-6 shadow-md lg:col-span-5">
-                <div>
-                  <div className="flex items-center justify-between border-b border-mauve/10 pb-4">
-                    <span className="text-xs font-medium uppercase tracking-wider text-ink/60">
-                      {tx("Live Wholesale Quote", "Live-Großhandelsangebot")}
-                    </span>
-                    <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-[11px] font-bold text-emerald-800">
-                      -{discountRate}% {tx("APPLIED", "ANGEWENDET")}
-                    </span>
-                  </div>
-
-                  <div className="mt-4 space-y-3 text-xs">
-                    <div className="flex justify-between text-ink/70">
-                      <span>{tx("Selected Product:", "Gewähltes Produkt:")}</span>
-                      <strong className="text-ink truncate max-w-[180px]">{lang === "de" ? selectedProduct.nameDe : selectedProduct.name}</strong>
-                    </div>
-                    <div className="flex justify-between text-ink/70">
-                      <span>{tx("Standard Retail Unit Price:", "Regulärer Endkundenpreis je Stück:")}</span>
-                      <span>€{retailUnit.toFixed(2)}</span>
-                    </div>
-                    <div className="flex justify-between text-ink/70">
-                      <span>{tx("Wholesale Rate per Unit:", "Großhandelspreis je Stück:")}</span>
-                      <strong className="text-teal-dark font-serif text-sm">
-                        €{wholesaleUnit.toFixed(2)}
-                      </strong>
-                    </div>
-                    <div className="flex justify-between text-ink/70">
-                      <span>{tx("Total Retail Value", "Gesamter Endkundenwert")} ({calcQuantity}x):</span>
-                      <span className="line-through text-ink/40">€{totalRetail.toFixed(2)}</span>
-                    </div>
-
-                    <div className="my-3 border-t border-mauve/10 pt-3 flex justify-between items-baseline">
-                      <span className="text-sm font-semibold text-ink">{tx("Commercial Total:", "Gewerblicher Gesamtbetrag:")}</span>
-                      <div className="text-right">
-                        <div className="font-serif text-2xl font-bold text-teal-dark">
-                          €{totalWholesale.toFixed(2)}
-                        </div>
-                        <span className="text-[10px] text-ink/50">
-                          {tx("excl. VAT / Reverse charge eligible", "zzgl. MwSt. / Reverse-Charge möglich")}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="rounded-xl bg-sand/60 p-3 text-center">
-                      <span className="text-xs text-ink/70">
-                        {tx("Estimated Savings & Facility Margin:", "Geschätzte Ersparnis & Marge:")}
-                      </span>
-                      <div className="font-serif text-lg font-bold text-emerald-700">
-                        + €{totalSavings.toFixed(2)} ({discountRate}%)
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-6 space-y-2">
-                  <button
-                    onClick={handleApplyWithConfig}
-                    className="w-full rounded-full bg-mauve py-3 text-xs font-semibold text-white shadow-md hover:bg-mauve-dark transition"
-                  >
-                    {lang === "de"
-                      ? "Mit dieser Konfiguration bewerben →"
-                      : "Apply for this Wholesale Tier →"}
-                  </button>
-                  <p className="text-center text-[10px] text-ink/50">
-                    {tx("No upfront payment required. Rates validated upon business credential review.", "Keine Vorauszahlung erforderlich. Konditionen werden nach Prüfung Ihrer Geschäftsdaten bestätigt.")}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Hospitality Call to Action */}
-          <div className="rounded-3xl border border-mauve/15 bg-gradient-to-br from-sand/60 to-white p-8 sm:p-12 text-center">
-            <h2 className="font-serif text-2xl text-ink sm:text-3xl">
-              {lang === "de"
-                ? "Bereit für SomnoBalance in Ihrem Haus?"
-                : "Ready to enhance sleep wellness across your property?"}
-            </h2>
-            <p className="mx-auto mt-3 max-w-xl text-sm text-ink/70">
-              {lang === "de"
-                ? "Reichen Sie Ihren Antrag in 2 Minuten ein. Unser Team prüft Ihre Angaben und schaltet Ihren Großhandelsrabatt frei."
-                : "Submit your business application in under 2 minutes. Our executive team reviews credentials and unlocks your custom wholesale rates."}
-            </p>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-6">
-              <button
-                onClick={() => setTab("apply")}
-                className="rounded-full bg-mauve px-8 py-3.5 text-sm font-semibold text-white shadow-md hover:bg-mauve-dark transition"
-              >
-                {lang === "de" ? "Jetzt B2B-Konto beantragen →" : "Apply for Business Terms →"}
-              </button>
-              <button
-                onClick={handleQuickSampleRequest}
-                className="text-sm font-semibold text-ink/80 underline underline-offset-4"
-              >
-                {lang === "de" ? "Musterbox anfordern" : "Request Amenity Sample Kit"}
-              </button>
-            </div>
           </div>
         </div>
       )}

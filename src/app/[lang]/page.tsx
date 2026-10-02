@@ -30,7 +30,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-6">
               <Link
-                href={`/${l}/for-me`}
+                href={`/${l}/regenerationscheck`}
                 className="rounded-full bg-mauve px-6 py-3 text-sm text-white hover:bg-mauve-dark"
               >
                 {dict.home.ctaForMe}
