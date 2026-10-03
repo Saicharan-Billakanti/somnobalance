@@ -708,7 +708,7 @@
     "passwordMinLength": "The password must be at least 8 characters long.",
     "fullCodeRequired": "Please enter the complete 6-digit SMS code.",
     "otpTitle": "Enter Verification Code",
-    "otpSubtitle": "We have sent a 6-digit verification code to your email and mobile number.",
+    "otpSubtitle": "We have sent a 6-digit verification code to your email address.",
     "emailOtpLabel": "Email Verification Code",
     "emailOtpDesc": "Please enter the 6-digit code sent to your email address.",
     "mobileOtpLabel": "Mobile Verification Code",

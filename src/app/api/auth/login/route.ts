@@ -52,10 +52,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "E-Mail oder Passwort ist nicht korrekt." }, { status: 401 });
   }
 
-  // Check if newly registered user has pending OTP verifications
-  // Note: Existing demo/admin and legacy accounts without phone numbers log in directly.
+  // Check if user has pending email verification
   const isDemoAdmin = user.email.toLowerCase() === "admin@somnobalance.com";
-  const needsVerification = user.phone && (!user.emailVerifiedAt || !user.phoneVerifiedAt) && !isDemoAdmin;
+  const needsVerification = !user.emailVerifiedAt && !isDemoAdmin;
 
   if (needsVerification) {
     return NextResponse.json({
@@ -64,8 +63,8 @@ export async function POST(request: Request) {
       email: user.email,
       phone: user.phone,
       emailVerified: Boolean(user.emailVerifiedAt),
-      phoneVerified: Boolean(user.phoneVerifiedAt),
-      message: "Bitte verifizieren Sie Ihre E-Mail-Adresse und Mobilnummer.",
+      phoneVerified: true,
+      message: "Bitte verifizieren Sie Ihre E-Mail-Adresse.",
     });
   }
 

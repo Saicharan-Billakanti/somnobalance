@@ -2,9 +2,9 @@
 
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { getDB, dbConfigured, getUserEmailExists, getUserByPhone, insertUser } from "@/lib/db";
+import { getDB, dbConfigured, getUserEmailExists, insertUser } from "@/lib/db";
 import { hashPassword, sessionAuthConfigured } from "@/lib/auth";
-import { normalizePhoneNumber, sendOtpSms } from "@/lib/sms";
+import { normalizePhoneNumber } from "@/lib/sms";
 import { sendOtpEmail } from "@/lib/mailer";
 import { createAndStoreOtp } from "@/lib/otp";
 import { verifyTurnstileToken } from "@/lib/turnstile";
@@ -13,7 +13,7 @@ const schema = z.object({
   firstName: z.string().min(1).max(200),
   lastName: z.string().min(1).max(200),
   email: z.string().email(),
-  phone: z.string().min(6).max(30),
+  phone: z.string().max(30).optional().nullable(),
   password: z.string().min(8).max(200),
   lang: z.enum(["de", "en"]).optional().default("de"),
   turnstileToken: z.string().optional().nullable(),
@@ -48,13 +48,10 @@ export async function POST(request: Request) {
     );
   }
 
-  // 2. Validate and Normalize Phone Number
-  const normalizedPhone = normalizePhoneNumber(phone);
-  if (!normalizedPhone) {
-    return NextResponse.json(
-      { error: "Bitte geben Sie eine gültige Mobilfunknummer ein (z.B. +49 151 12345678)." },
-      { status: 400 }
-    );
+  // 2. Validate and Normalize Phone Number (if provided)
+  let normalizedPhone: string | null = null;
+  if (phone && phone.trim()) {
+    normalizedPhone = normalizePhoneNumber(phone);
   }
 
   const db = getDB();
@@ -69,19 +66,10 @@ export async function POST(request: Request) {
       );
     }
 
-    // 4. Phone Uniqueness Check
-    const phoneUser = await getUserByPhone(db, normalizedPhone);
-    if (phoneUser && phoneUser.phoneVerifiedAt) {
-      return NextResponse.json(
-        { error: "Diese Mobilnummer ist bereits mit einem verifizierten Konto verknüpft." },
-        { status: 409 }
-      );
-    }
-
     const id = crypto.randomUUID();
     const passwordHash = await hashPassword(password);
 
-    // 5. Create unverified user in D1
+    // 4. Create unverified user in D1
     await insertUser(db, {
       id,
       email,
@@ -93,15 +81,11 @@ export async function POST(request: Request) {
       phoneVerifiedAt: null,
     });
 
-    // 6. Generate secure 6-digit OTPs
+    // 5. Generate secure 6-digit OTP for Email
     const emailOtpRes = await createAndStoreOtp(db, email, "EMAIL", "REGISTRATION");
-    const smsOtpRes = await createAndStoreOtp(db, normalizedPhone, "SMS", "REGISTRATION");
 
-    // 7. Dispatch OTPs concurrently
-    await Promise.allSettled([
-      sendOtpEmail(email, emailOtpRes.otp, lang),
-      sendOtpSms(normalizedPhone, smsOtpRes.otp, lang),
-    ]);
+    // 6. Dispatch Email OTP
+    await sendOtpEmail(email, emailOtpRes.otp, lang);
 
     return NextResponse.json({
       ok: true,
@@ -110,7 +94,7 @@ export async function POST(request: Request) {
       phone: normalizedPhone,
       requiresVerification: true,
       emailVerified: false,
-      phoneVerified: false,
+      phoneVerified: true,
     });
   } catch (err) {
     console.error("[auth/register] failed:", err);
