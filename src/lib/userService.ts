@@ -1,6 +1,13 @@
 import { getSupabase, supabaseConfigured } from "@/lib/supabase";
 import { getAffiliateByEmail } from "@/lib/affiliateService";
 import { getBusinessApplicationByEmail } from "@/lib/businessService";
+import {
+  getDB,
+  dbConfigured,
+  getRecentOrders,
+  getOrderById as getD1OrderById,
+  updateOrderStatus as updateD1OrderStatus,
+} from "@/lib/db";
 
 export type UserProfile = {
   id: string;
@@ -106,7 +113,35 @@ export async function updateUserProfile(
 }
 
 export async function getUserOrders(userEmail: string): Promise<any[]> {
-  if (!userEmail || !supabaseConfigured()) return [];
+  if (!userEmail) return [];
+  if (dbConfigured()) {
+    try {
+      const db = getDB();
+      const { results: orders } = await db
+        .prepare(`SELECT * FROM "Order" WHERE LOWER(email) = LOWER(?) ORDER BY createdAt DESC`)
+        .bind(userEmail.trim())
+        .all<any>();
+      if (orders && orders.length > 0) {
+        const placeholders = orders.map(() => "?").join(",");
+        const ids = orders.map((o: any) => o.id);
+        const { results: allItems } = await db
+          .prepare(`SELECT * FROM "OrderItem" WHERE orderId IN (${placeholders}) ORDER BY rowid`)
+          .bind(...ids)
+          .all<any>();
+        const itemsByOrder = new Map<string, any[]>();
+        for (const item of allItems) {
+          const list = itemsByOrder.get(item.orderId) ?? [];
+          list.push(item);
+          itemsByOrder.set(item.orderId, list);
+        }
+        return orders.map((o: any) => ({ ...o, items: itemsByOrder.get(o.id) ?? [] }));
+      }
+      return orders || [];
+    } catch (err) {
+      console.error("[userService] D1 getUserOrders error:", err);
+    }
+  }
+  if (!supabaseConfigured()) return [];
   const { data, error } = await getSupabase()
     .from("Order")
     .select("*, items:OrderItem(*)")
@@ -117,6 +152,14 @@ export async function getUserOrders(userEmail: string): Promise<any[]> {
 }
 
 export async function getOrderById(orderId: string): Promise<any | null> {
+  if (dbConfigured()) {
+    try {
+      const order = await getD1OrderById(getDB(), orderId);
+      if (order) return order;
+    } catch (err) {
+      console.error("[userService] D1 getOrderById error:", err);
+    }
+  }
   if (!supabaseConfigured()) return null;
   const { data, error } = await getSupabase()
     .from("Order")
@@ -128,6 +171,13 @@ export async function getOrderById(orderId: string): Promise<any | null> {
 }
 
 export async function getAllOrders(): Promise<any[]> {
+  if (dbConfigured()) {
+    try {
+      return await getRecentOrders(getDB(), 100);
+    } catch (err) {
+      console.error("[userService] D1 getAllOrders error:", err);
+    }
+  }
   if (!supabaseConfigured()) return [];
   const { data, error } = await getSupabase()
     .from("Order")
@@ -138,6 +188,14 @@ export async function getAllOrders(): Promise<any[]> {
 }
 
 export async function updateOrderStatus(orderId: string, updates: Record<string, any>): Promise<any> {
+  if (dbConfigured() && updates.status) {
+    try {
+      await updateD1OrderStatus(getDB(), orderId, updates.status);
+      return { id: orderId, ...updates };
+    } catch (err) {
+      console.error("[userService] D1 updateOrderStatus error:", err);
+    }
+  }
   const { data, error } = await requireDatabase()
     .from("Order")
     .update(updates)

@@ -1,142 +1,325 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import { getSupabaseBrowser } from "@/lib/supabase-browser";
+import { useAuth } from "@/components/AuthProvider";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/getDictionary";
 
-type VerificationMode = "email" | "phone";
-
 export function RegisterClient({ lang, dict }: { lang: Locale; dict: Dictionary }) {
-  const t = dict.authPages.register;
   const router = useRouter();
-  const redirect = useSearchParams().get("redirect");
-  const [form, setForm] = useState({ firstName: "", lastName: "", email: "", phone: "", password: "", confirmPassword: "" });
-  const [verificationMode, setVerificationMode] = useState<VerificationMode>("email");
-  const [code, setCode] = useState("");
-  const [sent, setSent] = useState(false);
-  const [busy, setBusy] = useState(false);
-  const [message, setMessage] = useState<string | null>(null);
+  const { setUser } = useAuth();
+  const [error, setError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [resendingEmail, setResendingEmail] = useState(false);
+  const [resendingSms, setResendingSms] = useState(false);
 
-  const loginHref = `/${lang}/login${redirect ? `?redirect=${encodeURIComponent(redirect)}` : ""}`;
+  // OTP Verification flow state
+  const [verificationPending, setVerificationPending] = useState<{
+    userId: string;
+    email: string;
+    phone: string;
+    emailVerified?: boolean;
+    phoneVerified?: boolean;
+  } | null>(null);
 
-  const update = (field: keyof typeof form, value: string) => setForm((current) => ({ ...current, [field]: value }));
+  const [emailCode, setEmailCode] = useState("");
+  const [phoneCode, setPhoneCode] = useState("");
 
-  const sendCode = async (event: React.FormEvent) => {
-    event.preventDefault();
-    setMessage(null);
-    if (form.password !== form.confirmPassword) {
-      setMessage(t.passwordMismatch);
-      return;
-    }
-    setBusy(true);
-    const supabase = await getSupabaseBrowser();
-    const metadata = { firstName: form.firstName, lastName: form.lastName, email: form.email.trim().toLowerCase(), phone: form.phone };
-    const { error } = verificationMode === "email"
-      ? await supabase.auth.signInWithOtp({ email: form.email.trim().toLowerCase(), options: { shouldCreateUser: true, data: metadata } })
-      : await supabase.auth.signInWithOtp({ phone: form.phone.trim(), options: { shouldCreateUser: true, data: metadata } });
-    setBusy(false);
-    if (error) {
-      setMessage(error.message);
-      return;
-    }
-    setSent(true);
-    setMessage(verificationMode === "email" ? t.codeSentEmail : t.codeSentPhone);
-  };
+  if (verificationPending) {
+    return (
+      <div className="mx-auto max-w-md px-4 py-20 sm:px-6">
+        <p className="text-sm uppercase tracking-[0.2em] text-teal-dark">{dict.auth.account}</p>
+        <h1 className="mt-3 font-serif text-3xl text-ink">{dict.auth.otpTitle}</h1>
+        <p className="mt-3 text-ink/70">{dict.auth.otpSubtitle}</p>
 
-  const verifyCode = async (event: React.FormEvent) => {
-    event.preventDefault();
-    setBusy(true);
-    setMessage(null);
-    let provisioned = false;
-    try {
-      const supabase = await getSupabaseBrowser();
-      const { error } = verificationMode === "email"
-        ? await supabase.auth.verifyOtp({ email: form.email.trim().toLowerCase(), token: code.trim(), type: "email" })
-        : await supabase.auth.verifyOtp({ phone: form.phone.trim(), token: code.trim(), type: "sms" });
-      if (error) {
-        setMessage(error.message);
-        return;
-      }
+        {notice && <p className="mt-4 text-sm text-teal-dark font-medium">{notice}</p>}
+        {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
 
-      const { error: passwordError } = await supabase.auth.updateUser({ password: form.password });
-      if (passwordError) {
-        setMessage(passwordError.message);
-        return;
-      }
+        <form
+          onSubmit={async (e) => {
+            e.preventDefault();
+            setError(null);
+            setNotice(null);
+            setSubmitting(true);
 
-      const response = await fetch("/api/auth/provision", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      const data = await response.json();
-      if (!response.ok) {
-        setMessage(data.error || "Could not create your profile.");
-        return;
-      }
-      provisioned = true;
-    } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Supabase Auth is not configured.");
-    } finally {
-      setBusy(false);
-    }
-    if (provisioned) {
-      router.push(redirect || `/${lang}/shop`);
-      router.refresh();
-    }
-  };
+            try {
+              const res = await fetch("/api/auth/otp/verify", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  userId: verificationPending.userId,
+                  emailCode: verificationPending.emailVerified ? undefined : emailCode,
+                  phoneCode: verificationPending.phoneVerified ? undefined : phoneCode,
+                }),
+              });
+
+              const data = await res.json();
+              if (!res.ok) {
+                setError(data.error || "Ungültiger Bestätigungscode.");
+                if (data.emailVerified !== undefined || data.phoneVerified !== undefined) {
+                  setVerificationPending((prev) =>
+                    prev
+                      ? {
+                          ...prev,
+                          emailVerified: Boolean(data.emailVerified),
+                          phoneVerified: Boolean(data.phoneVerified),
+                        }
+                      : null
+                  );
+                }
+                return;
+              }
+
+              if (data.fullyVerified && data.user) {
+                setUser(data.user);
+                router.push(`/${lang}`);
+                router.refresh();
+              } else {
+                setVerificationPending((prev) =>
+                  prev
+                    ? {
+                        ...prev,
+                        emailVerified: Boolean(data.emailVerified),
+                        phoneVerified: Boolean(data.phoneVerified),
+                      }
+                    : null
+                );
+                setNotice("Teilweise verifiziert. Bitte geben Sie den verbleibenden Code ein.");
+              }
+            } catch {
+              setError(dict.auth.networkError);
+            } finally {
+              setSubmitting(false);
+            }
+          }}
+          className="mt-8 space-y-5"
+        >
+          {/* Email OTP Field */}
+          <div>
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="text-xs font-medium uppercase tracking-wider text-ink/70">
+                {dict.auth.emailOtpLabel} ({verificationPending.email})
+              </label>
+              {verificationPending.emailVerified && (
+                <span className="text-xs text-teal-dark font-medium">{dict.auth.emailVerified}</span>
+              )}
+            </div>
+            <input
+              required={!verificationPending.emailVerified}
+              disabled={verificationPending.emailVerified}
+              type="text"
+              inputMode="numeric"
+              maxLength={6}
+              value={verificationPending.emailVerified ? "✓" : emailCode}
+              onChange={(e) => setEmailCode(e.target.value.replace(/\D/g, ""))}
+              placeholder="123456"
+              className="input-field tracking-widest text-center text-lg font-mono disabled:opacity-60"
+            />
+            <p className="mt-1 text-xs text-ink/50">{dict.auth.emailOtpDesc}</p>
+          </div>
+
+          {/* SMS OTP Field */}
+          <div>
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="text-xs font-medium uppercase tracking-wider text-ink/70">
+                {dict.auth.mobileOtpLabel} ({verificationPending.phone})
+              </label>
+              {verificationPending.phoneVerified && (
+                <span className="text-xs text-teal-dark font-medium">{dict.auth.mobileVerified}</span>
+              )}
+            </div>
+            <input
+              required={!verificationPending.phoneVerified}
+              disabled={verificationPending.phoneVerified}
+              type="text"
+              inputMode="numeric"
+              maxLength={6}
+              value={verificationPending.phoneVerified ? "✓" : phoneCode}
+              onChange={(e) => setPhoneCode(e.target.value.replace(/\D/g, ""))}
+              placeholder="123456"
+              className="input-field tracking-widest text-center text-lg font-mono disabled:opacity-60"
+            />
+            <p className="mt-1 text-xs text-ink/50">{dict.auth.mobileOtpDesc}</p>
+          </div>
+
+          <button
+            type="submit"
+            disabled={submitting}
+            className="w-full rounded-full bg-mauve py-3 text-sm text-white hover:bg-mauve-dark disabled:opacity-60"
+          >
+            {submitting ? dict.auth.verifying : dict.auth.verifyButton}
+          </button>
+        </form>
+
+        {/* Resend actions */}
+        <div className="mt-6 flex flex-col gap-2 text-center text-sm">
+          {!verificationPending.emailVerified && (
+            <button
+              type="button"
+              disabled={resendingEmail}
+              onClick={async () => {
+                setResendingEmail(true);
+                setError(null);
+                try {
+                  const res = await fetch("/api/auth/otp/resend", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      userId: verificationPending.userId,
+                      channel: "EMAIL",
+                      lang,
+                    }),
+                  });
+                  const data = await res.json();
+                  if (!res.ok) {
+                    setError(data.error || "Fehler beim Senden.");
+                  } else {
+                    setNotice(dict.auth.codeSent);
+                  }
+                } catch {
+                  setError(dict.auth.networkError);
+                } finally {
+                  setResendingEmail(false);
+                }
+              }}
+              className="text-mauve-dark hover:underline disabled:opacity-50 text-xs"
+            >
+              {resendingEmail ? "Wird gesendet…" : dict.auth.resendEmail}
+            </button>
+          )}
+
+          {!verificationPending.phoneVerified && (
+            <button
+              type="button"
+              disabled={resendingSms}
+              onClick={async () => {
+                setResendingSms(true);
+                setError(null);
+                try {
+                  const res = await fetch("/api/auth/otp/resend", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      userId: verificationPending.userId,
+                      channel: "SMS",
+                      lang,
+                    }),
+                  });
+                  const data = await res.json();
+                  if (!res.ok) {
+                    setError(data.error || "Fehler beim Senden.");
+                  } else {
+                    setNotice(dict.auth.codeSent);
+                  }
+                } catch {
+                  setError(dict.auth.networkError);
+                } finally {
+                  setResendingSms(false);
+                }
+              }}
+              className="text-mauve-dark hover:underline disabled:opacity-50 text-xs"
+            >
+              {resendingSms ? "Wird gesendet…" : dict.auth.resendMobile}
+            </button>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="mx-auto max-w-md px-4 py-16 sm:px-6">
-      <h1 className="font-serif text-3xl text-ink">{t.title}</h1>
-      <p className="mt-2 text-sm text-ink/70">{t.subtitle}</p>
-      <div className="mt-6 grid grid-cols-2 rounded-full bg-sand p-1 text-center text-sm">
-        {(["email", "phone"] as VerificationMode[]).map((item) => (
-          <button
-            key={item}
-            type="button"
-            onClick={() => {
-              setVerificationMode(item);
-              setSent(false);
-              setMessage(null);
-            }}
-            className={`rounded-full py-2 ${verificationMode === item ? "bg-white font-semibold text-teal-dark shadow-sm" : "text-ink/60"}`}
-          >
-            {item === "email" ? t.verifyByEmail : t.verifyByPhone}
-          </button>
-        ))}
-      </div>
-      {!sent ? (
-        <form onSubmit={sendCode} className="mt-8 space-y-4">
-          <input required value={form.firstName} onChange={(event) => update("firstName", event.target.value)} placeholder={t.firstName} className="input-field" />
-          <input required value={form.lastName} onChange={(event) => update("lastName", event.target.value)} placeholder={t.lastName} className="input-field" />
-          <input required type="email" value={form.email} onChange={(event) => update("email", event.target.value)} placeholder={t.email} className="input-field" />
-          <input required type="tel" value={form.phone} onChange={(event) => update("phone", event.target.value)} placeholder={t.phone} className="input-field" />
-          <input required type="password" minLength={8} value={form.password} onChange={(event) => update("password", event.target.value)} placeholder={t.password} className="input-field" />
-          <input required type="password" minLength={8} value={form.confirmPassword} onChange={(event) => update("confirmPassword", event.target.value)} placeholder={t.confirmPassword} className="input-field" />
-          <button disabled={busy} className="w-full rounded-full bg-mauve py-3 text-sm font-semibold text-white disabled:opacity-50">
-            {busy ? t.sending : t.sendCode}
-          </button>
-        </form>
-      ) : (
-        <form onSubmit={verifyCode} className="mt-8 space-y-4">
-          <input required inputMode="numeric" minLength={6} maxLength={8} value={code} onChange={(event) => setCode(event.target.value)} placeholder={t.codePlaceholder} className="input-field" />
-          <button disabled={busy} className="w-full rounded-full bg-mauve py-3 text-sm font-semibold text-white disabled:opacity-50">
-            {busy ? t.verifying : t.verify}
-          </button>
-          <button type="button" onClick={() => setSent(false)} className="w-full text-xs text-mauve-dark underline underline-offset-4">
-            {t.useDifferentEmail}
-          </button>
-        </form>
-      )}
-      {message && <p className="mt-4 text-sm text-ink/70">{message}</p>}
-      <p className="mt-6 text-center text-sm text-ink/60">
-        {t.alreadyHaveAccount}{" "}
-        <Link href={loginHref} className="text-mauve-dark underline underline-offset-4">
-          {t.signIn}
+    <div className="mx-auto max-w-md px-4 py-20 sm:px-6">
+      <p className="text-sm uppercase tracking-[0.2em] text-teal-dark">{dict.auth.account}</p>
+      <h1 className="mt-3 font-serif text-3xl text-ink">{dict.auth.registerTitle}</h1>
+      <p className="mt-3 text-ink/70">{dict.auth.registerWelcome}</p>
+
+      <form
+        onSubmit={async (e) => {
+          e.preventDefault();
+          setError(null);
+          setNotice(null);
+          setSubmitting(true);
+
+          const formData = new FormData(e.currentTarget);
+          const payload = {
+            firstName: String(formData.get("firstName") || ""),
+            lastName: String(formData.get("lastName") || ""),
+            email: String(formData.get("email") || ""),
+            phone: String(formData.get("phone") || ""),
+            password: String(formData.get("password") || ""),
+            lang,
+          };
+
+          try {
+            const res = await fetch("/api/auth/register", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
+            });
+            const data = await res.json();
+            if (!res.ok) {
+              setError(data.error || dict.auth.registerError);
+              return;
+            }
+
+            if (data.requiresVerification) {
+              setVerificationPending({
+                userId: data.userId,
+                email: data.email,
+                phone: data.phone,
+                emailVerified: data.emailVerified,
+                phoneVerified: data.phoneVerified,
+              });
+            } else if (data.user) {
+              setUser(data.user);
+              router.push(`/${lang}`);
+              router.refresh();
+            }
+          } catch {
+            setError(dict.auth.networkError);
+          } finally {
+            setSubmitting(false);
+          }
+        }}
+        className="mt-10 space-y-4"
+      >
+        <div className="grid grid-cols-2 gap-4">
+          <input required name="firstName" placeholder={dict.auth.firstName} className="input-field" />
+          <input required name="lastName" placeholder={dict.auth.lastName} className="input-field" />
+        </div>
+        <input required type="email" name="email" placeholder={dict.auth.email} className="input-field" />
+        <input
+          required
+          type="tel"
+          name="phone"
+          placeholder={dict.auth.phonePlaceholder || "Mobilnummer (z. B. +49 151 12345678)"}
+          className="input-field"
+        />
+        <input
+          required
+          type="password"
+          name="password"
+          minLength={8}
+          placeholder={dict.auth.passwordMin}
+          className="input-field"
+        />
+        {error && <p className="text-sm text-red-600">{error}</p>}
+        <button
+          type="submit"
+          disabled={submitting}
+          className="w-full rounded-full bg-mauve py-3 text-sm text-white hover:bg-mauve-dark disabled:opacity-60"
+        >
+          {submitting ? dict.auth.creatingAccount : dict.auth.createAccount}
+        </button>
+      </form>
+
+      <p className="mt-6 text-sm text-ink/60">
+        {dict.auth.alreadyHaveAccount}{" "}
+        <Link href={`/${lang}/login`} className="text-mauve-dark underline">
+          {dict.auth.loginButton}
         </Link>
       </p>
     </div>

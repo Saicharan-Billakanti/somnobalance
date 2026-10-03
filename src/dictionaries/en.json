@@ -701,7 +701,21 @@
     "verifyingAndCreating": "Verifying & creating account…",
     "validPhoneRequired": "Please enter a valid German (+49) or Indian (+91) phone number.",
     "passwordMinLength": "The password must be at least 8 characters long.",
-    "fullCodeRequired": "Please enter the complete 6-digit SMS code."
+    "fullCodeRequired": "Please enter the complete 6-digit SMS code.",
+    "otpTitle": "Enter Verification Code",
+    "otpSubtitle": "We have sent a 6-digit verification code to your email and mobile number.",
+    "emailOtpLabel": "Email Verification Code",
+    "emailOtpDesc": "Please enter the 6-digit code sent to your email address.",
+    "mobileOtpLabel": "Mobile Verification Code",
+    "mobileOtpDesc": "Please enter the 6-digit code sent to your mobile phone via SMS.",
+    "verifyButton": "Verify & Continue",
+    "verifying": "Verifying…",
+    "resendEmail": "Resend Email Code",
+    "resendMobile": "Resend SMS Code",
+    "codeSent": "A new code has been sent.",
+    "emailVerified": "Email verified ✓",
+    "mobileVerified": "Mobile verified ✓",
+    "enterBothCodes": "Please enter the 6-digit codes."
   },
   "admin": {
     "notConfiguredTitle": "Admin not configured",
