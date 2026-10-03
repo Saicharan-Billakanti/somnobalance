@@ -9,7 +9,7 @@ import type { Locale } from "@/i18n/config";
 
 type PurchaseInfo = Pick<
   Product,
-  "slug" | "price" | "variants" | "returnPeriodDays" | "refundPolicy" | "refundRules" | "maxRetailQuantity"
+  "slug" | "price" | "variants" | "editions" | "returnPeriodDays" | "refundPolicy" | "refundRules" | "maxRetailQuantity"
 >;
 
 export function ProductPurchasePanel({
@@ -22,6 +22,7 @@ export function ProductPurchasePanel({
   lang?: Locale | string;
 }) {
   const [selected, setSelected] = useState<string | undefined>(product.variants?.[0]?.label);
+  const [editionSelected, setEditionSelected] = useState<string | undefined>(product.editions?.[0]?.label);
   const [qty, setQty] = useState<number>(1);
 
   const variant = product.variants
@@ -30,6 +31,14 @@ export function ProductPurchasePanel({
   const price = variant ? variant.price : (product.price ?? 0);
   const de = lang === "de";
   const tx = (en: string, deText: string) => (de ? deText : en);
+
+  // Combined into the single opaque variant string the cart/order already
+  // key on (e.g. "160 × 200 cm — H2/H3") — no new axis through checkout,
+  // just a richer label on the one it already has.
+  const cartVariant = product.editions?.length
+    ? [variant?.label, editionSelected].filter(Boolean).join(" — ") || undefined
+    : selected;
+  const editionNotes: Record<string, string> = dict.shop.editionNotes ?? {};
   const policyDe: Record<string, string> = {
     "14-Day Money-Back Guarantee": "14 Tage Geld-zurück-Garantie",
     "30-Day Money-Back Guarantee": "30 Tage Geld-zurück-Garantie",
@@ -72,6 +81,37 @@ export function ProductPurchasePanel({
           {variant?.priceNote && (
             <p className="mt-2 text-xs text-teal-dark">{variantNotes[variant.priceNote] ?? variant.priceNote}</p>
           )}
+        </div>
+      )}
+
+      {product.editions && product.editions.length > 0 && (
+        <div className="mt-2">
+          <div className="text-sm font-medium text-ink">{dict.shop.firmness}</div>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {product.editions.map((ed) => (
+              <button
+                key={ed.label}
+                type="button"
+                onClick={() => setEditionSelected(ed.label)}
+                className={`rounded-full border px-4 py-2 text-sm ${
+                  editionSelected === ed.label
+                    ? "border-mauve bg-mauve/10 font-medium text-mauve-dark"
+                    : "border-mauve/20 text-ink/70 hover:bg-sand"
+                }`}
+              >
+                {ed.label}
+              </button>
+            ))}
+          </div>
+          {(() => {
+            const activeEdition = product.editions!.find((ed) => ed.label === editionSelected);
+            if (!activeEdition) return null;
+            return (
+              <p className="mt-2 text-xs text-ink/60">
+                {editionNotes[activeEdition.description] ?? activeEdition.description}
+              </p>
+            );
+          })()}
         </div>
       )}
 
@@ -152,7 +192,7 @@ export function ProductPurchasePanel({
 
       {/* Add To Cart */}
       <div>
-        <AddToCartButton slug={product.slug} variant={selected} qty={qty} dict={dict} />
+        <AddToCartButton slug={product.slug} variant={cartVariant} qty={qty} dict={dict} />
       </div>
 
       {/* Return Policy & Seal Breakage Rule Guarantee Box */}

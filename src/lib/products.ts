@@ -4,6 +4,16 @@ export type ProductVariant = {
   priceNote?: string;
 };
 
+// A second, independent choice alongside size (currently only the
+// mattress's firmness edition). No price delta of its own — editions
+// change feel, not cost — so it's combined into the variant label the
+// cart/order already treat as one opaque string, rather than adding a
+// second pricing axis through checkout.
+export type ProductEdition = {
+  label: string;
+  description: string;
+};
+
 // Short structured facts shown as an icon row on the PDP (format, product
 // type, usage) — short labels, not full sentences. Only set this once the
 // values are confirmed for a product; leave it undefined rather than
@@ -32,6 +42,7 @@ export type Product = {
   category: "Sleep" | "Ritual" | "Care";
   price?: number;
   variants?: ProductVariant[];
+  editions?: ProductEdition[];
   tagline: string;
   description: string;
   details: string[];
@@ -331,6 +342,10 @@ export const products: Product[] = [
       { label: "180 × 200 cm", price: 2295, priceNote: "Two independent firmness zones" },
       { label: "200 × 200 cm", price: 2295, priceNote: "Two independent firmness zones" },
     ],
+    editions: [
+      { label: "H2/H3", description: "Reversible between firmness H2 and H3" },
+      { label: "H3/H4", description: "Reversible between firmness H3 and H4" },
+    ],
     legalNote:
       "Special lengths of 210 cm or 220 cm are available for a 20% surcharge on the base size price — not yet configurable in this demo checkout. The Vitalize® cover is described only as the manufacturer characterises it; claims about microcirculation, sleep or wellbeing are deliberately not presented as proven effects.",
     translations: {
@@ -416,7 +431,13 @@ export function getProduct(slug: string) {
 
 export function getVariant(product: Product, variantLabel?: string) {
   if (!product.variants) return null;
-  return product.variants.find((v) => v.label === variantLabel) ?? product.variants[0];
+  // Products with an edition axis store cart lines as "<size> — <edition>"
+  // (see priceOrderItems) — strip the edition suffix before matching size.
+  const sizeLabel =
+    product.editions?.length && variantLabel?.includes(" — ")
+      ? variantLabel.slice(0, variantLabel.lastIndexOf(" — "))
+      : variantLabel;
+  return product.variants.find((v) => v.label === sizeLabel) ?? product.variants[0];
 }
 
 export function getDisplayPrice(product: Product) {
@@ -442,15 +463,33 @@ export function priceOrderItems(
     if (!product) return { error: `Unknown product: ${item.slug}` };
 
     if (product.variants) {
-      const variant = product.variants.find((v) => v.label === item.variant);
+      // Products with a second axis (currently only the mattress's
+      // firmness edition) store the cart variant as "<size> — <edition>"
+      // — split it back apart here so size still matches product.variants
+      // exactly, and separately validate the edition is a real option
+      // rather than silently accepting/dropping an unrecognised one.
+      let sizeLabel = item.variant;
+      let editionLabel: string | undefined;
+      if (product.editions?.length && item.variant?.includes(" — ")) {
+        const idx = item.variant.lastIndexOf(" — ");
+        sizeLabel = item.variant.slice(0, idx);
+        editionLabel = item.variant.slice(idx + 3);
+        if (!product.editions.some((ed) => ed.label === editionLabel)) {
+          return { error: `Unknown edition for ${product.name}: ${editionLabel}` };
+        }
+      } else if (product.editions?.length) {
+        return { error: `Missing edition for ${product.name}` };
+      }
+
+      const variant = product.variants.find((v) => v.label === sizeLabel);
       if (!variant) {
         return {
-          error: `Unknown size for ${product.name}: ${item.variant ?? "(none given)"}`,
+          error: `Unknown size for ${product.name}: ${sizeLabel ?? "(none given)"}`,
         };
       }
       lines.push({
         slug: product.slug,
-        name: `${product.name} (${variant.label})`,
+        name: editionLabel ? `${product.name} (${variant.label}, ${editionLabel})` : `${product.name} (${variant.label})`,
         unitPrice: variant.price,
         qty: item.qty,
       });

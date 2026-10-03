@@ -532,6 +532,7 @@
     "inclVat": "inkl. MwSt.",
     "from": "ab",
     "size": "Größe",
+    "firmness": "Ausführung",
     "inclVatShipping": "inkl. MwSt. · versandkostenfrei ab 59 €",
     "freeDelivery": "Kostenfreier Versand",
     "partnerMemberTitle": "Partnerin",
@@ -567,6 +568,10 @@
     "viewAllProducts": "Alle Produkte ansehen",
     "variantNotes": {
       "Two independent firmness zones": "Zwei unabhängige Härtezonen"
+    },
+    "editionNotes": {
+      "Reversible between firmness H2 and H3": "Wendbar zwischen Härtegrad H2 und H3",
+      "Reversible between firmness H3 and H4": "Wendbar zwischen Härtegrad H3 und H4"
     },
     "categories": {
       "Sleep": "Schlaf",
