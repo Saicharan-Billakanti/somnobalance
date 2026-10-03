@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { ADMIN_COOKIE_NAME, adminConfigured, verifyAdminOrPartnerAccess } from "@/lib/adminAuth";
 import { getSupabase, supabaseConfigured } from "@/lib/supabase";
+import { getDB, dbConfigured as d1Configured, getRecentContactMessages } from "@/lib/db";
 import { getAllOrders } from "@/lib/userService";
 import { getAllAdminAffiliateData } from "@/lib/affiliateService";
 import { getAllBusinessApplications } from "@/lib/businessService";
@@ -45,10 +46,12 @@ export default async function AdminPage({ params }: { params: Promise<{ lang: st
     redirect(`/${lang}/login?redirect=/${lang}/admin`);
   }
 
-  const dbConfigured = supabaseConfigured();
-
   let messages: any[] = [];
-  if (dbConfigured) {
+  if (d1Configured()) {
+    try {
+      messages = await getRecentContactMessages(getDB(), 50);
+    } catch {}
+  } else if (supabaseConfigured()) {
     try {
       messages = await loadContactMessages(getSupabase());
     } catch {}
