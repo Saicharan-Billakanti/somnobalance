@@ -59,7 +59,7 @@ export async function POST(request: Request) {
   const errors: Record<string, string> = {};
 
   // 1. Verify Email OTP if provided or requested
-  const emailOtpToVerify = emailCode || (channel === "EMAIL" ? code : undefined);
+  const emailOtpToVerify = emailCode || code || (channel === "EMAIL" ? code : undefined);
   if (emailOtpToVerify && !emailOk) {
     const res = await verifyOtp(db, user.email, "EMAIL", "REGISTRATION", emailOtpToVerify);
     if (res.success) {
@@ -76,7 +76,7 @@ export async function POST(request: Request) {
     }
   }
 
-  // 2. Verify Phone OTP if provided or requested
+  // 2. Verify Phone OTP if provided (optional)
   const phoneOtpToVerify = phoneCode || (channel === "SMS" ? code : undefined);
   if (phoneOtpToVerify && !phoneOk && user.phone) {
     const res = await verifyOtp(db, user.phone, "SMS", "REGISTRATION", phoneOtpToVerify);
@@ -107,13 +107,13 @@ export async function POST(request: Request) {
     );
   }
 
-  // 3. Both Verified: Issue Session Cookie
-  if (emailOk && phoneOk) {
+  // 3. Email Verified: Issue Session Cookie
+  if (emailOk) {
     const res = NextResponse.json({
       ok: true,
       fullyVerified: true,
       emailVerified: true,
-      phoneVerified: true,
+      phoneVerified: phoneOk,
       user: {
         id: user.id,
         email: user.email,
@@ -133,7 +133,6 @@ export async function POST(request: Request) {
     return res;
   }
 
-  // Partial verification (one channel verified, other pending)
   return NextResponse.json({
     ok: true,
     fullyVerified: false,
