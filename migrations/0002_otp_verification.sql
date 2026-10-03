@@ -1,9 +1,13 @@
 -- Migration 0002: Email and Mobile OTP Verification
 -- Adds verification metadata to User and creates OtpVerification table.
-
-ALTER TABLE "User" ADD COLUMN "phone" TEXT;
-ALTER TABLE "User" ADD COLUMN "emailVerifiedAt" TEXT;
-ALTER TABLE "User" ADD COLUMN "phoneVerifiedAt" TEXT;
+--
+-- 2026-10-03: the three ALTER TABLE statements that originally opened this
+-- file are now redundant — User.phone/emailVerifiedAt/phoneVerifiedAt were
+-- already added directly to 0001_init.sql (see that file's 2026-10-02 note)
+-- after a schema gap was found while verifying the demo admin login. Kept
+-- out of this file so re-running migrations 0001 then 0002 against a fresh
+-- database doesn't hit "duplicate column" errors; the columns are created
+-- once, in 0001.
 
 CREATE TABLE IF NOT EXISTS "OtpVerification" (
   "id"         TEXT    NOT NULL PRIMARY KEY,

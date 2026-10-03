@@ -5,6 +5,20 @@ import { getStripe, stripeConfigured } from "@/lib/stripe";
 import { sendNotification } from "@/lib/mailer";
 import { priceOrderItems, computeShipping } from "@/lib/products";
 
+// Coupon/affiliate-commission validation is intentionally NOT wired back in
+// here yet: it depended on Supabase's AffiliateCoupon/Affiliate/
+// CommissionRecord tables, which don't exist in D1 (0001_init.sql only
+// covers User/Order/OrderItem/ContactMessage). Restoring it needs a D1
+// schema + data migration for the affiliate/partner system, tracked as a
+// separate follow-up rather than guessed at here.
+//
+// getProductReturnInfo()'s per-item returnPeriodDays/refundPolicy/
+// refundRules were also dropped from this route in the D1 rewrite, but
+// confirmed via grep that no current frontend page reads them from the
+// order API response — the returns/legal pages read policy straight from
+// the static product catalog instead — so left out rather than adding an
+// unused field back in.
+
 const orderSchema = z.object({
   firstName: z.string().min(1).max(200),
   lastName: z.string().min(1).max(200),

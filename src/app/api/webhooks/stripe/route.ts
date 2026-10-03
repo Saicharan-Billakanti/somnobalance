@@ -4,6 +4,15 @@ import { getStripe, stripeConfigured } from "@/lib/stripe";
 import { getDB, dbConfigured, updateOrderStatus } from "@/lib/db";
 import { sendNotification } from "@/lib/mailer";
 
+// Affiliate commission tracking (processOrderCommission from
+// affiliateService) is intentionally NOT wired back in here: it depends on
+// Supabase's AffiliateCoupon/Affiliate/CommissionRecord tables, which have
+// no D1 equivalent yet (0001_init.sql only covers User/Order/OrderItem/
+// ContactMessage). A paid order with a coupon code currently does NOT
+// credit the referring partner — tracked as a required follow-up before
+// the partner program can run fully on D1, not something to guess a
+// schema for here.
+
 // Stripe signs the raw body — read as text before verifying.
 export async function POST(request: Request) {
   if (!stripeConfigured() || !dbConfigured()) {
