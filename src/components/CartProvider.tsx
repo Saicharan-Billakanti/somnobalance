@@ -7,6 +7,7 @@ type CartLine = { slug: string; qty: number; variant?: string };
 type CartContextValue = {
   lines: CartLine[];
   add: (slug: string, qty?: number, variant?: string) => void;
+  addItem?: (slug: string, qty?: number, variant?: string) => void;
   remove: (slug: string, variant?: string) => void;
   setQty: (slug: string, qty: number, variant?: string) => void;
   clear: () => void;
@@ -82,7 +83,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [lines]);
 
   return (
-    <CartContext.Provider value={{ lines, add, remove, setQty, clear, count, total, shipping }}>
+    <CartContext.Provider
+      value={{ lines, add, addItem: add, remove, setQty, clear, count, total, shipping }}
+    >
       {children}
     </CartContext.Provider>
   );

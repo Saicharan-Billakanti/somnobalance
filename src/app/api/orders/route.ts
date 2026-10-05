@@ -1,9 +1,23 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { getSupabase, supabaseConfigured } from "@/lib/supabase";
+import { getDB, dbConfigured, insertOrderWithItems, updateOrderStripeSession, deleteOrder } from "@/lib/db";
 import { getStripe, stripeConfigured } from "@/lib/stripe";
 import { sendNotification } from "@/lib/mailer";
 import { priceOrderItems, computeShipping } from "@/lib/products";
+
+// Coupon/affiliate-commission validation is intentionally NOT wired back in
+// here yet: it depended on Supabase's AffiliateCoupon/Affiliate/
+// CommissionRecord tables, which don't exist in D1 (0001_init.sql only
+// covers User/Order/OrderItem/ContactMessage). Restoring it needs a D1
+// schema + data migration for the affiliate/partner system, tracked as a
+// separate follow-up rather than guessed at here.
+//
+// getProductReturnInfo()'s per-item returnPeriodDays/refundPolicy/
+// refundRules were also dropped from this route in the D1 rewrite, but
+// confirmed via grep that no current frontend page reads them from the
+// order API response — the returns/legal pages read policy straight from
+// the static product catalog instead — so left out rather than adding an
+// unused field back in.
 
 const orderSchema = z.object({
   firstName: z.string().min(1).max(200),
@@ -38,9 +52,7 @@ export async function POST(request: Request) {
 
   const data = parsed.data;
 
-  // Re-price every line server-side from the product catalog — never trust
-  // a price sent by the client. Same helper the checkout UI uses for
-  // display, so the two can never disagree.
+  // Re-price every line server-side — never trust a price sent by the client.
   const priced = priceOrderItems(data.items);
   if ("error" in priced) {
     return NextResponse.json({ error: priced.error }, { status: 400 });
@@ -57,14 +69,10 @@ export async function POST(request: Request) {
   const shipping = computeShipping(priced.lines);
   const total = subtotal + shipping;
 
-  // SUPABASE_URL/SUPABASE_SERVICE_ROLE_KEY intentionally unset in some
-  // environments (e.g. before the backend is wired up there). In that case
-  // we accept the order shape but skip persistence, so the checkout flow
-  // keeps working for gateway/courier application reviewers instead of
-  // failing with a 500.
-  if (!supabaseConfigured()) {
+  // DB not configured — accept the order shape but skip persistence.
+  if (!dbConfigured()) {
     await sendNotification(
-      "New demo order (not persisted — Supabase not configured)",
+      "New demo order (not persisted — D1 not configured)",
       `${data.firstName} ${data.lastName} <${data.email}>\nTotal: €${total.toFixed(2)}\nItems: ${items
         .map((i) => `${i.name} x${i.qty}`)
         .join(", ")}`
@@ -81,46 +89,35 @@ export async function POST(request: Request) {
   }
 
   const orderId = crypto.randomUUID();
-  const supabase = getSupabase();
-  try {
-    const { error: orderError } = await supabase.from("Order").insert({
-      id: orderId,
-      firstName: data.firstName,
-      lastName: data.lastName,
-      email: data.email,
-      street: data.street,
-      postalCode: data.postalCode,
-      city: data.city,
-      country: data.country,
-      subtotal,
-      shipping,
-      total,
-    });
-    if (orderError) throw orderError;
+  const db = getDB();
 
-    const { error: itemsError } = await supabase.from("OrderItem").insert(
-      items.map((item) => ({
-        id: crypto.randomUUID(),
-        orderId,
-        slug: item.slug,
-        name: item.name,
-        price: item.price,
-        qty: item.qty,
-      }))
+  try {
+    await insertOrderWithItems(
+      db,
+      {
+        id: orderId,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        street: data.street,
+        postalCode: data.postalCode,
+        city: data.city,
+        country: data.country,
+        subtotal,
+        shipping,
+        total,
+      },
+      items.map((item) => ({ id: crypto.randomUUID(), ...item }))
     );
-    if (itemsError) {
-      // Not a real transaction across two REST calls — clean up the
-      // now-orphaned Order row rather than leave an order with no items.
-      await supabase.from("Order").delete().eq("id", orderId);
-      throw itemsError;
-    }
   } catch (err) {
     console.error("[orders] failed to create order:", err);
-    return NextResponse.json({ error: "Could not save the order. Please try again." }, { status: 500 });
+    return NextResponse.json(
+      { error: "Could not save the order. Please try again." },
+      { status: 500 }
+    );
   }
 
-  // Without Stripe configured, fall back to the existing demo confirmation
-  // (order stays PENDING_PAYMENT forever — same as before this integration).
+  // Stripe not configured — order stays PENDING_PAYMENT.
   if (!stripeConfigured()) {
     await sendNotification(
       `New order ${orderId} (Stripe not configured — no payment collected)`,
@@ -172,7 +169,7 @@ export async function POST(request: Request) {
       metadata: { orderId },
     });
 
-    await supabase.from("Order").update({ stripeSessionId: session.id }).eq("id", orderId);
+    await updateOrderStripeSession(db, orderId, session.id);
 
     return NextResponse.json({
       id: orderId,
@@ -185,6 +182,8 @@ export async function POST(request: Request) {
     });
   } catch (err) {
     console.error("[orders] failed to create Stripe session:", err);
+    // Clean up the order row so it doesn't sit orphaned without a Stripe session.
+    await deleteOrder(db, orderId).catch(() => {});
     return NextResponse.json(
       { error: "Could not start payment. Please try again." },
       { status: 500 }

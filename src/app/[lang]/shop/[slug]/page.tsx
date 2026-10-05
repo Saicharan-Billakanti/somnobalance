@@ -1,12 +1,19 @@
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import { getProduct, getProductText, products } from "@/lib/products";
 import { ProductPurchasePanel } from "@/components/ProductPurchasePanel";
+import { ProductGallery } from "@/components/ProductGallery";
+import { Accordion } from "@/components/Accordion";
+import { ProductSpecRow } from "@/components/ProductSpecRow";
+import { RollOnPdpConnected } from "@/components/lovable/RollOnPdpConnected";
+import { ProductSystemPageConnected } from "@/components/lovable/ProductSystemPageConnected";
+import { hasProductSystemConfig } from "@/components/lovable/productSystemConfigs";
 import { getDictionary } from "@/i18n/getDictionary";
 import { locales, isLocale, type Locale } from "@/i18n/config";
 
 export function generateStaticParams() {
-  return locales.flatMap((lang) => products.map((p) => ({ lang, slug: p.slug })));
+  return locales.flatMap((lang) =>
+    products.map((p) => ({ lang, slug: p.slug })),
+  );
 }
 
 export default async function ProductPage({
@@ -20,68 +27,115 @@ export default async function ProductPage({
   const product = getProduct(slug);
   if (!product) notFound();
   const text = getProductText(product, lang);
+  const l = lang as Locale;
+
+  if (product.slug === "somnobalance-roll-on") {
+    return <RollOnPdpConnected lang={l} dict={dict} slug={product.slug} />;
+  }
+
+  if (hasProductSystemConfig(product.slug)) {
+    return (
+      <ProductSystemPageConnected lang={l} dict={dict} product={product} />
+    );
+  }
 
   const [before, after] = dict.shop.withdrawalNote.split("{link}");
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-      <div className="grid gap-12 md:grid-cols-2">
-        <div className="relative aspect-square overflow-hidden rounded-3xl bg-white">
-          <Image
-            src={product.image}
-            alt={text.name}
-            fill
-            sizes="(min-width: 768px) 50vw, 100vw"
-            className="object-contain"
-            priority
-          />
-        </div>
-        <div>
-          <div className="text-xs uppercase tracking-wide text-teal-dark">
-            {dict.shop.categories[product.category]} &middot; {dict.shop.phases[product.phase]}
+    <div className="relative">
+      <div
+        className="relative mx-auto max-w-[1100px] px-4 pt-12 pb-16 sm:px-6"
+        style={{
+          background:
+            "color-mix(in srgb, var(--color-offwhite) 74%, transparent)",
+        }}
+      >
+        <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr]">
+          <div className="min-w-0">
+            <ProductGallery images={[product.image]} alt={text.name} />
           </div>
-          <h1 className="mt-2 font-serif text-3xl text-ink">{text.name}</h1>
-          <p className="mt-3 text-lg text-ink/70">{text.tagline}</p>
 
-          <ProductPurchasePanel
-            product={{ slug: product.slug, price: product.price, variants: product.variants }}
-            dict={dict}
-          />
-
-          <p className="mt-6 leading-relaxed text-ink/70">{text.description}</p>
-          <ul className="mt-6 space-y-2 text-sm text-ink/70">
-            {text.details.map((d) => (
-              <li key={d} className="flex gap-2">
-                <span className="text-teal-dark">—</span> {d}
-              </li>
-            ))}
-          </ul>
-
-          {text.ingredients && (
-            <div className="mt-6 rounded-xl border border-mauve/10 bg-white/60 p-4">
-              <div className="text-xs font-medium uppercase tracking-wide text-ink/50">
-                {dict.shop.ingredients}
-              </div>
-              <p className="mt-2 text-xs leading-relaxed text-ink/60">{text.ingredients}</p>
+          <div className="min-w-0">
+            <div className="text-[11px] font-medium uppercase tracking-[0.2em] text-ink/60">
+              {dict.shop.categories[product.category]}
+              {" — "}
+              {dict.shop.phases[product.phase]}
             </div>
-          )}
+            <h1 className="mt-4 font-serif text-4xl tracking-tight text-ink">
+              {text.name}
+            </h1>
+            <p className="mt-4 max-w-sm text-lg text-ink/70">{text.tagline}</p>
 
-          {/*
-            product.legalNote is intentionally not rendered right now —
-            these are internal reminders (missing hazard/food-law
-            declarations, placeholder pricing) tracked in src/lib/products.ts
-            so they aren't lost, but showing raw "TODO/placeholder" language
-            to live site visitors during the Stripe application isn't what
-            we want. Re-enable this block once the real text is in.
-          */}
+            <ProductPurchasePanel
+              product={{
+                slug: product.slug,
+                price: product.price,
+                variants: product.variants,
+                returnPeriodDays: product.returnPeriodDays,
+                refundPolicy: product.refundPolicy,
+                refundRules: product.refundRules,
+                maxRetailQuantity: product.maxRetailQuantity,
+              }}
+              dict={dict}
+              lang={l}
+            />
 
-          <p className="mt-4 text-xs text-ink/50">
-            {before}
-            <a href={`/${lang}/legal/withdrawal`} className="underline">
-              {dict.shop.withdrawalLinkLabel}
-            </a>
-            {after}
-          </p>
+            {text.specs && (
+              <div className="mb-8 mt-6">
+                <ProductSpecRow specs={text.specs} />
+              </div>
+            )}
+
+            <div className="mb-10 pr-4 text-sm leading-relaxed text-ink/80">
+              <p>{text.description}</p>
+            </div>
+
+            <div className="mt-10">
+              <Accordion
+                items={[
+                  {
+                    title: dict.shop.productInfo,
+                    content: (
+                      <ul className="space-y-2">
+                        {text.details.map((d) => (
+                          <li key={d} className="flex gap-2">
+                            <span className="text-teal-dark">—</span> {d}
+                          </li>
+                        ))}
+                      </ul>
+                    ),
+                  },
+                  ...(text.ingredients
+                    ? [
+                        {
+                          title: dict.shop.ingredients,
+                          content: (
+                            <p className="leading-relaxed">
+                              {text.ingredients}
+                            </p>
+                          ),
+                        },
+                      ]
+                    : []),
+                  {
+                    title: dict.shop.shippingReturns,
+                    content: (
+                      <p className="leading-relaxed">
+                        {before}
+                        <a
+                          href={`/${lang}/legal/withdrawal`}
+                          className="underline"
+                        >
+                          {dict.shop.withdrawalLinkLabel}
+                        </a>
+                        {after}
+                      </p>
+                    ),
+                  },
+                ]}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>

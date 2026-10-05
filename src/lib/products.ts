@@ -4,6 +4,26 @@ export type ProductVariant = {
   priceNote?: string;
 };
 
+// A second, independent choice alongside size (currently only the
+// mattress's firmness edition). No price delta of its own — editions
+// change feel, not cost — so it's combined into the variant label the
+// cart/order already treat as one opaque string, rather than adding a
+// second pricing axis through checkout.
+export type ProductEdition = {
+  label: string;
+  description: string;
+};
+
+// Short structured facts shown as an icon row on the PDP (format, product
+// type, usage) — short labels, not full sentences. Only set this once the
+// values are confirmed for a product; leave it undefined rather than
+// guessing from the prose description.
+export type ProductSpecs = {
+  format: string;
+  type: string;
+  usage: string;
+};
+
 // Storefront-facing text, one set per locale. Order records, the admin
 // panel, and priceOrderItems() always use the canonical English `name` on
 // Product itself — only what a shopper reads on the site is translated.
@@ -13,6 +33,7 @@ export type ProductTranslation = {
   description: string;
   details: string[];
   ingredients?: string;
+  specs?: ProductSpecs;
 };
 
 export type Product = {
@@ -21,6 +42,7 @@ export type Product = {
   category: "Sleep" | "Ritual" | "Care";
   price?: number;
   variants?: ProductVariant[];
+  editions?: ProductEdition[];
   tagline: string;
   description: string;
   details: string[];
@@ -28,12 +50,13 @@ export type Product = {
   image: string;
   ingredients?: string;
   legalNote?: string;
-  // True when the listed price already includes shipping (e.g. the
-  // mattress) — such items never contribute to, or benefit from, the
-  // flat-rate/free-shipping threshold applied to the rest of the cart.
+  specs?: ProductSpecs;
   shippingIncluded?: boolean;
-  // German storefront text. English falls back to the top-level fields
-  // above, so `en` never needs to be repeated here.
+  returnPeriodDays?: number;
+  refundPolicy?: string;
+  returnEligible?: boolean;
+  refundRules?: string;
+  maxRetailQuantity?: number;
   translations: { de: ProductTranslation };
 };
 
@@ -45,6 +68,7 @@ export function getProductText(product: Product, lang: string): ProductTranslati
     description: product.description,
     details: product.details,
     ingredients: product.ingredients,
+    specs: product.specs,
   };
 }
 
@@ -65,7 +89,11 @@ export const products: Product[] = [
       "For external use only; discontinue if skin irritation occurs",
     ],
     phase: "REGULATE",
-    image: "/products/somnobalance-roll-on.jpg",
+    image: "/products/SomnoBalance Roll-on.webp",
+    specs: { format: "10 ml", type: "Roll-on", usage: "External use" },
+    returnPeriodDays: 14,
+    refundPolicy: "14-Day Money-Back Guarantee",
+    returnEligible: true,
     ingredients:
       "Helianthus Annuus Seed Oil, Simmondsia Chinensis Seed Oil, Tocopherol, Lavandula Angustifolia Oil, Citrus Clementina Peel Oil, Citrus Paradisi Peel Oil, Boswellia Sacra Oil, Pogostemon Cablin Oil, D-Limonene, Linalool, Geraniol.",
     legalNote:
@@ -73,7 +101,7 @@ export const products: Product[] = [
     translations: {
       de: {
         name: "SomnoBalance Roll-on",
-        tagline: "Ein Duftmoment zum Mitnehmen — für zu Hause und unterwegs.",
+        tagline: "Ihr Duftimpuls für unterwegs und zwischendurch.",
         description:
           "Der SomnoBalance Roll-on verbindet den charakteristischen Duft der Marke mit einer einfachen, gezielten Anwendung. Lavendel, Clementine, Grapefruit, Weihrauch und Patchouli sind in eine Basis aus Sonnenblumen- und Jojobaöl eingebunden und werden direkt auf die Haut aufgetragen — leicht einzubinden in eine persönliche Pause oder ein Ritual, ob zu Hause, auf Reisen oder als Teil der abendlichen Routine.",
         details: [
@@ -85,6 +113,7 @@ export const products: Product[] = [
         ],
         ingredients:
           "Helianthus Annuus Seed Oil, Simmondsia Chinensis Seed Oil, Tocopherol, Lavandula Angustifolia Oil, Citrus Clementina Peel Oil, Citrus Paradisi Peel Oil, Boswellia Sacra Oil, Pogostemon Cablin Oil, D-Limonene, Linalool, Geraniol.",
+        specs: { format: "10 ml", type: "Roll-on", usage: "Äußerliche Anwendung" },
       },
     },
   },
@@ -104,13 +133,16 @@ export const products: Product[] = [
       "Not for skin application — avoid eye contact, keep out of reach of children",
     ],
     phase: "LET GO",
-    image: "/products/somnobalance-oil-blend.jpg",
+    image: "/products/SomnoBalance Oil Blend.webp",
+    returnPeriodDays: 14,
+    refundPolicy: "14-Day Money-Back Guarantee",
+    returnEligible: true,
     legalNote:
       "This is a concentrated essential-oil blend, not for direct skin contact. Mandatory hazard and safety declarations must be copied verbatim from the current German product labelling before this page is used for real sales — not yet added here.",
     translations: {
       de: {
         name: "SomnoBalance Ölmischung",
-        tagline: "Eine reine ätherische Ölmischung für Diffuser und Abendrituale.",
+        tagline: "Ihr Duftimpuls für bewusste Regenerations- und Abendmomente.",
         description:
           "Die SomnoBalance Ölmischung vereint Lavendel, Clementine, Grapefruit, Weihrauch und Patchouli zur charakteristischen Duftkomposition der Marke. Wenige Tropfen tragen den SomnoBalance-Duft in den Raum — ein einfacher Teil bewusster Abend- und Ruherituale.",
         details: [
@@ -138,13 +170,16 @@ export const products: Product[] = [
       "Not for consumption or skin application — avoid eye and skin contact",
     ],
     phase: "PREPARE",
-    image: "/products/somnobalance-room-spray.jpg",
+    image: "/products/SomnoBalance Room Spray.webp",
+    returnPeriodDays: 14,
+    refundPolicy: "14-Day Money-Back Guarantee",
+    returnEligible: true,
     legalNote:
       "This product carries hazard labelling (including flammability). The binding German warning and safety text must be copied verbatim from the current product labelling before this page is used for real sales — not yet added here.",
     translations: {
       de: {
         name: "SomnoBalance Raumspray",
-        tagline: "Der SomnoBalance-Duft — für einen durchdachten Raum und Schlafumgebung.",
+        tagline: "Ein Duftimpuls für Ihren Raum und bewusste Übergänge.",
         description:
           "Der SomnoBalance Raumspray bringt die Duftkomposition der Marke mit wenigen Sprühstößen in einen Raum — als Teil eines Abendrituals, vor einer bewussten Pause oder beim Übergang von einem aktiven Tag in eine ruhigere Umgebung. Laut Produktetikett formuliert auf Basis von Alkohol, Wasser und einer Mischung ätherischer Öle.",
         details: [
@@ -172,13 +207,16 @@ export const products: Product[] = [
       "Store dry, away from heat",
     ],
     phase: "LET GO",
-    image: "/products/somnobalance-regeneration-tea.jpg",
+    image: "/products/SomnoBalance Regeneration Tea.webp",
+    returnPeriodDays: 14,
+    refundPolicy: "14-Day Money-Back Guarantee",
+    returnEligible: true,
     legalNote:
       "Mandatory food-law disclosures (nutritional information, allergen labelling, best-before format) must be added from the current manufacturer documentation before this page is used for real sales — not yet added here.",
     translations: {
       de: {
         name: "SomnoBalance Regenerationstee",
-        tagline: "Eine Kräuter- und Gewürzmischung für einen bewussten Moment der Ruhe.",
+        tagline: "Eine warme Begleitung für ruhigere Abendmomente.",
         description:
           "Der SomnoBalance Regenerationstee vereint ausgewählte Kräuter, Blüten, Früchte und Gewürze zu einer fein abgestimmten Mischung. Melisse und Orangenblüte treffen auf süße Brombeer- und Himbeerblätter, abgerundet mit Süßholzwurzel, Kardamom, Fenchel und Anis — ein warmer Begleiter für bewusste Pausen, am Abend oder in ruhigen Momenten des Tages.",
         details: [
@@ -206,11 +244,14 @@ export const products: Product[] = [
       "For use at home, in everyday life, as part of an evening routine, or on the go",
     ],
     phase: "REGULATE",
-    image: "/products/somnobalance-regeneration-cards.jpg",
+    image: "/products/somnobalance-regeneration-cards.webp",
+    returnPeriodDays: 14,
+    refundPolicy: "14-Day Money-Back Guarantee",
+    returnEligible: true,
     translations: {
       de: {
         name: "SomnoBalance Regenerationskarten",
-        tagline: "13 Regenerationspunkte und 10 passende Rituale für den Alltag.",
+        tagline: "Regenerationspunkte und Rituale für Ihren Alltag.",
         description:
           "Die SomnoBalance Regenerationskarten machen die SomnoBalance-Methode Schritt für Schritt anwendbar. Das Set besteht aus 13 Regenerationspunkt-Karten und 10 Regenerationsritual-Karten. Die Punktkarten zeigen ausgewählte Punkte am Körper mit Lage, Illustration und Anleitung; die Ritualkarten kombinieren mehrere Punkte zu festen Abfolgen für unterschiedliche Alltagssituationen — darunter Ruhe finden, Gut schlafen, Neue Kraft sammeln, Innere Balance, Gefühle loslassen, Gedanken loslassen, Innere Standfestigkeit finden, Klarheit gewinnen, Den Tag leichter gestalten und Regeneration aktivieren.",
         details: [
@@ -233,25 +274,28 @@ export const products: Product[] = [
     details: [
       "Approx. 30 × 60 cm",
       "Open-pore Air-Memory foam core",
-      "2 integrated insert plates — six height settings in total",
+      "Reversible: flip for a higher or lower neck roll, plus 2 insert plates — six height settings in total, approx. 8–15 cm",
       "Cover removable, washable at 30°C",
       "Foam core: gentle hand wash only, air dry — not machine washable or suitable for the dryer",
       "Cover fabric: Vitalize®, a polyester textile with ceramic mineral crystals (far-infrared, per manufacturer)",
     ],
     phase: "PREPARE",
-    image: "/products/somnobalance-neck-pillow.jpg",
+    image: "/products/somnobalance-neck-pillow.webp",
+    returnPeriodDays: 30,
+    refundPolicy: "30-Night Sleep Trial & Full Refund Guarantee",
+    returnEligible: true,
     legalNote:
       "The Vitalize® cover fabric is described here only as the manufacturer characterises it (reflecting the body's own far-infrared radiation). Manufacturer claims about microcirculation, sleep or wellbeing are deliberately not presented as proven effects.",
     translations: {
       de: {
         name: "SomnoBalance Nackenstützkissen",
-        tagline: "Höhenverstellbare Stütze, geformt für individuellen Komfort.",
+        tagline: "Für eine Schlafumgebung, die Regeneration auch in der Nacht unterstützt.",
         description:
           "Das SomnoBalance Nackenstützkissen verbindet eine ergonomische Form mit individuell einstellbarer Höhe. Der offenporige Air-Memory-Schaumstoffkern sorgt für angenehme Belüftung, und zwei integrierte Einlegeplatten ermöglichen insgesamt sechs Höheneinstellungen — so lässt sich das Kissen an unterschiedliche Körpertypen und Schlafpositionen anpassen. Mit rund 30 × 60 cm bleibt es kompakt; der Bezug ist abnehmbar und bei 30 °C waschbar, der Schaumstoffkern kann von Hand schonend gewaschen werden.",
         details: [
           "Ca. 30 × 60 cm",
           "Offenporiger Air-Memory-Schaumstoffkern",
-          "2 integrierte Einlegeplatten — insgesamt sechs Höheneinstellungen",
+          "Wendbar: höhere oder niedrigere Nackenrolle durch Wenden, dazu 2 Einlegeplatten — insgesamt sechs Höheneinstellungen, ca. 8–15 cm",
           "Bezug abnehmbar, waschbar bei 30 °C",
           "Schaumstoffkern: nur schonende Handwäsche, an der Luft trocknen — nicht maschinenwaschbar oder trocknergeeignet",
           "Bezugsstoff: Vitalize®, ein Polyestertextil mit keramischen Mineralkristallen (Fern-Infrarot, laut Hersteller)",
@@ -264,23 +308,30 @@ export const products: Product[] = [
     name: "SomnoBalance Mattress",
     category: "Sleep",
     shippingIncluded: true,
-    tagline: "A reversible 7-zone pocket-spring mattress with two firmness levels.",
+    tagline: "Lie individually. Adjust comfort flexibly. Sleep regeneratively.",
     description:
-      "The SomnoBalance Mattress combines a 7-zone pocket-spring core with a reversible inner core and an integrated Viscogel topper. The spring core — around 500 springs at 100 × 200 cm — is covered on both sides with roughly 3 cm of high-quality cold foam (RG 40). The inner core can be flipped to offer two firmness levels in one mattress: H2/H3 on one side, H3/H4 on the other. A roughly 4 cm topper of pressure-relieving Viscogel (RG 50) sits on top, finished with the Vitalize® cover fabric. A four-sided zip allows the upper cover panel to be removed for access to the inner core, and four embroidered handles help with turning and adjusting firmness. From 160 cm wide, the mattress uses two separate inner cores under one continuous topper and cover, so each side of the bed can be set independently.",
+      "The SomnoBalance Mattress combines a high-quality 7-zone pocket-spring core, two selectable firmness levels and an integrated Viscogel topper into one considered sleep system. What makes it different: the mattress adapts as your comfort needs change. Instead of committing to a single firmness forever, the inner core simply flips over, changing the firmness in a few simple steps. Available in two editions — H2/H3 (choose between firmness H2 and H3) or H3/H4 (choose between firmness H3 and H4). Inside, a high-quality 7-zone pocket-spring core with around 500 springs at 100 × 200 cm is covered on both sides with roughly 3 cm of high-quality cold foam (RG 40); the two sides carry different firmness levels, so flipping the inner core switches between H2 and H3 (H2/H3 edition) or between H3 and H4 (H3/H4 edition). A roughly 4 cm pressure-relieving Viscogel topper (RG 50) sits loose on top of the reversible inner core — inner core and topper sit together inside the high-quality SomnoBalance cover with Vitalize® fabric, so the mattress combines the comfort of a separate topper with the benefits of a closed mattress system: the topper stays integrated into the whole and won't slide around. To change the firmness, a four-sided zip opens the upper cover panel, the Viscogel topper lifts off, the inner core flips over, and the topper goes back on top — zip closed, done. Four embroidered handles make turning and handling the inner core easier. From 160 cm wide, two separate inner cores sit under one continuous topper and one shared cover, so each side of the bed can be set to its own firmness independently while the continuous surface keeps a harmonious feel.",
     details: [
-      "7-zone pocket-spring core, reversible for two firmness levels (H2/H3 or H3/H4)",
-      "Cold foam cover, both sides, approx. 3 cm, RG 40",
-      "Viscogel topper, approx. 4 cm, RG 50, pressure-relieving",
-      "Cover: Vitalize® textile with ceramic mineral crystals (far-infrared, per manufacturer), HyperSoft quilting, 250 g/m² climate fibre",
-      "Four-sided zip, removable upper cover panel",
-      "4 embroidered carry handles",
-      "160 cm width and above: two independent cores under one continuous topper and cover",
+      "Editions: H2/H3 or H3/H4",
+      "Firmness adjustment: by flipping the inner core",
+      "Spring core: 7-zone pocket-spring core",
+      "Spring count: approx. 500 springs at 100 × 200 cm",
+      "Core cover: both sides approx. 3 cm cold foam, RG 40",
+      "Topper: approx. 4 cm Viscogel, RG 50",
+      "Topper system: sits loose on the inner core, integrated within the shared mattress cover",
+      "Cover: high-quality SomnoBalance cover with Vitalize® fabric",
+      "Opening: four-sided zip",
+      "Handling: 4 embroidered handles",
+      "From 160 cm wide: two separately reversible inner cores under one continuous topper and cover",
       "Made to order: manufacturing and delivery take approx. 3–4 weeks",
       "Shipped via DHL, Germany only, shipping cost included in the price — 160 cm width and above arrives as 3–4 separate parcels",
       "Allow the mattress 48–72 hours after unpacking to fully expand to its final shape and firmness",
     ],
     phase: "PREPARE",
-    image: "/products/somnobalance-mattress.jpg",
+    image: "/products/somnobalance-mattress.webp",
+    returnPeriodDays: 100,
+    refundPolicy: "100-Night Risk-Free Sleep Trial & Free Return Pickup",
+    returnEligible: true,
     variants: [
       { label: "80 × 200 cm", price: 1295 },
       { label: "90 × 200 cm", price: 1295 },
@@ -291,22 +342,30 @@ export const products: Product[] = [
       { label: "180 × 200 cm", price: 2295, priceNote: "Two independent firmness zones" },
       { label: "200 × 200 cm", price: 2295, priceNote: "Two independent firmness zones" },
     ],
+    editions: [
+      { label: "H2/H3", description: "Reversible between firmness H2 and H3" },
+      { label: "H3/H4", description: "Reversible between firmness H3 and H4" },
+    ],
     legalNote:
       "Special lengths of 210 cm or 220 cm are available for a 20% surcharge on the base size price — not yet configurable in this demo checkout. The Vitalize® cover is described only as the manufacturer characterises it; claims about microcirculation, sleep or wellbeing are deliberately not presented as proven effects.",
     translations: {
       de: {
         name: "SomnoBalance Matratze",
-        tagline: "Eine wendbare 7-Zonen-Taschenfederkernmatratze mit zwei Härtegraden.",
+        tagline: "Individuell liegen. Komfort flexibel anpassen. Regenerativ schlafen.",
         description:
-          "Die SomnoBalance Matratze verbindet einen 7-Zonen-Taschenfederkern mit einem wendbaren Kern und integriertem Viscogel-Topper. Der Federkern — rund 500 Federn bei 100 × 200 cm — ist beidseitig mit ca. 3 cm hochwertigem Kaltschaum (RG 40) bezogen. Der Kern lässt sich wenden und bietet so zwei Härtegrade in einer Matratze: H2/H3 auf einer Seite, H3/H4 auf der anderen. Ein ca. 4 cm starker Topper aus druckentlastendem Viscogel (RG 50) liegt darüber, veredelt mit dem Bezugsstoff Vitalize®. Ein vierseitiger Reißverschluss ermöglicht das Abnehmen des oberen Bezugsteils für den Zugang zum Kern, vier eingestickte Griffe erleichtern das Wenden und Anpassen der Härte. Ab 160 cm Breite kommen zwei getrennte Kerne unter einem durchgehenden Topper und Bezug zum Einsatz, sodass jede Bettseite unabhängig eingestellt werden kann.",
+          "Die SomnoBalance Matratze verbindet einen hochwertigen 7-Zonen-Taschenfederkern, zwei wählbare Festigkeiten und einen integrierten Visko-Gel-Topper zu einem durchdachten Schlafsystem. Das Besondere: Die Matratze passt sich veränderten Komfortbedürfnissen an. Statt sich dauerhaft auf nur einen Härtegrad festlegen zu müssen, lässt sich der Innenkern einfach wenden und die gewünschte Festigkeit mit wenigen Handgriffen verändern. Die SomnoBalance Matratze ist in zwei Varianten erhältlich: H2/H3 (wählbar zwischen Härtegrad H2 und H3) und H3/H4 (wählbar zwischen Härtegrad H3 und H4). Im Inneren arbeitet ein hochwertiger 7-Zonen-Taschenfederkern mit rund 500 Federn bei 100 × 200 cm. Dieser ist auf beiden Seiten mit jeweils ca. 3 cm hochwertigem Kaltschaum RG 40 abgedeckt. Die beiden Seiten besitzen unterschiedliche Festigkeiten — durch einfaches Wenden des Innenkerns kann bei der Variante H2/H3 zwischen H2 und H3 und bei der Variante H3/H4 zwischen H3 und H4 gewechselt werden. Ein weiterer besonderer Vorteil der SomnoBalance Matratze ist der integrierte Topper: Ein ca. 4 cm starker, druckentlastender Visko-Gel-Topper RG 50 liegt lose auf dem wendbaren Innenkern. Innenkern und Topper befinden sich jedoch gemeinsam innerhalb des hochwertigen SomnoBalance Matratzenbezuges mit Vitalize®-Stoff. Dadurch verbindet die SomnoBalance Matratze den Komfort eines separaten Toppers mit den Vorteilen einer geschlossenen Matratzenlösung: Der Topper bleibt in das Gesamtsystem integriert und lästiges Verrutschen wird vermieden. Soll das Liegegefühl verändert werden, lässt sich das System unkompliziert anpassen: Der vierseitige Reißverschluss ermöglicht das Öffnen des oberen Bezugsteils, anschließend wird der Visko-Gel-Topper abgenommen, der Innenkern gewendet und der Topper wieder auf den Kern gelegt — Bezug schließen, fertig. Vier eingestickte Griffe erleichtern das Wenden und die Handhabung des Innenkerns zusätzlich. Bei Matratzen ab 160 cm Breite kommen zwei getrennte Innenkerne unter einem durchgehenden Topper und einem gemeinsamen Bezug zum Einsatz, sodass jede Bettseite unabhängig auf die gewünschte Festigkeit eingestellt werden kann, während die durchgehende Oberfläche für ein harmonisches Liegegefühl sorgt.",
         details: [
-          "7-Zonen-Taschenfederkern, wendbar für zwei Härtegrade (H2/H3 oder H3/H4)",
-          "Kaltschaumauflage beidseitig, ca. 3 cm, RG 40",
-          "Viscogel-Topper, ca. 4 cm, RG 50, druckentlastend",
-          "Bezug: Vitalize®-Textil mit keramischen Mineralkristallen (Fern-Infrarot, laut Hersteller), HyperSoft-Steppung, 250 g/m² Klimafaser",
-          "Vierseitiger Reißverschluss, abnehmbares oberes Bezugsteil",
-          "4 eingestickte Tragegriffe",
-          "Ab 160 cm Breite: zwei unabhängige Kerne unter einem durchgehenden Topper und Bezug",
+          "Ausführungen: H2/H3 oder H3/H4",
+          "Festigkeitsanpassung: durch Wenden des Innenkerns",
+          "Federkern: 7-Zonen-Taschenfederkern",
+          "Federanzahl: ca. 500 Federn bei 100 × 200 cm",
+          "Kernabdeckung: beidseitig ca. 3 cm Kaltschaum RG 40",
+          "Topper: ca. 4 cm Visko-Gel RG 50",
+          "Topper-System: lose auf dem Innenkern, innerhalb des gemeinsamen Matratzenbezuges integriert",
+          "Bezug: hochwertiger SomnoBalance Bezug mit Vitalize®-Stoff",
+          "Öffnung: vierseitiger Reißverschluss",
+          "Handhabung: vier eingestickte Griffe",
+          "Ab 160 cm Breite: zwei separat wendbare Innenkerne unter durchgehendem Topper und Bezug",
           "Anfertigung auf Bestellung: Fertigung und Lieferung dauern ca. 3–4 Wochen",
           "Versand per DHL, nur innerhalb Deutschlands, Versandkosten im Preis enthalten — ab 160 cm Breite als 3–4 separate Pakete",
           "Der Matratze nach dem Auspacken 48–72 Stunden Zeit geben, um sich vollständig zu entfalten und ihre endgültige Form und Härte anzunehmen",
@@ -318,32 +377,33 @@ export const products: Product[] = [
     slug: "somnobalance-starter-set",
     name: "SomnoBalance Starter Set",
     category: "Care",
-    price: 55,
-    tagline: "Roll-on, oil blend, card set and a printed 21-day guide, together.",
+    price: 59,
+    tagline: "Four companions for your regeneration path — from the active day into the night.",
     description:
-      "The SomnoBalance Starter Set brings together the Roll-on, the Oil Blend and the Regeneration Cards with a printed 21-day guide — one entry point into the full SomnoBalance ritual, from the phase you're in to the scent and the point that supports it.",
+      "You don't need to use everything at once. The 21-day guide gives you orientation — the cards and aroma products accompany you in whatever way fits your day.",
     details: [
-      "1× SomnoBalance Roll-on (10 ml)",
-      "1× SomnoBalance Oil Blend (10 ml)",
-      "1× SomnoBalance Regeneration Cards (23 cards)",
-      "1× printed 21-day guide",
+      "21-day guide: your thread through the next 21 days — small impulses and rituals that help you build regulation and regeneration into your everyday life, step by step",
+      "Regeneration cards: draw one intuitively, or choose one that fits your current need — concrete impulses and simple ways to come to rest in between and support your self-regulation",
+      "Anti-stress roll-on: your uncomplicated companion for on the go — apply to pulse points, take in the scent consciously, and use a short moment to pause",
+      "Essential oil blend: for conscious moments of regeneration at home — a few drops in the diffuser create a pleasant scent atmosphere and can accompany your personal evening or rest ritual",
       "In stock, ships immediately as a single DHL parcel",
     ],
     phase: "REGULATE",
-    image: "/products/somnobalance-starter-set.jpg",
-    legalNote:
-      "This bundle is referenced in the shipping, returns and about-us policy documents but its retail price was not specified there — the €55 shown is a placeholder only and must be confirmed with SomnoBalance before this page is used for real sales.",
+    image: "/products/somnobalance-starter-set.webp",
+    returnPeriodDays: 30,
+    refundPolicy: "30-Day Money-Back Guarantee",
+    returnEligible: true,
     translations: {
       de: {
         name: "SomnoBalance Starter-Set",
-        tagline: "Roll-on, Ölmischung, Kartenset und ein gedruckter 21-Tage-Guide — zusammen.",
+        tagline: "Vier Begleiter für Ihren Regenerationsweg — vom aktiven Tag bis in die Nacht.",
         description:
-          "Das SomnoBalance Starter-Set vereint den Roll-on, die Ölmischung und die Regenerationskarten mit einem gedruckten 21-Tage-Guide — ein Einstieg in das gesamte SomnoBalance-Ritual, von der aktuellen Phase bis zum passenden Duft und Punkt.",
+          "Sie müssen nicht alles gleichzeitig anwenden. Der 21-Tage-Guide gibt Ihnen die Orientierung — Karten und Aromaprodukte begleiten Sie passend zu Ihrem Tag.",
         details: [
-          "1× SomnoBalance Roll-on (10 ml)",
-          "1× SomnoBalance Ölmischung (10 ml)",
-          "1× SomnoBalance Regenerationskarten (23 Karten)",
-          "1× gedruckter 21-Tage-Guide",
+          "21-Tage-Guide: Ihr roter Faden durch die nächsten 21 Tage. Kleine Impulse und Rituale begleiten Sie Schritt für Schritt dabei, Regulation und Regeneration bewusster in Ihren Alltag zu integrieren",
+          "Regenerationskarten: Ziehen Sie intuitiv eine Karte oder wählen Sie passend zu Ihrem aktuellen Bedürfnis. Die Karten geben Ihnen konkrete Impulse und zeigen Ihnen einfache Möglichkeiten, zwischendurch zur Ruhe zu kommen und Ihre Selbstregulation zu unterstützen",
+          "Anti-Stress Roll-on: Ihr unkomplizierter Begleiter für unterwegs und im Alltag. Auf die Pulspunkte auftragen, den Duft bewusst wahrnehmen und einen kurzen Moment zum Innehalten nutzen",
+          "Ätherische Ölmischung: Für Ihre bewussten Regenerationsmomente zu Hause. Einige Tropfen im Diffuser schaffen eine angenehme Duftatmosphäre und können Ihr persönliches Ruhe- oder Abendritual begleiten",
           "Auf Lager, Versand als einzelnes DHL-Paket",
         ],
       },
@@ -351,13 +411,33 @@ export const products: Product[] = [
   },
 ];
 
+export function getProductReturnInfo(slug: string) {
+  const prod = getProduct(slug);
+  return {
+    returnPeriodDays: prod?.returnPeriodDays ?? 30,
+    refundPolicy: prod?.refundPolicy ?? "30-Day Money-Back Guarantee",
+    returnEligible: prod?.returnEligible !== false,
+    refundRules:
+      prod?.refundRules ??
+      "Hygienic seal must be intact upon return; items must be in original condition and packaging.",
+    maxRetailQuantity: prod?.maxRetailQuantity ?? 10,
+  };
+}
+
+
 export function getProduct(slug: string) {
   return products.find((p) => p.slug === slug);
 }
 
 export function getVariant(product: Product, variantLabel?: string) {
   if (!product.variants) return null;
-  return product.variants.find((v) => v.label === variantLabel) ?? product.variants[0];
+  // Products with an edition axis store cart lines as "<size> — <edition>"
+  // (see priceOrderItems) — strip the edition suffix before matching size.
+  const sizeLabel =
+    product.editions?.length && variantLabel?.includes(" — ")
+      ? variantLabel.slice(0, variantLabel.lastIndexOf(" — "))
+      : variantLabel;
+  return product.variants.find((v) => v.label === sizeLabel) ?? product.variants[0];
 }
 
 export function getDisplayPrice(product: Product) {
@@ -383,15 +463,33 @@ export function priceOrderItems(
     if (!product) return { error: `Unknown product: ${item.slug}` };
 
     if (product.variants) {
-      const variant = product.variants.find((v) => v.label === item.variant);
+      // Products with a second axis (currently only the mattress's
+      // firmness edition) store the cart variant as "<size> — <edition>"
+      // — split it back apart here so size still matches product.variants
+      // exactly, and separately validate the edition is a real option
+      // rather than silently accepting/dropping an unrecognised one.
+      let sizeLabel = item.variant;
+      let editionLabel: string | undefined;
+      if (product.editions?.length && item.variant?.includes(" — ")) {
+        const idx = item.variant.lastIndexOf(" — ");
+        sizeLabel = item.variant.slice(0, idx);
+        editionLabel = item.variant.slice(idx + 3);
+        if (!product.editions.some((ed) => ed.label === editionLabel)) {
+          return { error: `Unknown edition for ${product.name}: ${editionLabel}` };
+        }
+      } else if (product.editions?.length) {
+        return { error: `Missing edition for ${product.name}` };
+      }
+
+      const variant = product.variants.find((v) => v.label === sizeLabel);
       if (!variant) {
         return {
-          error: `Unknown size for ${product.name}: ${item.variant ?? "(none given)"}`,
+          error: `Unknown size for ${product.name}: ${sizeLabel ?? "(none given)"}`,
         };
       }
       lines.push({
         slug: product.slug,
-        name: `${product.name} (${variant.label})`,
+        name: editionLabel ? `${product.name} (${variant.label}, ${editionLabel})` : `${product.name} (${variant.label})`,
         unitPrice: variant.price,
         qty: item.qty,
       });

@@ -1,24 +1,75 @@
 @import "tailwindcss";
 
 :root {
+  /* Binding brand palette per SomnoBalance_Entwickler-Vorgabe.docx §2
+     (2026-09-20): registered with the DPMA trademark filing, not a style
+     preference — no other color world (sand/beige/gold, dark blue/platinum)
+     is permitted for SomnoBalance. `mauve` keeps its role as the primary
+     accent (buttons, links, headings) and `teal` as the secondary/label
+     accent so every existing usage site inherits the corrected palette
+     without needing to be touched individually. */
   --color-mauve: #6f5784;
-  --color-mauve-dark: #564267;
+  --color-mauve-dark: #5a4569;
   --color-teal: #669999;
-  --color-teal-dark: #4f7a7a;
-  --color-sand: #efe7da;
-  --color-offwhite: #faf7f2;
-  --color-ink: #2b2530;
+  --color-teal-dark: #4d7a7a;
+  --color-sand: #e4dad3;
+  --color-offwhite: #f8f3f1;
+  --color-ink: #241f29;
+  --color-ink-muted: #5c5560;
+  --color-ink-meta: #9a93a0;
   --background: var(--color-offwhite);
   --foreground: var(--color-ink);
 
-  /* Warm day-to-night gradient tokens for the homepage cycle hero
-     (brief: cream/sand/taupe/warm brown by day, warm — never cold/technical
-     — dark tones toward night). */
-  --color-cycle-day: #f6ede1;
-  --color-cycle-regulate: #e9d9c4;
-  --color-cycle-letgo: #cfae8e;
-  --color-cycle-prepare: #8d6b53;
-  --color-cycle-night: #3a2c26;
+  /* Homepage-only scroll dramaturgy (brief §8): each section below the
+     hero deepens slightly so the page reads as a calming descent rather
+     than snapping back to a flat background — dark ink text stays legible
+     throughout, this never goes fully dark. Scoped to the homepage only;
+     every other page keeps the flat --color-offwhite background. Rebased
+     off the corrected #F8F3F1 base per the Entwickler-Vorgabe palette. */
+  --color-scroll-1: #f8f3f1;
+  --color-scroll-2: #f0e9e4;
+  --color-scroll-3: #e7dbd4;
+
+  /* Phase-card tint pair: now identical to --color-mauve/--color-teal
+     since both were corrected to the same DPMA-registered hex values
+     (Entwickler-Vorgabe.docx §2) — kept as separate tokens only because
+     call sites already reference them by this name. */
+  --color-phase-mauve: #6f5784;
+  --color-phase-sage: #669999;
+
+  /* Homepage section 3 "Regenerationskreislauf" scroll-story scale, per
+     SomnoBalance_Startseite_Abschnitte-2-5.docx (2026-09-30): four
+     mandatory tones, all lightenings/darkenings of the same ~270° hue as
+     the wordmark #6F5784 — deliberately NOT a new brand color, just a
+     tonal scale of the existing violet. #669999 (logo accent) is
+     explicitly excluded from this gradient per the brief. Hex values are
+     binding, not a design choice. */
+  --color-circuit-regulate: #f8f3f4;
+  --color-circuit-letgo: #e3c7d2;
+  --color-circuit-prepare: #8f7495;
+  --color-circuit-regenerate: #332839;
+
+  /* Lovable PDP design-system tokens — rebased onto the binding brand
+     palette (Entwickler-Vorgabe.docx §2: #6F5784 primary, #669999 accent,
+     #F8F3F1 base, #241F29 text) instead of the earlier warm-brown port.
+     Tonal steps (card/muted/secondary/accent/border) keep the same
+     lightness relationships as the original tokens, just recomputed on
+     the corrected hue (~308° primary, ~196° accent) instead of ~59°/78°. */
+  --lovable-background: oklch(0.967 0.006 43.3);
+  --lovable-foreground: oklch(0.249 0.02 307.6);
+  --lovable-card: oklch(0.98 0.004 43.3);
+  --lovable-card-foreground: oklch(0.249 0.02 307.6);
+  --lovable-primary: oklch(0.499 0.075 308.3);
+  --lovable-primary-foreground: oklch(0.967 0.006 43.3);
+  --lovable-secondary: oklch(0.91 0.02 308.3);
+  --lovable-secondary-foreground: oklch(0.32 0.03 307.6);
+  --lovable-muted: oklch(0.94 0.012 308.3);
+  --lovable-muted-foreground: oklch(0.46 0.02 313.5);
+  --lovable-accent: oklch(0.88 0.03 195.9);
+  --lovable-accent-foreground: oklch(0.3 0.025 307.6);
+  --lovable-border: oklch(0.894 0.015 57.6);
+  --lovable-input: oklch(0.894 0.015 57.6);
+  --lovable-ring: oklch(0.499 0.075 308.3);
 }
 
 @theme inline {
@@ -29,15 +80,39 @@
   --color-sand: var(--color-sand);
   --color-offwhite: var(--color-offwhite);
   --color-ink: var(--color-ink);
+  --color-ink-muted: var(--color-ink-muted);
+  --color-ink-meta: var(--color-ink-meta);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-cycle-day: var(--color-cycle-day);
-  --color-cycle-regulate: var(--color-cycle-regulate);
-  --color-cycle-letgo: var(--color-cycle-letgo);
-  --color-cycle-prepare: var(--color-cycle-prepare);
-  --color-cycle-night: var(--color-cycle-night);
-  --font-serif: var(--font-fraunces);
-  --font-sans: var(--font-inter);
+  --color-scroll-1: var(--color-scroll-1);
+  --color-scroll-2: var(--color-scroll-2);
+  --color-scroll-3: var(--color-scroll-3);
+  --color-phase-mauve: var(--color-phase-mauve);
+  --color-phase-sage: var(--color-phase-sage);
+  --color-circuit-regulate: var(--color-circuit-regulate);
+  --color-circuit-letgo: var(--color-circuit-letgo);
+  --color-circuit-prepare: var(--color-circuit-prepare);
+  --color-circuit-regenerate: var(--color-circuit-regenerate);
+  --font-serif: var(--font-newsreader);
+  --font-sans: var(--font-work-sans);
+
+  --color-lovable-background: var(--lovable-background);
+  --color-lovable-foreground: var(--lovable-foreground);
+  --color-lovable-card: var(--lovable-card);
+  --color-lovable-card-foreground: var(--lovable-card-foreground);
+  --color-lovable-primary: var(--lovable-primary);
+  --color-lovable-primary-foreground: var(--lovable-primary-foreground);
+  --color-lovable-secondary: var(--lovable-secondary);
+  --color-lovable-secondary-foreground: var(--lovable-secondary-foreground);
+  --color-lovable-muted: var(--lovable-muted);
+  --color-lovable-muted-foreground: var(--lovable-muted-foreground);
+  --color-lovable-accent: var(--lovable-accent);
+  --color-lovable-accent-foreground: var(--lovable-accent-foreground);
+  --color-lovable-border: var(--lovable-border);
+  --color-lovable-input: var(--lovable-input);
+  --color-lovable-ring: var(--lovable-ring);
+  --font-lovable-serif: var(--font-lovable-serif-loaded), serif;
+  --font-lovable-sans: var(--font-lovable-sans-loaded), sans-serif;
 }
 
 body {
@@ -90,4 +165,73 @@ body {
 .input-field:focus {
   outline: 2px solid var(--color-teal);
   outline-offset: 1px;
+}
+
+/* Intro preloader (see Preloader.tsx). Skipped for return visits in the same
+   session and for reduced-motion users; the animation is a failsafe that
+   hides it if JS never runs. */
+html[data-preloader="skip"] .site-preloader {
+  display: none;
+}
+
+@keyframes preloader-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+.site-preloader {
+  animation: preloader-failsafe 0.6s ease 9s forwards;
+}
+
+/* The lotus draws itself: each stroke has pathLength=1 so the dash can be
+   animated from fully hidden to fully drawn with a per-path delay/duration. */
+@keyframes lotus-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes lotus-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.lotus-stroke {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: lotus-draw var(--t, 1s) cubic-bezier(0.45, 0.05, 0.3, 1) var(--d, 0s) forwards;
+}
+
+.lotus-dot {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lotus-pop 0.35s ease-out var(--d, 0s) forwards;
+}
+
+/* Site-wide square-corner design pass: every button, photo container, and
+   card uses sharp 0-radius corners instead of Tailwind's rounded-* scale,
+   for one consistent look across the whole site. Overriding the utility
+   classes centrally here (rather than editing each of the ~50 files that
+   use rounded-*) means new components stay square automatically without
+   needing to remember to omit rounded-* by hand. */
+.rounded-full,
+.rounded-xs,
+.rounded-sm,
+.rounded-md,
+.rounded-lg,
+.rounded-xl,
+.rounded-2xl,
+.rounded-3xl,
+.rounded {
+  border-radius: 0;
 }

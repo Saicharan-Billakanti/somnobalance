@@ -1,23 +1,25 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Newsreader, Work_Sans } from "next/font/google";
 import "../globals.css";
 import { locales, isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/getDictionary";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { Preloader } from "@/components/Preloader";
+import Script from "next/script";
 import { CartProvider } from "@/components/CartProvider";
 import { CookieConsentProvider } from "@/components/CookieConsent";
 import { AuthProvider } from "@/components/AuthProvider";
 import { notFound } from "next/navigation";
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+const workSans = Work_Sans({
+  variable: "--font-work-sans",
   subsets: ["latin"],
 });
 
@@ -57,13 +59,24 @@ export default async function LocaleLayout({
   const dict = await getDictionary(lang as Locale);
 
   return (
-    <html lang={lang} className={`${fraunces.variable} ${inter.variable} h-full`}>
-      <body className="min-h-full flex flex-col font-sans antialiased">
+    <html
+      lang={lang}
+      className={`${newsreader.variable} ${workSans.variable} h-full`}
+      suppressHydrationWarning
+    >
+      <body
+        className="min-h-full flex flex-col font-sans antialiased"
+        suppressHydrationWarning
+      >
+        <Script id="preloader-skip" strategy="beforeInteractive">
+          {`try{if(sessionStorage.getItem("sb-preloader-seen")||matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.setAttribute("data-preloader","skip")}}catch(e){}`}
+        </Script>
+        <Preloader />
         <AuthProvider>
           <CookieConsentProvider dict={dict}>
             <CartProvider>
               <Header lang={lang as Locale} dict={dict} />
-              <main className="flex-1">{children}</main>
+              <main className="relative flex-1">{children}</main>
               <Footer lang={lang as Locale} dict={dict} />
             </CartProvider>
           </CookieConsentProvider>

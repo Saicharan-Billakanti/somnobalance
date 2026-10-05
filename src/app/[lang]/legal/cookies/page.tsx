@@ -3,7 +3,10 @@ import { getDictionary } from "@/i18n/getDictionary";
 import { isLocale, type Locale } from "@/i18n/config";
 import { notFound } from "next/navigation";
 
-export const metadata = { title: "Cookie Policy — SomnoBalance" };
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  return { title: lang === "de" ? "Cookie-Richtlinie — SomnoBalance" : "Cookie Policy — SomnoBalance" };
+}
 
 export default async function CookiesPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;

@@ -53,3 +53,12 @@ next-env.d.ts
 
 # dev server logs
 .next-dev-*.log
+
+# local test credentials and exported private data
+/admin_cookies.txt
+/business_cookies.txt
+/cookies.txt
+/business_admin_list.json
+/business_app_post.json
+/docx_full_text.txt
+/*.docx

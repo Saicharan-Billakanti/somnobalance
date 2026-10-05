@@ -4,7 +4,10 @@ import { getDictionary } from "@/i18n/getDictionary";
 import { isLocale, type Locale } from "@/i18n/config";
 import { notFound } from "next/navigation";
 
-export const metadata = { title: "Contact — SomnoBalance" };
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  return { title: lang === "de" ? "Kontakt — SomnoBalance" : "Contact — SomnoBalance" };
+}
 
 export default async function ContactPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;

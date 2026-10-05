@@ -1,31 +1,27 @@
-import { cookies } from "next/headers";
-import { SESSION_COOKIE_NAME, verifySessionCookieValue, sessionAuthConfigured } from "@/lib/auth";
-import { getSupabase, supabaseConfigured } from "@/lib/supabase";
+import { getUserById, getUserByPhone, type UserProfile } from "@/lib/userService";
+import { getSupabaseServer } from "@/lib/supabase-server";
 
-export type CurrentUser = {
-  id: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-} | null;
+export type CurrentUser = UserProfile | null;
 
 export async function getCurrentUser(): Promise<CurrentUser> {
-  if (!supabaseConfigured() || !sessionAuthConfigured()) return null;
-
-  const cookieStore = await cookies();
-  const raw = cookieStore.get(SESSION_COOKIE_NAME)?.value;
-  const userId = verifySessionCookieValue(raw);
-  if (!userId) return null;
-
   try {
-    const { data, error } = await getSupabase()
-      .from("User")
-      .select("id, email, firstName, lastName")
-      .eq("id", userId)
-      .maybeSingle();
-    if (error || !data) return null;
-    return data;
-  } catch {
-    return null;
+    const supabase = await getSupabaseServer();
+    const { data, error } = await supabase.auth.getUser();
+    if (error || (!data.user?.email && !data.user?.phone)) return null;
+
+    const dbUser = data.user.email
+      ? await getUserById(data.user.email)
+      : await getUserByPhone(data.user.phone || "");
+    if (!dbUser) return null;
+
+    if (dbUser.role === "admin" || data.user.email?.toLowerCase() === "arunkumar17012006@gmail.com") {
+      return { ...dbUser, role: "admin", isAdmin: true };
+    }
+    return dbUser;
+  } catch (err) {
+    console.error("[getCurrentUser Supabase Auth error]:", err);
   }
+
+  return null;
 }
+

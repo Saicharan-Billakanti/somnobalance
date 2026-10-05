@@ -1,8 +1,18 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
+import { getSupabaseBrowser } from "@/lib/supabase-browser";
 
-export type AuthUser = { id: string; email: string; firstName: string; lastName: string } | null;
+export type AuthUser = {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  role?: "customer" | "affiliate" | "business" | "admin";
+  isAffiliate?: boolean;
+  isBusiness?: boolean;
+  isAdmin?: boolean;
+} | null;
 
 type AuthContextValue = {
   user: AuthUser;
@@ -17,24 +27,45 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 // app (including statically generated product/marketing pages) to become
 // dynamic, which is a real cost for a ~150ms flash we can live with.
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<AuthUser>(null);
+  const [user, setUserState] = useState<AuthUser>(null);
   const [loading, setLoading] = useState(true);
+
+  const setUser = (newUser: AuthUser) => {
+    setUserState(newUser);
+  };
 
   useEffect(() => {
     let cancelled = false;
-    fetch("/api/auth/me")
-      .then((res) => (res.ok ? res.json() : { user: null }))
-      .then((data) => {
-        if (!cancelled) setUser(data.user ?? null);
-      })
-      .catch(() => {
-        if (!cancelled) setUser(null);
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
+    const initialize = async () => {
+      const supabase = await getSupabaseBrowser();
+      const loadProfile = async () => {
+      const { data } = await supabase.auth.getUser();
+      if (cancelled) return;
+      if (!data.user) {
+        setUser(null);
+        setLoading(false);
+        return;
+      }
+      const response = await fetch("/api/auth/me");
+      const profile = response.ok ? await response.json() : { user: null };
+      if (!cancelled) setUser(profile.user || null);
+      if (!cancelled) setLoading(false);
+      };
+
+      await loadProfile();
+      const { data: subscription } = supabase.auth.onAuthStateChange(() => {
+        loadProfile().catch(() => undefined);
       });
+      return subscription;
+    };
+
+    let subscription: { subscription: { unsubscribe: () => void } } | undefined;
+    initialize().then((value) => { subscription = value; }).catch(() => {
+      if (!cancelled) setLoading(false);
+    });
     return () => {
       cancelled = true;
+      subscription?.subscription.unsubscribe();
     };
   }, []);
 

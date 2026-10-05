@@ -4,7 +4,10 @@ import { getDictionary } from "@/i18n/getDictionary";
 import { isLocale, type Locale } from "@/i18n/config";
 import { notFound } from "next/navigation";
 
-export const metadata = { title: "Terms & Conditions — SomnoBalance" };
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  return { title: lang === "de" ? "Allgemeine Geschäftsbedingungen — SomnoBalance" : "Terms & Conditions — SomnoBalance" };
+}
 
 export default async function TermsPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;

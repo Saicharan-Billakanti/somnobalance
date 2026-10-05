@@ -4,7 +4,10 @@ import { notFound } from "next/navigation";
 import { getQuizContent } from "@/lib/regenerationscheckContent";
 import { RegenerationscheckClient } from "./RegenerationscheckClient";
 
-export const metadata = { title: "Regenerationscheck — SomnoBalance" };
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  return { title: lang === "de" ? "Regenerationscheck — SomnoBalance" : "Regenerationscheck — SomnoBalance" };
+}
 
 export default async function RegenerationscheckPage({
   params,
