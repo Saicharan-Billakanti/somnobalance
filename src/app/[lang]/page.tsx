@@ -1,3 +1,4 @@
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { getProduct, getProductText } from "@/lib/products";
@@ -14,81 +15,82 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
 
   return (
     <div>
-      <section
-        className="relative overflow-hidden"
-        style={{ background: "color-mix(in srgb, var(--color-scroll-1) 74%, transparent)" }}
-      >
-        <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 py-16 sm:px-6 md:grid-cols-[1fr_1fr_auto] md:py-20">
-          <div>
-            <p className="text-sm uppercase tracking-[0.2em] text-teal-dark">{dict.home.eyebrow}</p>
-            <h1 className="mt-4 font-serif text-4xl leading-tight text-ink md:text-5xl">
+      <section className="relative flex min-h-[600px] w-full items-center overflow-hidden xl:min-h-[750px]">
+        <Image
+          src="/products/pdp-roll-on-main.webp"
+          alt=""
+          fill
+          sizes="100vw"
+          priority
+          className="object-cover object-center"
+        />
+        <div className="relative z-10 mx-auto flex w-full max-w-[1400px] items-end justify-between px-4 pb-16 pt-32 sm:px-6 md:px-12 md:pb-24 lg:items-center lg:py-32">
+          
+          <div className="max-w-xl">
+            <p className="text-xs uppercase tracking-[0.2em] text-ink/60 md:text-sm">
+              {dict.home.eyebrow}
+            </p>
+            <h1 className="mt-4 font-serif text-4xl leading-tight text-ink md:text-5xl lg:text-[3.5rem]">
               {dict.home.titlePrefix}
-              <em className="text-mauve italic">{dict.home.titleAccent}</em>
+              <br className="hidden lg:block" />
+              <em className="italic text-mauve">{dict.home.titleAccent}</em>
             </h1>
-            <p className="mt-6 max-w-md text-base leading-relaxed text-ink/70">
+            <p className="mt-6 max-w-md text-base leading-relaxed text-ink/80 md:text-lg">
               {dict.home.subtitle}
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-6">
+            <div className="mt-8 flex">
               <Link
                 href={`/${l}/regenerationscheck`}
-                className="inline-flex items-center gap-2 rounded-full bg-mauve px-6 py-3 text-sm text-white hover:bg-mauve-dark"
+                className="inline-flex items-center gap-2 bg-mauve px-8 py-3.5 text-sm text-white transition-colors hover:bg-mauve-dark"
               >
                 {dict.home.ctaForMe} <span aria-hidden="true">→</span>
               </Link>
-              <Link href={`/${l}/shop`} className="text-sm text-mauve-dark underline underline-offset-4">
-                {dict.home.ctaShop}
-              </Link>
             </div>
           </div>
-
-          <div className="relative mx-auto w-full max-w-md md:mx-0">
-            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl">
-              <Image
-                src="/products/pdp-roll-on-main.webp"
-                alt=""
-                fill
-                sizes="(min-width: 768px) 420px, 90vw"
-                priority
-                className="object-cover"
-              />
-            </div>
+          
+          <div className="hidden max-w-[9rem] pb-12 pr-4 lg:block xl:pr-12">
+            <p className="font-serif text-lg italic leading-snug text-ink/70">
+              {dict.home.heroSideTitle}
+              <br />
+              {dict.home.heroSideSubtitle}
+            </p>
           </div>
-
-          <p className="hidden max-w-[7rem] shrink-0 text-right font-serif text-base italic leading-snug text-ink/70 lg:block">
-            {dict.home.heroSideTitle}
-            <br />
-            {dict.home.heroSideSubtitle}
-          </p>
         </div>
       </section>
 
       <section
         id="unser-ansatz"
-        className="px-4 py-20 sm:px-6 sm:py-24"
+        className="px-4 py-24 sm:px-6 sm:py-32"
         style={{ background: "color-mix(in srgb, var(--color-scroll-1) 74%, transparent)" }}
       >
-        <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-[1fr_1.5fr] md:gap-[8%]">
-          <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-mauve">
+        <div className="mx-auto flex max-w-6xl flex-col gap-12 md:flex-row md:items-start md:justify-between lg:gap-24">
+          <div className="md:w-5/12">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/60">
               {dict.homeSections.concept.eyebrow}
             </p>
-            <h2 className="mt-4 font-serif text-3xl leading-[0.95] text-ink md:text-4xl">
+            <h2 className="mt-5 max-w-xs font-serif text-4xl leading-[1.1] text-ink md:text-5xl lg:max-w-sm lg:text-6xl">
               {dict.homeSections.concept.headline}
             </h2>
           </div>
-          <p className="max-w-xl text-base leading-relaxed text-ink/70">
-            {dict.homeSections.concept.body}
-          </p>
+          <div className="md:w-7/12 md:pt-10">
+            <p className="max-w-xl text-base leading-relaxed text-ink/70 lg:text-lg lg:leading-loose">
+              {dict.homeSections.concept.body}
+            </p>
+          </div>
         </div>
-        <blockquote className="mx-auto mt-12 max-w-2xl text-center font-serif text-2xl italic leading-snug text-ink md:text-3xl">
+        
+        <blockquote className="mx-auto mt-20 max-w-3xl text-center font-serif text-2xl italic leading-snug text-ink md:mt-32 md:text-3xl lg:text-4xl">
           {dict.homeSections.concept.statement}
         </blockquote>
-        <div className="mx-auto mt-10 flex max-w-6xl flex-wrap items-center gap-x-4 gap-y-2 text-xs uppercase tracking-[0.2em] text-ink-meta">
-          {dict.homeSections.concept.phaseStrip.map((name, i) => (
-            <span key={name} className="flex items-center gap-4">
-              {i > 0 && <i aria-hidden="true" className="h-px w-10 bg-mauve/20 sm:w-20" />}
-              {name}
-            </span>
+        
+        <div className="mx-auto mt-20 flex w-full max-w-6xl items-center justify-between text-xs font-medium uppercase tracking-[0.2em] text-ink/60 md:mt-32">
+          {dict.homeSections.concept.phaseStrip.map((name, i, arr) => (
+            <React.Fragment key={name}>
+              <span className="shrink-0">{name}</span>
+              {i < arr.length - 1 && (
+                <i aria-hidden="true" className="mx-2 h-px flex-1 bg-ink/20 sm:mx-4 md:mx-8" />
+              )}
+            </React.Fragment>
           ))}
         </div>
       </section>
@@ -110,37 +112,41 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
           statements, then a single centered Regenerationscheck CTA.
           Background lightens again after Section 3's dark close. */}
       <section
-        className="py-20 sm:py-24"
+        className="py-24 sm:py-32"
         style={{ background: "color-mix(in srgb, var(--color-scroll-2) 74%, transparent)" }}
       >
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="grid items-end gap-6 md:grid-cols-[1fr_1.5fr] md:gap-[8%]">
-            <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-teal-dark">
+        <div className="mx-auto max-w-[1400px] px-4 sm:px-6 md:px-12">
+          <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between lg:gap-24">
+            <div className="md:w-1/2">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/60">
                 {dict.homeSections.moment.eyebrow}
               </p>
-              <h2 className="mt-3 font-serif text-3xl leading-tight text-ink md:text-4xl">
+              <h2 className="mt-5 max-w-sm font-serif text-4xl leading-tight text-ink md:text-5xl lg:text-[3.5rem] lg:leading-[1.1]">
                 {dict.homeSections.moment.headline}
               </h2>
             </div>
-            <p className="max-w-lg text-ink/70">{dict.homeSections.moment.intro}</p>
+            <div className="md:w-5/12 md:pt-10">
+              <p className="max-w-xl text-base leading-relaxed text-ink/70 lg:text-lg lg:leading-loose">
+                {dict.homeSections.moment.intro}
+              </p>
+            </div>
           </div>
 
-          <div className="mt-10 grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {dict.homeSections.moment.situations.map((situation) => (
-              <div key={situation.quote} className="min-h-[150px] bg-offwhite/60 p-6">
-                <p className="font-serif text-lg italic leading-snug text-ink">
+              <div key={situation.quote} className="flex flex-col bg-white p-8 shadow-sm lg:p-10">
+                <p className="font-serif text-xl italic leading-snug text-ink">
                   &ldquo;{situation.quote}&rdquo;
                 </p>
-                <p className="mt-4 text-sm leading-relaxed text-ink/70">{situation.reflection}</p>
+                <p className="mt-6 text-sm leading-relaxed text-ink/70 lg:text-base lg:leading-relaxed">{situation.reflection}</p>
               </div>
             ))}
           </div>
 
-          <div className="mt-10 flex justify-center">
+          <div className="mt-16 flex justify-center">
             <Link
               href={`/${l}/regenerationscheck`}
-              className="inline-flex items-center gap-3 rounded-full bg-mauve px-7 py-3 text-sm text-white hover:bg-mauve-dark"
+              className="inline-flex items-center justify-center bg-mauve px-8 py-3.5 text-sm font-medium text-white transition-colors hover:bg-mauve-dark"
             >
               {dict.homeSections.moment.checkCta}
             </Link>
@@ -176,13 +182,6 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
           </div>
 
           {(() => {
-            // Editorial dramaturgy per the brief, not a repeating product
-            // wall: Regeneration Cards large and alone -> Roll-on/Oil
-            // Blend/Room Spray as one grouped "ritual world" -> Tea paired
-            // with the Starter Set -> Neck Pillow/Mattress large and
-            // generous as the night-facing close. Reads from the same
-            // flat `products` array (ordered to match this grouping) so
-            // the copy/pricing/phase data stays single-sourced.
             const products = dict.homeSections.forYou.products;
             const byslug = (slug: string) => products.find((p) => p.slug === slug);
             const cards = byslug("somnobalance-regeneration-cards");
@@ -197,21 +196,15 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               .filter((p): p is NonNullable<typeof p> => Boolean(p));
 
             const PhaseStrip = ({ activePhases }: { activePhases: boolean[] }) => (
-              <div className="mt-4 flex flex-wrap gap-x-3 gap-y-1.5 text-xs uppercase tracking-[0.12em]">
+              <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-[10px] uppercase tracking-[0.2em]">
                 {dict.homeSections.forYou.phaseLabels.map((label, i) => (
-                  <span key={label} className={activePhases[i] ? "font-semibold text-mauve-dark" : "text-ink-meta"}>
+                  <span key={label} className={activePhases[i] ? "font-semibold text-ink" : "text-ink/40"}>
                     {label}
                   </span>
                 ))}
               </div>
             );
 
-            // Each of the 4 tiles in the 2x2 grid below represents one of
-            // the brief's thematic groups (cards alone / ritual trio / tea
-            // + starter-set / pillow + mattress) rather than one product —
-            // still editorial grouping, not a flat 9-up product wall, just
-            // laid out as an even grid per the client's latest mockup
-            // instead of varied-size stacked rows.
             const GroupTile = ({
               title,
               subheadline,
@@ -219,7 +212,6 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               image,
               activePhases,
               cta,
-              extraImages,
             }: {
               title: string;
               subheadline: string;
@@ -227,50 +219,33 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               image: string;
               activePhases: boolean[];
               cta: string;
-              extraImages?: string[];
             }) => (
-              <div className="flex flex-col overflow-hidden bg-sand/40">
-                <Link href={href} className="group relative block aspect-[4/3] overflow-hidden bg-sand/40">
-                  {extraImages && extraImages.length > 0 ? (
-                    <div className="grid h-full grid-cols-3 gap-px bg-mauve/10">
-                      {[image, ...extraImages].slice(0, 3).map((src) => (
-                        <div key={src} className="relative overflow-hidden bg-sand/40">
-                          <Image
-                            src={src}
-                            alt=""
-                            fill
-                            sizes="(min-width: 768px) 15vw, 30vw"
-                            className="object-contain p-3 transition duration-500 group-hover:scale-105"
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <Image
-                      src={image}
-                      alt={title}
-                      fill
-                      sizes="(min-width: 768px) 45vw, 90vw"
-                      className="object-contain p-10 transition duration-500 group-hover:scale-105"
-                    />
-                  )}
+              <div className="flex flex-col">
+                <Link href={href} className="group relative block aspect-[16/9] overflow-hidden">
+                  <Image
+                    src={image}
+                    alt={title}
+                    fill
+                    sizes="(min-width: 768px) 45vw, 90vw"
+                    className="object-cover transition duration-700 group-hover:scale-105"
+                  />
                 </Link>
-                <div className="flex flex-1 flex-col p-6">
-                  <h3 className="font-serif text-xl text-ink">{title}</h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-ink/70">{subheadline}</p>
+                <div className="flex flex-1 flex-col bg-white p-6 sm:p-8">
+                  <h3 className="font-serif text-xl font-bold text-ink">{title}</h3>
+                  <p className="mt-2 text-sm text-ink/70">{subheadline}</p>
                   <PhaseStrip activePhases={activePhases} />
                   <Link
                     href={href}
-                    className="mt-4 inline-flex items-center gap-2 text-sm text-mauve-dark underline underline-offset-4 hover:text-ink"
+                    className="mt-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-ink transition-opacity hover:opacity-70"
                   >
-                    {cta}
+                    Mehr erfahren &rarr;
                   </Link>
                 </div>
               </div>
             );
 
             return (
-              <div className="mt-16 grid gap-6 md:grid-cols-2">
+              <div className="mt-16 grid gap-6 md:grid-cols-2 lg:gap-8">
                 {cards && (
                   <GroupTile
                     title={getProductText(getProduct(cards.slug)!, l).name}
@@ -284,11 +259,10 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
 
                 {ritualTrio.length > 0 && (
                   <GroupTile
-                    title={dict.homeSections.forYou.ritualGroupLabel}
-                    subheadline={ritualTrio.map((p) => getProductText(getProduct(p.slug)!, l).name).join(" · ")}
+                    title="Roll-on, Öl-Mischung & Raum Spray"
+                    subheadline={ritualTrio[0].subheadline}
                     href={`/${l}/shop/${ritualTrio[0].slug}`}
                     image={ritualTrio[0].image}
-                    extraImages={ritualTrio.slice(1).map((p) => p.image)}
                     activePhases={ritualTrio[0].activePhases}
                     cta={ritualTrio[0].cta}
                   />
@@ -296,11 +270,10 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
 
                 {teaPair.length > 0 && (
                   <GroupTile
-                    title={teaPair.map((p) => getProductText(getProduct(p.slug)!, l).name).join(" & ")}
+                    title="Regenerationstee & Starter Set"
                     subheadline={teaPair[0].subheadline}
                     href={`/${l}/shop/${teaPair[0].slug}`}
                     image={teaPair[0].image}
-                    extraImages={teaPair.slice(1).map((p) => p.image)}
                     activePhases={teaPair[0].activePhases}
                     cta={teaPair[0].cta}
                   />
@@ -308,11 +281,10 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
 
                 {nightPair.length > 0 && (
                   <GroupTile
-                    title={nightPair.map((p) => getProductText(getProduct(p.slug)!, l).name).join(" & ")}
+                    title="Nackenstützkissen & Matratze"
                     subheadline={nightPair[0].subheadline}
                     href={`/${l}/shop/${nightPair[0].slug}`}
                     image={nightPair[0].image}
-                    extraImages={nightPair.slice(1).map((p) => p.image)}
                     activePhases={nightPair[0].activePhases}
                     cta={nightPair[0].cta}
                   />
@@ -321,46 +293,36 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             );
           })()}
 
-          <div className="mt-20 border-t border-mauve/15 pt-14 text-center">
-            <p className="text-xs uppercase tracking-[0.2em] text-teal-dark">
-              {dict.homeSections.forYou.closingEyebrow}
-            </p>
-            <h3 className="mx-auto mt-4 max-w-xl font-serif text-2xl leading-snug text-ink md:text-3xl">
-              {dict.homeSections.forYou.closingHeadline}
-            </h3>
-            <p className="mx-auto mt-4 max-w-lg text-ink/70">{dict.homeSections.forYou.closingBody}</p>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+          <div className="mt-24 flex flex-col items-center">
+            <div className="flex w-full max-w-2xl items-center gap-4">
+              <div className="h-px flex-1 bg-ink/20"></div>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/60">
+                SOMNOBALANCE ENTDECKEN
+              </p>
+              <div className="h-px flex-1 bg-ink/20"></div>
+            </div>
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
               <Link
                 href={`/${l}/shop`}
-                className="inline-flex items-center gap-2 rounded-full bg-mauve px-7 py-3 text-sm text-white hover:bg-mauve-dark"
+                className="inline-flex items-center justify-center bg-[#7b6b8a] px-8 py-3.5 text-sm font-medium text-white transition-colors hover:bg-opacity-90"
               >
-                {dict.homeSections.forYou.closingCtaPrimary}
+                Alle Produkte entdecken &rarr;
               </Link>
               <Link
                 href={`/${l}/regenerationscheck`}
-                className="text-sm text-mauve-dark underline underline-offset-4"
+                className="inline-flex items-center justify-center border border-ink/20 bg-white px-8 py-3.5 text-sm font-medium text-ink transition-colors hover:bg-ink/5"
               >
-                {dict.homeSections.forYou.closingCtaSecondary}
+                Regenerationscheck starten
               </Link>
             </div>
           </div>
+
         </div>
       </section>
 
-      <section
-        className="py-16"
-        style={{ background: "color-mix(in srgb, var(--color-scroll-3) 74%, transparent)" }}
-      >
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <p className="text-xs uppercase tracking-[0.2em] text-teal-dark">
-            {dict.home.personaEyebrow}
-          </p>
-          <h2 className="mt-3 max-w-xl font-serif text-3xl leading-tight text-ink">
-            {dict.home.personaTitle}
-          </h2>
-          <p className="mt-4 max-w-lg text-ink/70">{dict.home.personaIntro}</p>
-
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
+      <section className="py-16 pb-24 sm:py-24 sm:pb-32 bg-white">
+        <div className="mx-auto max-w-[1400px] px-4 sm:px-6 md:px-12">
+          <div className="grid gap-6 md:grid-cols-3">
             {[
               {
                 href: `/${l}/for-me`,
@@ -384,21 +346,21 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               <Link
                 key={card.href}
                 href={card.href}
-                className="group relative flex aspect-[3/4] flex-col justify-end overflow-hidden rounded-3xl"
+                className="group relative flex aspect-[16/9] flex-col justify-end overflow-hidden sm:aspect-[4/3] lg:aspect-[16/9]"
               >
                 <Image
                   src={card.image}
                   alt=""
                   fill
                   sizes="(min-width: 768px) 33vw, 100vw"
-                  className="object-cover transition duration-500 group-hover:scale-105"
+                  className="object-cover transition duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent" />
-                <div className="relative p-6">
-                  <h3 className="font-serif text-lg text-white">{card.title}</h3>
-                  <p className="mt-2 text-sm text-white/80">{card.copy}</p>
-                  <span className="mt-3 inline-block text-sm text-white group-hover:underline">
-                    {dict.home.discover}
+                <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/30 to-transparent" />
+                <div className="relative p-6 sm:p-8">
+                  <h3 className="font-serif text-2xl font-bold text-white">{card.title}</h3>
+                  <p className="mt-2 text-sm text-white/90">{card.copy}</p>
+                  <span className="mt-6 inline-block text-xs font-semibold uppercase tracking-wider text-white transition-opacity group-hover:opacity-70">
+                    Mehr erfahren &rarr;
                   </span>
                 </div>
               </Link>
