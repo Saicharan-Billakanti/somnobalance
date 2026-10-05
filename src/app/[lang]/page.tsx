@@ -62,34 +62,34 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
         </div>
       </section>
 
-      <section id="unser-ansatz" style={{ background: "color-mix(in srgb, var(--color-scroll-1) 74%, transparent)" }}>
-        {/* Section 2 — "Der SomnoBalance Gedanke": pure typography, no
-            cards, no photo, no CTA. Per the brief this is deliberately
-            quiet after the hero — the visitor is in "understand", not
-            "buy". A light divider line stands in for the four-phase
-            system without yet explaining it (that's Section 3). */}
-        <div className="mx-auto max-w-2xl px-4 py-24 sm:px-6 sm:py-32">
-          <p className="text-xs uppercase tracking-[0.2em] text-mauve">
-            {dict.homeSections.concept.eyebrow}
-          </p>
-          <h2 className="mt-6 font-serif text-3xl leading-tight text-ink md:text-4xl">
-            {dict.homeSections.concept.headline}
-          </h2>
-          <p className="mt-8 max-w-lg text-base leading-relaxed text-ink/70">
+      <section
+        id="unser-ansatz"
+        className="px-4 py-20 sm:px-6 sm:py-24"
+        style={{ background: "color-mix(in srgb, var(--color-scroll-1) 74%, transparent)" }}
+      >
+        <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-[1fr_1.5fr] md:gap-[8%]">
+          <div>
+            <p className="text-xs uppercase tracking-[0.2em] text-mauve">
+              {dict.homeSections.concept.eyebrow}
+            </p>
+            <h2 className="mt-4 font-serif text-3xl leading-[0.95] text-ink md:text-4xl">
+              {dict.homeSections.concept.headline}
+            </h2>
+          </div>
+          <p className="max-w-xl text-base leading-relaxed text-ink/70">
             {dict.homeSections.concept.body}
           </p>
-          <p className="mt-16 font-serif text-2xl italic leading-snug text-ink md:text-3xl">
-            {dict.homeSections.concept.statement}
-          </p>
-          <p className="mt-10 text-sm text-ink-meta">{dict.homeSections.concept.transition}</p>
-          <div className="mt-10 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs uppercase tracking-[0.15em] text-ink-meta">
-            {dict.homeSections.concept.phaseStrip.map((name, i) => (
-              <span key={name} className="flex items-center gap-3">
-                {i > 0 && <span aria-hidden="true">—</span>}
-                {name}
-              </span>
-            ))}
-          </div>
+        </div>
+        <blockquote className="mx-auto mt-12 max-w-2xl text-center font-serif text-2xl italic leading-snug text-ink md:text-3xl">
+          {dict.homeSections.concept.statement}
+        </blockquote>
+        <div className="mx-auto mt-10 flex max-w-6xl flex-wrap items-center gap-x-4 gap-y-2 text-xs uppercase tracking-[0.2em] text-ink-meta">
+          {dict.homeSections.concept.phaseStrip.map((name, i) => (
+            <span key={name} className="flex items-center gap-4">
+              {i > 0 && <i aria-hidden="true" className="h-px w-10 bg-mauve/20 sm:w-20" />}
+              {name}
+            </span>
+          ))}
         </div>
       </section>
 
@@ -107,69 +107,42 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
       />
 
       {/* Section 4 — "Was brauchen Sie gerade?": four self-recognition
-          statements (no product links yet), then the Regenerationscheck
-          CTA. Background lightens again after Section 3's dark close. */}
+          statements, then a single centered Regenerationscheck CTA.
+          Background lightens again after Section 3's dark close. */}
       <section
         className="py-20 sm:py-24"
         style={{ background: "color-mix(in srgb, var(--color-scroll-2) 74%, transparent)" }}
       >
-        <div className="mx-auto max-w-5xl px-4 sm:px-6">
-          <p className="text-xs uppercase tracking-[0.2em] text-teal-dark">
-            {dict.homeSections.moment.eyebrow}
-          </p>
-          <h2 className="mt-3 max-w-xl font-serif text-3xl leading-tight text-ink md:text-4xl">
-            {dict.homeSections.moment.headline}
-          </h2>
-          <p className="mt-5 max-w-lg text-ink/70">{dict.homeSections.moment.intro}</p>
-          <p className="mt-3 max-w-lg text-ink/70">{dict.homeSections.moment.sub}</p>
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="grid items-end gap-6 md:grid-cols-[1fr_1.5fr] md:gap-[8%]">
+            <div>
+              <p className="text-xs uppercase tracking-[0.2em] text-teal-dark">
+                {dict.homeSections.moment.eyebrow}
+              </p>
+              <h2 className="mt-3 font-serif text-3xl leading-tight text-ink md:text-4xl">
+                {dict.homeSections.moment.headline}
+              </h2>
+            </div>
+            <p className="max-w-lg text-ink/70">{dict.homeSections.moment.intro}</p>
+          </div>
 
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
             {dict.homeSections.moment.situations.map((situation) => (
-              <div
-                key={situation.quote}
-                className="rounded-2xl border border-mauve/15 bg-offwhite/60 p-6"
-              >
-                <p className="font-serif text-base italic leading-snug text-ink">
+              <div key={situation.quote} className="min-h-[150px] bg-offwhite/60 p-6">
+                <p className="font-serif text-lg italic leading-snug text-ink">
                   &ldquo;{situation.quote}&rdquo;
                 </p>
-                <p className="mt-3 text-sm leading-relaxed text-ink/70">{situation.reflection}</p>
+                <p className="mt-4 text-sm leading-relaxed text-ink/70">{situation.reflection}</p>
               </div>
             ))}
           </div>
 
-          <div className="mt-20 grid items-center gap-10 border-t border-mauve/15 pt-14 md:grid-cols-[1fr_auto]">
-            <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-mauve">
-                {dict.homeSections.moment.checkEyebrow}
-              </p>
-              <h3 className="mt-4 max-w-xl font-serif text-2xl leading-snug text-ink md:text-3xl">
-                {dict.homeSections.moment.checkHeadline}
-              </h3>
-              <p className="mt-4 max-w-lg text-ink/70">{dict.homeSections.moment.checkBody}</p>
-              <Link
-                href={`/${l}/regenerationscheck`}
-                className="mt-8 inline-flex items-center gap-2 rounded-full bg-mauve px-7 py-3 text-sm text-white hover:bg-mauve-dark"
-              >
-                {dict.homeSections.moment.checkCta}
-              </Link>
-              <p className="mt-3 text-xs text-ink-meta">{dict.homeSections.moment.checkNote}</p>
-            </div>
-
-            {/* "Card peeking out" visual — the check framed like a printed
-                insert the visitor pulls out, not a quiz-app button. */}
+          <div className="mt-10 flex justify-center">
             <Link
               href={`/${l}/regenerationscheck`}
-              className="hidden w-44 shrink-0 rotate-3 rounded-2xl border border-mauve/20 bg-offwhite p-6 text-center shadow-xl transition hover:rotate-1 hover:shadow-2xl md:block"
+              className="inline-flex items-center gap-3 rounded-full bg-mauve px-7 py-3 text-sm text-white hover:bg-mauve-dark"
             >
-              <p className="font-serif text-sm italic leading-snug text-mauve">
-                {dict.homeSections.moment.checkCardLabel}
-              </p>
-              <span
-                aria-hidden="true"
-                className="mt-4 flex h-9 w-9 items-center justify-center rounded-full bg-mauve text-white"
-              >
-                →
-              </span>
+              {dict.homeSections.moment.checkCta}
             </Link>
           </div>
         </div>
@@ -256,7 +229,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               cta: string;
               extraImages?: string[];
             }) => (
-              <div className="flex flex-col overflow-hidden rounded-3xl border border-mauve/10 bg-offwhite">
+              <div className="flex flex-col overflow-hidden bg-sand/40">
                 <Link href={href} className="group relative block aspect-[4/3] overflow-hidden bg-sand/40">
                   {extraImages && extraImages.length > 0 ? (
                     <div className="grid h-full grid-cols-3 gap-px bg-mauve/10">
