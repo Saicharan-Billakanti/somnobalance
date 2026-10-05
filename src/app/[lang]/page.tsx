@@ -18,53 +18,47 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
         className="relative overflow-hidden"
         style={{ background: "color-mix(in srgb, var(--color-scroll-1) 74%, transparent)" }}
       >
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2 md:py-20">
+        <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 py-16 sm:px-6 md:grid-cols-[1fr_1fr_auto] md:py-20">
           <div>
             <p className="text-sm uppercase tracking-[0.2em] text-teal-dark">{dict.home.eyebrow}</p>
             <h1 className="mt-4 font-serif text-4xl leading-tight text-ink md:text-5xl">
               {dict.home.titlePrefix}
               <em className="text-mauve italic">{dict.home.titleAccent}</em>
             </h1>
-            <p className="mt-6 max-w-md text-lg leading-relaxed text-ink/70">
+            <p className="mt-6 max-w-md text-base leading-relaxed text-ink/70">
               {dict.home.subtitle}
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-6">
               <Link
                 href={`/${l}/regenerationscheck`}
-                className="rounded-full bg-mauve px-6 py-3 text-sm text-white hover:bg-mauve-dark"
+                className="inline-flex items-center gap-2 rounded-full bg-mauve px-6 py-3 text-sm text-white hover:bg-mauve-dark"
               >
-                {dict.home.ctaForMe}
+                {dict.home.ctaForMe} <span aria-hidden="true">→</span>
               </Link>
               <Link href={`/${l}/shop`} className="text-sm text-mauve-dark underline underline-offset-4">
                 {dict.home.ctaShop}
               </Link>
             </div>
-            <div className="mt-14 hidden items-center gap-2 text-xs uppercase tracking-[0.15em] text-ink/40 md:flex">
-              <span aria-hidden="true">↓</span>
-              {dict.home.scrollHint}
-            </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-[360px] md:mx-0">
-            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl">
+          <div className="relative mx-auto w-full max-w-md md:mx-0">
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl">
               <Image
-                src="/brand/rollon-styled-stone.webp"
+                src="/products/pdp-roll-on-main.webp"
                 alt=""
                 fill
-                sizes="(min-width: 768px) 360px, 80vw"
+                sizes="(min-width: 768px) 420px, 90vw"
                 priority
                 className="object-cover"
               />
             </div>
-            <p className="absolute -right-4 bottom-6 hidden max-w-[9rem] -rotate-3 rounded-2xl bg-offwhite p-4 text-right font-serif text-base italic leading-snug text-mauve shadow-lg md:block">
-              {dict.home.heroSideTitle}
-              <br />
-              {dict.home.heroSideSubtitle}
-            </p>
-            <p className="mt-4 text-center font-serif text-lg italic leading-snug text-mauve md:hidden">
-              {dict.home.heroSideTitle} {dict.home.heroSideSubtitle}
-            </p>
           </div>
+
+          <p className="hidden max-w-[7rem] shrink-0 text-right font-serif text-base italic leading-snug text-ink/70 lg:block">
+            {dict.home.heroSideTitle}
+            <br />
+            {dict.home.heroSideSubtitle}
+          </p>
         </div>
       </section>
 
