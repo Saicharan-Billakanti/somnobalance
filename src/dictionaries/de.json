@@ -2,6 +2,7 @@
   "nav": {
     "forMe": "Für mich",
     "regenerationscheck": "Regenerationscheck",
+    "ourApproach": "Unser Ansatz",
     "forBusiness": "Für mein Unternehmen",
     "partner": "Partner werden",
     "shop": "Shop",
@@ -79,7 +80,9 @@
     "explore": "Entdecken",
     "legal": "Rechtliches",
     "contact": "Kontakt",
-    "rights": "Alle Rechte vorbehalten."
+    "rights": "Alle Rechte vorbehalten.",
+    "newsletterTitle": "In Verbindung bleiben",
+    "newsletterCopy": "Erhalten Sie Impulse und Neuigkeiten aus der SomnoBalance-Welt."
   },
   "legalNav": {
     "impressum": "Impressum",
@@ -96,12 +99,12 @@
     "title": "Regeneration beginnt am Tag und wirkt bis in die Nacht.",
     "titlePrefix": "Regeneration beginnt am Tag und wirkt ",
     "titleAccent": "bis in die Nacht.",
-    "subtitle": "SomnoBalance ist keine Matratzenmarke. Es ist ein Ritual für den Übergang in die Ruhe — sinnlich, unaufgeregt und ganz auf Sie ausgerichtet.",
+    "subtitle": "Ganzheitliche Begleiter für Ihre natürliche Balance — für mehr Ruhe, Regeneration und Lebensqualität, jeden Tag aufs Neue.",
     "ctaForMe": "Regenerationscheck starten",
     "ctaShop": "Shop entdecken",
     "scrollHint": "Zum Entdecken scrollen",
     "heroSideTitle": "Kleine Rituale.",
-    "heroSideSubtitle": "Große Veränderung.",
+    "heroSideSubtitle": "Große Wirkung im Alltag.",
     "cycleLabel": "Regulieren · Loslassen · Vorbereiten · Regenerieren",
     "cycle": [
       {
@@ -241,7 +244,8 @@
       "checkHeadline": "Wo können Sie Ihre Regeneration gerade am besten unterstützen?",
       "checkBody": "Der SomnoBalance Regenerationscheck hilft Ihnen dabei, Ihren aktuellen Regenerationsbedarf besser einzuordnen. Mit wenigen Fragen erhalten Sie eine persönliche Orientierung und passende Impulse aus dem SomnoBalance-Konzept.",
       "checkCta": "Regenerationscheck starten →",
-      "checkNote": "Dauert nur wenige Minuten."
+      "checkNote": "Dauert nur wenige Minuten.",
+      "checkCardLabel": "Ihr persönlicher Regenerationscheck — finden Sie heraus, was Ihnen gerade gut tut."
     },
     "forYou": {
       "eyebrow": "SOMNOBALANCE FÜR SIE",

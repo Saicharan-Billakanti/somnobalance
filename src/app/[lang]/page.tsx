@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { getProduct, getProductText, getDisplayPrice, formatPrice } from "@/lib/products";
+import { getProduct, getProductText } from "@/lib/products";
 import { getDictionary } from "@/i18n/getDictionary";
 import { isLocale, type Locale } from "@/i18n/config";
 import { notFound } from "next/navigation";
@@ -45,27 +45,30 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-[280px] md:mx-0">
-            <div className="relative aspect-[3/4] w-full">
+          <div className="relative mx-auto w-full max-w-[360px] md:mx-0">
+            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl">
               <Image
-                src="/products/somnobalance-roll-on.webp"
+                src="/brand/rollon-styled-stone.webp"
                 alt=""
                 fill
-                sizes="(min-width: 768px) 280px, 70vw"
+                sizes="(min-width: 768px) 360px, 80vw"
                 priority
-                className="object-contain"
+                className="object-cover"
               />
             </div>
-            <p className="mt-4 text-center font-serif text-lg italic leading-snug text-mauve">
+            <p className="absolute -right-4 bottom-6 hidden max-w-[9rem] -rotate-3 rounded-2xl bg-offwhite p-4 text-right font-serif text-base italic leading-snug text-mauve shadow-lg md:block">
               {dict.home.heroSideTitle}
               <br />
               {dict.home.heroSideSubtitle}
+            </p>
+            <p className="mt-4 text-center font-serif text-lg italic leading-snug text-mauve md:hidden">
+              {dict.home.heroSideTitle} {dict.home.heroSideSubtitle}
             </p>
           </div>
         </div>
       </section>
 
-      <section style={{ background: "color-mix(in srgb, var(--color-scroll-1) 74%, transparent)" }}>
+      <section id="unser-ansatz" style={{ background: "color-mix(in srgb, var(--color-scroll-1) 74%, transparent)" }}>
         {/* Section 2 — "Der SomnoBalance Gedanke": pure typography, no
             cards, no photo, no CTA. Per the brief this is deliberately
             quiet after the hero — the visitor is in "understand", not
@@ -126,13 +129,13 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
           <p className="mt-5 max-w-lg text-ink/70">{dict.homeSections.moment.intro}</p>
           <p className="mt-3 max-w-lg text-ink/70">{dict.homeSections.moment.sub}</p>
 
-          <div className="mt-14 grid gap-x-10 gap-y-10 sm:grid-cols-2">
+          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {dict.homeSections.moment.situations.map((situation) => (
               <div
                 key={situation.quote}
-                className="border-l border-mauve/20 pl-6"
+                className="rounded-2xl border border-mauve/15 bg-offwhite/60 p-6"
               >
-                <p className="font-serif text-lg italic leading-snug text-ink">
+                <p className="font-serif text-base italic leading-snug text-ink">
                   &ldquo;{situation.quote}&rdquo;
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-ink/70">{situation.reflection}</p>
@@ -140,21 +143,40 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             ))}
           </div>
 
-          <div className="mt-20 border-t border-mauve/15 pt-14 text-center">
-            <p className="text-xs uppercase tracking-[0.2em] text-mauve">
-              {dict.homeSections.moment.checkEyebrow}
-            </p>
-            <h3 className="mx-auto mt-4 max-w-xl font-serif text-2xl leading-snug text-ink md:text-3xl">
-              {dict.homeSections.moment.checkHeadline}
-            </h3>
-            <p className="mx-auto mt-4 max-w-lg text-ink/70">{dict.homeSections.moment.checkBody}</p>
+          <div className="mt-20 grid items-center gap-10 border-t border-mauve/15 pt-14 md:grid-cols-[1fr_auto]">
+            <div>
+              <p className="text-xs uppercase tracking-[0.2em] text-mauve">
+                {dict.homeSections.moment.checkEyebrow}
+              </p>
+              <h3 className="mt-4 max-w-xl font-serif text-2xl leading-snug text-ink md:text-3xl">
+                {dict.homeSections.moment.checkHeadline}
+              </h3>
+              <p className="mt-4 max-w-lg text-ink/70">{dict.homeSections.moment.checkBody}</p>
+              <Link
+                href={`/${l}/regenerationscheck`}
+                className="mt-8 inline-flex items-center gap-2 rounded-full bg-mauve px-7 py-3 text-sm text-white hover:bg-mauve-dark"
+              >
+                {dict.homeSections.moment.checkCta}
+              </Link>
+              <p className="mt-3 text-xs text-ink-meta">{dict.homeSections.moment.checkNote}</p>
+            </div>
+
+            {/* "Card peeking out" visual — the check framed like a printed
+                insert the visitor pulls out, not a quiz-app button. */}
             <Link
               href={`/${l}/regenerationscheck`}
-              className="mt-8 inline-flex items-center gap-2 rounded-full bg-mauve px-7 py-3 text-sm text-white hover:bg-mauve-dark"
+              className="hidden w-44 shrink-0 rotate-3 rounded-2xl border border-mauve/20 bg-offwhite p-6 text-center shadow-xl transition hover:rotate-1 hover:shadow-2xl md:block"
             >
-              {dict.homeSections.moment.checkCta}
+              <p className="font-serif text-sm italic leading-snug text-mauve">
+                {dict.homeSections.moment.checkCardLabel}
+              </p>
+              <span
+                aria-hidden="true"
+                className="mt-4 flex h-9 w-9 items-center justify-center rounded-full bg-mauve text-white"
+              >
+                →
+              </span>
             </Link>
-            <p className="mt-3 text-xs text-ink-meta">{dict.homeSections.moment.checkNote}</p>
           </div>
         </div>
       </section>
@@ -217,171 +239,116 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               </div>
             );
 
-            const PriceLine = ({ slug }: { slug: string }) => {
-              const product = getProduct(slug);
-              if (!product) return null;
-              const { price, fromPrice } = getDisplayPrice(product);
-              return (
-                <div className="mt-4 text-sm text-ink/50">
-                  {fromPrice && <span>{dict.shop.from} </span>}
-                  {formatPrice(price)} <span className="text-ink/35">{dict.shop.inclVat}</span>
+            // Each of the 4 tiles in the 2x2 grid below represents one of
+            // the brief's thematic groups (cards alone / ritual trio / tea
+            // + starter-set / pillow + mattress) rather than one product —
+            // still editorial grouping, not a flat 9-up product wall, just
+            // laid out as an even grid per the client's latest mockup
+            // instead of varied-size stacked rows.
+            const GroupTile = ({
+              title,
+              subheadline,
+              href,
+              image,
+              activePhases,
+              cta,
+              extraImages,
+            }: {
+              title: string;
+              subheadline: string;
+              href: string;
+              image: string;
+              activePhases: boolean[];
+              cta: string;
+              extraImages?: string[];
+            }) => (
+              <div className="flex flex-col overflow-hidden rounded-3xl border border-mauve/10 bg-offwhite">
+                <Link href={href} className="group relative block aspect-[4/3] overflow-hidden bg-sand/40">
+                  {extraImages && extraImages.length > 0 ? (
+                    <div className="grid h-full grid-cols-3 gap-px bg-mauve/10">
+                      {[image, ...extraImages].slice(0, 3).map((src) => (
+                        <div key={src} className="relative overflow-hidden bg-sand/40">
+                          <Image
+                            src={src}
+                            alt=""
+                            fill
+                            sizes="(min-width: 768px) 15vw, 30vw"
+                            className="object-contain p-3 transition duration-500 group-hover:scale-105"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <Image
+                      src={image}
+                      alt={title}
+                      fill
+                      sizes="(min-width: 768px) 45vw, 90vw"
+                      className="object-contain p-10 transition duration-500 group-hover:scale-105"
+                    />
+                  )}
+                </Link>
+                <div className="flex flex-1 flex-col p-6">
+                  <h3 className="font-serif text-xl text-ink">{title}</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-ink/70">{subheadline}</p>
+                  <PhaseStrip activePhases={activePhases} />
+                  <Link
+                    href={href}
+                    className="mt-4 inline-flex items-center gap-2 text-sm text-mauve-dark underline underline-offset-4 hover:text-ink"
+                  >
+                    {cta}
+                  </Link>
                 </div>
-              );
-            };
+              </div>
+            );
 
             return (
-              <div className="mt-16 flex flex-col gap-24">
-                {/* Group 1 — Regenerationskarten, large as its own application moment */}
+              <div className="mt-16 grid gap-6 md:grid-cols-2">
                 {cards && (
-                  <div className="grid items-center gap-10 md:grid-cols-[1.2fr_1fr] md:gap-16">
-                    <Link
-                      href={`/${l}/shop/${cards.slug}`}
-                      className="group relative block aspect-[4/3] overflow-hidden rounded-3xl bg-sand/50 md:aspect-[5/4]"
-                    >
-                      <Image
-                        src={cards.image}
-                        alt={getProductText(getProduct(cards.slug)!, l).name}
-                        fill
-                        priority
-                        sizes="(min-width: 768px) 55vw, 90vw"
-                        className="object-contain p-10 transition duration-500 group-hover:scale-105"
-                      />
-                    </Link>
-                    <div>
-                      <p className="font-serif text-lg italic text-mauve">{cards.subheadline}</p>
-                      <h3 className="mt-3 font-serif text-2xl text-ink">
-                        {getProductText(getProduct(cards.slug)!, l).name}
-                      </h3>
-                      <p className="mt-4 max-w-md leading-relaxed text-ink/70">{cards.copy}</p>
-                      <PhaseStrip activePhases={cards.activePhases} />
-                      <PriceLine slug={cards.slug} />
-                      <Link
-                        href={`/${l}/shop/${cards.slug}`}
-                        className="mt-4 inline-flex items-center gap-2 text-sm text-mauve-dark underline underline-offset-4 hover:text-ink"
-                      >
-                        {cards.cta}
-                      </Link>
-                    </div>
-                  </div>
+                  <GroupTile
+                    title={getProductText(getProduct(cards.slug)!, l).name}
+                    subheadline={cards.subheadline}
+                    href={`/${l}/shop/${cards.slug}`}
+                    image={cards.image}
+                    activePhases={cards.activePhases}
+                    cta={cards.cta}
+                  />
                 )}
 
-                {/* Group 2 — Roll-on + Oil Blend + Room Spray as one ritual world */}
                 {ritualTrio.length > 0 && (
-                  <div>
-                    <p className="font-serif text-xl italic text-mauve">
-                      {dict.homeSections.forYou.ritualGroupLabel}
-                    </p>
-                    <div className="mt-6 grid gap-6 sm:grid-cols-3">
-                      {ritualTrio.map((entry) => {
-                        const product = getProduct(entry.slug)!;
-                        const text = getProductText(product, l);
-                        return (
-                          <div key={entry.slug} className="flex flex-col">
-                            <Link
-                              href={`/${l}/shop/${entry.slug}`}
-                              className="group relative block aspect-[4/5] overflow-hidden rounded-2xl bg-sand/50"
-                            >
-                              <Image
-                                src={entry.image}
-                                alt={text.name}
-                                fill
-                                sizes="(min-width: 640px) 30vw, 90vw"
-                                className="object-contain p-8 transition duration-500 group-hover:scale-105"
-                              />
-                            </Link>
-                            <p className="mt-4 font-serif text-base italic text-mauve">{entry.subheadline}</p>
-                            <h3 className="mt-2 font-serif text-xl text-ink">{text.name}</h3>
-                            <p className="mt-2 text-sm leading-relaxed text-ink/70">{entry.copy}</p>
-                            <PhaseStrip activePhases={entry.activePhases} />
-                            <PriceLine slug={entry.slug} />
-                            <Link
-                              href={`/${l}/shop/${entry.slug}`}
-                              className="mt-3 inline-flex items-center gap-2 text-sm text-mauve-dark underline underline-offset-4 hover:text-ink"
-                            >
-                              {entry.cta}
-                            </Link>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
+                  <GroupTile
+                    title={dict.homeSections.forYou.ritualGroupLabel}
+                    subheadline={ritualTrio.map((p) => getProductText(getProduct(p.slug)!, l).name).join(" · ")}
+                    href={`/${l}/shop/${ritualTrio[0].slug}`}
+                    image={ritualTrio[0].image}
+                    extraImages={ritualTrio.slice(1).map((p) => p.image)}
+                    activePhases={ritualTrio[0].activePhases}
+                    cta={ritualTrio[0].cta}
+                  />
                 )}
 
-                {/* Group 3 — Tee + Starter-Set paired */}
                 {teaPair.length > 0 && (
-                  <div className="grid gap-10 sm:grid-cols-2 sm:gap-8">
-                    {teaPair.map((entry) => {
-                      const product = getProduct(entry.slug)!;
-                      const text = getProductText(product, l);
-                      return (
-                        <div key={entry.slug} className="flex flex-col">
-                          <Link
-                            href={`/${l}/shop/${entry.slug}`}
-                            className="group relative block aspect-[4/5] overflow-hidden rounded-2xl bg-sand/50"
-                          >
-                            <Image
-                              src={entry.image}
-                              alt={text.name}
-                              fill
-                              sizes="(min-width: 640px) 45vw, 90vw"
-                              className="object-contain p-8 transition duration-500 group-hover:scale-105"
-                            />
-                          </Link>
-                          <p className="mt-4 font-serif text-base italic text-mauve">{entry.subheadline}</p>
-                          <h3 className="mt-2 font-serif text-xl text-ink">{text.name}</h3>
-                          <p className="mt-2 text-sm leading-relaxed text-ink/70">{entry.copy}</p>
-                          <PhaseStrip activePhases={entry.activePhases} />
-                          <PriceLine slug={entry.slug} />
-                          <Link
-                            href={`/${l}/shop/${entry.slug}`}
-                            className="mt-3 inline-flex items-center gap-2 text-sm text-mauve-dark underline underline-offset-4 hover:text-ink"
-                          >
-                            {entry.cta}
-                          </Link>
-                        </div>
-                      );
-                    })}
-                  </div>
+                  <GroupTile
+                    title={teaPair.map((p) => getProductText(getProduct(p.slug)!, l).name).join(" & ")}
+                    subheadline={teaPair[0].subheadline}
+                    href={`/${l}/shop/${teaPair[0].slug}`}
+                    image={teaPair[0].image}
+                    extraImages={teaPair.slice(1).map((p) => p.image)}
+                    activePhases={teaPair[0].activePhases}
+                    cta={teaPair[0].cta}
+                  />
                 )}
 
-                {/* Visual transition toward night, per the brief */}
-                <div className="h-px w-full bg-gradient-to-r from-transparent via-mauve/25 to-transparent" />
-
-                {/* Group 4 — Nackenstützkissen + Matratze, large and generous with real sleep-room photography */}
                 {nightPair.length > 0 && (
-                  <div className="grid gap-12 md:grid-cols-2 md:gap-10">
-                    {nightPair.map((entry) => {
-                      const product = getProduct(entry.slug)!;
-                      const text = getProductText(product, l);
-                      return (
-                        <div key={entry.slug} className="flex flex-col">
-                          <Link
-                            href={`/${l}/shop/${entry.slug}`}
-                            className="group relative block aspect-[4/5] overflow-hidden rounded-3xl bg-sand/50"
-                          >
-                            <Image
-                              src={entry.image}
-                              alt={text.name}
-                              fill
-                              sizes="(min-width: 768px) 45vw, 90vw"
-                              className="object-contain p-8 transition duration-500 group-hover:scale-105"
-                            />
-                          </Link>
-                          <p className="mt-5 font-serif text-lg italic text-mauve">{entry.subheadline}</p>
-                          <h3 className="mt-3 font-serif text-2xl text-ink">{text.name}</h3>
-                          <p className="mt-4 max-w-md leading-relaxed text-ink/70">{entry.copy}</p>
-                          <PhaseStrip activePhases={entry.activePhases} />
-                          <PriceLine slug={entry.slug} />
-                          <Link
-                            href={`/${l}/shop/${entry.slug}`}
-                            className="mt-4 inline-flex items-center gap-2 text-sm text-mauve-dark underline underline-offset-4 hover:text-ink"
-                          >
-                            {entry.cta}
-                          </Link>
-                        </div>
-                      );
-                    })}
-                  </div>
+                  <GroupTile
+                    title={nightPair.map((p) => getProductText(getProduct(p.slug)!, l).name).join(" & ")}
+                    subheadline={nightPair[0].subheadline}
+                    href={`/${l}/shop/${nightPair[0].slug}`}
+                    image={nightPair[0].image}
+                    extraImages={nightPair.slice(1).map((p) => p.image)}
+                    activePhases={nightPair[0].activePhases}
+                    cta={nightPair[0].cta}
+                  />
                 )}
               </div>
             );

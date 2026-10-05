@@ -25,13 +25,9 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
 
   const nav = [
     { href: `/${lang}/shop`, label: dict.nav.shop },
+    { href: `/${lang}/regenerationscheck`, label: dict.nav.regenerationscheck },
+    { href: `/${lang}/#unser-ansatz`, label: dict.nav.ourApproach },
     { href: `/${lang}/for-business`, label: isBusiness ? (lang === "de" ? "Mein B2B-Portal" : "Business Portal") : dict.nav.forBusiness },
-    {
-      href: `/${lang}/partner`,
-      label: isDualRole
-        ? (lang === "de" ? "Partner-Portal" : "Partner Portal")
-        : dict.nav.partner,
-    },
     { href: `/${lang}/about`, label: dict.nav.about },
   ];
 
@@ -88,6 +84,16 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
+          <Link
+            href={`/${lang}/shop`}
+            aria-label={tx("Search", "Suche")}
+            className="hidden h-9 w-9 items-center justify-center rounded-full text-ink/70 hover:bg-sand hover:text-mauve-dark transition sm:flex"
+          >
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="11" cy="11" r="7" />
+              <path strokeLinecap="round" d="m20 20-3.5-3.5" />
+            </svg>
+          </Link>
           <LocaleSwitcher lang={lang} />
           
           {/* Admin shortcut button */}

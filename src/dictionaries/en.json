@@ -2,6 +2,7 @@
   "nav": {
     "forMe": "For me",
     "regenerationscheck": "Regeneration Check",
+    "ourApproach": "Our Approach",
     "forBusiness": "For my business",
     "partner": "Become a partner",
     "shop": "Shop",
@@ -79,7 +80,9 @@
     "explore": "Explore",
     "legal": "Legal",
     "contact": "Contact",
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "newsletterTitle": "Stay connected",
+    "newsletterCopy": "Get impulses and news from the SomnoBalance world."
   },
   "legalNav": {
     "impressum": "Impressum",
@@ -96,12 +99,12 @@
     "title": "Regeneration begins in the day and reaches into the night.",
     "titlePrefix": "Regeneration begins in the day and reaches ",
     "titleAccent": "into the night.",
-    "subtitle": "SomnoBalance is not a mattress brand. It's a ritual for the transition into rest — sensory, unhurried, and built around you.",
+    "subtitle": "Holistic companions for your natural balance — for more calm, regeneration and quality of life, fresh every day.",
     "ctaForMe": "Start your Regeneration Check",
     "ctaShop": "Explore the shop",
     "scrollHint": "Scroll to discover",
     "heroSideTitle": "Small rituals.",
-    "heroSideSubtitle": "Big change.",
+    "heroSideSubtitle": "Big effect, every day.",
     "cycleLabel": "Regulate · Let Go · Prepare · Regenerate",
     "cycle": [
       {
@@ -241,7 +244,8 @@
       "checkHeadline": "Where can you best support your regeneration right now?",
       "checkBody": "The SomnoBalance Regeneration Check helps you get a clearer picture of your current regeneration needs. A few questions give you personal orientation and matching impulses from the SomnoBalance concept.",
       "checkCta": "Start your Regeneration Check →",
-      "checkNote": "Takes just a few minutes."
+      "checkNote": "Takes just a few minutes.",
+      "checkCardLabel": "Your personal Regeneration Check — find out what would help you right now."
     },
     "forYou": {
       "eyebrow": "SOMNOBALANCE FOR YOU",

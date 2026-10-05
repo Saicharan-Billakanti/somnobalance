@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Mail, MapPin } from "lucide-react";
 import { business } from "@/lib/site";
+import { FooterNewsletterForm } from "@/components/FooterNewsletterForm";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/getDictionary";
 
@@ -48,7 +49,7 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
       <div className="relative mx-auto grid min-h-[390px] max-w-[1500px] px-6 py-12 md:grid-cols-[0.85fr_2.15fr] md:px-12 lg:min-h-[465px] lg:px-16 lg:py-16">
         <div aria-hidden="true" />
         <div className="flex min-w-0 flex-col">
-          <div className="grid gap-10 md:grid-cols-[1.25fr_0.8fr_0.95fr_1.1fr] md:gap-0">
+          <div className="grid gap-10 md:grid-cols-[1.1fr_0.7fr_0.85fr_0.95fr_1.1fr] md:gap-0">
             <div className="md:pr-10">
               <Link href={`/${lang}`} className="inline-block shrink-0">
                 <Image
@@ -102,7 +103,7 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
               </div>
             </nav>
 
-            <div className="border-lovable-primary-foreground/25 md:border-l md:pl-8">
+            <div className="border-lovable-primary-foreground/25 md:border-l md:px-8">
               <h2 className="font-lovable-sans text-sm font-medium">{dict.footer.contact}</h2>
               <div className="mt-5 space-y-5 text-[11px] leading-5 text-lovable-primary-foreground/75">
                 <a href={`mailto:${business.email}`} className="flex items-start gap-3">
@@ -115,9 +116,28 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
                 </p>
               </div>
             </div>
+
+            <div className="border-lovable-primary-foreground/25 md:border-l md:pl-8">
+              <h2 className="font-lovable-sans text-sm font-medium">{dict.footer.newsletterTitle}</h2>
+              <p className="mt-5 text-[11px] leading-5 text-lovable-primary-foreground/70">
+                {dict.footer.newsletterCopy}
+              </p>
+              <div className="mt-4">
+                <FooterNewsletterForm lang={lang} />
+              </div>
+            </div>
           </div>
 
-          <div className="mt-10 flex flex-col gap-5 border-t border-lovable-primary-foreground/25 pt-4 text-[10px] text-lovable-primary-foreground/65 sm:flex-row sm:items-center sm:justify-between md:mt-auto">
+          <div className="mt-10 flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-lovable-primary-foreground/25 pt-6 text-[10px] uppercase tracking-[0.15em] text-lovable-primary-foreground/50">
+            {dict.homeSections.concept.phaseStrip.map((name, i) => (
+              <span key={name} className="flex items-center gap-3">
+                {i > 0 && <span aria-hidden="true">—</span>}
+                {name}
+              </span>
+            ))}
+          </div>
+
+          <div className="mt-6 flex flex-col gap-5 border-t border-lovable-primary-foreground/25 pt-4 text-[10px] text-lovable-primary-foreground/65 sm:flex-row sm:items-center sm:justify-between md:mt-auto">
             <span>
               © {new Date().getFullYear()} SomnoBalance. {dict.footer.rights}
             </span>
