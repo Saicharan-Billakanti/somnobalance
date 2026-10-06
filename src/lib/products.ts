@@ -142,7 +142,7 @@ export const products: Product[] = [
     details: [
       "10 ml, 100% pure essential oils",
       "Scent: lavender, clementine, grapefruit, frankincense, patchouli",
-      "Add 3–8 drops to the water of a suitable oil burner or diffuser",
+      "Add 5–8 drops to a diffuser or oil burner",
       "Follow the instructions of your specific device",
       "Not for skin application — avoid eye contact, keep out of reach of children",
     ],
@@ -162,7 +162,7 @@ export const products: Product[] = [
         details: [
           "10 ml, 100 % reine ätherische Öle",
           "Duft: Lavendel, Clementine, Grapefruit, Weihrauch, Patchouli",
-          "3–8 Tropfen in das Wasser eines geeigneten Duftlampen- oder Diffusor-Systems geben",
+          "5–8 Tropfen in Diffuser oder Duftlampe geben",
           "Hinweise des jeweiligen Geräts beachten",
           "Nicht zur Hautanwendung — Augenkontakt vermeiden, für Kinder unzugänglich aufbewahren",
         ],
