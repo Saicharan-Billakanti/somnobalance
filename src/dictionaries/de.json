@@ -76,9 +76,11 @@
     }
   },
   "footer": {
-    "tagline": "Regeneration beginnt am Tag und wirkt bis in die Nacht. Ein ruhiges, sinnliches System für den Übergang in die Ruhe.",
+    "tagline": "Regeneration beginnt am Tag und wirkt bis in die Nacht.",
+    "brandStatement": "SomnoBalance verbindet Selbstregulation, bewusste Rituale und eine regenerationsfördernde Schlafumgebung zu einem ganzheitlichen Regenerationskonzept.",
+    "cycleClosing": "Und am Morgen beginnt der Kreislauf von Neuem.",
     "explore": "Entdecken",
-    "legal": "Rechtliches",
+    "legal": "Service & Rechtliches",
     "contact": "Kontakt",
     "rights": "Alle Rechte vorbehalten.",
     "newsletterTitle": "In Verbindung bleiben",

@@ -76,9 +76,11 @@
     }
   },
   "footer": {
-    "tagline": "Regeneration begins in the day and reaches into the night. A calm, sensory system for transitioning into rest.",
+    "tagline": "Regeneration begins in the day and reaches into the night.",
+    "brandStatement": "SomnoBalance brings together self-regulation, mindful rituals and a sleep environment that supports regeneration into one holistic regeneration concept.",
+    "cycleClosing": "And in the morning, the cycle begins again.",
     "explore": "Explore",
-    "legal": "Legal",
+    "legal": "Service & Legal",
     "contact": "Contact",
     "rights": "All rights reserved.",
     "newsletterTitle": "Stay connected",
