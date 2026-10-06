@@ -92,9 +92,6 @@ export type ProductSystemConfig = {
   howToUseNote: string[];
   detailIcons: LucideIcon[]; // one icon per details[] line, in order; extra details reuse the last icon
   nextCompanionLabel: string; // e.g. "Dein Begleiter für Regulieren & Loslassen."
-  soundTitle: [string, string];
-  soundIntro: [string, string];
-  soundQuote: [string, string];
   brandCloseTagline: [string, string];
   brandCloseNote: [string, string, string];
   translations?: {
@@ -107,9 +104,6 @@ export type ProductSystemConfig = {
       howToUseSteps?: string[];
       howToUseNote?: string[];
       nextCompanionLabel?: string;
-      soundTitle?: [string, string];
-      soundIntro?: [string, string];
-      soundQuote?: [string, string];
       brandCloseTagline?: [string, string];
       brandCloseNote?: [string, string, string];
     };
@@ -422,10 +416,6 @@ export function ProductSystemPage({
             </div>
             <p className="mt-2 text-[9px] text-lovable-muted-foreground">
               {formatTime(elapsed)} / {formatTime(duration)}
-            </p>
-            <div className="my-10 h-px w-9 bg-lovable-border" />
-            <p className="rotate-[-7deg] text-center font-lovable-serif text-2xl italic leading-tight text-lovable-primary/60 whitespace-pre-line">
-              {dict.shop.soundQuote}
             </p>
             <div
               ref={spotifyMountRef}

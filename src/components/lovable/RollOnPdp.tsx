@@ -19,17 +19,15 @@ import { Newsreader, Work_Sans } from "next/font/google";
 import {
   ArrowLeft,
   ArrowRight,
-  FlaskConical,
-  Leaf,
   Minus,
   Pause,
   Play,
   Plus,
   Search,
-  Sparkles,
   Volume2,
 } from "lucide-react";
 import { Button } from "@/components/lovable/Button";
+import { Accordion } from "@/components/Accordion";
 import type { Dictionary } from "@/i18n/getDictionary";
 import type { Locale } from "@/i18n/config";
 import Link from "next/link";
@@ -45,11 +43,14 @@ const workSans = Work_Sans({
   variable: "--font-lovable-sans-loaded",
 });
 
+// Product → application → active-day → evening-transition sequence, per
+// the client's roll-on PDP spec (§9): real distinct photography, never
+// repeating the same near-identical shot.
 const gallery = [
-  "/products/SomnoBalance Roll-on.webp",
-  "/products/SomnoBalance Roll-on.webp",
-  "/products/SomnoBalance Roll-on.webp",
-  "/products/SomnoBalance Roll-on.webp",
+  "/products/pdp-roll-on-main.webp",
+  "/products/pdp-roll-on-flatlay.webp",
+  "/products/pdp-roll-on-hand.webp",
+  "/products/pdp-roll-on-rituals.webp",
 ];
 
 // Placeholder public track — no specific song was supplied. Swap the URI
@@ -168,7 +169,7 @@ export function RollOnPdp({
             <div className="relative aspect-square overflow-hidden rounded-md bg-lovable-muted">
               <Image
                 src={gallery[active]}
-                alt={tx("SomnoBalance Anti-Stress aromatherapy roll-on", "SomnoBalance Anti-Stress Aromatherapie-Roll-on")}
+                alt={tx("SomnoBalance Roll-on", "SomnoBalance Roll-on")}
                 width={1200}
                 height={1200}
                 className="h-full w-full object-cover"
@@ -243,8 +244,7 @@ export function RollOnPdp({
 
           <div className="py-2 lg:py-4">
             <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
-              {dict.shop.categories.Ritual} <span className="mx-2">—</span>{" "}
-              {dict.shop.phases.REGULATE}
+              {tx("REGULATE · LET GO · PREPARE", "REGULIEREN · LOSLASSEN · VORBEREITEN")}
             </p>
             <h1 className="mt-5 font-sans text-4xl font-medium leading-none md:text-5xl">
               SomnoBalance Roll-on
@@ -294,24 +294,15 @@ export function RollOnPdp({
                 <ArrowRight className="size-4" />
               </Button>
             </div>
-            <div className="my-7 grid grid-cols-3 gap-3 border-y border-lovable-border py-5 text-[10px]">
-              <span className="flex items-center gap-2">
-                <Leaf className="size-5 stroke-[1.2]" />
-                10 ml
-              </span>
-              <span className="flex items-center gap-2">
-                <FlaskConical className="size-5 stroke-[1.2]" />
-                Roll-on
-              </span>
-              <span className="flex items-center gap-2">
-                <Sparkles className="size-5 stroke-[1.2]" />
-                {tx("External use", "Äußerliche Anwendung")}
-              </span>
+            <div className="my-7 grid grid-cols-3 gap-3 border-y border-lovable-border py-5 text-[10px] uppercase tracking-[0.1em]">
+              <span>10 ml</span>
+              <span>{tx("For home & on the go", "Für unterwegs & zu Hause")}</span>
+              <span>{tx("A mindful scent impulse", "Bewusster Duftimpuls")}</span>
             </div>
             <p className="text-xs leading-6 text-lovable-muted-foreground">
               {tx(
-                "The SomnoBalance Roll-on pairs the brand’s signature scent with a simple, targeted application. Lavender, clementine, grapefruit, frankincense and patchouli are blended into a base of sunflower and jojoba oil, applied directly to the skin — easy to fold into a personal pause or ritual, whether at home, travelling, or as part of an evening routine.",
-                "Das SomnoBalance Roll-on verbindet den Signaturduft der Marke mit einer einfachen, gezielten Anwendung. Lavendel, Clementine, Grapefruit, Weihrauch und Patchouli werden in einer Basis aus Sonnenblumen- und Jojobaöl gemischt und direkt auf die Haut aufgetragen — ideal für eine persönliche Pause oder ein Ritual, zu Hause, auf Reisen oder als Teil der Abendroutine.",
+                "The SomnoBalance Roll-on is an uncomplicated, personal scent impulse for everyday life. Lavender, clementine, grapefruit, frankincense and patchouli are blended into a base of sunflower and jojoba oil, applied directly to the skin — easy to fold into a brief pause or a transition between the moments of your day, whether at home, travelling, or in the evening.",
+                "Das SomnoBalance Roll-on ist ein unkomplizierter, persönlicher Duftimpuls für den Alltag. Lavendel, Clementine, Grapefruit, Weihrauch und Patchouli werden in einer Basis aus Sonnenblumen- und Jojobaöl gemischt und direkt auf die Haut aufgetragen — für einen kurzen bewussten Moment oder einen Übergang zwischen den Phasen Ihres Tages, zu Hause, auf Reisen oder am Abend.",
               )}
             </p>
           </div>
@@ -423,56 +414,57 @@ export function RollOnPdp({
               {dict.shop.productDetailsEyebrow}
             </p>
             <span className="mt-4 block h-px w-8 bg-lovable-primary" />
-            <ul className="mt-6 space-y-7 text-xs leading-5">
-              <li className="flex gap-5">
-                <FlaskConical className="size-6 shrink-0 stroke-[1.2]" />
+            <ul className="mt-6 space-y-5 text-xs leading-5">
+              <li className="border-t border-lovable-border/60 pt-5">
                 <span>{tx("10 ml roll-on bottle", "10-ml-Roll-on-Flasche")}</span>
               </li>
-              <li className="flex gap-5">
-                <Leaf className="size-6 shrink-0 stroke-[1.2]" />
+              <li className="border-t border-lovable-border/60 pt-5">
                 <span>{tx("Base oils: sunflower oil, jojoba oil", "Basisöle: Sonnenblumenöl, Jojobaöl")}</span>
               </li>
-              <li className="flex gap-5">
-                <Sparkles className="size-6 shrink-0 stroke-[1.2]" />
+              <li className="border-t border-lovable-border/60 pt-5">
                 <span>
                   {tx("Scent: lavender, clementine, grapefruit,", "Duft: Lavendel, Clementine, Grapefruit,")}
                   <br />
                   {tx("frankincense, patchouli", "Weihrauch, Patchouli")}
                 </span>
               </li>
-              <li className="flex gap-5">
-                <Sparkles className="size-6 shrink-0 stroke-[1.2]" />
+              <li className="border-t border-lovable-border/60 pt-5">
                 <span>
                   {tx("Apply to wrists, temples, neck, or soles", "Auf Handgelenke, Schläfen, Nacken oder Fußsohlen")}
                   <br />
                   {tx("of the feet — several times a day as needed", "auftragen — mehrmals täglich nach Bedarf")}
                 </span>
               </li>
-              <li className="flex gap-5">
-                <span className="flex size-6 shrink-0 items-center justify-center rounded-full border border-current font-lovable-serif text-base">
-                  i
-                </span>
-                <span>
-                  {tx("For external use only; discontinue if skin", "Nur zur äußerlichen Anwendung; bei Hautreizungen")}
-                  <br />
-                  {tx("irritation occurs.", "die Anwendung abbrechen.")}
-                </span>
-              </li>
             </ul>
           </div>
           <div className="px-2 py-4 md:px-8 lg:border-l lg:border-lovable-border/60 lg:px-7 lg:py-12">
-            <div className="rounded-md border border-lovable-border bg-lovable-card p-6">
-              <p className="text-[9px] uppercase tracking-[0.18em]">
-                {tx("Ingredients (INCI)", "Inhaltsstoffe (INCI)")}
-              </p>
-              <p className="mt-5 text-[10px] leading-5 text-lovable-muted-foreground">
-                Helianthus Annuus Seed Oil, Simmondsia Chinensis Seed Oil,
-                Tocopherol, Lavandula Angustifolia Oil, Citrus Clementina Peel
-                Oil, Citrus Paradisi Peel Oil, Boswellia Sacra Oil, Pogostemon
-                Cablin Oil, D-Limonene, Linalool, Geraniol.
-              </p>
-            </div>
-            <p className="mt-16 text-[10px] leading-5 text-lovable-muted-foreground">
+            <Accordion
+              items={[
+                {
+                  title: tx("Product & safety information", "Produkt- & Sicherheitsinformationen"),
+                  content: (
+                    <>
+                      <p className="text-[9px] uppercase tracking-[0.18em] text-lovable-foreground">
+                        {tx("Ingredients (INCI)", "Inhaltsstoffe (INCI)")}
+                      </p>
+                      <p className="mt-3 text-[10px] leading-5">
+                        Helianthus Annuus Seed Oil, Simmondsia Chinensis Seed Oil,
+                        Tocopherol, Lavandula Angustifolia Oil, Citrus Clementina Peel
+                        Oil, Citrus Paradisi Peel Oil, Boswellia Sacra Oil, Pogostemon
+                        Cablin Oil, D-Limonene, Linalool, Geraniol.
+                      </p>
+                      <p className="mt-4 text-[10px] leading-5">
+                        {tx(
+                          "For external use only; discontinue if skin irritation occurs. Keep out of reach of children.",
+                          "Nur zur äußerlichen Anwendung; bei Hautreizungen die Anwendung abbrechen. Für Kinder unzugänglich aufbewahren.",
+                        )}
+                      </p>
+                    </>
+                  ),
+                },
+              ]}
+            />
+            <p className="mt-10 text-[10px] leading-5 text-lovable-muted-foreground">
               {before}
               <a href={`/${lang}/legal/withdrawal`} className="underline">
                 {dict.shop.withdrawalLinkLabel}
