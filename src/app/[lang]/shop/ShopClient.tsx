@@ -5,10 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { formatPrice, getDisplayPrice, getProductText, type Product } from "@/lib/products";
 import { useCart } from "@/components/CartProvider";
-import { useAuth } from "@/components/AuthProvider";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/getDictionary";
-import { Package, SlidersHorizontal, Search, Sparkles, BedSingle, Leaf, Flower2, Star, Check, X, ArrowRight } from "lucide-react";
+import { Package, SlidersHorizontal, Search, Sparkles, BedSingle, Leaf, Check, X } from "lucide-react";
 
 type ShopClientProps = {
   products: Product[];
@@ -19,17 +18,24 @@ type ShopClientProps = {
 export function ShopClient({ products, lang, dict }: { products: any[]; lang: Locale; dict: Dictionary }) {
   const tx = (en: string, de: string) => (lang === "de" ? de : en);
   const { add } = useCart();
-  const { user } = useAuth();
 
   // Filters State
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [selectedPhase, setSelectedPhase] = useState<string>("all");
   const [priceRange, setPriceRange] = useState<string>("all");
-  const [onlyFreeShipping, setOnlyFreeShipping] = useState(false);
   const [sortBy, setSortBy] = useState<"featured" | "price-asc" | "price-desc" | "name">("featured");
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
   const [addedItemSlug, setAddedItemSlug] = useState<string | null>(null);
+
+  // Per the client's shop-filter spec: the old 3-value "Schlaf / Ritual /
+  // Pflege" categories don't fit SomnoBalance's positioning. Products keep
+  // their existing internal `category` (Sleep/Ritual/Care — unchanged, so
+  // checkout/admin data isn't touched), but the filter UI groups them into
+  // the 2 buckets the client asked for: Sleep -> Schlafumgebung, Ritual +
+  // Care -> Regenerationsimpulse.
+  const productGroup = (p: Product): "Regenerationsimpulse" | "Schlafumgebung" =>
+    p.category === "Sleep" ? "Schlafumgebung" : "Regenerationsimpulse";
 
   // Filter computations
   const filteredProducts = useMemo(() => {
@@ -45,18 +51,13 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
           if (!matchName && !matchTagline && !matchDesc) return false;
         }
 
-        // Category
-        if (selectedCategory !== "all" && p.category !== selectedCategory) {
+        // Product group
+        if (selectedCategory !== "all" && productGroup(p) !== selectedCategory) {
           return false;
         }
 
         // Phase
         if (selectedPhase !== "all" && p.phase !== selectedPhase) {
-          return false;
-        }
-
-        // Free Shipping
-        if (onlyFreeShipping && !p.shippingIncluded) {
           return false;
         }
 
@@ -79,37 +80,35 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
         if (sortBy === "name") return textA.name.localeCompare(textB.name);
         return 0; // featured default
       });
-  }, [products, lang, searchQuery, selectedCategory, selectedPhase, priceRange, onlyFreeShipping, sortBy]);
+  }, [products, lang, searchQuery, selectedCategory, selectedPhase, priceRange, sortBy]);
 
   const resetFilters = () => {
     setSearchQuery("");
     setSelectedCategory("all");
     setSelectedPhase("all");
     setPriceRange("all");
-    setOnlyFreeShipping(false);
     setSortBy("featured");
   };
 
   const hasActiveFilters =
-    searchQuery !== "" ||
-    selectedCategory !== "all" ||
-    selectedPhase !== "all" ||
-    priceRange !== "all" ||
-    onlyFreeShipping;
+    searchQuery !== "" || selectedCategory !== "all" || selectedPhase !== "all" || priceRange !== "all";
 
   const categories = [
-    { key: "all", label: lang === "de" ? "Alle Produkte" : "All Products", icon: <Sparkles className="size-4" /> },
-    { key: "Sleep", label: dict.shop?.categories?.Sleep || "Sleep", icon: <BedSingle className="size-4" /> },
-    { key: "Ritual", label: dict.shop?.categories?.Ritual || "Ritual", icon: <Leaf className="size-4" /> },
-    { key: "Care", label: dict.shop?.categories?.Care || "Care", icon: <Flower2 className="size-4" /> },
+    { key: "all", label: tx("All Products", "Alle Produkte"), icon: <Sparkles className="size-4" /> },
+    { key: "Regenerationsimpulse", label: tx("Regeneration Impulses", "Regenerationsimpulse"), icon: <Leaf className="size-4" /> },
+    { key: "Schlafumgebung", label: tx("Sleep Environment", "Schlafumgebung"), icon: <BedSingle className="size-4" /> },
   ];
 
+  // No 01-04 numbering: the four phases are a cycle, not a fixed sequence,
+  // and a product can belong to more than one at once (see products.ts'
+  // `phase` field — still single-select for now; true multi-phase tagging
+  // is a separate, larger data-model change, tracked but deferred).
   const phases = [
-    { key: "all", label: lang === "de" ? "Alle Phasen" : "All Phases" },
-    { key: "REGULATE", label: `01 · ${dict.shop.phases.REGULATE}` },
-    { key: "LET GO", label: `02 · ${dict.shop.phases["LET GO"]}` },
-    { key: "PREPARE", label: `03 · ${dict.shop.phases.PREPARE}` },
-    { key: "REGENERATE", label: `04 · ${dict.shop.phases.REGENERATE}` },
+    { key: "all", label: tx("All Phases", "Alle Phasen") },
+    { key: "REGULATE", label: dict.shop.phases.REGULATE },
+    { key: "LET GO", label: dict.shop.phases["LET GO"] },
+    { key: "PREPARE", label: dict.shop.phases.PREPARE },
+    { key: "REGENERATE", label: dict.shop.phases.REGENERATE },
   ];
 
   const handleQuickAddToCart = (e: React.MouseEvent, product: any) => {
@@ -123,8 +122,6 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
     setAddedItemSlug(product.slug);
     setTimeout(() => setAddedItemSlug(null), 2000);
   };
-
-  const isDualRole = Boolean(user?.isAffiliate);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
@@ -173,34 +170,65 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
               )}
             </div>
 
-            {/* 1. Search Bar */}
+            {/* 1. Quick phase picker — a calm orientation prompt, not a
+                quiz: "what do you need right now?" */}
             <div>
               <label className="text-xs font-semibold uppercase tracking-wider text-ink/60">
-                {tx("Search Catalog", "Katalog durchsuchen")}
+                {tx("What supports you right now?", "Was unterstützt Sie gerade?")}
               </label>
-              <div className="relative mt-2">
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder={tx("e.g. Pillow, Roll-on, Tea...", "z. B. Kissen, Roll-on, Tee...")}
-                  className="input-field text-xs pl-8"
-                />
-                <Search className="absolute left-2.5 top-2.5 size-4 text-ink/40" />
+              <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1.5 text-xs">
+                {phases.slice(1).map((ph, i) => (
+                  <button
+                    key={ph.key}
+                    onClick={() => setSelectedPhase(selectedPhase === ph.key ? "all" : ph.key)}
+                    className={`transition ${
+                      selectedPhase === ph.key ? "font-semibold text-mauve-dark" : "text-ink/60 hover:text-ink"
+                    }`}
+                  >
+                    {i > 0 && <span className="mr-3 text-ink/30">·</span>}
+                    {ph.label}
+                  </button>
+                ))}
               </div>
             </div>
 
-            {/* 2. Categories */}
+            {/* 2. Regeneration phase — the primary filter, per the
+                client's spec: customers orient by current need before
+                product type. */}
+            <div className="border-t border-mauve/10 pt-4">
+              <label className="text-xs font-semibold uppercase tracking-wider text-ink/60">
+                {tx("Regeneration Phase", "Regenerationsphase")}
+              </label>
+              <div className="mt-2 space-y-1">
+                {phases.map((ph) => {
+                  const isSelected = selectedPhase === ph.key;
+                  return (
+                    <button
+                      key={ph.key}
+                      onClick={() => setSelectedPhase(ph.key)}
+                      className={`flex w-full items-center justify-between rounded-xl px-3 py-2 text-xs font-medium transition ${
+                        isSelected
+                          ? "bg-mauve/15 text-mauve-dark font-semibold"
+                          : "text-ink/70 hover:bg-sand/60 hover:text-ink"
+                      }`}
+                    >
+                      <span>{ph.label}</span>
+                      {isSelected && <Check className="size-4 text-mauve-dark" />}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* 3. Product type */}
             <div>
               <label className="text-xs font-semibold uppercase tracking-wider text-ink/60">
-                {tx("Categories", "Kategorien")}
+                {tx("Product Type", "Produktart")}
               </label>
               <div className="mt-2 space-y-1">
                 {categories.map((cat) => {
                   const count =
-                    cat.key === "all"
-                      ? products.length
-                      : products.filter((p) => p.category === cat.key).length;
+                    cat.key === "all" ? products.length : products.filter((p) => productGroup(p) === cat.key).length;
                   const isSelected = selectedCategory === cat.key;
                   return (
                     <button
@@ -225,43 +253,17 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
               </div>
             </div>
 
-            {/* 3. System Phase */}
+            {/* 4. Price */}
             <div>
               <label className="text-xs font-semibold uppercase tracking-wider text-ink/60">
-                {tx("SomnoBalance Phase", "SomnoBalance-Phase")}
-              </label>
-              <div className="mt-2 space-y-1">
-                {phases.map((ph) => {
-                  const isSelected = selectedPhase === ph.key;
-                  return (
-                    <button
-                      key={ph.key}
-                      onClick={() => setSelectedPhase(ph.key)}
-                      className={`flex w-full items-center justify-between rounded-xl px-3 py-2 text-xs font-medium transition ${
-                        isSelected
-                          ? "bg-mauve/15 text-mauve-dark font-semibold"
-                          : "text-ink/70 hover:bg-sand/60 hover:text-ink"
-                      }`}
-                    >
-                      <span>{ph.label}</span>
-                      {isSelected && <Check className="size-4 text-mauve-dark" />}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* 4. Price Ranges */}
-            <div>
-              <label className="text-xs font-semibold uppercase tracking-wider text-ink/60">
-                {tx("Price Range", "Preisspanne")}
+                {tx("Price", "Preis")}
               </label>
               <div className="mt-2 space-y-1 text-xs">
                 {[
                   { key: "all", label: tx("All Prices", "Alle Preise") },
-                  { key: "under-25", label: tx("Under €25.00", "Unter 25,00 €") },
-                  { key: "25-100", label: tx("€25.00 — €100.00", "25,00 € — 100,00 €") },
-                  { key: "over-100", label: tx("Over €100.00", "Über 100,00 €") },
+                  { key: "under-25", label: tx("Under €25", "Unter 25 €") },
+                  { key: "25-100", label: tx("€25–100", "25–100 €") },
+                  { key: "over-100", label: tx("Over €100", "Über 100 €") },
                 ].map((pr) => (
                   <button
                     key={pr.key}
@@ -279,51 +281,22 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
               </div>
             </div>
 
-            {/* 5. Free Shipping Toggle */}
+            {/* 5. Search — optional, last */}
             <div className="border-t border-mauve/10 pt-4">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={onlyFreeShipping}
-                  onChange={(e) => setOnlyFreeShipping(e.target.checked)}
-                  className="rounded border-mauve/30 text-teal focus:ring-teal"
-                />
-                <span className="text-xs text-ink/80 font-medium">{tx("Free Shipping Included Items", "Nur Artikel mit kostenlosem Versand")}</span>
+              <label className="text-xs font-semibold uppercase tracking-wider text-ink/60">
+                {tx("Search", "Suche")}
               </label>
+              <div className="relative mt-2">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder={tx("Search for a product…", "Produkt suchen …")}
+                  className="input-field text-xs pl-8"
+                />
+                <Search className="absolute left-2.5 top-2.5 size-4 text-ink/40" />
+              </div>
             </div>
-
-            {/* 6. Partner Perks Box in Sidebar */}
-            {isDualRole ? (
-              <div className="rounded-2xl border border-teal/20 bg-teal/5 p-3.5 text-xs text-ink/80">
-                <div className="font-semibold text-teal-dark flex items-center gap-1.5">
-                  <Star className="size-4" /> {dict.shop.partnerMemberTitle}
-                </div>
-                <p className="mt-1 text-[11px] text-ink/60">
-                  {dict.shop.partnerMemberCopy}
-                </p>
-                <Link
-                  href={`/${lang}/partner`}
-                  className="mt-2 block text-center rounded-lg bg-teal py-1.5 text-[11px] font-semibold text-white hover:bg-teal-dark"
-                >
-                  {dict.shop.partnerMemberCta}
-                </Link>
-              </div>
-            ) : (
-              <div className="rounded-2xl border border-mauve/15 bg-sand/40 p-3.5 text-xs text-ink/80">
-                <div className="font-semibold text-ink flex items-center gap-1.5">
-                  <Sparkles className="size-4" /> {dict.shop.partnerTeaserTitle}
-                </div>
-                <p className="mt-1 text-[11px] text-ink/60">
-                  {dict.shop.partnerTeaserCopy}
-                </p>
-                <Link
-                  href={`/${lang}/partner`}
-                  className="mt-2 block text-center rounded-lg bg-mauve py-1.5 text-[11px] font-semibold text-white hover:bg-mauve-dark"
-                >
-                  {dict.shop.partnerTeaserCta}
-                </Link>
-              </div>
-            )}
           </div>
         </aside>
 
@@ -384,7 +357,7 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
               )}
               {selectedPhase !== "all" && (
                 <span className="inline-flex items-center gap-1 rounded-full bg-mauve/15 px-3 py-1 text-xs text-mauve-dark font-medium">
-                  {tx("Phase", "Phase")}: {selectedPhase}
+                  {tx("Phase", "Phase")}: {phases.find((ph) => ph.key === selectedPhase)?.label ?? selectedPhase}
                   <button onClick={() => setSelectedPhase("all")} className="hover:text-mauve"><X className="size-3" /></button>
                 </span>
               )}
@@ -392,12 +365,6 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
                 <span className="inline-flex items-center gap-1 rounded-full bg-sand px-3 py-1 text-xs text-ink">
                   {priceRange === "under-25" ? tx("Under €25", "Unter 25 €") : priceRange === "25-100" ? tx("€25 - €100", "25 € - 100 €") : tx("Over €100", "Über 100 €")}
                   <button onClick={() => setPriceRange("all")} className="text-ink/50 hover:text-ink"><X className="size-3" /></button>
-                </span>
-              )}
-              {onlyFreeShipping && (
-                <span className="inline-flex items-center gap-1 rounded-full bg-teal/15 px-3 py-1 text-xs text-teal-dark">
-                  {tx("Free Shipping", "Kostenloser Versand")}
-                  <button onClick={() => setOnlyFreeShipping(false)}><X className="size-3" /></button>
                 </span>
               )}
               <button
@@ -423,24 +390,9 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
               </div>
 
               <div>
-                <label className="text-xs font-semibold uppercase text-ink/60">{tx("Category", "Kategorie")}</label>
-                <div className="grid grid-cols-2 gap-2 mt-2">
-                  {categories.map((cat) => (
-                    <button
-                      key={cat.key}
-                      onClick={() => setSelectedCategory(cat.key)}
-                      className={`rounded-xl p-2 text-xs text-left flex items-center gap-2 ${
-                        selectedCategory === cat.key ? "bg-teal text-white font-semibold" : "bg-sand/60 text-ink"
-                      }`}
-                    >
-                      {cat.icon} {cat.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <label className="text-xs font-semibold uppercase text-ink/60">Phase</label>
+                <label className="text-xs font-semibold uppercase text-ink/60">
+                  {tx("Regeneration Phase", "Regenerationsphase")}
+                </label>
                 <div className="grid grid-cols-2 gap-2 mt-2">
                   {phases.map((ph) => (
                     <button
@@ -451,6 +403,25 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
                       }`}
                     >
                       {ph.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="text-xs font-semibold uppercase text-ink/60">
+                  {tx("Product Type", "Produktart")}
+                </label>
+                <div className="grid grid-cols-2 gap-2 mt-2">
+                  {categories.map((cat) => (
+                    <button
+                      key={cat.key}
+                      onClick={() => setSelectedCategory(cat.key)}
+                      className={`rounded-xl p-2 text-xs text-left flex items-center gap-2 ${
+                        selectedCategory === cat.key ? "bg-teal text-white font-semibold" : "bg-sand/60 text-ink"
+                      }`}
+                    >
+                      {cat.icon} {cat.label}
                     </button>
                   ))}
                 </div>
