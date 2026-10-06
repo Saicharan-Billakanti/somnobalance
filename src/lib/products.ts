@@ -34,6 +34,12 @@ export type ProductTranslation = {
   details: string[];
   ingredients?: string;
   specs?: ProductSpecs;
+  // Customer-facing mandatory disclosure text (GHS/CLP hazard info for
+  // cosmetics, food-law disclosures for edibles) — shown in a dedicated
+  // accordion on the PDP, never folded into marketing description/details.
+  // Distinct from `legalNote` on Product, which is an internal dev-only
+  // TODO/caveat and is never rendered to shoppers.
+  safetyInfo?: string;
 };
 
 export type Product = {
@@ -50,6 +56,7 @@ export type Product = {
   image: string;
   ingredients?: string;
   legalNote?: string;
+  safetyInfo?: string;
   specs?: ProductSpecs;
   shippingIncluded?: boolean;
   returnPeriodDays?: number;
@@ -69,6 +76,7 @@ export function getProductText(product: Product, lang: string): ProductTranslati
     details: product.details,
     ingredients: product.ingredients,
     specs: product.specs,
+    safetyInfo: product.safetyInfo,
   };
 }
 
@@ -164,6 +172,7 @@ export const products: Product[] = [
     description:
       "The SomnoBalance Room Spray brings the brand's scent composition into a space with a few sprays — as part of an evening ritual, before a conscious pause, or when transitioning from an active day into a quieter environment. Formulated, per the product label, on a base of alcohol, water and a blend of essential oils.",
     details: [
+      "100 ml",
       "Base: alcohol, water, blend of essential oils (per label)",
       "Scent: lavender, clementine, grapefruit, frankincense, patchouli",
       "Shake well before use and spray into the room as needed",
@@ -175,7 +184,9 @@ export const products: Product[] = [
     refundPolicy: "14-Day Money-Back Guarantee",
     returnEligible: true,
     legalNote:
-      "This product carries hazard labelling (including flammability). The binding German warning and safety text must be copied verbatim from the current product labelling before this page is used for real sales — not yet added here.",
+      "Hazard/GHS data below (UFI, manufacturer address, pictograms) is taken from the client's specification document and must be verified against the final product label before go-live.",
+    safetyInfo:
+      "GHS02 (flame) and GHS07 (exclamation mark) hazard pictograms apply, per the current product label. Do not ingest. Do not spray directly on skin. Avoid contact with eyes. May cause allergic skin reactions and eye irritation. If in eyes: rinse cautiously with water for several minutes. If eye irritation persists, get medical advice/attention. Keep out of reach of children. DANGER! Keep away from heat, hot surfaces, sparks, open flames and other ignition sources. Harmful to aquatic life with long-lasting effects.\n\nUFI: 7G10-E083-A005-2U4C\nManufacturer: Almara Soap, s.r.o., Ve Žlíbku 1800/77, 193 00 Prague 9, Czech Republic\n\nThese details are provisional, taken from the client's specification document, and must be checked against the final approved label/safety data sheet before this product goes on sale.",
     translations: {
       de: {
         name: "SomnoBalance Raumspray",
@@ -183,11 +194,14 @@ export const products: Product[] = [
         description:
           "Der SomnoBalance Raumspray bringt die Duftkomposition der Marke mit wenigen Sprühstößen in einen Raum — als Teil eines Abendrituals, vor einer bewussten Pause oder beim Übergang von einem aktiven Tag in eine ruhigere Umgebung. Laut Produktetikett formuliert auf Basis von Alkohol, Wasser und einer Mischung ätherischer Öle.",
         details: [
+          "100 ml",
           "Basis: Alkohol, Wasser, Mischung ätherischer Öle (laut Etikett)",
           "Duft: Lavendel, Clementine, Grapefruit, Weihrauch, Patchouli",
           "Vor Gebrauch gut schütteln und nach Bedarf in den Raum sprühen",
           "Nicht zum Verzehr oder zur Hautanwendung — Augen- und Hautkontakt vermeiden",
         ],
+        safetyInfo:
+          "Gefahrenpiktogramme GHS02 (Flamme) und GHS07 (Ausrufezeichen) gemäß aktuellem Produktetikett. Nicht innerlich anwenden. Nicht direkt auf die Haut sprühen. Augenkontakt vermeiden. Kann allergische Hautreaktionen und Augenreizungen verursachen. Bei Augenkontakt sofort mehrere Minuten lang vorsichtig mit Wasser spülen. Bei anhaltender Augenreizung ärztlichen Rat einholen/ärztliche Hilfe hinzuziehen. Außerhalb der Reichweite von Kindern aufbewahren. GEFAHR! Von Hitze, heißen Oberflächen, Funken, offenen Flammen und anderen Zündquellen fernhalten. Schädlich für Wasserorganismen, mit langfristiger Wirkung.\n\nUFI: 7G10-E083-A005-2U4C\nHersteller: Almara Soap, s.r.o., Ve Žlíbku 1800/77, 193 00 Prag 9, Tschechische Republik\n\nDiese Angaben sind vorläufig, der Spezifikation des Kunden entnommen, und müssen vor dem Verkaufsstart mit dem final freigegebenen Etikett/Sicherheitsdatenblatt abgeglichen werden.",
       },
     },
   },
@@ -196,15 +210,14 @@ export const products: Product[] = [
     name: "SomnoBalance Regeneration Tea",
     category: "Ritual",
     price: 12,
-    tagline: "A herb and spice blend for a conscious moment of rest.",
+    tagline: "A mindful ritual for calmer moments and the transition into the evening.",
     description:
-      "SomnoBalance Regeneration Tea brings together selected herbs, blossoms, fruit and spices into a finely balanced blend. Lemon balm and orange blossom meet sweet blackberry and raspberry leaves, rounded out with liquorice root, cardamom, fennel and anise — a warm companion for conscious pauses, in the evening or in quiet moments during the day.",
+      "SomnoBalance Regeneration Tea brings together lemon balm, orange blossom, sweet blackberry leaves, raspberry leaves, liquorice root, cardamom, fennel and anise into a finely balanced herbal blend. A mindfully prepared cup of tea can become a small ritual — for a pause in between, for letting go after an active day, or as part of your personal preparation for the evening.",
     details: [
       "80 g loose leaf",
       "Lemon balm, orange blossom, blackberry leaves, raspberry leaves, liquorice root, cardamom, fennel, anise",
-      "Use one heaped teaspoon per 200 ml water",
-      "Pour over with boiling water and steep for 6–8 minutes",
-      "Store dry, away from heat",
+      "Use one heaped teaspoon per 200 ml water; pour over with boiling water; steep for 6–8 minutes",
+      "Storage: per final packaging — currently store dry, away from heat",
     ],
     phase: "LET GO",
     image: "/products/SomnoBalance Regeneration Tea.webp",
@@ -213,34 +226,37 @@ export const products: Product[] = [
     returnEligible: true,
     legalNote:
       "Mandatory food-law disclosures (nutritional information, allergen labelling, best-before format) must be added from the current manufacturer documentation before this page is used for real sales — not yet added here.",
+    safetyInfo:
+      "PLACEHOLDER — pending final packaging. The following must be copied verbatim from the approved food label before this product goes on sale: legal food designation (Verkehrsbezeichnung); full ingredient list in the prescribed order; allergen labelling, if relevant; net quantity; name and address of the responsible food business operator; nutritional information or an applicable legal exemption; unit price, if applicable; storage/use instructions, if required.",
     translations: {
       de: {
         name: "SomnoBalance Regenerationstee",
-        tagline: "Eine warme Begleitung für ruhigere Abendmomente.",
+        tagline: "Ein bewusstes Ritual für ruhigere Momente und den Übergang in den Abend.",
         description:
-          "Der SomnoBalance Regenerationstee vereint ausgewählte Kräuter, Blüten, Früchte und Gewürze zu einer fein abgestimmten Mischung. Melisse und Orangenblüte treffen auf süße Brombeer- und Himbeerblätter, abgerundet mit Süßholzwurzel, Kardamom, Fenchel und Anis — ein warmer Begleiter für bewusste Pausen, am Abend oder in ruhigen Momenten des Tages.",
+          "Der SomnoBalance Regenerationstee verbindet Melisse, Orangenblüte, süße Brombeerblätter, Himbeerblätter, Süßholzwurzel, Kardamom, Fenchel und Anis zu einer fein abgestimmten Kräutermischung. Eine bewusst zubereitete Tasse Tee kann zu einem kleinen Ritual werden — für eine Pause zwischendurch, zum Loslassen nach einem aktiven Tag oder als Teil Ihrer persönlichen Vorbereitung auf den Abend.",
         details: [
           "80 g loser Tee",
-          "Melisse, Orangenblüte, Brombeerblätter, Himbeerblätter, Süßholzwurzel, Kardamom, Fenchel, Anis",
-          "Einen gehäuften Teelöffel pro 200 ml Wasser verwenden",
-          "Mit kochendem Wasser übergießen und 6–8 Minuten ziehen lassen",
-          "Trocken und vor Hitze geschützt lagern",
+          "Melisse, Orangenblüte, süße Brombeerblätter, Himbeerblätter, Süßholzwurzel, Kardamom, Fenchel, Anis",
+          "1 gehäufter Teelöffel pro 200 ml Wasser; mit kochendem Wasser übergießen; 6–8 Minuten ziehen lassen",
+          "Lagerung: entsprechend der finalen Verpackungsangabe, aktuell trocken und vor Wärme geschützt",
         ],
+        safetyInfo:
+          "PLATZHALTER — ausstehend bis zur finalen Verpackung. Folgende Angaben müssen vor Verkaufsstart 1:1 aus dem final freigegebenen Lebensmitteletikett übernommen werden: exakte Verkehrsbezeichnung des Lebensmittels; vollständiges Zutatenverzeichnis in der vorgeschriebenen Reihenfolge; Kennzeichnung möglicher Allergene, falls relevant; Nettofüllmenge; Name und Anschrift des verantwortlichen Lebensmittelunternehmers; Nährwertangaben oder eine zulässige rechtliche Ausnahme; Grundpreis, falls erforderlich; Aufbewahrungs-/Verwendungshinweise, soweit erforderlich.",
       },
     },
   },
   {
     slug: "somnobalance-regeneration-cards",
-    name: "SomnoBalance Regeneration Cards",
+    name: "SomnoBalance Regeneration Cards Set",
     category: "Ritual",
     price: 24,
-    tagline: "13 regeneration points and 10 matching rituals for everyday use.",
+    tagline: "An impulse to match your moment.",
     description:
-      "The SomnoBalance Regeneration Cards make the SomnoBalance method usable step by step. The set consists of 13 regeneration-point cards and 10 regeneration-ritual cards. The point cards show selected points on the body with position, illustration and instructions; the ritual cards combine several points into set sequences for different everyday situations — among them Finding Calm, Sleeping Well, Gathering New Strength, Inner Balance, Letting Go of Emotions, Letting Go of Thoughts, Finding Inner Steadiness, Gaining Clarity, Moving Through the Day with Ease, and Activating Regeneration.",
+      "The SomnoBalance Regeneration Cards Set consists of 13 regeneration-point cards and 10 regeneration-ritual cards. The point cards show selected points on the body with position, illustration and instructions; the ritual cards combine several points into prepared sequences for different everyday situations — among them Finding Calm, Sleeping Well, Gathering New Strength, Inner Balance, Letting Go of Emotions, Letting Go of Thoughts, Finding Inner Steadiness, Gaining Clarity, and Moving Through the Day with Ease.",
     details: [
       "23 cards: 13 regeneration-point cards + 10 regeneration-ritual cards",
-      "Choose a single point, or follow a prepared combination as a full ritual",
-      "Each point is held gently for about 2–3 minutes with calm, steady breathing",
+      "Choose a single point, or follow a prepared combination of several points",
+      "Each individual point is held gently for about 2–3 minutes with calm, steady breathing",
       "For use at home, in everyday life, as part of an evening routine, or on the go",
     ],
     phase: "REGULATE",
@@ -250,14 +266,14 @@ export const products: Product[] = [
     returnEligible: true,
     translations: {
       de: {
-        name: "SomnoBalance Regenerationskarten",
-        tagline: "Regenerationspunkte und Rituale für Ihren Alltag.",
+        name: "SomnoBalance Regenerationskarten-Set",
+        tagline: "Ein Impuls passend zu Ihrem Moment.",
         description:
-          "Die SomnoBalance Regenerationskarten machen die SomnoBalance-Methode Schritt für Schritt anwendbar. Das Set besteht aus 13 Regenerationspunkt-Karten und 10 Regenerationsritual-Karten. Die Punktkarten zeigen ausgewählte Punkte am Körper mit Lage, Illustration und Anleitung; die Ritualkarten kombinieren mehrere Punkte zu festen Abfolgen für unterschiedliche Alltagssituationen — darunter Ruhe finden, Gut schlafen, Neue Kraft sammeln, Innere Balance, Gefühle loslassen, Gedanken loslassen, Innere Standfestigkeit finden, Klarheit gewinnen, Den Tag leichter gestalten und Regeneration aktivieren.",
+          "Das SomnoBalance Regenerationskarten-Set besteht aus 13 Regenerationspunkt-Karten und 10 Regenerationsritual-Karten. Die Punktkarten zeigen ausgewählte Punkte am Körper mit Lage, Illustration und Anleitung; die Ritualkarten kombinieren mehrere Punkte zu vorbereiteten Abfolgen für unterschiedliche Alltagssituationen — darunter Ruhe finden, Gut schlafen, Neue Kraft sammeln, Innere Balance, Gefühle loslassen, Gedanken loslassen, Innere Standfestigkeit finden, Klarheit gewinnen und Den Tag leichter gestalten.",
         details: [
           "23 Karten: 13 Regenerationspunkt-Karten + 10 Regenerationsritual-Karten",
-          "Einen einzelnen Punkt wählen oder einer vorbereiteten Kombination als vollständigem Ritual folgen",
-          "Jeder Punkt wird für etwa 2–3 Minuten sanft gehalten, bei ruhiger, gleichmäßiger Atmung",
+          "Einen einzelnen Punkt wählen oder einer vorbereiteten Kombination mehrerer Punkte folgen",
+          "Jeder einzelne Punkt wird für etwa 2–3 Minuten sanft gehalten, bei ruhiger, gleichmäßiger Atmung",
           "Für die Anwendung zu Hause, im Alltag, als Teil der Abendroutine oder unterwegs",
         ],
       },
@@ -383,10 +399,9 @@ export const products: Product[] = [
       "You don't need to use everything at once. The 21-day guide gives you orientation — the cards and aroma products accompany you in whatever way fits your day.",
     details: [
       "21-day guide: your thread through the next 21 days — small impulses and rituals that help you build regulation and regeneration into your everyday life, step by step",
-      "Regeneration cards: draw one intuitively, or choose one that fits your current need — concrete impulses and simple ways to come to rest in between and support your self-regulation",
-      "Anti-stress roll-on: your uncomplicated companion for on the go — apply to pulse points, take in the scent consciously, and use a short moment to pause",
+      "Regeneration cards: choose the one that fits your current need — concrete impulses and simple ways to come to rest in between and support your self-regulation",
+      "SomnoBalance roll-on: your uncomplicated companion for on the go — apply to pulse points, take in the scent consciously, and use a short moment to pause",
       "Essential oil blend: for conscious moments of regeneration at home — a few drops in the diffuser create a pleasant scent atmosphere and can accompany your personal evening or rest ritual",
-      "In stock, ships immediately as a single DHL parcel",
     ],
     phase: "REGULATE",
     image: "/products/somnobalance-starter-set.webp",
@@ -401,10 +416,9 @@ export const products: Product[] = [
           "Sie müssen nicht alles gleichzeitig anwenden. Der 21-Tage-Guide gibt Ihnen die Orientierung — Karten und Aromaprodukte begleiten Sie passend zu Ihrem Tag.",
         details: [
           "21-Tage-Guide: Ihr roter Faden durch die nächsten 21 Tage. Kleine Impulse und Rituale begleiten Sie Schritt für Schritt dabei, Regulation und Regeneration bewusster in Ihren Alltag zu integrieren",
-          "Regenerationskarten: Ziehen Sie intuitiv eine Karte oder wählen Sie passend zu Ihrem aktuellen Bedürfnis. Die Karten geben Ihnen konkrete Impulse und zeigen Ihnen einfache Möglichkeiten, zwischendurch zur Ruhe zu kommen und Ihre Selbstregulation zu unterstützen",
-          "Anti-Stress Roll-on: Ihr unkomplizierter Begleiter für unterwegs und im Alltag. Auf die Pulspunkte auftragen, den Duft bewusst wahrnehmen und einen kurzen Moment zum Innehalten nutzen",
+          "Regenerationskarten: Wählen Sie passend zu Ihrem aktuellen Bedürfnis. Die Karten geben Ihnen konkrete Impulse und zeigen Ihnen einfache Möglichkeiten, zwischendurch zur Ruhe zu kommen und Ihre Selbstregulation zu unterstützen",
+          "SomnoBalance Roll-on: Ihr unkomplizierter Begleiter für unterwegs und im Alltag. Auf die Pulspunkte auftragen, den Duft bewusst wahrnehmen und einen kurzen Moment zum Innehalten nutzen",
           "Ätherische Ölmischung: Für Ihre bewussten Regenerationsmomente zu Hause. Einige Tropfen im Diffuser schaffen eine angenehme Duftatmosphäre und können Ihr persönliches Ruhe- oder Abendritual begleiten",
-          "Auf Lager, Versand als einzelnes DHL-Paket",
         ],
       },
     },

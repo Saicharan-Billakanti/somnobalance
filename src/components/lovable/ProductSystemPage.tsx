@@ -29,6 +29,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { Button } from "@/components/lovable/Button";
+import { Accordion } from "@/components/Accordion";
 import type { Dictionary } from "@/i18n/getDictionary";
 import type { Locale } from "@/i18n/config";
 import Link from "next/link";
@@ -90,7 +91,6 @@ export type ProductSystemConfig = {
   howToUseImage?: string; // real application-sequence photo; leave unset to show a placeholder until one exists
   howToUseSteps: RitualStep[];
   howToUseNote: string[];
-  detailIcons: LucideIcon[]; // one icon per details[] line, in order; extra details reuse the last icon
   nextCompanionLabel: string; // e.g. "Dein Begleiter für Regulieren & Loslassen."
   brandCloseTagline: [string, string];
   brandCloseNote: [string, string, string];
@@ -493,19 +493,12 @@ export function ProductSystemPage({
               {dict.shop.productDetailsEyebrow}
             </p>
             <span className="mt-4 block h-px w-8 bg-lovable-primary" />
-            <ul className="mt-6 space-y-7 text-xs leading-5">
-              {text.details.map((d, i) => {
-                const Icon =
-                  config.detailIcons[
-                    Math.min(i, config.detailIcons.length - 1)
-                  ];
-                return (
-                  <li key={d} className="flex gap-5">
-                    <Icon className="size-6 shrink-0 stroke-[1.2]" />
-                    <span>{d}</span>
-                  </li>
-                );
-              })}
+            <ul className="mt-6 space-y-5 text-xs leading-5">
+              {text.details.map((d, i) => (
+                <li key={d} className="border-t border-lovable-border/60 pt-5">
+                  <span>{d}</span>
+                </li>
+              ))}
             </ul>
           </div>
           <div className="border-l border-lovable-border px-7 py-12">
@@ -519,7 +512,21 @@ export function ProductSystemPage({
                 </p>
               </div>
             )}
-            <p className="mt-16 text-[10px] leading-5 text-lovable-muted-foreground">
+            {text.safetyInfo && (
+              <Accordion
+                items={[
+                  {
+                    title: tx("Product & safety information", "Produkt- & Sicherheitsinformationen"),
+                    content: (
+                      <p className="whitespace-pre-line text-[10px] leading-5">
+                        {text.safetyInfo}
+                      </p>
+                    ),
+                  },
+                ]}
+              />
+            )}
+            <p className="mt-10 text-[10px] leading-5 text-lovable-muted-foreground">
               {before}
               <a href={`/${lang}/legal/withdrawal`} className="underline">
                 {dict.shop.withdrawalLinkLabel}

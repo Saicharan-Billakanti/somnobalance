@@ -5,23 +5,8 @@
 // Briefing.docx, sections 3–11) — not invented. Body copy (description,
 // details, ingredients) always comes from products.ts, never duplicated
 // here, per the briefing's instruction not to freehand product facts.
-import {
-  Bed,
-  Cloud,
-  Droplet,
-  FlaskConical,
-  Flower2,
-  Info,
-  Leaf,
-  Moon,
-  Sparkles,
-  Sun,
-  Wind,
-  type LucideIcon,
-} from "lucide-react";
+import { Bed, Cloud, Droplet, Moon, Sparkles, Sun, Wind } from "lucide-react";
 import type { ProductSystemConfig } from "@/components/lovable/ProductSystemPage";
-
-const infoIcon: LucideIcon = Info;
 
 // Plain string-key set, safe to import from a Server Component (page.tsx)
 // to decide routing without pulling in the icon components below, which
@@ -53,7 +38,6 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
       { icon: Moon, label: "Duft bewusst wahrnehmen" },
     ],
     howToUseNote: ["Ein Impuls passend", "zu Ihrem Moment."],
-    detailIcons: [FlaskConical, Sparkles, Droplet, infoIcon],
     nextCompanionLabel: "Ihr Begleiter für Loslassen & Vorbereiten.",
     brandCloseTagline: ["A small ritual.", "Wherever you are."],
     brandCloseNote: ["Rest.", "Rebalance.", "Repeat."],
@@ -83,7 +67,6 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
       { icon: Moon, label: "Auf den Abend vorbereiten" },
     ],
     howToUseNote: ["Verändere nicht den", "ganzen Abend."],
-    detailIcons: [FlaskConical, Sparkles, Droplet, infoIcon],
     nextCompanionLabel: "Ihr Begleiter für den Übergang zur Nacht.",
     brandCloseTagline: ["A small ritual.", "Wherever you are."],
     brandCloseNote: ["Rest.", "Rebalance.", "Repeat."],
@@ -112,7 +95,6 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
       { icon: Moon, label: "Bewusst genießen" },
     ],
     howToUseNote: ["Eine Tasse.", "Ein bewusster Moment."],
-    detailIcons: [Leaf, Flower2, Droplet, infoIcon],
     nextCompanionLabel: "Ihr Begleiter für ruhigere Abendmomente.",
     brandCloseTagline: ["A small ritual.", "Wherever you are."],
     brandCloseNote: ["Rest.", "Rebalance.", "Repeat."],
@@ -141,7 +123,6 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
       { icon: Sun, label: "Weitergehen" },
     ],
     howToUseNote: ["Ein Impuls passend", "zu Ihrem Moment."],
-    detailIcons: [Sparkles, Info, infoIcon],
     nextCompanionLabel: "Regulieren & Loslassen — für jeden Moment im Alltag.",
     brandCloseTagline: ["A small ritual.", "Wherever you are."],
     brandCloseNote: ["Rest.", "Rebalance.", "Repeat."],
@@ -170,7 +151,6 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
       { icon: Sparkles, label: "Weitergehen" },
     ],
     howToUseNote: ["So greifen Ihre", "Begleiter ineinander."],
-    detailIcons: [Sparkles, FlaskConical, Info, infoIcon],
     nextCompanionLabel: "Regulieren, Loslassen, Vorbereiten — Ihr Einstieg.",
     brandCloseTagline: ["A small ritual.", "Wherever you are."],
     brandCloseNote: ["Rest.", "Rebalance.", "Repeat."],
@@ -209,7 +189,6 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
       { icon: Sun, label: "Gute Voraussetzungen schaffen" },
     ],
     howToUseNote: ["So individuell wie", "Ihre Liegeposition."],
-    detailIcons: [Bed, Info, infoIcon],
     nextCompanionLabel: "Regulation und Rituale bereiten vor — die Schlafumgebung übernimmt in der Nacht.",
     brandCloseTagline: ["A small ritual.", "Wherever you are."],
     brandCloseNote: ["Rest.", "Rebalance.", "Repeat."],
@@ -263,7 +242,6 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
       { icon: Sun, label: "Gute Voraussetzungen schaffen" },
     ],
     howToUseNote: ["Die Nacht braucht", "ihre eigenen Voraussetzungen."],
-    detailIcons: [Bed, Info, infoIcon],
     nextCompanionLabel: "Regulation und Rituale bereiten den Übergang vor. Die Schlafumgebung übernimmt in der Nacht.",
     brandCloseTagline: ["A small ritual.", "Wherever you are."],
     brandCloseNote: ["Rest.", "Rebalance.", "Repeat."],
