@@ -92,6 +92,13 @@ export type ProductSystemConfig = {
   howToUseSteps: RitualStep[];
   howToUseNote: string[];
   nextCompanionLabel: string; // e.g. "Dein Begleiter für Regulieren & Loslassen."
+  // Vitalize® gets its own quality section (mattress + neck pillow only),
+  // per both products' specs: a real fabric-texture photo next to a fixed
+  // explanation, deliberately not folded into the technical details list.
+  // The explanation text is shared verbatim between both products in the
+  // client's docs, so it's hardcoded in the template rather than repeated
+  // per config — only the image differs.
+  vitalizeImage?: string;
   brandCloseTagline: [string, string];
   brandCloseNote: [string, string, string];
   translations?: {
@@ -478,6 +485,42 @@ export function ProductSystemPage({
             </p>
           </div>
         </section>
+
+        {config.vitalizeImage && (
+          <section className="mx-auto grid max-w-[1500px] items-center gap-8 px-5 py-14 md:px-10 lg:grid-cols-2 lg:px-16 lg:py-20">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-md bg-lovable-muted">
+              <Image
+                src={config.vitalizeImage}
+                alt={tx("Vitalize® fabric detail", "Vitalize®-Stoffdetail")}
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
+                {tx("Vitalize® Technology", "Vitalize® Technologie")}
+              </p>
+              <h3 className="mt-4 font-lovable-serif text-2xl italic leading-snug md:text-3xl">
+                {tx("A special cover for the night.", "Ein besonderer Bezug für die Nacht.")}
+              </h3>
+              <p className="mt-5 text-xs leading-6 text-lovable-muted-foreground">
+                {tx(
+                  "The SomnoBalance cover is made with Vitalize® — a premium mattress textile with far-infrared technology (FIR). Ceramic mineral crystals are permanently embedded in the polyester fibers.",
+                  "Der SomnoBalance Bezug ist mit Vitalize® ausgestattet — einem hochwertigen Matratzentextil mit Far-Infrared-Technologie (FIR). In die Polyesterfasern sind dauerhaft keramische Mineralkristalle eingebunden.",
+                )}
+              </p>
+              <p className="mt-3 text-xs leading-6 text-lovable-muted-foreground">
+                {tx(
+                  "According to the manufacturer, the material is designed to reflect part of the body's own heat energy as far-infrared radiation — so the textile technology is used continuously while lying on it.",
+                  "Nach Angaben des Herstellers ist das Material darauf ausgelegt, einen Teil der vom Körper abgegebenen Wärmeenergie in Form von Ferninfrarotstrahlung zu reflektieren. So wird die besondere Textiltechnologie während des Liegens kontinuierlich genutzt.",
+                )}
+              </p>
+              <p className="mt-5 text-[10px] text-lovable-muted-foreground">
+                {tx("Vitalize® is a textile technology by BekaertDeslee.", "Vitalize® ist eine Textiltechnologie von BekaertDeslee.")}
+              </p>
+            </div>
+          </section>
+        )}
 
         <section className="mx-auto grid max-w-[1500px] lg:grid-cols-[0.9fr_1.05fr_0.75fr]">
           <div className="relative min-h-[520px]">
