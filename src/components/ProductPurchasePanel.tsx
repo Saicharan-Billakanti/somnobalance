@@ -195,6 +195,18 @@ export function ProductPurchasePanel({
         <AddToCartButton slug={product.slug} variant={cartVariant} qty={qty} dict={dict} />
       </div>
 
+      {/* Secondary, visually restrained CTA for configurable high-ticket
+          products — per the mattress spec: consultation is a quality
+          signal at this price point, not friction before checkout. */}
+      {product.editions && product.editions.length > 0 && (
+        <p className="text-center text-xs text-ink/50">
+          {tx("Unsure about size or firmness?", "Unsicher bei Größe oder Festigkeit?")}{" "}
+          <Link href={`/${lang}/contact`} className="underline hover:text-ink">
+            {tx("Request personal advice →", "Persönliche Beratung anfragen →")}
+          </Link>
+        </p>
+      )}
+
       {/* Return Policy & Seal Breakage Rule Guarantee Box */}
       <div className="space-y-2 rounded-2xl border border-mauve/15 bg-sand/30 p-4 text-xs">
         <div className="flex items-center justify-between">

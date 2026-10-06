@@ -99,6 +99,12 @@ export type ProductSystemConfig = {
   // client's docs, so it's hardcoded in the template rather than repeated
   // per config — only the image differs.
   vitalizeImage?: string;
+  // Extra named explainer sections rendered between the application steps
+  // and the Vitalize® block — e.g. mattress's "Individuell anpassbar" /
+  // "Matratzenaufbau" / "Integriertes System" / "Für zwei" sections, per
+  // its spec's explicit instruction not to leave this as one long
+  // description paragraph. Optional; most products don't set this.
+  explainerSections?: { eyebrow: string; headline: string; body: string; image?: string }[];
   brandCloseTagline: [string, string];
   brandCloseNote: [string, string, string];
   translations?: {
@@ -111,6 +117,7 @@ export type ProductSystemConfig = {
       howToUseSteps?: string[];
       howToUseNote?: string[];
       nextCompanionLabel?: string;
+      explainerSections?: { eyebrow: string; headline: string; body: string }[];
       brandCloseTagline?: [string, string];
       brandCloseNote?: [string, string, string];
     };
@@ -486,6 +493,32 @@ export function ProductSystemPage({
           </div>
         </section>
 
+        {c.explainerSections?.map((section, i) => (
+          <section
+            key={section.headline}
+            className={`mx-auto grid max-w-[1500px] items-center gap-8 px-5 py-10 md:px-10 lg:px-16 ${
+              section.image ? "lg:grid-cols-2" : ""
+            } ${i > 0 ? "border-t border-lovable-border" : ""}`}
+          >
+            {section.image && (
+              <div className="relative aspect-[4/3] overflow-hidden rounded-md bg-lovable-muted">
+                <Image src={section.image} alt="" fill className="object-cover" />
+              </div>
+            )}
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
+                {section.eyebrow}
+              </p>
+              <h3 className="mt-4 font-lovable-serif text-2xl italic leading-snug md:text-3xl">
+                {section.headline}
+              </h3>
+              <p className="mt-5 whitespace-pre-line text-xs leading-6 text-lovable-muted-foreground">
+                {section.body}
+              </p>
+            </div>
+          </section>
+        ))}
+
         {config.vitalizeImage && (
           <section className="mx-auto grid max-w-[1500px] items-center gap-8 px-5 py-14 md:px-10 lg:grid-cols-2 lg:px-16 lg:py-20">
             <div className="relative aspect-[4/3] overflow-hidden rounded-md bg-lovable-muted">
@@ -568,6 +601,16 @@ export function ProductSystemPage({
                   },
                 ]}
               />
+            )}
+            {text.deliveryInfo && (
+              <div className="mt-6 rounded-md border border-lovable-border bg-lovable-card p-6">
+                <p className="text-[9px] uppercase tracking-[0.18em]">
+                  {tx("Manufacturing & Delivery", "Fertigung & Lieferung")}
+                </p>
+                <p className="mt-5 text-[10px] leading-5 text-lovable-muted-foreground">
+                  {text.deliveryInfo}
+                </p>
+              </div>
             )}
             <p className="mt-10 text-[10px] leading-5 text-lovable-muted-foreground">
               {before}

@@ -40,6 +40,10 @@ export type ProductTranslation = {
   // Distinct from `legalNote` on Product, which is an internal dev-only
   // TODO/caveat and is never rendered to shoppers.
   safetyInfo?: string;
+  // Manufacturing/shipping lead time and post-unboxing care notes — shown
+  // in their own "Fertigung & Lieferung" block (mattress's spec is
+  // explicit these must not sit mixed into the technical details list).
+  deliveryInfo?: string;
 };
 
 export type Product = {
@@ -57,6 +61,7 @@ export type Product = {
   ingredients?: string;
   legalNote?: string;
   safetyInfo?: string;
+  deliveryInfo?: string;
   specs?: ProductSpecs;
   shippingIncluded?: boolean;
   returnPeriodDays?: number;
@@ -77,6 +82,7 @@ export function getProductText(product: Product, lang: string): ProductTranslati
     ingredients: product.ingredients,
     specs: product.specs,
     safetyInfo: product.safetyInfo,
+    deliveryInfo: product.deliveryInfo,
   };
 }
 
@@ -324,9 +330,9 @@ export const products: Product[] = [
     name: "SomnoBalance Mattress",
     category: "Sleep",
     shippingIncluded: true,
-    tagline: "Lie individually. Adjust comfort flexibly. Sleep regeneratively.",
+    tagline: "Individually adjustable comfort for a mindfully designed sleep environment.",
     description:
-      "The SomnoBalance Mattress combines a high-quality 7-zone pocket-spring core, two selectable firmness levels and an integrated Viscogel topper into one considered sleep system. What makes it different: the mattress adapts as your comfort needs change. Instead of committing to a single firmness forever, the inner core simply flips over, changing the firmness in a few simple steps. Available in two editions — H2/H3 (choose between firmness H2 and H3) or H3/H4 (choose between firmness H3 and H4). Inside, a high-quality 7-zone pocket-spring core with around 500 springs at 100 × 200 cm is covered on both sides with roughly 3 cm of high-quality cold foam (RG 40); the two sides carry different firmness levels, so flipping the inner core switches between H2 and H3 (H2/H3 edition) or between H3 and H4 (H3/H4 edition). A roughly 4 cm pressure-relieving Viscogel topper (RG 50) sits loose on top of the reversible inner core — inner core and topper sit together inside the high-quality SomnoBalance cover with Vitalize® fabric, so the mattress combines the comfort of a separate topper with the benefits of a closed mattress system: the topper stays integrated into the whole and won't slide around. To change the firmness, a four-sided zip opens the upper cover panel, the Viscogel topper lifts off, the inner core flips over, and the topper goes back on top — zip closed, done. Four embroidered handles make turning and handling the inner core easier. From 160 cm wide, two separate inner cores sit under one continuous topper and one shared cover, so each side of the bed can be set to its own firmness independently while the continuous surface keeps a harmonious feel.",
+      "The SomnoBalance Mattress combines a high-quality 7-zone pocket-spring core, two selectable firmness levels and an integrated Viscogel topper into one flexibly adjustable sleep system. What makes it different: flipping the inner core switches between two firmness levels — so comfort can adapt even as your personal needs change. The detailed technical specifications are explained further below.",
     details: [
       "Editions: H2/H3 or H3/H4",
       "Firmness adjustment: by flipping the inner core",
@@ -334,14 +340,11 @@ export const products: Product[] = [
       "Spring count: approx. 500 springs at 100 × 200 cm",
       "Core cover: both sides approx. 3 cm cold foam, RG 40",
       "Topper: approx. 4 cm Viscogel, RG 50",
-      "Topper system: sits loose on the inner core, integrated within the shared mattress cover",
+      "Topper system: sits on the inner core, integrated within the shared mattress cover",
       "Cover: high-quality SomnoBalance cover with Vitalize® fabric",
       "Opening: four-sided zip",
-      "Handling: 4 embroidered handles",
+      "Handling: handles for turning the inner core (exact description pending confirmation against the manufacturer's documentation)",
       "From 160 cm wide: two separately reversible inner cores under one continuous topper and cover",
-      "Made to order: manufacturing and delivery take approx. 3–4 weeks",
-      "Shipped via DHL, Germany only, shipping cost included in the price — 160 cm width and above arrives as 3–4 separate parcels",
-      "Allow the mattress 48–72 hours after unpacking to fully expand to its final shape and firmness",
     ],
     phase: "PREPARE",
     image: "/products/somnobalance-mattress.webp",
@@ -363,13 +366,15 @@ export const products: Product[] = [
       { label: "H3/H4", description: "Reversible between firmness H3 and H4" },
     ],
     legalNote:
-      "Special lengths of 210 cm or 220 cm are available for a 20% surcharge on the base size price — not yet configurable in this demo checkout. The Vitalize® cover is described only as the manufacturer characterises it; claims about microcirculation, sleep or wellbeing are deliberately not presented as proven effects.",
+      "Special lengths of 210 cm or 220 cm are available for a 20% surcharge on the base size price — not yet configurable in this demo checkout. The Vitalize® cover is described only as the manufacturer characterises it; claims about microcirculation, sleep or wellbeing are deliberately not presented as proven effects. The handle description must be confirmed against manufacturer documentation before publishing a specific claim (currently left generic per the client's instruction).",
+    deliveryInfo:
+      "The SomnoBalance Mattress is made to order; manufacturing and delivery take approx. 3–4 weeks. Shipped via DHL within Germany, shipping cost included in the price — widths of 160 cm and above arrive as 3–4 separate parcels. Please allow the mattress 48–72 hours after unpacking to fully expand to its final shape and firmness.",
     translations: {
       de: {
         name: "SomnoBalance Matratze",
-        tagline: "Individuell liegen. Komfort flexibel anpassen. Regenerativ schlafen.",
+        tagline: "Individuell anpassbarer Liegekomfort für eine bewusst gestaltete Schlafumgebung.",
         description:
-          "Die SomnoBalance Matratze verbindet einen hochwertigen 7-Zonen-Taschenfederkern, zwei wählbare Festigkeiten und einen integrierten Visko-Gel-Topper zu einem durchdachten Schlafsystem. Das Besondere: Die Matratze passt sich veränderten Komfortbedürfnissen an. Statt sich dauerhaft auf nur einen Härtegrad festlegen zu müssen, lässt sich der Innenkern einfach wenden und die gewünschte Festigkeit mit wenigen Handgriffen verändern. Die SomnoBalance Matratze ist in zwei Varianten erhältlich: H2/H3 (wählbar zwischen Härtegrad H2 und H3) und H3/H4 (wählbar zwischen Härtegrad H3 und H4). Im Inneren arbeitet ein hochwertiger 7-Zonen-Taschenfederkern mit rund 500 Federn bei 100 × 200 cm. Dieser ist auf beiden Seiten mit jeweils ca. 3 cm hochwertigem Kaltschaum RG 40 abgedeckt. Die beiden Seiten besitzen unterschiedliche Festigkeiten — durch einfaches Wenden des Innenkerns kann bei der Variante H2/H3 zwischen H2 und H3 und bei der Variante H3/H4 zwischen H3 und H4 gewechselt werden. Ein weiterer besonderer Vorteil der SomnoBalance Matratze ist der integrierte Topper: Ein ca. 4 cm starker, druckentlastender Visko-Gel-Topper RG 50 liegt lose auf dem wendbaren Innenkern. Innenkern und Topper befinden sich jedoch gemeinsam innerhalb des hochwertigen SomnoBalance Matratzenbezuges mit Vitalize®-Stoff. Dadurch verbindet die SomnoBalance Matratze den Komfort eines separaten Toppers mit den Vorteilen einer geschlossenen Matratzenlösung: Der Topper bleibt in das Gesamtsystem integriert und lästiges Verrutschen wird vermieden. Soll das Liegegefühl verändert werden, lässt sich das System unkompliziert anpassen: Der vierseitige Reißverschluss ermöglicht das Öffnen des oberen Bezugsteils, anschließend wird der Visko-Gel-Topper abgenommen, der Innenkern gewendet und der Topper wieder auf den Kern gelegt — Bezug schließen, fertig. Vier eingestickte Griffe erleichtern das Wenden und die Handhabung des Innenkerns zusätzlich. Bei Matratzen ab 160 cm Breite kommen zwei getrennte Innenkerne unter einem durchgehenden Topper und einem gemeinsamen Bezug zum Einsatz, sodass jede Bettseite unabhängig auf die gewünschte Festigkeit eingestellt werden kann, während die durchgehende Oberfläche für ein harmonisches Liegegefühl sorgt.",
+          "Die SomnoBalance Matratze verbindet einen hochwertigen 7-Zonen-Taschenfederkern, zwei wählbare Festigkeiten und einen integrierten Visko-Gel-Topper zu einem flexibel anpassbaren Schlafsystem. Das Besondere: Durch Wenden des Innenkerns lässt sich zwischen zwei Festigkeiten wechseln. So kann der Liegekomfort auch dann angepasst werden, wenn sich persönliche Komfortbedürfnisse verändern. Die technischen Details werden weiter unten ausführlich erklärt.",
         details: [
           "Ausführungen: H2/H3 oder H3/H4",
           "Festigkeitsanpassung: durch Wenden des Innenkerns",
@@ -377,15 +382,14 @@ export const products: Product[] = [
           "Federanzahl: ca. 500 Federn bei 100 × 200 cm",
           "Kernabdeckung: beidseitig ca. 3 cm Kaltschaum RG 40",
           "Topper: ca. 4 cm Visko-Gel RG 50",
-          "Topper-System: lose auf dem Innenkern, innerhalb des gemeinsamen Matratzenbezuges integriert",
-          "Bezug: hochwertiger SomnoBalance Bezug mit Vitalize®-Stoff",
+          "Topper-System: auf dem Innenkern liegend und innerhalb des gemeinsamen Matratzenbezugs integriert",
+          "Bezug: hochwertiger SomnoBalance Bezug mit Vitalize®-Technologie",
           "Öffnung: vierseitiger Reißverschluss",
-          "Handhabung: vier eingestickte Griffe",
-          "Ab 160 cm Breite: zwei separat wendbare Innenkerne unter durchgehendem Topper und Bezug",
-          "Anfertigung auf Bestellung: Fertigung und Lieferung dauern ca. 3–4 Wochen",
-          "Versand per DHL, nur innerhalb Deutschlands, Versandkosten im Preis enthalten — ab 160 cm Breite als 3–4 separate Pakete",
-          "Der Matratze nach dem Auspacken 48–72 Stunden Zeit geben, um sich vollständig zu entfalten und ihre endgültige Form und Härte anzunehmen",
+          "Handhabung: Griffe zum Wenden des Innenkerns (genaue Bezeichnung ausstehend bis zur Bestätigung anhand der Herstellerunterlagen)",
+          "Ab 160 cm Breite: zwei separat wendbare Innenkerne unter durchgehendem Topper und gemeinsamem Bezug",
         ],
+        deliveryInfo:
+          "Die SomnoBalance Matratze wird auf Bestellung gefertigt. Die Fertigungs- und Lieferzeit beträgt ca. 3–4 Wochen. Versand per DHL innerhalb Deutschlands, Versandkosten im Preis enthalten — ab 160 cm Breite als 3–4 separate Pakete. Bitte geben Sie der Matratze nach dem Auspacken etwa 48–72 Stunden Zeit, damit sie ihre vollständige Form und Höhe entfalten kann.",
       },
     },
   },

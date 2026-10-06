@@ -244,6 +244,29 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
     ],
     howToUseNote: ["Die Nacht braucht", "ihre eigenen Voraussetzungen."],
     vitalizeImage: "/products/mattress-detail-vitalize.webp",
+    explainerSections: [
+      {
+        eyebrow: "Individuell anpassbar",
+        headline: "Eine Matratze. Zwei Festigkeiten.",
+        body: "Die SomnoBalance Matratze ist in zwei Varianten erhältlich: H2/H3 oder H3/H4. Beide Varianten verbinden zwei unterschiedliche Festigkeiten innerhalb einer Matratze.\n\nSoll sich das Liegegefühl verändern, wird der Innenkern einfach gewendet. So lässt sich der Komfort an unterschiedliche Bedürfnisse anpassen, ohne die gesamte Matratze austauschen zu müssen.\n\nH2 ↔ H3  oder  H3 ↔ H4\nInnenkern wenden → Liegegefühl anpassen",
+      },
+      {
+        eyebrow: "Matratzenaufbau",
+        headline: "Komfort, Schicht für Schicht.",
+        body: "Im Inneren arbeitet ein hochwertiger 7-Zonen-Taschenfederkern mit rund 500 Federn bei einer Größe von 100 × 200 cm. Der Federkern ist auf beiden Seiten mit jeweils ca. 3 cm Kaltschaum RG 40 abgedeckt.\n\nDie beiden Seiten besitzen unterschiedliche Festigkeiten. Durch Wenden des Innenkerns kann je nach gewählter Variante zwischen H2 und H3 beziehungsweise H3 und H4 gewechselt werden.",
+        image: "/products/mattress-detail-quilting.webp",
+      },
+      {
+        eyebrow: "Integriertes System",
+        headline: "Topper und Matratze als Einheit.",
+        body: "Ein ca. 4 cm starker Visko-Gel-Topper RG 50 liegt auf dem wendbaren Innenkern. Innenkern und Topper befinden sich gemeinsam innerhalb des SomnoBalance Matratzenbezugs.\n\nDadurch verbindet die Matratze den Komfort eines zusätzlichen Toppers mit den Vorteilen einer geschlossenen Matratzenlösung. Der Topper bleibt in das Gesamtsystem integriert, ein separates Verrutschen auf der Matratze wird vermieden.",
+      },
+      {
+        eyebrow: "Für zwei",
+        headline: "Individueller Komfort auf beiden Bettseiten.",
+        body: "Bei Matratzen ab 160 cm Breite kommen zwei separat wendbare Innenkerne unter einem durchgehenden Topper und einem gemeinsamen Bezug zum Einsatz.\n\nDadurch kann jede Bettseite unabhängig auf die gewünschte Festigkeit eingestellt werden, während Topper und Bezug eine durchgehende Oberfläche bilden.",
+      },
+    ],
     nextCompanionLabel: "Regulation und Rituale bereiten den Übergang vor. Die Schlafumgebung übernimmt in der Nacht.",
     brandCloseTagline: ["A small ritual.", "Wherever you are."],
     brandCloseNote: ["Rest.", "Rebalance.", "Repeat."],
@@ -261,6 +284,28 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
         howToUseTitle: ["What carries you", "through the night."],
         howToUseSteps: ["Choose firmness", "Adjust comfort", "Prepare sleep environment", "Create good conditions"],
         howToUseNote: ["The night needs", "its own conditions."],
+        explainerSections: [
+          {
+            eyebrow: "Individually adjustable",
+            headline: "One mattress. Two firmness levels.",
+            body: "The SomnoBalance Mattress is available in two editions: H2/H3 or H3/H4. Both combine two different firmness levels within a single mattress.\n\nTo change the feel, simply flip the inner core — comfort adapts to different needs without replacing the whole mattress.\n\nH2 ↔ H3  or  H3 ↔ H4\nFlip the inner core → adjust the feel",
+          },
+          {
+            eyebrow: "Mattress construction",
+            headline: "Comfort, layer by layer.",
+            body: "Inside works a high-quality 7-zone pocket-spring core with around 500 springs at 100 × 200 cm. The spring core is covered on both sides with approx. 3 cm of cold foam, RG 40.\n\nThe two sides carry different firmness levels — flipping the inner core switches between H2 and H3, or H3 and H4, depending on the edition.",
+          },
+          {
+            eyebrow: "Integrated system",
+            headline: "Topper and mattress as one.",
+            body: "A roughly 4 cm Viscogel topper (RG 50) sits on the reversible inner core. Inner core and topper sit together inside the SomnoBalance mattress cover.\n\nThis combines the comfort of an additional topper with the benefits of a closed mattress solution — the topper stays integrated into the whole system, and separate sliding is avoided.",
+          },
+          {
+            eyebrow: "For two",
+            headline: "Individual comfort on both sides of the bed.",
+            body: "From 160 cm width, two separately reversible inner cores sit under one continuous topper and one shared cover.\n\nThis lets each side of the bed be set to its own firmness independently, while the topper and cover keep one continuous surface.",
+          },
+        ],
         nextCompanionLabel: "Regulation and rituals prepare the transition. The sleep environment takes over at night.",
       },
     },
