@@ -398,9 +398,9 @@ export const products: Product[] = [
     name: "SomnoBalance Starter Set",
     category: "Care",
     price: 59,
-    tagline: "Four companions for your regeneration path — from the active day into the night.",
+    tagline: "Your entry into SomnoBalance — for conscious regeneration moments from the active day into the night.",
     description:
-      "You don't need to use everything at once. The 21-day guide gives you orientation — the cards and aroma products accompany you in whatever way fits your day.",
+      "SomnoBalance should adapt to your everyday life — not the other way around. The 21-day guide gives you orientation, while regeneration cards, roll-on and oil blend accompany you with different impulses through your personal regeneration rhythm.",
     details: [
       "21-day guide: your thread through the next 21 days — small impulses and rituals that help you build regulation and regeneration into your everyday life, step by step",
       "Regeneration cards: choose the one that fits your current need — concrete impulses and simple ways to come to rest in between and support your self-regulation",
@@ -412,18 +412,22 @@ export const products: Product[] = [
     returnPeriodDays: 30,
     refundPolicy: "30-Day Money-Back Guarantee",
     returnEligible: true,
+    safetyInfo:
+      "This set includes the SomnoBalance Roll-on and Oil Blend, each with their own mandatory safety information — see the Roll-on and Oil Blend product pages for full ingredient (INCI) listings and usage notes. The 21-Day Guide and Regeneration Cards Set carry no cosmetic or safety disclosures.",
     translations: {
       de: {
         name: "SomnoBalance Starter-Set",
-        tagline: "Vier Begleiter für Ihren Regenerationsweg — vom aktiven Tag bis in die Nacht.",
+        tagline: "Ihr Einstieg in SomnoBalance – für bewusste Regenerationsmomente vom aktiven Tag bis in die Nacht.",
         description:
-          "Sie müssen nicht alles gleichzeitig anwenden. Der 21-Tage-Guide gibt Ihnen die Orientierung — Karten und Aromaprodukte begleiten Sie passend zu Ihrem Tag.",
+          "SomnoBalance soll sich Ihrem Alltag anpassen – nicht umgekehrt. Der 21-Tage-Guide gibt Ihnen Orientierung, während Regenerationskarten, Roll-on und Ölmischung Sie mit unterschiedlichen Impulsen durch Ihren persönlichen Regenerationsrhythmus begleiten.",
         details: [
           "21-Tage-Guide: Ihr roter Faden durch die nächsten 21 Tage. Kleine Impulse und Rituale begleiten Sie Schritt für Schritt dabei, Regulation und Regeneration bewusster in Ihren Alltag zu integrieren",
           "Regenerationskarten: Wählen Sie passend zu Ihrem aktuellen Bedürfnis. Die Karten geben Ihnen konkrete Impulse und zeigen Ihnen einfache Möglichkeiten, zwischendurch zur Ruhe zu kommen und Ihre Selbstregulation zu unterstützen",
           "SomnoBalance Roll-on: Ihr unkomplizierter Begleiter für unterwegs und im Alltag. Auf die Pulspunkte auftragen, den Duft bewusst wahrnehmen und einen kurzen Moment zum Innehalten nutzen",
           "Ätherische Ölmischung: Für Ihre bewussten Regenerationsmomente zu Hause. Einige Tropfen im Diffuser schaffen eine angenehme Duftatmosphäre und können Ihr persönliches Ruhe- oder Abendritual begleiten",
         ],
+        safetyInfo:
+          "Dieses Set enthält den SomnoBalance Roll-on und die Ölmischung, jeweils mit eigenen verpflichtenden Sicherheitsinformationen — die vollständigen Inhaltsstoffangaben (INCI) und Anwendungshinweise finden Sie auf den jeweiligen Produktseiten von Roll-on und Ölmischung. Der 21-Tage-Guide und das Regenerationskarten-Set enthalten keine kosmetischen oder sicherheitsrelevanten Angaben.",
       },
     },
   },

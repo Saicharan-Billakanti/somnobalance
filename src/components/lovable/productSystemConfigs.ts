@@ -151,8 +151,85 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
       { icon: Sparkles, label: "Weitergehen" },
     ],
     howToUseNote: ["So greifen Ihre", "Begleiter ineinander."],
+    timeline: {
+      eyebrow: "IHR REGENERATIONSWEG",
+      headline: "21 Tage. Ihr eigener Rhythmus.",
+      intro:
+        "Der 21-Tage-Guide führt Sie Schritt für Schritt durch das SomnoBalance-Konzept. Dabei geht es nicht darum, jeden Tag möglichst viel umzusetzen. Kleine, bewusst gewählte Impulse helfen Ihnen dabei herauszufinden, was sich gut in Ihren Alltag integrieren lässt.",
+      steps: [
+        {
+          number: "01",
+          title: "WOCHE 1 – WAHRNEHMEN",
+          body: "Beobachten Sie Ihren Alltag bewusster und entdecken Sie die Momente, in denen Ihnen ein kurzer Regenerationsimpuls guttun kann.",
+        },
+        {
+          number: "02",
+          title: "WOCHE 2 – VERTIEFEN",
+          body: "Lernen Sie unterschiedliche Regenerationsimpulse kennen und finden Sie heraus, welche davon gut zu Ihnen und Ihrem Alltag passen.",
+        },
+        {
+          number: "03",
+          title: "WOCHE 3 – INTEGRIEREN",
+          body: "Verbinden Sie ausgewählte Impulse mit wiederkehrenden Momenten Ihres Tages und entwickeln Sie daraus Ihren persönlichen Regenerationsrhythmus.",
+        },
+        {
+          number: "04",
+          title: "WEITERGEHEN – IHREN RHYTHMUS FINDEN",
+          body: "Nehmen Sie mit, was Ihnen guttut. SomnoBalance gibt Orientierung – Sie entscheiden, welche Impulse Sie langfristig begleiten sollen.",
+        },
+      ],
+    },
+    bundleContents: [
+      {
+        title: "21-Tage-Guide",
+        subtitle: "Ihr roter Faden für die ersten 21 Tage.",
+        body: "Kleine Impulse und Rituale begleiten Sie dabei, bewusste Regenerationsmomente in Ihren Alltag zu integrieren und Schritt für Schritt Ihren persönlichen Rhythmus zu entwickeln.",
+      },
+      {
+        title: "Regenerationskarten-Set",
+        subtitle: "Ein Impuls passend zu Ihrem Moment.",
+        body: "Wählen Sie passend zu Ihrem aktuellen Bedürfnis einen Regenerationspunkt oder ein Ritual aus. Die Karten geben Ihnen konkrete, leicht umsetzbare Impulse für bewusste Momente im Alltag, beim Loslassen und bei der Vorbereitung auf die Nacht.",
+      },
+      {
+        title: "SomnoBalance Roll-on",
+        subtitle: "Ein Duftimpuls für unterwegs und zu Hause.",
+        body: "Bewusst aufgetragen und wahrgenommen, kann der Roll-on zu einem persönlichen Begleiter für kurze Regenerationsmomente und bewusste Übergänge werden.",
+      },
+      {
+        title: "SomnoBalance Ölmischung",
+        subtitle: "Duft als Teil Ihres persönlichen Rituals.",
+        body: "Ein Duftimpuls für bewusste Regenerationsmomente und persönliche Rituale. Wenige Tropfen im Diffuser schaffen eine angenehme Duftatmosphäre und können Sie beim Loslassen und bei der Vorbereitung auf den Abend begleiten.",
+      },
+    ],
+    togetherSection: {
+      eyebrow: "GEMEINSAM GEDACHT",
+      headline: "Orientierung, Impulse und Rituale für Ihren Alltag.",
+      body: "Der 21-Tage-Guide gibt Ihnen Orientierung. Die Regenerationskarten helfen Ihnen dabei, passende Impulse auszuwählen. Roll-on und Ölmischung können bewusste Momente und Übergänge mit einem wiederkehrenden Duft begleiten.\n\nSie entscheiden selbst, was Sie wann nutzen. Denn SomnoBalance folgt keinem starren Ablauf – sondern Ihrem persönlichen Regenerationsrhythmus.",
+    },
+    dailyMoments: {
+      eyebrow: "SOMNOBALANCE IM ALLTAG",
+      headline: "Kleine Impulse. Passend zu Ihrem Moment.",
+      intro: "Sie müssen nicht jeden Bestandteil jeden Tag nutzen. Wählen Sie das, was zu Ihrem Moment und Ihrem persönlichen Regenerationsbedarf passt.",
+      cards: [
+        {
+          title: "MITTEN IM TAG",
+          headline: "Ein kurzer Moment zum Innehalten.",
+          body: "Wählen Sie beispielsweise eine Regenerationskarte oder nutzen Sie den Roll-on als bewussten Duftimpuls für einen kurzen Regenerationsmoment.",
+        },
+        {
+          title: "BEIM LOSLASSEN",
+          headline: "Den aktiven Tag langsam leiser werden lassen.",
+          body: "Ein ausgewählter Regenerationsimpuls, der Roll-on oder die Ölmischung können einen bewussten Übergang zwischen Aktivität und Ruhe begleiten.",
+        },
+        {
+          title: "AM ABEND",
+          headline: "Der Nacht bewusst Raum geben.",
+          body: "Nutzen Sie einen ausgewählten Impuls oder einen vertrauten Duft als Teil Ihrer persönlichen Abendroutine und schaffen Sie einen ruhigen Übergang in die Nacht.",
+        },
+      ],
+    },
     nextCompanionLabel: "Regulieren, Loslassen, Vorbereiten — Ihr Einstieg.",
-    brandCloseTagline: ["A small ritual.", "Wherever you are."],
+    brandCloseTagline: ["Die Phasen sind fest —", "die Anwendung ist individuell."],
     brandCloseNote: ["Rest.", "Rebalance.", "Repeat."],
     translations: {
       en: {
@@ -162,7 +239,41 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
         howToUseTitle: ["Three weeks.", "Your regeneration path."],
         howToUseSteps: ["Week 1", "Week 2", "Week 3", "Move on"],
         howToUseNote: ["How your", "companions interlock."],
+        timeline: {
+          eyebrow: "YOUR REGENERATION PATH",
+          headline: "21 days. Your own rhythm.",
+          intro:
+            "The 21-day guide walks you step by step through the SomnoBalance concept. It's not about doing as much as possible every day. Small, deliberately chosen impulses help you find what fits well into your everyday life.",
+          steps: [
+            { number: "01", title: "WEEK 1 – NOTICE", body: "Observe your everyday life more consciously and discover the moments where a brief regeneration impulse can help." },
+            { number: "02", title: "WEEK 2 – EXPLORE", body: "Get to know different regeneration impulses and find out which ones fit you and your everyday life." },
+            { number: "03", title: "WEEK 3 – INTEGRATE", body: "Connect chosen impulses with recurring moments of your day and develop your own personal regeneration rhythm." },
+            { number: "04", title: "MOVING ON – FINDING YOUR RHYTHM", body: "Keep what works for you. SomnoBalance gives orientation — you decide which impulses stay with you long-term." },
+          ],
+        },
+        bundleContents: [
+          { title: "21-Day Guide", subtitle: "Your thread through the first 21 days.", body: "Small impulses and rituals help you integrate conscious regeneration moments into your everyday life, and develop your personal rhythm step by step." },
+          { title: "Regeneration Cards Set", subtitle: "An impulse to match your moment.", body: "Choose a regeneration point or ritual that fits your current need. The cards give you concrete, easy-to-apply impulses for conscious moments in everyday life, for letting go, and for preparing for the night." },
+          { title: "SomnoBalance Roll-on", subtitle: "A scent impulse for on the go and at home.", body: "Mindfully applied and noticed, the roll-on can become a personal companion for brief regeneration moments and conscious transitions." },
+          { title: "SomnoBalance Oil Blend", subtitle: "Scent as part of your personal ritual.", body: "A scent impulse for conscious regeneration moments and personal rituals. A few drops in the diffuser create a pleasant scent atmosphere and can accompany you while letting go and preparing for the evening." },
+        ],
+        togetherSection: {
+          eyebrow: "THOUGHT TOGETHER",
+          headline: "Orientation, impulses and rituals for your everyday life.",
+          body: "The 21-day guide gives you orientation. The regeneration cards help you choose fitting impulses. Roll-on and oil blend can accompany conscious moments and transitions with a recurring scent.\n\nYou decide for yourself what to use and when. SomnoBalance doesn't follow a rigid process — it follows your personal regeneration rhythm.",
+        },
+        dailyMoments: {
+          eyebrow: "SOMNOBALANCE IN EVERYDAY LIFE",
+          headline: "Small impulses. Matched to your moment.",
+          intro: "You don't need to use every component every day. Choose what fits your moment and your personal regeneration needs.",
+          cards: [
+            { title: "MID-DAY", headline: "A brief moment to pause.", body: "Choose a regeneration card, for example, or use the roll-on as a conscious scent impulse for a brief regeneration moment." },
+            { title: "WHILE LETTING GO", headline: "Letting the active day grow quieter.", body: "A chosen regeneration impulse, the roll-on, or the oil blend can accompany a conscious transition between activity and rest." },
+            { title: "IN THE EVENING", headline: "Giving the night conscious space.", body: "Use a chosen impulse or a familiar scent as part of your personal evening routine and create a calm transition into the night." },
+          ],
+        },
         nextCompanionLabel: "Regulate, Let Go, Prepare — your entry.",
+        brandCloseTagline: ["The phases are fixed —", "the application is individual."],
       },
     },
   },

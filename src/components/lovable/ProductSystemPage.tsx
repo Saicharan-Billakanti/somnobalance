@@ -105,6 +105,20 @@ export type ProductSystemConfig = {
   // its spec's explicit instruction not to leave this as one long
   // description paragraph. Optional; most products don't set this.
   explainerSections?: { eyebrow: string; headline: string; body: string; image?: string }[];
+  // Starter-Set only: the 21-day horizontal/vertical timeline that is the
+  // set's "red thread" per its spec, not just one of four bundle items.
+  timeline?: { eyebrow: string; headline: string; intro: string; steps: { number: string; title: string; body: string }[] };
+  // Starter-Set only: "DAS IST IM STARTER-SET ENTHALTEN" replaces the
+  // generic product-details list with per-component explanations —
+  // deliberately no shipping/stock notes mixed in (those stay in the
+  // purchase panel), per the doc's explicit instruction.
+  bundleContents?: { title: string; subtitle: string; body: string }[];
+  // Starter-Set only: "Gemeinsam gedacht" — a single explanatory block on
+  // how the four components relate, not a fifth product entry.
+  togetherSection?: { eyebrow: string; headline: string; body: string };
+  // Starter-Set only: "SomnoBalance im Alltag" — three non-prescriptive
+  // usage-moment examples (not a required daily routine).
+  dailyMoments?: { eyebrow: string; headline: string; intro: string; cards: { title: string; headline: string; body: string }[] };
   brandCloseTagline: [string, string];
   brandCloseNote: [string, string, string];
   translations?: {
@@ -118,6 +132,10 @@ export type ProductSystemConfig = {
       howToUseNote?: string[];
       nextCompanionLabel?: string;
       explainerSections?: { eyebrow: string; headline: string; body: string }[];
+      timeline?: { eyebrow: string; headline: string; intro: string; steps: { number: string; title: string; body: string }[] };
+      bundleContents?: { title: string; subtitle: string; body: string }[];
+      togetherSection?: { eyebrow: string; headline: string; body: string };
+      dailyMoments?: { eyebrow: string; headline: string; intro: string; cards: { title: string; headline: string; body: string }[] };
       brandCloseTagline?: [string, string];
       brandCloseNote?: [string, string, string];
     };
@@ -519,6 +537,87 @@ export function ProductSystemPage({
           </section>
         ))}
 
+        {c.timeline && (
+          <section className="mx-auto max-w-[1500px] px-5 py-14 md:px-10 lg:px-16 lg:py-20">
+            <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
+              {c.timeline.eyebrow}
+            </p>
+            <h3 className="mt-4 max-w-xl font-lovable-serif text-2xl italic leading-snug md:text-3xl">
+              {c.timeline.headline}
+            </h3>
+            <p className="mt-5 max-w-2xl text-xs leading-6 text-lovable-muted-foreground">
+              {c.timeline.intro}
+            </p>
+            <div className="mt-10 grid gap-8 md:grid-cols-4 md:gap-6">
+              {c.timeline.steps.map((step) => (
+                <div key={step.title} className="border-t border-lovable-border pt-5">
+                  <span className="font-lovable-serif text-lg">{step.number}</span>
+                  <p className="mt-2 text-[10px] uppercase tracking-[0.15em] text-lovable-muted-foreground">
+                    {step.title}
+                  </p>
+                  <p className="mt-3 text-xs leading-6 text-lovable-muted-foreground">{step.body}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {c.bundleContents && (
+          <section className="mx-auto max-w-[1500px] border-t border-lovable-border px-5 py-14 md:px-10 lg:px-16 lg:py-20">
+            <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
+              {tx("What's in the Starter Set", "Das ist im Starter-Set enthalten")}
+            </p>
+            <div className="mt-8 grid gap-8 sm:grid-cols-2">
+              {c.bundleContents.map((item) => (
+                <div key={item.title}>
+                  <h4 className="font-lovable-serif text-lg">{item.title}</h4>
+                  <p className="mt-1 text-xs italic text-lovable-muted-foreground">{item.subtitle}</p>
+                  <p className="mt-3 text-xs leading-6 text-lovable-muted-foreground">{item.body}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {c.togetherSection && (
+          <section className="mx-auto max-w-[1500px] border-t border-lovable-border px-5 py-14 text-center md:px-10 lg:px-16 lg:py-20">
+            <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
+              {c.togetherSection.eyebrow}
+            </p>
+            <h3 className="mx-auto mt-4 max-w-xl font-lovable-serif text-2xl italic leading-snug md:text-3xl">
+              {c.togetherSection.headline}
+            </h3>
+            <p className="mx-auto mt-5 max-w-2xl text-xs leading-6 text-lovable-muted-foreground">
+              {c.togetherSection.body}
+            </p>
+          </section>
+        )}
+
+        {c.dailyMoments && (
+          <section className="mx-auto max-w-[1500px] border-t border-lovable-border px-5 py-14 md:px-10 lg:px-16 lg:py-20">
+            <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
+              {c.dailyMoments.eyebrow}
+            </p>
+            <h3 className="mt-4 max-w-xl font-lovable-serif text-2xl italic leading-snug md:text-3xl">
+              {c.dailyMoments.headline}
+            </h3>
+            <p className="mt-5 max-w-2xl text-xs leading-6 text-lovable-muted-foreground">
+              {c.dailyMoments.intro}
+            </p>
+            <div className="mt-10 grid gap-6 sm:grid-cols-3">
+              {c.dailyMoments.cards.map((card) => (
+                <div key={card.title} className="rounded-md border border-lovable-border p-6">
+                  <p className="text-[10px] uppercase tracking-[0.15em] text-lovable-muted-foreground">
+                    {card.title}
+                  </p>
+                  <h4 className="mt-2 font-lovable-serif text-base italic leading-snug">{card.headline}</h4>
+                  <p className="mt-3 text-xs leading-6 text-lovable-muted-foreground">{card.body}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
         {config.vitalizeImage && (
           <section className="mx-auto grid max-w-[1500px] items-center gap-8 px-5 py-14 md:px-10 lg:grid-cols-2 lg:px-16 lg:py-20">
             <div className="relative aspect-[4/3] overflow-hidden rounded-md bg-lovable-muted">
@@ -565,17 +664,21 @@ export function ProductSystemPage({
             />
           </div>
           <div className="px-7 py-12 md:px-12">
-            <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
-              {dict.shop.productDetailsEyebrow}
-            </p>
-            <span className="mt-4 block h-px w-8 bg-lovable-primary" />
-            <ul className="mt-6 space-y-5 text-xs leading-5">
-              {text.details.map((d, i) => (
-                <li key={d} className="border-t border-lovable-border/60 pt-5">
-                  <span>{d}</span>
-                </li>
-              ))}
-            </ul>
+            {!c.bundleContents && (
+              <>
+                <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
+                  {dict.shop.productDetailsEyebrow}
+                </p>
+                <span className="mt-4 block h-px w-8 bg-lovable-primary" />
+                <ul className="mt-6 space-y-5 text-xs leading-5">
+                  {text.details.map((d) => (
+                    <li key={d} className="border-t border-lovable-border/60 pt-5">
+                      <span>{d}</span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
           </div>
           <div className="border-l border-lovable-border px-7 py-12">
             {text.ingredients && (
