@@ -95,12 +95,12 @@
     "cookies": "Cookie-Richtlinie"
   },
   "home": {
-    "eyebrow": "Regeneration · Ruhe · Balance",
-    "title": "Regeneration beginnt am Tag und wirkt bis in die Nacht.",
-    "titlePrefix": "Regeneration beginnt am Tag und wirkt ",
+    "eyebrow": "EIN GANZHEITLICHER REGENERATIONSANSATZ",
+    "title": "Für Tage voller Klarheit – bis in die Nacht.",
+    "titlePrefix": "Für Tage voller Klarheit –",
     "titleAccent": "bis in die Nacht.",
-    "subtitle": "Ganzheitliche Begleiter für Ihre natürliche Balance — für mehr Ruhe, Regeneration und Lebensqualität, jeden Tag aufs Neue.",
-    "ctaForMe": "Regenerationscheck starten",
+    "subtitle": "SomnoBalance verbindet bewusste Rituale am Tag mit einer Schlafumgebung, die Ihren Körper nachts optimal unterstützt. Für spürbar mehr Lebensqualität.",
+    "ctaForMe": "Für mich entdecken",
     "ctaShop": "Shop entdecken",
     "scrollHint": "Zum Entdecken scrollen",
     "heroSideTitle": "Kleine Rituale.",
@@ -160,14 +160,14 @@
     "personaTitle": "Für Sie. Für Ihren Raum. Für das, was als Nächstes kommt.",
     "personaIntro": "Ob für Ihre persönliche Routine, Ihr Unternehmen oder eine gemeinsame Vision — SomnoBalance begleitet Sie auf Ihrem Weg zu mehr Ruhe, Klarheit und Regeneration.",
     "forMeTitle": "Für mich",
-    "forMeCopy": "Ein persönliches Ritual für ruhigere Nächte und ausgeglichenere Tage.",
-    "forMeImage": "/products/somnobalance-regeneration-tea.webp",
+    "forMeCopy": "Meine persönliche Regenerationsroutine.",
+    "forMeImage": "/mockup/persona-for-me.jpg",
     "forBusinessTitle": "Für mein Unternehmen",
-    "forBusinessCopy": "Ein Gefühl von Ruhe, an das sich Ihre Gäste erinnern — für Hotellerie und Wellness.",
-    "forBusinessImage": "/products/somnobalance-mattress.webp",
+    "forBusinessCopy": "Wohlbefinden für Teams, Gäste und Kunden.",
+    "forBusinessImage": "/mockup/persona-business.jpg",
     "partnerTitle": "Partner werden",
-    "partnerCopy": "Gemeinsame Werte, transparente Konditionen — für Gesundheitsfachkräfte.",
-    "partnerImage": "/products/somnobalance-regeneration-cards.webp",
+    "partnerCopy": "Gemeinsam für mehr Lebensqualität.",
+    "partnerImage": "/mockup/persona-partner.jpg",
     "discover": "Entdecken →",
     "shopEyebrow": "Natürliche Rituale, sorgfältig kuratiert",
     "shopIntro": "Sorgfältig ausgewählte Produkte, die Ihre SomnoBalance-Reise unterstützen.",
@@ -189,68 +189,68 @@
       "phaseStrip": ["Regulieren", "Loslassen", "Vorbereiten", "Regenerieren"]
     },
     "circuit": {
-      "eyebrow": "DER SOMNOBALANCE KREISLAUF",
-      "headline": "Vier Phasen. Ein Regenerationskreislauf.",
-      "intro": "SomnoBalance betrachtet Regeneration nicht als einzelnen Moment, sondern als Zusammenspiel verschiedener Phasen — vom bewussten Regulieren am Tag über Loslassen und Vorbereitung bis zur Regeneration in der Nacht.",
+      "eyebrow": "UNSER NATÜRLICHER RHYTHMUS",
+      "headline": "Der SomnoBalance Regenerationskreislauf",
+      "intro": "Vier Phasen. Ein natürlicher Kreislauf, der Sie durch den Tag begleitet – und in die Nacht führt. Entdecken Sie, wie kleine Rituale in jeder Phase zu mehr Balance und Regeneration beitragen können.",
       "closing": "Und am Morgen beginnt der Kreislauf von Neuem.",
       "closingSub": "Tag für Tag. Nacht für Nacht.",
       "phases": [
         {
           "number": "01",
-          "name": "Regulieren",
+          "name": "REGULIEREN",
           "time": "Tag",
-          "headline": "Ruhe beginnt mitten im Tag.",
-          "body": "Anspannung entsteht nicht erst am Abend. Deshalb setzt SomnoBalance bereits im aktiven Alltag an. Gezielte Impulse unterstützen dabei, innezuhalten, die eigene Anspannung wahrzunehmen und die Selbstregulation zu fördern.",
-          "orientation": "Regenerationspunkte · bewusste Pausen · Selbstregulation"
+          "headline": "Ankommen im Tag",
+          "body": "Finden Sie innere Ruhe und Stabilität, um den Tag bewusst zu gestalten.",
+          "orientation": "KLARHEIT · FOKUS · INNERE RUHE"
         },
         {
           "number": "02",
-          "name": "Loslassen",
+          "name": "LOSLASSEN",
           "time": "Übergang",
-          "headline": "Den Tag langsam leiser werden lassen.",
-          "body": "Zwischen einem aktiven Tag und einer ruhigen Nacht liegt ein wichtiger Übergang. Bewusste Momente helfen dabei, das Tempo zu reduzieren, äußere Reize zurückzulassen und Schritt für Schritt zur Ruhe zu kommen.",
-          "orientation": "Entschleunigung · Übergänge · bewusste Rituale"
+          "headline": "Den Tag leichter machen",
+          "body": "Lassen Sie Anspannung hinter sich und schaffen Sie Raum für Gelassenheit.",
+          "orientation": "ENTSPANNUNG · LEICHTIGKEIT · GELASSENHEIT"
         },
         {
           "number": "03",
-          "name": "Vorbereiten",
+          "name": "VORBEREITEN",
           "time": "Abend",
-          "headline": "Der Nacht Raum geben.",
-          "body": "Regeneration braucht gute Voraussetzungen. Wiederkehrende Abendroutinen und eine bewusst gestaltete Schlafumgebung unterstützen dabei, den Tag abzuschließen und einen ruhigen Rahmen für die Nacht entstehen zu lassen.",
-          "orientation": "Abendroutine · Schlafumgebung · Vorbereitung"
+          "headline": "Zur Ruhe finden",
+          "body": "Stimmen Sie Körper und Geist sanft auf die Nacht ein.",
+          "orientation": "RITUALE · ACHTSAMKEIT · HARMONIE"
         },
         {
           "number": "04",
-          "name": "Regenerieren",
+          "name": "REGENERIEREN",
           "time": "Nacht",
-          "headline": "Raum für Regeneration in der Nacht.",
-          "body": "In der Nacht bekommt der Körper Zeit für Ruhe und Regeneration. Eine individuell passende Schlafumgebung kann dabei unterstützen, Komfort, körperliche Entlastung und erholsame Ruhe miteinander zu verbinden.",
-          "orientation": "Ruhe · Schlafkomfort · Regeneration"
+          "headline": "Tief durchatmen und erholen",
+          "body": "Erleben Sie erholsame Nächte und neue Energie für morgen.",
+          "orientation": "ERHOLUNG · NEUE ENERGIE · AUSGEGLICHENHEIT"
         }
       ]
     },
     "moment": {
-      "eyebrow": "IHR MOMENT",
+      "eyebrow": "IHRE PERSÖNLICHE ORIENTIERUNG",
       "headline": "Was brauchen Sie gerade?",
-      "intro": "Regeneration fühlt sich nicht jeden Tag gleich an. Manchmal fällt es schwer, zwischendurch zur Ruhe zu kommen. Manchmal begleiten Sie Gedanken bis in den Abend. Und manchmal braucht es bessere Voraussetzungen für eine erholsame Nacht.",
-      "sub": "Finden Sie heraus, wo Sie gerade stehen und welche SomnoBalance-Impulse Sie dabei unterstützen können.",
+      "intro": "Jede Lebenssituation ist einzigartig. Finden Sie heraus, was Ihnen aktuell guttun kann – mit unserem Regenerationscheck.",
+      "sub": "Jede Lebenssituation ist einzigartig. Finden Sie heraus, was Ihnen aktuell guttun kann – mit unserem Regenerationscheck.",
       "situations": [
-        { "quote": "Ich bin oft angespannt und finde tagsüber kaum Ruhe.", "reflection": "Sie möchten bewusster innehalten und Ihrem System zwischendurch Impulse zur Regulation geben." },
-        { "quote": "Ich nehme den Tag mit in den Abend.", "reflection": "Sie möchten leichter Abstand vom Alltag gewinnen und einen bewussteren Übergang in den Abend schaffen." },
-        { "quote": "Mir fehlt ein ruhiger Übergang in die Nacht.", "reflection": "Sie möchten Ihren Abend bewusster gestalten und Routinen entwickeln, die Sie auf die Nacht vorbereiten." },
-        { "quote": "Ich möchte meine Schlafumgebung besser auf meine Regeneration abstimmen.", "reflection": "Sie möchten Bedingungen schaffen, die Ruhe, Schlafkomfort und nächtliche Regeneration unterstützen." }
+        { "quote": "Ich bin oft angespannt und finde tagsüber kaum Ruhe.", "reflection": "Vielleicht ist es an der Zeit, Ihren Alltag bewusster zu gestalten." },
+        { "quote": "Ich komme abends schwer zur Ruhe und kann schlecht abschalten.", "reflection": "Vielleicht helfen Ihnen sanfte Abendrituale." },
+        { "quote": "Ich wache nachts oft auf und fühle mich morgens nicht erholt.", "reflection": "Vielleicht braucht Ihr Körper mehr Unterstützung in der Nacht." },
+        { "quote": "Ich wünsche mir insgesamt mehr Balance und Wohlbefinden.", "reflection": "Vielleicht ist ein ganzheitlicher Ansatz der richtige Weg für Sie." }
       ],
       "checkEyebrow": "SOMNOBALANCE REGENERATIONSCHECK",
       "checkHeadline": "Wo können Sie Ihre Regeneration gerade am besten unterstützen?",
       "checkBody": "Der SomnoBalance Regenerationscheck hilft Ihnen dabei, Ihren aktuellen Regenerationsbedarf besser einzuordnen. Mit wenigen Fragen erhalten Sie eine persönliche Orientierung und passende Impulse aus dem SomnoBalance-Konzept.",
-      "checkCta": "Regenerationscheck starten →",
+      "checkCta": "Jetzt Regenerationscheck starten →",
       "checkNote": "Dauert nur wenige Minuten.",
       "checkCardLabel": "Ihr persönlicher Regenerationscheck — finden Sie heraus, was Ihnen gerade gut tut."
     },
     "forYou": {
-      "eyebrow": "SOMNOBALANCE FÜR SIE",
-      "headline": "Was Sie durch Ihren Tag und Ihre Nacht begleiten kann.",
-      "intro": "Regeneration braucht nicht jeden Tag dasselbe. Deshalb sind die SomnoBalance-Produkte nicht an einen einzelnen Moment gebunden. Sie können Sie dort begleiten, wo Sie gerade Unterstützung möchten — beim Regulieren, Loslassen, Vorbereiten und bei der Gestaltung einer regenerationsfördernden Schlafumgebung.",
+      "eyebrow": "UNSERE PRODUKTE",
+      "headline": "SomnoBalance für Sie",
+      "intro": "Natürliche Produkte und ausgewählte Begleiter – für Ihre persönliche Regeneration, Tag für Tag.",
       "rhythmHeadline": "Ihr Rhythmus entscheidet.",
       "rhythmBody": "SomnoBalance gibt Ihnen Impulse — Sie entscheiden, wann und wie sie zu Ihnen und Ihrem Alltag passen. Manche begleiten Sie durch mehrere Phasen des Tages, andere schaffen gezielt gute Voraussetzungen für die Nacht. So entsteht Schritt für Schritt Ihr persönlicher Regenerationsrhythmus.",
       "phaseLabels": ["Regulieren", "Loslassen", "Vorbereiten", "Regenerieren"],

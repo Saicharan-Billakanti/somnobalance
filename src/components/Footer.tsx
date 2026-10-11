@@ -37,20 +37,19 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   ];
 
   return (
-    <footer className="relative overflow-hidden text-lovable-primary-foreground before:pointer-events-none before:absolute before:inset-x-0 before:top-0 before:z-10 before:h-20 before:bg-gradient-to-b before:from-lovable-background/25 before:to-transparent">
+    <footer className="relative overflow-hidden text-lovable-primary-foreground">
       <Image
-        src="/brand/pdp-footer.webp"
-        alt="SomnoBalance room spray"
+        src="/mockup/footer-night.jpg"
+        alt="SomnoBalance night"
         fill
         sizes="100vw"
-        className="object-cover object-left"
+        className="object-cover object-center"
       />
-      <div className="absolute inset-0 bg-lovable-foreground/45" />
-      <div className="relative mx-auto grid min-h-[390px] max-w-[1500px] px-6 py-12 md:grid-cols-[0.85fr_2.15fr] md:px-12 lg:min-h-[465px] lg:px-16 lg:py-16">
-        <div aria-hidden="true" />
+      <div className="absolute inset-0 bg-[#140e1b]/85" />
+      <div className="relative mx-auto max-w-[1400px] px-6 py-16 md:px-12 lg:px-16">
         <div className="flex min-w-0 flex-col">
-          <div className="grid gap-10 md:grid-cols-[1.1fr_0.7fr_0.85fr_0.95fr_1.1fr] md:gap-0">
-            <div className="md:pr-10">
+          <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-5 md:gap-8 lg:gap-10">
+            <div className="sm:col-span-2 md:col-span-1 md:pr-4">
               <Link href={`/${lang}`} className="inline-block shrink-0">
                 <Image
                   src="/brand/somnobalance-logo.webp"
@@ -60,7 +59,7 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
                   className="h-10 w-auto"
                 />
               </Link>
-              <p className="mt-5 max-w-[260px] text-[11px] leading-5 text-lovable-primary-foreground/70">
+              <p className="mt-5 max-w-[260px] text-xs leading-5 text-lovable-primary-foreground/75">
                 {dict.footer.tagline}
               </p>
               <div className="mt-8 flex gap-3" aria-label="Social media">
@@ -71,8 +70,8 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
                     aria-label={label}
                     className={
                       Icon
-                        ? "size-10 rounded-full border border-lovable-primary-foreground/25 px-0 text-lovable-primary-foreground hover:bg-lovable-primary-foreground/10 flex items-center justify-center"
-                        : "size-10 rounded-full border border-lovable-primary-foreground/25 px-0 font-lovable-serif text-base text-lovable-primary-foreground hover:bg-lovable-primary-foreground/10 flex items-center justify-center"
+                        ? "size-9 rounded-full border border-lovable-primary-foreground/25 text-lovable-primary-foreground hover:bg-lovable-primary-foreground/15 transition flex items-center justify-center"
+                        : "size-9 rounded-full border border-lovable-primary-foreground/25 font-lovable-serif text-sm text-lovable-primary-foreground hover:bg-lovable-primary-foreground/15 transition flex items-center justify-center"
                     }
                   >
                     {Icon ? <Icon className="size-4" /> : "p"}
@@ -81,45 +80,45 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
               </div>
             </div>
 
-            <nav className="border-lovable-primary-foreground/25 md:border-l md:px-8" aria-label="Explore">
-              <h2 className="font-lovable-sans text-sm font-medium">{dict.footer.explore}</h2>
-              <div className="mt-5 flex flex-col gap-2 text-[11px] text-lovable-primary-foreground/75">
+            <nav className="border-lovable-primary-foreground/20 md:border-l md:pl-6" aria-label="Explore">
+              <h2 className="font-lovable-sans text-sm font-semibold tracking-wide text-white">{dict.footer.explore}</h2>
+              <div className="mt-5 flex flex-col gap-2.5 text-xs text-lovable-primary-foreground/75">
                 {explore.map((item) => (
-                  <Link key={item.href} href={item.href}>
+                  <Link key={item.href} href={item.href} className="hover:text-white transition">
                     {item.label}
                   </Link>
                 ))}
               </div>
             </nav>
 
-            <nav className="border-lovable-primary-foreground/25 md:border-l md:px-8" aria-label="Legal">
-              <h2 className="font-lovable-sans text-sm font-medium">{dict.footer.legal}</h2>
-              <div className="mt-5 flex flex-col gap-2 text-[11px] text-lovable-primary-foreground/75">
+            <nav className="border-lovable-primary-foreground/20 md:border-l md:pl-6" aria-label="Legal">
+              <h2 className="font-lovable-sans text-sm font-semibold tracking-wide text-white">{dict.footer.legal}</h2>
+              <div className="mt-5 flex flex-col gap-2.5 text-xs text-lovable-primary-foreground/75">
                 {legal.map((item) => (
-                  <Link key={item.href} href={item.href}>
+                  <Link key={item.href} href={item.href} className="hover:text-white transition">
                     {item.label}
                   </Link>
                 ))}
               </div>
             </nav>
 
-            <div className="border-lovable-primary-foreground/25 md:border-l md:px-8">
-              <h2 className="font-lovable-sans text-sm font-medium">{dict.footer.contact}</h2>
-              <div className="mt-5 space-y-5 text-[11px] leading-5 text-lovable-primary-foreground/75">
-                <a href={`mailto:${business.email}`} className="flex items-start gap-3">
-                  <Mail className="mt-0.5 size-4 shrink-0" />
+            <div className="border-lovable-primary-foreground/20 md:border-l md:pl-6">
+              <h2 className="font-lovable-sans text-sm font-semibold tracking-wide text-white">{dict.footer.contact}</h2>
+              <div className="mt-5 space-y-4 text-xs leading-5 text-lovable-primary-foreground/75">
+                <a href={`mailto:${business.email}`} className="flex items-start gap-3 hover:text-white transition">
+                  <Mail className="mt-0.5 size-4 shrink-0 text-white/80" />
                   <span>{business.email}</span>
                 </a>
                 <p className="flex items-start gap-3">
-                  <MapPin className="mt-0.5 size-4 shrink-0" />
+                  <MapPin className="mt-0.5 size-4 shrink-0 text-white/80" />
                   <span>{business.addressLine2}</span>
                 </p>
               </div>
             </div>
 
-            <div className="border-lovable-primary-foreground/25 md:border-l md:pl-8">
-              <h2 className="font-lovable-sans text-sm font-medium">{dict.footer.newsletterTitle}</h2>
-              <p className="mt-5 text-[11px] leading-5 text-lovable-primary-foreground/70">
+            <div className="border-lovable-primary-foreground/20 sm:col-span-2 md:col-span-1 md:border-l md:pl-6">
+              <h2 className="font-lovable-sans text-sm font-semibold tracking-wide text-white">{dict.footer.newsletterTitle}</h2>
+              <p className="mt-5 text-xs leading-5 text-lovable-primary-foreground/75">
                 {dict.footer.newsletterCopy}
               </p>
               <div className="mt-4">
@@ -128,16 +127,16 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
             </div>
           </div>
 
-          <div className="mt-10 flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-lovable-primary-foreground/25 pt-6 text-[10px] uppercase tracking-[0.15em] text-lovable-primary-foreground/50">
+          <div className="mt-12 flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-lovable-primary-foreground/20 pt-6 text-[10px] uppercase tracking-[0.2em] text-lovable-primary-foreground/60">
             {dict.homeSections.concept.phaseStrip.map((name, i) => (
               <span key={name} className="flex items-center gap-3">
-                {i > 0 && <span aria-hidden="true">—</span>}
+                {i > 0 && <span aria-hidden="true" className="text-white/30">—</span>}
                 {name}
               </span>
             ))}
           </div>
 
-          <div className="mt-6 flex flex-col gap-5 border-t border-lovable-primary-foreground/25 pt-4 text-[10px] text-lovable-primary-foreground/65 sm:flex-row sm:items-center sm:justify-between md:mt-auto">
+          <div className="mt-6 flex flex-col gap-4 border-t border-lovable-primary-foreground/20 pt-4 text-xs text-lovable-primary-foreground/60 sm:flex-row sm:items-center sm:justify-between">
             <span>
               © {new Date().getFullYear()} SomnoBalance. {dict.footer.rights}
             </span>

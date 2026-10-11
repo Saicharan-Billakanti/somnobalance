@@ -95,16 +95,16 @@
     "cookies": "Cookie Policy"
   },
   "home": {
-    "eyebrow": "Regeneration · Calm · Balance",
-    "title": "Regeneration begins in the day and reaches into the night.",
-    "titlePrefix": "Regeneration begins in the day and reaches ",
+    "eyebrow": "A HOLISTIC REGENERATION APPROACH",
+    "title": "For days full of clarity – into the night.",
+    "titlePrefix": "For days full of clarity –",
     "titleAccent": "into the night.",
-    "subtitle": "Holistic companions for your natural balance — for more calm, regeneration and quality of life, fresh every day.",
-    "ctaForMe": "Start your Regeneration Check",
+    "subtitle": "SomnoBalance combines conscious daytime rituals with a sleep environment that optimally supports your body at night. For tangibly better quality of life.",
+    "ctaForMe": "Discover for me",
     "ctaShop": "Explore the shop",
     "scrollHint": "Scroll to discover",
     "heroSideTitle": "Small rituals.",
-    "heroSideSubtitle": "Big effect, every day.",
+    "heroSideSubtitle": "Meaningful impact in daily life.",
     "cycleLabel": "Regulate · Let Go · Prepare · Regenerate",
     "cycle": [
       {
@@ -160,14 +160,14 @@
     "personaTitle": "For you. For your space. For what comes next.",
     "personaIntro": "Whether for your personal routine, your business, or a shared vision — SomnoBalance supports you on your way to more calm, clarity, and regeneration.",
     "forMeTitle": "For me",
-    "forMeCopy": "A personal ritual for calmer nights and steadier days.",
-    "forMeImage": "/products/somnobalance-regeneration-tea.webp",
+    "forMeCopy": "My personal regeneration routine.",
+    "forMeImage": "/mockup/persona-for-me.jpg",
     "forBusinessTitle": "For my business",
-    "forBusinessCopy": "A sense of calm your guests remember, for hospitality and wellness spaces.",
-    "forBusinessImage": "/products/somnobalance-mattress.webp",
+    "forBusinessCopy": "Wellbeing for teams, guests, and clients.",
+    "forBusinessImage": "/mockup/persona-business.jpg",
     "partnerTitle": "Become a partner",
-    "partnerCopy": "Shared values, transparent terms, for health professionals.",
-    "partnerImage": "/products/somnobalance-regeneration-cards.webp",
+    "partnerCopy": "Together for a better quality of life.",
+    "partnerImage": "/mockup/persona-partner.jpg",
     "discover": "Discover →",
     "shopEyebrow": "Natural rituals, thoughtfully curated",
     "shopIntro": "Carefully selected products to support your SomnoBalance journey.",
@@ -181,76 +181,76 @@
   },
   "homeSections": {
     "concept": {
-      "eyebrow": "THE SOMNOBALANCE IDEA",
-      "headline": "A regenerative night begins with what carries us through the day.",
+      "eyebrow": "OUR APPROACH",
+      "headline": "The SomnoBalance philosophy",
       "body": "Our everyday life makes demands on us — physically and mentally. Tension, thoughts and outside stimulation don't automatically end when the day does. That's why SomnoBalance starts earlier. With targeted impulses for self-regulation, conscious transitions and a sleep environment that supports regeneration, a concept emerges that accompanies you from the active day into the night.",
       "statement": "The day shapes the night. The night, the day that follows.",
       "transition": "A cycle that keeps the whole day in view.",
       "phaseStrip": ["Regulate", "Let Go", "Prepare", "Regenerate"]
     },
     "circuit": {
-      "eyebrow": "THE SOMNOBALANCE CYCLE",
-      "headline": "Four phases. One regeneration cycle.",
-      "intro": "SomnoBalance doesn't see regeneration as a single moment, but as an interplay of different phases — from conscious regulation during the day, through letting go and preparation, to regeneration at night.",
+      "eyebrow": "OUR NATURAL RHYTHM",
+      "headline": "The SomnoBalance Regeneration Cycle",
+      "intro": "Four phases. A natural cycle that accompanies you through the day – and guides you into the night. Discover how small rituals in every phase can contribute to balance and regeneration.",
       "closing": "And in the morning, the cycle begins again.",
       "closingSub": "Day after day. Night after night.",
       "phases": [
         {
           "number": "01",
-          "name": "Regulate",
+          "name": "REGULATE",
           "time": "Day",
-          "headline": "Calm begins in the middle of the day.",
-          "body": "Tension doesn't only build up in the evening. That's why SomnoBalance starts in the active everyday — targeted impulses help you pause, notice your own tension and support self-regulation.",
-          "orientation": "Regeneration points · conscious pauses · self-regulation"
+          "headline": "Arriving in the day",
+          "body": "Find inner calm and stability to consciously shape your day.",
+          "orientation": "CLARITY · FOCUS · INNER CALM"
         },
         {
           "number": "02",
-          "name": "Let Go",
+          "name": "LET GO",
           "time": "Transition",
-          "headline": "Letting the day grow quieter.",
-          "body": "Between an active day and a calm night lies an important transition. Conscious moments help you slow the pace, leave outside stimulation behind and come to rest step by step.",
-          "orientation": "Slowing down · transitions · conscious rituals"
+          "headline": "Making the day lighter",
+          "body": "Leave tension behind and create room for ease.",
+          "orientation": "RELAXATION · LIGHTNESS · EASE"
         },
         {
           "number": "03",
-          "name": "Prepare",
+          "name": "PREPARE",
           "time": "Evening",
-          "headline": "Giving the night room.",
-          "body": "Regeneration needs the right conditions. Recurring evening routines and a consciously designed sleep environment help you close the day and create a calm frame for the night.",
-          "orientation": "Evening routine · sleep environment · preparation"
+          "headline": "Finding rest",
+          "body": "Gently attune body and mind to the night.",
+          "orientation": "RITUALS · MINDFULNESS · HARMONY"
         },
         {
           "number": "04",
-          "name": "Regenerate",
+          "name": "REGENERATE",
           "time": "Night",
-          "headline": "Room for regeneration at night.",
-          "body": "At night, the body gets time to rest and regenerate. An individually suited sleep environment can help bring comfort, physical relief and restorative calm together.",
-          "orientation": "Calm · sleep comfort · regeneration"
+          "headline": "Breathe deeply and recover",
+          "body": "Experience restful nights and fresh energy for tomorrow.",
+          "orientation": "RECOVERY · NEW ENERGY · BALANCE"
         }
       ]
     },
     "moment": {
-      "eyebrow": "YOUR MOMENT",
+      "eyebrow": "YOUR PERSONAL ORIENTATION",
       "headline": "What do you need right now?",
-      "intro": "Regeneration doesn't feel the same every day. Sometimes it's hard to find a moment of calm during the day. Sometimes thoughts follow you into the evening. And sometimes what's missing is the right foundation for a restful night.",
-      "sub": "Find out where you stand right now and which SomnoBalance impulses could support you.",
+      "intro": "Every life situation is unique. Find out what can do you good right now – with our Regeneration Check.",
+      "sub": "Every life situation is unique. Find out what can do you good right now – with our Regeneration Check.",
       "situations": [
-        { "quote": "I'm often tense and barely find calm during the day.", "reflection": "You'd like to pause more consciously and give your system impulses for regulation in between." },
-        { "quote": "I carry the day with me into the evening.", "reflection": "You'd like to find it easier to step back from everyday life and create a more conscious transition into the evening." },
-        { "quote": "I'm missing a calm transition into the night.", "reflection": "You'd like to shape your evening more consciously and build routines that prepare you for the night." },
-        { "quote": "I'd like to tune my sleep environment better to my regeneration.", "reflection": "You'd like to create conditions that support calm, sleep comfort and regeneration at night." }
+        { "quote": "I'm often tense and barely find calm during the day.", "reflection": "Perhaps it is time to shape your everyday life more consciously." },
+        { "quote": "I find it hard to unwind in the evening and can't switch off.", "reflection": "Perhaps gentle evening rituals can help you." },
+        { "quote": "I often wake up during the night and don't feel rested in the morning.", "reflection": "Perhaps your body needs more support during the night." },
+        { "quote": "I want overall more balance and wellbeing.", "reflection": "Perhaps a holistic approach is the right path for you." }
       ],
       "checkEyebrow": "SOMNOBALANCE REGENERATION CHECK",
       "checkHeadline": "Where can you best support your regeneration right now?",
       "checkBody": "The SomnoBalance Regeneration Check helps you get a clearer picture of your current regeneration needs. A few questions give you personal orientation and matching impulses from the SomnoBalance concept.",
-      "checkCta": "Start your Regeneration Check →",
+      "checkCta": "Start your Regeneration Check now →",
       "checkNote": "Takes just a few minutes.",
       "checkCardLabel": "Your personal Regeneration Check — find out what would help you right now."
     },
     "forYou": {
-      "eyebrow": "SOMNOBALANCE FOR YOU",
-      "headline": "What can accompany you through your day and your night.",
-      "intro": "Regeneration doesn't need the same thing every day. That's why SomnoBalance products aren't tied to a single moment. They can accompany you wherever you need support right now — regulating, letting go, preparing, and shaping a sleep environment that supports regeneration.",
+      "eyebrow": "OUR PRODUCTS",
+      "headline": "SomnoBalance for you",
+      "intro": "Natural products and curated companions – for your personal regeneration, day by day.",
       "rhythmHeadline": "Your rhythm decides.",
       "rhythmBody": "SomnoBalance gives you impulses — you decide when and how they fit you and your everyday life. Some accompany you through several phases of the day, others create the right conditions for the night. Step by step, your own personal regeneration rhythm takes shape.",
       "phaseLabels": ["Regulate", "Let Go", "Prepare", "Regenerate"],
