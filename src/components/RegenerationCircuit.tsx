@@ -48,9 +48,9 @@ export function RegenerationCircuit({
           const isDark = i >= 2;
           const bgImage =
             i === 1
-              ? "/mockup/phase-pink-caustics.jpg"
+              ? "/mockup/phase-pink-caustics.webp"
               : i === 3
-              ? "/mockup/phase-moon-night.jpg"
+              ? "/mockup/phase-moon-night.webp"
               : null;
 
           return (
@@ -135,7 +135,7 @@ export function RegenerationCircuit({
       {/* Sunrise panoramic horizon banner */}
       <div className="relative min-h-[220px] sm:min-h-[260px] w-full overflow-hidden flex items-center justify-center px-6 py-12 text-center">
         <Image
-          src="/mockup/sunrise-horizon.jpg"
+          src="/mockup/sunrise-horizon.webp"
           alt="Sunrise landscape"
           fill
           sizes="100vw"

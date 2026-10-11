@@ -42,7 +42,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
           <div className="flex w-full justify-center lg:w-5/12">
             <div className="relative aspect-[4/5] w-full max-w-[420px] overflow-hidden rounded-sm shadow-md">
               <Image
-                src="/mockup/hero-rollon.jpg"
+                src="/mockup/hero-rollon.webp"
                 alt="SomnoBalance Roll-on"
                 fill
                 priority
@@ -181,7 +181,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             <div className="flex flex-col overflow-hidden rounded-sm bg-white shadow-sm">
               <Link href={`/${l}/shop/somnobalance-regeneration-cards`} className="group relative block aspect-[16/10] overflow-hidden">
                 <Image
-                  src="/mockup/cards-hands.jpg"
+                  src="/mockup/cards-hands.webp"
                   alt="SomnoBalance Regenerationskarten"
                   fill
                   sizes="(min-width: 768px) 45vw, 90vw"
@@ -214,7 +214,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             <div className="flex flex-col overflow-hidden rounded-sm bg-white shadow-sm">
               <Link href={`/${l}/shop/somnobalance-roll-on`} className="group relative block aspect-[16/10] overflow-hidden">
                 <Image
-                  src="/mockup/ritual-trio.jpg"
+                  src="/mockup/ritual-trio.webp"
                   alt="Roll-on, Öl-Mischung & Raum Spray"
                   fill
                   sizes="(min-width: 768px) 45vw, 90vw"
@@ -247,7 +247,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             <div className="flex flex-col overflow-hidden rounded-sm bg-white shadow-sm">
               <Link href={`/${l}/shop/somnobalance-regeneration-tea`} className="group relative block aspect-[16/10] overflow-hidden">
                 <Image
-                  src="/mockup/tea-starter.jpg"
+                  src="/mockup/tea-starter.webp"
                   alt="Regenerationstee & Starter Set"
                   fill
                   sizes="(min-width: 768px) 45vw, 90vw"
@@ -280,7 +280,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             <div className="flex flex-col overflow-hidden rounded-sm bg-white shadow-sm">
               <Link href={`/${l}/shop/somnobalance-neck-pillow`} className="group relative block aspect-[16/10] overflow-hidden">
                 <Image
-                  src="/mockup/pillow-bed.jpg"
+                  src="/mockup/pillow-bed.webp"
                   alt="Nackenstützkissen & Matratze"
                   fill
                   sizes="(min-width: 768px) 45vw, 90vw"

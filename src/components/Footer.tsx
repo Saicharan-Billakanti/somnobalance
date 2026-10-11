@@ -39,7 +39,7 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   return (
     <footer className="relative overflow-hidden text-lovable-primary-foreground">
       <Image
-        src="/mockup/footer-night.jpg"
+        src="/mockup/footer-night.webp"
         alt="SomnoBalance night"
         fill
         sizes="100vw"
