@@ -14,19 +14,27 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
 
   return (
     <div>
-      <section className="relative w-full bg-[#f8f6f0] py-16 sm:py-20 lg:py-28">
-        <div className="mx-auto flex max-w-[1400px] flex-col items-center justify-between gap-12 px-4 sm:px-6 md:px-12 lg:flex-row lg:items-center">
+      <section className="relative flex min-h-[620px] w-full items-center overflow-hidden xl:min-h-[780px]">
+        <Image
+          src="/products/pdp-roll-on-main.webp"
+          alt="SomnoBalance Roll-on"
+          fill
+          sizes="100vw"
+          priority
+          className="object-cover object-center"
+        />
+        <div className="relative z-10 mx-auto flex w-full max-w-[1400px] items-end justify-between px-4 pb-16 pt-32 sm:px-6 md:px-12 md:pb-24 lg:items-center lg:py-32">
           
-          <div className="max-w-xl lg:w-5/12">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/60 md:text-sm">
+          <div className="max-w-xl">
+            <p className="text-xs uppercase tracking-[0.2em] text-ink/60 md:text-sm">
               {dict.home.eyebrow}
             </p>
-            <h1 className="mt-4 font-serif text-4xl leading-[1.15] text-ink sm:text-5xl lg:text-[3.6rem]">
+            <h1 className="mt-4 font-serif text-4xl leading-tight text-ink md:text-5xl lg:text-[3.5rem]">
               {dict.home.titlePrefix}
-              <br />
+              <br className="hidden lg:block" />
               <em className="italic text-[#725e80]">{dict.home.titleAccent}</em>
             </h1>
-            <p className="mt-6 max-w-md text-base leading-relaxed text-ink/75 sm:text-lg">
+            <p className="mt-6 max-w-md text-base leading-relaxed text-ink/80 md:text-lg">
               {dict.home.subtitle}
             </p>
             <div className="mt-8 flex">
@@ -38,22 +46,9 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               </Link>
             </div>
           </div>
-
-          <div className="flex w-full justify-center lg:w-5/12">
-            <div className="relative aspect-[4/5] w-full max-w-[420px] overflow-hidden rounded-sm shadow-md">
-              <Image
-                src="/mockup/hero-rollon.webp"
-                alt="SomnoBalance Roll-on"
-                fill
-                priority
-                sizes="(min-width: 1024px) 40vw, 90vw"
-                className="object-cover object-center"
-              />
-            </div>
-          </div>
           
-          <div className="hidden max-w-[10rem] self-end pb-8 lg:block lg:w-2/12">
-            <p className="font-serif text-lg italic leading-snug text-ink/60">
+          <div className="hidden max-w-[9rem] pb-12 pr-4 lg:block xl:pr-12">
+            <p className="font-serif text-lg italic leading-snug text-ink/70">
               {dict.home.heroSideTitle}
               <br />
               {dict.home.heroSideSubtitle}
