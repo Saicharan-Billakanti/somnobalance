@@ -16,8 +16,8 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
     <div>
       <section className="relative flex min-h-[620px] w-full items-center overflow-hidden xl:min-h-[780px]">
         <Image
-          src="/mockup/hero-clean-bg.webp"
-          alt="SomnoBalance"
+          src="/mockup/hero-product-middle.webp"
+          alt="SomnoBalance Roll-on"
           fill
           sizes="100vw"
           priority
