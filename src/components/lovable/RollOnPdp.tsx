@@ -173,7 +173,7 @@ export function RollOnPdp({
                 alt={tx("SomnoBalance Anti-Stress aromatherapy roll-on", "SomnoBalance Anti-Stress Aromatherapie-Roll-on")}
                 width={1200}
                 height={1200}
-                className="h-full w-full object-cover"
+                className="h-full w-full object-contain"
               />
               <div className="absolute bottom-10 left-10 hidden text-[11px] uppercase leading-[2] tracking-[0.25em] text-lovable-primary md:block">
                 {dict.shop.rollOnGalleryTagline.split("\n").map((line, i) => (
@@ -227,7 +227,7 @@ export function RollOnPdp({
                       alt=""
                       width={300}
                       height={300}
-                      className="h-full w-full object-cover"
+                      className="h-full w-full object-contain"
                     />
                   </button>
                 ))}
@@ -412,12 +412,13 @@ export function RollOnPdp({
         </section>
 
         <section className="mx-auto grid max-w-[1500px] gap-8 px-5 py-14 md:px-10 lg:grid-cols-[0.9fr_1.05fr_0.75fr] lg:gap-0 lg:px-16 lg:py-20">
-          <div className="relative min-h-[520px] overflow-hidden rounded-md">
+          <div className="relative min-h-[520px] overflow-hidden rounded-md bg-white">
             <Image
               src="/products/SomnoBalance Roll-on.webp"
               alt={tx("SomnoBalance roll-on", "SomnoBalance Roll-on")}
               fill
-              className="object-cover"
+              sizes="(min-width: 1024px) 35vw, 100vw"
+              className="object-contain p-6"
             />
           </div>
           <div className="px-2 py-4 md:px-8 lg:px-12 lg:py-12">
@@ -505,7 +506,7 @@ export function RollOnPdp({
                         src={p.image}
                         alt={pText.name}
                         fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        className="object-contain transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
                     <h3 className="font-lovable-serif text-lg leading-tight">

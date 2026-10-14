@@ -490,12 +490,13 @@ export function ProductSystemPage({
         </section>
 
         <section className="mx-auto grid max-w-[1500px] lg:grid-cols-[0.9fr_1.05fr_0.75fr]">
-          <div className="relative min-h-[520px]">
+          <div className="relative min-h-[520px] bg-white">
             <Image
               src={product.image}
               alt={text.name}
               fill
-              className="object-cover"
+              sizes="(min-width: 1024px) 35vw, 100vw"
+              className="object-contain p-6"
             />
           </div>
           <div className="px-7 py-12 md:px-12">
@@ -577,7 +578,7 @@ export function ProductSystemPage({
                         src={p.image}
                         alt={pText.name}
                         fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        className="object-contain transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
                     <h3 className="font-lovable-serif text-lg leading-tight">
