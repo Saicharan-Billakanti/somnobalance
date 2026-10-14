@@ -47,9 +47,11 @@ const workSans = Work_Sans({
 
 const gallery = [
   "/products/SomnoBalance Roll-on.webp",
-  "/products/SomnoBalance Roll-on.webp",
-  "/products/SomnoBalance Roll-on.webp",
-  "/products/SomnoBalance Roll-on.webp",
+  "/products/gallery/roll-on-1.webp",
+  "/products/gallery/roll-on-2.webp",
+  "/products/gallery/roll-on-3.webp",
+  "/products/gallery/roll-on-4.webp",
+  "/products/gallery/roll-on-5.webp",
 ];
 
 // Placeholder public track — no specific song was supplied. Swap the URI

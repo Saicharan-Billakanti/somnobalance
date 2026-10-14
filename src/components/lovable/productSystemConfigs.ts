@@ -44,6 +44,14 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
   "somnobalance-oil-blend": {
     systemRoleLabel: "RITUAL · LOSLASSEN · VORBEREITEN",
     galleryTagline: ["Loslassen.", "Vorbereiten."],
+    galleryImages: [
+      "/products/SomnoBalance Oil Blend.webp",
+      "/products/gallery/oil-blend-1.webp",
+      "/products/gallery/oil-blend-2.webp",
+      "/products/gallery/oil-blend-3.webp",
+      "/products/gallery/oil-blend-4.webp",
+      "/products/gallery/oil-blend-5.webp",
+    ],
     howToUseEyebrow: "Anwendung",
     howToUseTitle: ["Wenn der Tag", "leiser werden darf."],
     howToUseSteps: [
@@ -76,6 +84,12 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
   "somnobalance-room-spray": {
     systemRoleLabel: "RITUAL · VORBEREITEN",
     galleryTagline: ["Raum schaffen.", "Übergang beginnen."],
+    galleryImages: [
+      "/products/SomnoBalance Room Spray.webp",
+      "/products/gallery/room-spray-1.webp",
+      "/products/gallery/room-spray-2.webp",
+      "/products/gallery/room-spray-3.webp",
+    ],
     howToUseImage: "/products/spray.webp",
     howToUseEyebrow: "Anwendung",
     howToUseTitle: ["Beginne", "mit dem Raum."],
@@ -109,6 +123,12 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
   "somnobalance-regeneration-tea": {
     systemRoleLabel: "RITUAL · LOSLASSEN · VORBEREITEN",
     galleryTagline: ["Zeit nehmen.", "Ankommen."],
+    galleryImages: [
+      "/products/SomnoBalance Regeneration Tea.webp",
+      "/products/gallery/regeneration-tea-1.webp",
+      "/products/gallery/regeneration-tea-2.webp",
+      "/products/gallery/regeneration-tea-3.webp",
+    ],
     howToUseEyebrow: "Zubereitung",
     howToUseTitle: ["Manchmal beginnt Loslassen", "mit etwas ganz Einfachem."],
     howToUseSteps: [
@@ -141,6 +161,16 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
   "somnobalance-regeneration-cards": {
     systemRoleLabel: "SELBSTREGULATION · REGULIEREN · LOSLASSEN · VORBEREITEN",
     galleryTagline: ["Welche Begleitung", "brauchen Sie gerade?"],
+    galleryImages: [
+      "/products/somnobalance-regeneration-cards.webp",
+      "/products/gallery/regeneration-cards-1.webp",
+      "/products/gallery/regeneration-cards-2.webp",
+      "/products/gallery/regeneration-cards-3.webp",
+      "/products/gallery/regeneration-cards-4.webp",
+      "/products/gallery/regeneration-cards-5.webp",
+      "/products/gallery/regeneration-cards-6.webp",
+      "/products/gallery/regeneration-cards-7.webp",
+    ],
     howToUseEyebrow: "Anwendung",
     howToUseTitle: ["Karte wählen.", "Impuls anwenden."],
     howToUseSteps: [
@@ -173,6 +203,11 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
   "somnobalance-starter-set": {
     systemRoleLabel: "IHR EINSTIEG IN SOMNOBALANCE",
     galleryTagline: ["Drei Wochen.", "Ihr Weg."],
+    galleryImages: [
+      "/products/somnobalance-starter-set.webp",
+      "/products/gallery/starter-set-1.webp",
+      "/products/gallery/starter-set-2.webp",
+    ],
     howToUseEyebrow: "21-Tage-Guide",
     howToUseTitle: ["Drei Wochen.", "Ihr Regenerationsweg."],
     howToUseSteps: [
@@ -210,6 +245,10 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
       "/products/neck-pillow-detail-top.webp",
       "/products/neck-pillow-detail-corner.webp",
       "/products/neck-pillow-height-settings.webp",
+      "/products/gallery/neck-pillow-1.webp",
+      "/products/gallery/neck-pillow-2.webp",
+      "/products/gallery/neck-pillow-3.webp",
+      "/products/gallery/neck-pillow-4.webp",
     ],
     galleryCaptions: {
       3: "Sechs Höheneinstellungen: Kissen wenden für höhere oder niedrigere Nackenrolle, dazu 0, 1 oder 2 Einlegeplatten — von ca. 8 cm bis ca. 15 cm.",
@@ -259,6 +298,8 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
       "/products/mattress-detail-quilting.webp",
       "/products/mattress-detail-vitalize.webp",
       "/products/mattress-detail-handle.webp",
+      "/products/gallery/mattress-1.webp",
+      "/products/gallery/mattress-2.webp",
     ],
     // Per the client's reference diagram (SomnoBalance_Produktinformation_
     // Matratze_1Seite.pdf): each Variante is the SAME wendbarer Innenkern
