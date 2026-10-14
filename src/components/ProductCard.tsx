@@ -23,13 +23,13 @@ export function ProductCard({
 
   return (
     <div className="group">
-      <Link href={href} className="relative block aspect-[4/5] overflow-hidden rounded-2xl bg-sand/50">
+      <Link href={href} className="relative block aspect-[4/5] overflow-hidden rounded-2xl bg-white">
         <Image
           src={product.image}
           alt={text.name}
           fill
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-          className="object-contain p-6 transition duration-500 group-hover:scale-105"
+          className="object-contain p-2 transition duration-500 group-hover:scale-105"
         />
       </Link>
 
