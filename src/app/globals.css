@@ -235,3 +235,9 @@ html[data-preloader="skip"] .site-preloader {
 .rounded {
   border-radius: 0;
 }
+
+/* next/image with `fill` injects inline object-fit: cover, which beats the
+   object-contain utility class — force it so product photos are never cropped. */
+img.object-contain {
+  object-fit: contain !important;
+}
