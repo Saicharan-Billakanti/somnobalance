@@ -13,7 +13,7 @@ export function HeroVideo({ className }: { className?: string }) {
     if (!v) return;
     v.muted = true;
     const play = () => {
-      if (v.paused) v.play().catch(() => {});
+      if (v.paused || v.ended) v.play().catch(() => {});
     };
     play();
     const onVisible = () => {
@@ -21,6 +21,17 @@ export function HeroVideo({ className }: { className?: string }) {
     };
     const io = new IntersectionObserver((e) => e[0]?.isIntersecting && play());
     io.observe(v);
+    // Restart explicitly on "ended" and a hair before the end so the loop
+    // never stalls on the last frame, even if the native loop hiccups.
+    const restart = () => {
+      v.currentTime = 0;
+      play();
+    };
+    const onTime = () => {
+      if (v.duration && v.currentTime >= v.duration - 0.08) restart();
+    };
+    v.addEventListener("ended", restart);
+    v.addEventListener("timeupdate", onTime);
     v.addEventListener("pause", play);
     v.addEventListener("suspend", play);
     document.addEventListener("visibilitychange", onVisible);
@@ -28,6 +39,8 @@ export function HeroVideo({ className }: { className?: string }) {
     window.addEventListener("scroll", play, { once: true, passive: true });
     return () => {
       io.disconnect();
+      v.removeEventListener("ended", restart);
+      v.removeEventListener("timeupdate", onTime);
       v.removeEventListener("pause", play);
       v.removeEventListener("suspend", play);
       document.removeEventListener("visibilitychange", onVisible);
