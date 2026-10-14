@@ -4,6 +4,7 @@ import Image from "next/image";
 import { getDictionary } from "@/i18n/getDictionary";
 import { isLocale, type Locale } from "@/i18n/config";
 import { notFound } from "next/navigation";
+import { HeroVideo } from "@/components/HeroVideo";
 import { RegenerationCircuit } from "@/components/RegenerationCircuit";
 
 export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
@@ -15,17 +16,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
   return (
     <div>
       <section className="relative flex min-h-[620px] w-full items-center overflow-hidden xl:min-h-[780px]">
-        <video
-          className="absolute inset-0 h-full w-full object-cover object-center"
-          src="/video/hero.mp4"
-          poster="/video/hero-poster.jpg"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          aria-hidden="true"
-        />
+        <HeroVideo className="absolute inset-0 h-full w-full object-cover object-center" />
         <div className="absolute inset-0 bg-gradient-to-r from-white/60 via-white/25 to-transparent" />
         <div className="relative z-10 mx-auto flex w-full max-w-[1400px] items-end justify-between px-4 pb-16 pt-32 sm:px-6 md:px-12 md:pb-24 lg:items-center lg:py-32">
           
