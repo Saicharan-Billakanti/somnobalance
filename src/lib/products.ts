@@ -46,6 +46,26 @@ export type ProductTranslation = {
   deliveryInfo?: string;
 };
 
+export type ProductPhase = "REGULATE" | "LET GO" | "PREPARE" | "REGENERATE";
+
+// The four phases are a cycle, and one product can belong to several of them
+// (same mapping as the homepage product tiles). `Product.phase` stays as the
+// primary phase for admin/legacy data; shop filtering and labels use this.
+const PRODUCT_PHASES: Record<string, ProductPhase[]> = {
+  "somnobalance-regeneration-cards": ["REGULATE", "LET GO", "PREPARE"],
+  "somnobalance-roll-on": ["REGULATE", "LET GO", "PREPARE"],
+  "somnobalance-oil-blend": ["REGULATE", "LET GO", "PREPARE"],
+  "somnobalance-room-spray": ["LET GO", "PREPARE"],
+  "somnobalance-regeneration-tea": ["LET GO", "PREPARE"],
+  "somnobalance-starter-set": ["REGULATE", "LET GO", "PREPARE"],
+  "somnobalance-neck-pillow": ["REGULATE", "PREPARE", "REGENERATE"],
+  "somnobalance-mattress": ["REGULATE", "PREPARE", "REGENERATE"],
+};
+
+export function getProductPhases(p: { slug: string; phase?: string }): ProductPhase[] {
+  return PRODUCT_PHASES[p.slug] ?? (p.phase ? [p.phase as ProductPhase] : []);
+}
+
 export type Product = {
   slug: string;
   name: string;
@@ -92,15 +112,14 @@ export const products: Product[] = [
     name: "SomnoBalance Roll-on",
     category: "Ritual",
     price: 19,
-    tagline: "A scent moment to carry with you, at home or on the go.",
-    description:
-      "The SomnoBalance Roll-on pairs the brand's signature scent with a simple, targeted application. Lavender, clementine, grapefruit, frankincense and patchouli are blended into a base of sunflower and jojoba oil, applied directly to the skin — easy to fold into a personal pause or ritual, whether at home, travelling, or as part of an evening routine.",
+    tagline: "A mindful scent impulse for on the go, at home and for moments in between.",
+    description: "The SomnoBalance Roll-on accompanies mindful moments of regeneration in everyday life. Its handy format makes it easy to use on the go and at home, and it can become a recurring scent impulse for short moments of pausing.\n\nThe composition of lavender, clementine, grapefruit, frankincense and patchouli is embedded in sunflower and jojoba oil and can be applied directly to the skin.",
     details: [
-      "10 ml roll-on bottle",
-      "Base oils: sunflower oil, jojoba oil",
-      "Scent: lavender, clementine, grapefruit, frankincense, patchouli",
-      "Apply to wrists, temples, neck, or soles of the feet — several times a day as needed",
-      "For external use only; discontinue if skin irritation occurs",
+      "Content: 10 ml",
+      "Base: sunflower oil · jojoba oil",
+      "Scent composition: lavender · clementine · grapefruit · frankincense · patchouli",
+      "Application: according to the final approved product labelling",
+      "Notes: for external use only. Further required notes follow the final labelling.",
     ],
     phase: "REGULATE",
     image: "/products/SomnoBalance Roll-on.webp",
@@ -115,15 +134,14 @@ export const products: Product[] = [
     translations: {
       de: {
         name: "SomnoBalance Roll-on",
-        tagline: "Ihr Duftimpuls für unterwegs und zwischendurch.",
-        description:
-          "Der SomnoBalance Roll-on verbindet den charakteristischen Duft der Marke mit einer einfachen, gezielten Anwendung. Lavendel, Clementine, Grapefruit, Weihrauch und Patchouli sind in eine Basis aus Sonnenblumen- und Jojobaöl eingebunden und werden direkt auf die Haut aufgetragen — leicht einzubinden in eine persönliche Pause oder ein Ritual, ob zu Hause, auf Reisen oder als Teil der abendlichen Routine.",
+        tagline: "Ein bewusster Duftimpuls für unterwegs, zu Hause und für Momente zwischendurch.",
+        description: "Der SomnoBalance Roll-on begleitet bewusste Regenerationsmomente im Alltag. Durch sein handliches Format ist er unkompliziert unterwegs und zu Hause einsetzbar und kann zu einem wiederkehrenden Duftimpuls für kurze Momente des Innehaltens werden.\n\nDie Komposition aus Lavendel, Clementine, Grapefruit, Weihrauch und Patchouli ist in Sonnenblumen- und Jojobaöl eingebettet und lässt sich direkt auf die Haut auftragen.",
         details: [
-          "10-ml-Roll-on-Fläschchen",
-          "Basisöle: Sonnenblumenöl, Jojobaöl",
-          "Duft: Lavendel, Clementine, Grapefruit, Weihrauch, Patchouli",
-          "Auf Handgelenke, Schläfen, Nacken oder Fußsohlen auftragen — mehrmals täglich nach Bedarf",
-          "Nur zur äußerlichen Anwendung; bei Hautreizungen die Anwendung beenden",
+          "Inhalt: 10 ml",
+          "Basis: Sonnenblumenöl · Jojobaöl",
+          "Duftkomposition: Lavendel · Clementine · Grapefruit · Weihrauch · Patchouli",
+          "Anwendung: entsprechend der final freigegebenen Produktkennzeichnung",
+          "Hinweise: Nur zur äußerlichen Anwendung. Weitere erforderliche Hinweise entsprechend der finalen Kennzeichnung.",
         ],
         ingredients:
           "Helianthus Annuus Seed Oil, Simmondsia Chinensis Seed Oil, Tocopherol, Lavandula Angustifolia Oil, Citrus Clementina Peel Oil, Citrus Paradisi Peel Oil, Boswellia Sacra Oil, Pogostemon Cablin Oil, D-Limonene, Linalool, Geraniol.",
@@ -174,15 +192,13 @@ export const products: Product[] = [
     name: "SomnoBalance Room Spray",
     category: "Ritual",
     price: 19,
-    tagline: "The SomnoBalance scent, for a considered room and sleep environment.",
-    description:
-      "The SomnoBalance Room Spray brings the brand's scent composition into a space with a few sprays — as part of an evening ritual, before a conscious pause, or when transitioning from an active day into a quieter environment. Formulated, per the product label, on a base of alcohol, water and a blend of essential oils.",
+    tagline: "A scent impulse for your room and conscious transitions.",
+    description: "The SomnoBalance Room Spray brings SomnoBalance's characteristic scent composition into the room with just a few sprays. It can help to accompany conscious transitions in everyday life atmospherically – from the active day into quieter moments and the preparation for the evening.\n\nLavender, clementine, grapefruit, frankincense and patchouli combine into a recurring scent impulse that can give your personal moment of regeneration a familiar frame.",
     details: [
-      "100 ml",
-      "Base: alcohol, water, blend of essential oils (per label)",
-      "Scent: lavender, clementine, grapefruit, frankincense, patchouli",
-      "Shake well before use and spray into the room as needed",
-      "Not for consumption or skin application — avoid eye and skin contact",
+      "Content: 100 ml",
+      "Base: alcohol · water · blend of essential oils",
+      "Scent composition: lavender · clementine · grapefruit · frankincense · patchouli",
+      "Application: shake well before use, spray into the room and distribute.",
     ],
     phase: "PREPARE",
     image: "/products/SomnoBalance Room Spray.webp",
@@ -197,14 +213,12 @@ export const products: Product[] = [
       de: {
         name: "SomnoBalance Raumspray",
         tagline: "Ein Duftimpuls für Ihren Raum und bewusste Übergänge.",
-        description:
-          "Der SomnoBalance Raumspray bringt die Duftkomposition der Marke mit wenigen Sprühstößen in einen Raum — als Teil eines Abendrituals, vor einer bewussten Pause oder beim Übergang von einem aktiven Tag in eine ruhigere Umgebung. Laut Produktetikett formuliert auf Basis von Alkohol, Wasser und einer Mischung ätherischer Öle.",
+        description: "Das SomnoBalance Raumspray bringt die charakteristische Duftkomposition von SomnoBalance mit wenigen Sprühstößen in den Raum. Es kann dabei helfen, bewusste Übergänge im Alltag atmosphärisch zu begleiten – vom aktiven Tag in ruhigere Momente bis zur Vorbereitung auf den Abend.\n\nLavendel, Clementine, Grapefruit, Weihrauch und Patchouli verbinden sich zu einem wiederkehrenden Duftimpuls, der Ihrem persönlichen Regenerationsmoment einen vertrauten Rahmen geben kann.",
         details: [
-          "100 ml",
-          "Basis: Alkohol, Wasser, Mischung ätherischer Öle (laut Etikett)",
-          "Duft: Lavendel, Clementine, Grapefruit, Weihrauch, Patchouli",
-          "Vor Gebrauch gut schütteln und nach Bedarf in den Raum sprühen",
-          "Nicht zum Verzehr oder zur Hautanwendung — Augen- und Hautkontakt vermeiden",
+          "Inhalt: 100 ml",
+          "Basis: Alkohol · Wasser · Mischung ätherischer Öle",
+          "Duftkomposition: Lavendel · Clementine · Grapefruit · Weihrauch · Patchouli",
+          "Anwendung: Vor Gebrauch gründlich schütteln, in den Raum sprühen und verteilen.",
         ],
         safetyInfo:
           "Gefahrenpiktogramme GHS02 (Flamme) und GHS07 (Ausrufezeichen) gemäß aktuellem Produktetikett. Nicht innerlich anwenden. Nicht direkt auf die Haut sprühen. Augenkontakt vermeiden. Kann allergische Hautreaktionen und Augenreizungen verursachen. Bei Augenkontakt sofort mehrere Minuten lang vorsichtig mit Wasser spülen. Bei anhaltender Augenreizung ärztlichen Rat einholen/ärztliche Hilfe hinzuziehen. Außerhalb der Reichweite von Kindern aufbewahren. GEFAHR! Von Hitze, heißen Oberflächen, Funken, offenen Flammen und anderen Zündquellen fernhalten. Schädlich für Wasserorganismen, mit langfristiger Wirkung.\n\nUFI: 7G10-E083-A005-2U4C\nHersteller: Almara Soap, s.r.o., Ve Žlíbku 1800/77, 193 00 Prag 9, Tschechische Republik\n\nDiese Angaben sind vorläufig, der Spezifikation des Kunden entnommen, und müssen vor dem Verkaufsstart mit dem final freigegebenen Etikett/Sicherheitsdatenblatt abgeglichen werden.",
@@ -220,10 +234,10 @@ export const products: Product[] = [
     description:
       "SomnoBalance Regeneration Tea brings together lemon balm, orange blossom, sweet blackberry leaves, raspberry leaves, liquorice root, cardamom, fennel and anise into a finely balanced herbal blend. A mindfully prepared cup of tea can become a small ritual — for a pause in between, for letting go after an active day, or as part of your personal preparation for the evening.",
     details: [
-      "80 g loose leaf",
-      "Lemon balm, orange blossom, blackberry leaves, raspberry leaves, liquorice root, cardamom, fennel, anise",
-      "Use one heaped teaspoon per 200 ml water; pour over with boiling water; steep for 6–8 minutes",
-      "Storage: per final packaging — currently store dry, away from heat",
+      "Content: 80 g loose tea",
+      "Ingredients: lemon balm · orange blossom · sweet blackberry leaves · raspberry leaves · liquorice root · cardamom · fennel · anise",
+      "Preparation: 1 heaped teaspoon per 200 ml of water; pour over with boiling water; steep for 6–8 minutes.",
+      "Storage: per the final packaging – currently store dry and protected from heat.",
     ],
     phase: "LET GO",
     image: "/products/SomnoBalance Regeneration Tea.webp",
@@ -232,8 +246,7 @@ export const products: Product[] = [
     returnEligible: true,
     legalNote:
       "Mandatory food-law disclosures (nutritional information, allergen labelling, best-before format) must be added from the current manufacturer documentation before this page is used for real sales — not yet added here.",
-    safetyInfo:
-      "PLACEHOLDER — pending final packaging. The following must be copied verbatim from the approved food label before this product goes on sale: legal food designation (Verkehrsbezeichnung); full ingredient list in the prescribed order; allergen labelling, if relevant; net quantity; name and address of the responsible food business operator; nutritional information or an applicable legal exemption; unit price, if applicable; storage/use instructions, if required.",
+    safetyInfo: "Net quantity: 80 g. Ingredients: lemon balm, orange blossom, sweet blackberry leaves, raspberry leaves, liquorice root, cardamom, fennel, anise. Store dry and protected from heat.",
     translations: {
       de: {
         name: "SomnoBalance Regenerationstee",
@@ -241,13 +254,12 @@ export const products: Product[] = [
         description:
           "Der SomnoBalance Regenerationstee verbindet Melisse, Orangenblüte, süße Brombeerblätter, Himbeerblätter, Süßholzwurzel, Kardamom, Fenchel und Anis zu einer fein abgestimmten Kräutermischung. Eine bewusst zubereitete Tasse Tee kann zu einem kleinen Ritual werden — für eine Pause zwischendurch, zum Loslassen nach einem aktiven Tag oder als Teil Ihrer persönlichen Vorbereitung auf den Abend.",
         details: [
-          "80 g loser Tee",
-          "Melisse, Orangenblüte, süße Brombeerblätter, Himbeerblätter, Süßholzwurzel, Kardamom, Fenchel, Anis",
-          "1 gehäufter Teelöffel pro 200 ml Wasser; mit kochendem Wasser übergießen; 6–8 Minuten ziehen lassen",
-          "Lagerung: entsprechend der finalen Verpackungsangabe, aktuell trocken und vor Wärme geschützt",
+          "Inhalt: 80 g loser Tee",
+          "Zutaten: Melisse · Orangenblüte · süße Brombeerblätter · Himbeerblätter · Süßholzwurzel · Kardamom · Fenchel · Anis",
+          "Zubereitung: 1 gehäufter Teelöffel pro 200 ml Wasser; mit kochendem Wasser übergießen; 6–8 Minuten ziehen lassen.",
+          "Lagerung: entsprechend der finalen Verpackungsangabe, aktuell trocken und vor Wärme geschützt.",
         ],
-        safetyInfo:
-          "PLATZHALTER — ausstehend bis zur finalen Verpackung. Folgende Angaben müssen vor Verkaufsstart 1:1 aus dem final freigegebenen Lebensmitteletikett übernommen werden: exakte Verkehrsbezeichnung des Lebensmittels; vollständiges Zutatenverzeichnis in der vorgeschriebenen Reihenfolge; Kennzeichnung möglicher Allergene, falls relevant; Nettofüllmenge; Name und Anschrift des verantwortlichen Lebensmittelunternehmers; Nährwertangaben oder eine zulässige rechtliche Ausnahme; Grundpreis, falls erforderlich; Aufbewahrungs-/Verwendungshinweise, soweit erforderlich.",
+        safetyInfo: "Nettofüllmenge: 80 g. Zutaten: Melisse, Orangenblüte, süße Brombeerblätter, Himbeerblätter, Süßholzwurzel, Kardamom, Fenchel, Anis. Trocken und vor Wärme geschützt lagern.",
       },
     },
   },
@@ -256,14 +268,14 @@ export const products: Product[] = [
     name: "SomnoBalance Regeneration Cards Set",
     category: "Ritual",
     price: 24,
-    tagline: "An impulse to match your moment.",
-    description:
-      "The SomnoBalance Regeneration Cards Set consists of 13 regeneration-point cards and 10 regeneration-ritual cards. The point cards show selected points on the body with position, illustration and instructions; the ritual cards combine several points into prepared sequences for different everyday situations — among them Finding Calm, Sleeping Well, Gathering New Strength, Inner Balance, Letting Go of Emotions, Letting Go of Thoughts, Finding Inner Steadiness, Gaining Clarity, and Moving Through the Day with Ease.",
+    tagline: "Regeneration points and rituals for your everyday life.",
+    description: "The SomnoBalance Regeneration Cards Set brings targeted regeneration impulses straight into your everyday life. 13 cards guide you through selected regeneration points, 10 further cards combine several impulses into mindful rituals.\n\nThis way you can choose what should accompany you right now – in the middle of the active day, while letting go, or when preparing for the evening.",
     details: [
-      "23 cards: 13 regeneration-point cards + 10 regeneration-ritual cards",
-      "Choose a single point, or follow a prepared combination of several points",
-      "Each individual point is held gently for about 2–3 minutes with calm, steady breathing",
-      "For use at home, in everyday life, as part of an evening routine, or on the go",
+      "Scope: 23 cards",
+      "Included: 13 regeneration-point cards · 10 regeneration-ritual cards",
+      "Application: choose a single regeneration point or a prepared ritual that fits your personal moment and follow the instructions on the card.",
+      "Regeneration points: a single regeneration point is held gently for about 2–3 minutes.",
+      "For everyday life: for mindful moments of regeneration at home, on the go, or as part of personal transitions and routines.",
     ],
     phase: "REGULATE",
     image: "/products/somnobalance-regeneration-cards.webp",
@@ -273,14 +285,14 @@ export const products: Product[] = [
     translations: {
       de: {
         name: "SomnoBalance Regenerationskarten-Set",
-        tagline: "Ein Impuls passend zu Ihrem Moment.",
-        description:
-          "Das SomnoBalance Regenerationskarten-Set besteht aus 13 Regenerationspunkt-Karten und 10 Regenerationsritual-Karten. Die Punktkarten zeigen ausgewählte Punkte am Körper mit Lage, Illustration und Anleitung; die Ritualkarten kombinieren mehrere Punkte zu vorbereiteten Abfolgen für unterschiedliche Alltagssituationen — darunter Ruhe finden, Gut schlafen, Neue Kraft sammeln, Innere Balance, Gefühle loslassen, Gedanken loslassen, Innere Standfestigkeit finden, Klarheit gewinnen und Den Tag leichter gestalten.",
+        tagline: "Regenerationspunkte und Rituale für Ihren Alltag.",
+        description: "Das SomnoBalance Regenerationskarten-Set bringt gezielte Regenerationsimpulse direkt in Ihren Alltag. 13 Karten führen durch ausgewählte Regenerationspunkte, 10 weitere Karten verbinden mehrere Impulse zu bewussten Ritualen.\n\nSo können Sie passend zu Ihrem Moment auswählen, was Sie gerade begleiten soll – mitten im aktiven Tag, beim Loslassen oder bei der Vorbereitung auf den Abend.",
         details: [
-          "23 Karten: 13 Regenerationspunkt-Karten + 10 Regenerationsritual-Karten",
-          "Einen einzelnen Punkt wählen oder einer vorbereiteten Kombination mehrerer Punkte folgen",
-          "Jeder einzelne Punkt wird für etwa 2–3 Minuten sanft gehalten, bei ruhiger, gleichmäßiger Atmung",
-          "Für die Anwendung zu Hause, im Alltag, als Teil der Abendroutine oder unterwegs",
+          "Umfang: 23 Karten",
+          "Enthalten: 13 Regenerationspunkt-Karten · 10 Regenerationsritual-Karten",
+          "Anwendung: Einen einzelnen Regenerationspunkt oder ein vorbereitetes Ritual passend zum persönlichen Moment auswählen und der jeweiligen Anleitung auf der Karte folgen.",
+          "Regenerationspunkte: Ein einzelner Regenerationspunkt wird etwa 2–3 Minuten sanft gehalten.",
+          "Für den Alltag: Für bewusste Regenerationsmomente zu Hause, unterwegs oder als Teil persönlicher Übergänge und Routinen.",
         ],
       },
     },
@@ -290,16 +302,18 @@ export const products: Product[] = [
     name: "SomnoBalance Neck Support Pillow",
     category: "Sleep",
     price: 119,
-    tagline: "Height-adjustable support, shaped for individual comfort.",
-    description:
-      "The SomnoBalance Neck Support Pillow combines an ergonomic shape with an individually adjustable height. The open-pore Air-Memory foam core is designed for pleasant ventilation, and two integrated insert plates allow six height settings in total — so the pillow can be adapted to different body types and sleep positions. At roughly 30 × 60 cm, it stays compact; the cover is removable and washable at 30°C, and the foam core can be hand-washed gently.",
+    tagline: "Individually adjustable support for a consciously designed sleep environment.",
+    description: "The SomnoBalance Neck Support Pillow can be adapted to different lying needs through its reversible shape and two insert plates. Six possible height settings in total allow flexible adjustment from approx. 8 to 15 cm.\n\nThe open-pore Air-Memory foam core is complemented by a high-quality SomnoBalance cover with Vitalize® technology. This way the pillow combines individually adjustable lying comfort with a special cover for the night.",
     details: [
-      "Approx. 30 × 60 cm",
-      "Open-pore Air-Memory foam core",
-      "Reversible: flip for a higher or lower neck roll, plus 2 insert plates — six height settings in total, approx. 8–15 cm",
-      "Cover removable, washable at 30°C",
-      "Foam core: gentle hand wash only, air dry — not machine washable or suitable for the dryer",
-      "Cover fabric: Vitalize®, a polyester textile with ceramic mineral crystals (far-infrared, per manufacturer)",
+      "Size: approx. 30 × 60 cm",
+      "Core: open-pore Air-Memory foam core",
+      "Shape: reversible, with two neck rolls of different heights",
+      "Height adjustment: two insert plates, six height settings in total",
+      "Height range: approx. 8 to 15 cm",
+      "Cover: SomnoBalance cover with Vitalize® far-infrared technology",
+      "Cover material: polyester textile with permanently integrated ceramic mineral crystals",
+      "Cover care: removable and washable at 30 °C",
+      "Foam core care: gentle hand wash only. Air dry. Not machine washable or tumble-dryer safe.",
     ],
     phase: "PREPARE",
     image: "/products/somnobalance-neck-pillow.webp",
@@ -311,16 +325,18 @@ export const products: Product[] = [
     translations: {
       de: {
         name: "SomnoBalance Nackenstützkissen",
-        tagline: "Für eine Schlafumgebung, die Regeneration auch in der Nacht unterstützt.",
-        description:
-          "Das SomnoBalance Nackenstützkissen verbindet eine ergonomische Form mit individuell einstellbarer Höhe. Der offenporige Air-Memory-Schaumstoffkern sorgt für angenehme Belüftung, und zwei integrierte Einlegeplatten ermöglichen insgesamt sechs Höheneinstellungen — so lässt sich das Kissen an unterschiedliche Körpertypen und Schlafpositionen anpassen. Mit rund 30 × 60 cm bleibt es kompakt; der Bezug ist abnehmbar und bei 30 °C waschbar, der Schaumstoffkern kann von Hand schonend gewaschen werden.",
+        tagline: "Individuell anpassbare Unterstützung für eine bewusst gestaltete Schlafumgebung.",
+        description: "Das SomnoBalance Nackenstützkissen lässt sich durch seine wendbare Form und zwei Einlegeplatten individuell an unterschiedliche Liegebedürfnisse anpassen. Insgesamt sechs mögliche Höheneinstellungen ermöglichen eine flexible Anpassung von ca. 8 bis 15 cm.\n\nDer offenporige Air-Memory-Schaumstoffkern wird durch einen hochwertigen SomnoBalance Bezug mit Vitalize®-Technologie ergänzt. So verbindet das Kissen individuell anpassbaren Liegekomfort mit einem besonderen Bezug für die Nacht.",
         details: [
-          "Ca. 30 × 60 cm",
-          "Offenporiger Air-Memory-Schaumstoffkern",
-          "Wendbar: höhere oder niedrigere Nackenrolle durch Wenden, dazu 2 Einlegeplatten — insgesamt sechs Höheneinstellungen, ca. 8–15 cm",
-          "Bezug abnehmbar, waschbar bei 30 °C",
-          "Schaumstoffkern: nur schonende Handwäsche, an der Luft trocknen — nicht maschinenwaschbar oder trocknergeeignet",
-          "Bezugsstoff: Vitalize®, ein Polyestertextil mit keramischen Mineralkristallen (Fern-Infrarot, laut Hersteller)",
+          "Größe: ca. 30 × 60 cm",
+          "Kern: Offenporiger Air-Memory-Schaumstoffkern",
+          "Form: Wendbar mit zwei unterschiedlich hohen Nackenrollen",
+          "Höhenanpassung: Zwei Einlegeplatten, insgesamt sechs Höheneinstellungen",
+          "Höhenbereich: ca. 8 bis 15 cm",
+          "Bezug: SomnoBalance Bezug mit Vitalize® Far-Infrared-Technologie",
+          "Bezugsmaterial: Polyestertextil mit dauerhaft eingebundenen keramischen Mineralkristallen",
+          "Pflege Bezug: Abnehmbar und waschbar bei 30 °C",
+          "Pflege Schaumstoffkern: Nur schonende Handwäsche. An der Luft trocknen. Nicht maschinenwaschbar oder trocknergeeignet.",
         ],
       },
     },
@@ -367,8 +383,7 @@ export const products: Product[] = [
     ],
     legalNote:
       "Special lengths of 210 cm or 220 cm are available for a 20% surcharge on the base size price — not yet configurable in this demo checkout. The Vitalize® cover is described only as the manufacturer characterises it; claims about microcirculation, sleep or wellbeing are deliberately not presented as proven effects. The handle description must be confirmed against manufacturer documentation before publishing a specific claim (currently left generic per the client's instruction).",
-    deliveryInfo:
-      "The SomnoBalance Mattress is made to order; manufacturing and delivery take approx. 3–4 weeks. Shipped via DHL within Germany, shipping cost included in the price — widths of 160 cm and above arrive as 3–4 separate parcels. Please allow the mattress 48–72 hours after unpacking to fully expand to its final shape and firmness.",
+    deliveryInfo: "The SomnoBalance Mattress is made to order. Manufacturing and delivery take approx. 3–4 weeks. Shipped via DHL within Germany, shipping cost included in the price — widths of 160 cm and above arrive as 3–4 separate parcels.",
     translations: {
       de: {
         name: "SomnoBalance Matratze",
@@ -388,8 +403,7 @@ export const products: Product[] = [
           "Handhabung: Griffe zum Wenden des Innenkerns (genaue Bezeichnung ausstehend bis zur Bestätigung anhand der Herstellerunterlagen)",
           "Ab 160 cm Breite: zwei separat wendbare Innenkerne unter durchgehendem Topper und gemeinsamem Bezug",
         ],
-        deliveryInfo:
-          "Die SomnoBalance Matratze wird auf Bestellung gefertigt. Die Fertigungs- und Lieferzeit beträgt ca. 3–4 Wochen. Versand per DHL innerhalb Deutschlands, Versandkosten im Preis enthalten — ab 160 cm Breite als 3–4 separate Pakete. Bitte geben Sie der Matratze nach dem Auspacken etwa 48–72 Stunden Zeit, damit sie ihre vollständige Form und Höhe entfalten kann.",
+        deliveryInfo: "Die SomnoBalance Matratze wird auf Bestellung gefertigt. Die Fertigungs- und Lieferzeit beträgt ca. 3–4 Wochen. Versand per DHL innerhalb Deutschlands, Versandkosten im Preis enthalten — ab 160 cm Breite als 3–4 separate Pakete.",
       },
     },
   },

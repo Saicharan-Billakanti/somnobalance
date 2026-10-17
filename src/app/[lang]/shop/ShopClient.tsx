@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { formatPrice, getDisplayPrice, getProductText, type Product } from "@/lib/products";
+import { formatPrice, getDisplayPrice, getProductText, getProductPhases, type Product, type ProductPhase } from "@/lib/products";
 import { useCart } from "@/components/CartProvider";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/getDictionary";
@@ -57,7 +57,7 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
         }
 
         // Phase
-        if (selectedPhase !== "all" && p.phase !== selectedPhase) {
+        if (selectedPhase !== "all" && !getProductPhases(p).includes(selectedPhase as ProductPhase)) {
           return false;
         }
 
@@ -363,7 +363,7 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
               )}
               {priceRange !== "all" && (
                 <span className="inline-flex items-center gap-1 rounded-full bg-sand px-3 py-1 text-xs text-ink">
-                  {priceRange === "under-25" ? tx("Under €25", "Unter 25 €") : priceRange === "25-100" ? tx("€25 - €100", "25 € - 100 €") : tx("Over €100", "Über 100 €")}
+                  {priceRange === "under-25" ? tx("Under €25", "Unter 25 €") : priceRange === "25-100" ? tx("€25–100", "25–100 €") : tx("Over €100", "Über 100 €")}
                   <button onClick={() => setPriceRange("all")} className="text-ink/50 hover:text-ink"><X className="size-3" /></button>
                 </span>
               )}
@@ -479,7 +479,7 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
                       <div className="p-5">
                         <div className="text-[10px] uppercase tracking-wider text-ink/50">
                           {(dict.shop.categories as Record<string, string>)?.[p.category] || p.category}
-                          {p.phase && <> · {(dict.shop.phases as Record<string, string>)[p.phase]}</>}
+                          {p.phase && <> · {getProductPhases(p).map((ph) => (dict.shop.phases as Record<string, string>)[ph]).join(" · ")}</>}
                           {p.shippingIncluded && <> · {dict.shop.freeDelivery}</>}
                         </div>
                         <h3 className="mt-1 font-serif text-lg font-bold text-ink group-hover:text-mauve-dark transition">

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Product, formatPrice, getDisplayPrice, getProductText } from "@/lib/products";
+import { Product, formatPrice, getDisplayPrice, getProductText, getProductPhases } from "@/lib/products";
 import { useCart } from "@/components/CartProvider";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/getDictionary";
@@ -37,7 +37,7 @@ export function ProductCard({
         <Link href={href}>
           <div className="text-[0.65rem] uppercase tracking-[0.1em] text-ink/50">
             {dict.shop.categories[product.category]}
-            {product.phase && <> · {dict.shop.phases[product.phase]}</>}
+            {product.phase && <> · {getProductPhases(product).map((ph) => dict.shop.phases[ph]).join(" · ")}</>}
           </div>
           <h3 className="mt-1.5 font-serif text-lg text-ink group-hover:text-mauve-dark">{text.name}</h3>
           <p className="mt-1 text-sm leading-relaxed text-ink/60">{text.tagline}</p>
