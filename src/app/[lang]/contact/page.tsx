@@ -9,8 +9,15 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   return { title: lang === "de" ? "Kontakt — SomnoBalance" : "Contact — SomnoBalance" };
 }
 
-export default async function ContactPage({ params }: { params: Promise<{ lang: string }> }) {
+export default async function ContactPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ lang: string }>;
+  searchParams: Promise<{ topic?: string }>;
+}) {
   const { lang } = await params;
+  const { topic } = await searchParams;
   if (!isLocale(lang)) notFound();
   const dict = await getDictionary(lang as Locale);
 
@@ -41,7 +48,7 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
         </div>
       </div>
 
-      <ContactForm dict={dict} />
+      <ContactForm dict={dict} defaultTopic={["general", "business", "partner", "order", "advice"].includes(topic ?? "") ? topic : "general"} />
     </div>
   );
 }

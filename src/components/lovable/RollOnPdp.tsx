@@ -43,14 +43,13 @@ const workSans = Work_Sans({
   variable: "--font-lovable-sans-loaded",
 });
 
-// Product → application → active-day → evening-transition sequence, per
-// the client's roll-on PDP spec (§9): real distinct photography, never
-// repeating the same near-identical shot.
+// Real photography of the original product with its unchanged label,
+// from the client's final image set. Sequence per the briefing:
+// product -> application -> everyday.
 const gallery = [
-  "/products/pdp-roll-on-main.webp",
-  "/products/pdp-roll-on-flatlay.webp",
-  "/products/pdp-roll-on-hand.webp",
-  "/products/pdp-roll-on-rituals.webp",
+  "/products/roll-on-bottle.webp",
+  "/products/roll-on-application.webp",
+  "/products/roll-on-bag.webp",
 ];
 
 // Placeholder public track — no specific song was supplied. Swap the URI
@@ -151,6 +150,32 @@ export function RollOnPdp({
     setActive((current) => (current + step + gallery.length) % gallery.length);
 
   const [before, after] = dict.shop.withdrawalNote.split("{link}");
+  const rollOn = products.find((p) => p.slug === "somnobalance-roll-on")!;
+  const text = getProductText(rollOn, lang);
+  const companions = [
+    {
+      slug: "somnobalance-starter-set",
+      blurb: tx(
+        "Your entry into the SomnoBalance world – for mindful moments of regeneration from the active day into the night.",
+        "Ihr Einstieg in die SomnoBalance-Welt – für bewusste Regenerationsmomente vom aktiven Tag bis in die Nacht.",
+      ),
+    },
+    {
+      slug: "somnobalance-oil-blend",
+      blurb: tx(
+        "A scent impulse for mindful moments of regeneration and personal rituals.",
+        "Ein Duftimpuls für bewusste Regenerationsmomente und persönliche Rituale.",
+      ),
+    },
+    {
+      slug: "somnobalance-room-spray",
+      blurb: tx(
+        "A scent impulse for your room and conscious transitions.",
+        "Ein Duftimpuls für Ihren Raum und bewusste Übergänge.",
+      ),
+    },
+  ];
+  const phaseKeys = ["REGULATE", "LET GO", "PREPARE", "REGENERATE"] as const;
 
   return (
     <div
@@ -250,9 +275,7 @@ export function RollOnPdp({
               SomnoBalance Roll-on
             </h1>
             <p className="mt-3 max-w-md font-lovable-serif text-xl leading-tight text-lovable-muted-foreground">
-              {tx("A scent moment to carry with you,", "Ein Duftmoment zum Mitnehmen,")}
-              <br />
-              {tx("at home or on the go.", "zu Hause oder unterwegs.")}
+              {text.tagline}
             </p>
             <div className="mt-6 flex items-end gap-3">
               <strong className="text-2xl font-medium">19,00 €</strong>
@@ -299,11 +322,8 @@ export function RollOnPdp({
               <span>{tx("For home & on the go", "Für unterwegs & zu Hause")}</span>
               <span>{tx("A mindful scent impulse", "Bewusster Duftimpuls")}</span>
             </div>
-            <p className="text-xs leading-6 text-lovable-muted-foreground">
-              {tx(
-                "The SomnoBalance Roll-on is an uncomplicated, personal scent impulse for everyday life. Lavender, clementine, grapefruit, frankincense and patchouli are blended into a base of sunflower and jojoba oil, applied directly to the skin — easy to fold into a brief pause or a transition between the moments of your day, whether at home, travelling, or in the evening.",
-                "Das SomnoBalance Roll-on ist ein unkomplizierter, persönlicher Duftimpuls für den Alltag. Lavendel, Clementine, Grapefruit, Weihrauch und Patchouli werden in einer Basis aus Sonnenblumen- und Jojobaöl gemischt und direkt auf die Haut aufgetragen — für einen kurzen bewussten Moment oder einen Übergang zwischen den Phasen Ihres Tages, zu Hause, auf Reisen oder am Abend.",
-              )}
+            <p className="whitespace-pre-line text-xs leading-6 text-lovable-muted-foreground">
+              {text.description}
             </p>
           </div>
 
@@ -340,10 +360,6 @@ export function RollOnPdp({
             <p className="mt-2 text-[9px] text-lovable-muted-foreground">
               {formatTime(elapsed)} / {formatTime(duration)}
             </p>
-            <div className="my-10 h-px w-9 bg-lovable-border" />
-            <p className="rotate-[-7deg] text-center font-lovable-serif text-2xl italic leading-tight text-lovable-primary/60 whitespace-pre-line">
-              {dict.shop.soundQuote}
-            </p>
             {/* Real Spotify playback, controlled via the iFrame API — sized
               to 1x1 and visually hidden so the panel's design is unchanged.
               The embed still requires the visitor to click once inside it
@@ -363,7 +379,7 @@ export function RollOnPdp({
               "linear-gradient(to bottom, transparent, color-mix(in srgb, var(--color-lovable-secondary) 25%, transparent), transparent)",
           }}
         >
-          <div className="mx-auto grid max-w-[1500px] items-center gap-8 px-5 md:px-10 lg:grid-cols-[280px_1fr_180px] lg:px-16">
+          <div className="mx-auto grid max-w-[1500px] gap-8 px-5 md:px-10 lg:grid-cols-[280px_1fr] lg:px-16">
             <div>
               <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
                 {dict.shop.howToUseEyebrow}
@@ -374,29 +390,51 @@ export function RollOnPdp({
               </h2>
             </div>
             <div>
-              <div className="aspect-[2.15/1] overflow-hidden">
-                <Image
-                  src="/products/pdp-roll-on-rituals.webp"
-                  alt={tx("Four ways to apply the SomnoBalance roll-on", "Vier Möglichkeiten, das SomnoBalance Roll-on anzuwenden")}
-                  width={1600}
-                  height={720}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-              <div className="grid grid-cols-4 gap-2 pt-3 text-[9px] sm:text-[11px]">
-                {dict.shop.howToUseSteps.map((label, index) => (
-                  <span key={label}>
-                    <b className="mr-2 font-normal underline underline-offset-8">
-                      0{index + 1}
-                    </b>
-                    {label}
-                  </span>
+              <p className="max-w-2xl text-xs leading-6 text-lovable-muted-foreground">
+                {tx(
+                  "Apply a small amount to the intended areas of skin and consciously notice the scent. Integrate it into your day as a personal scent impulse as needed.",
+                  "Eine kleine Menge auf die dafür vorgesehenen Hautbereiche auftragen und den Duft bewusst wahrnehmen. Nach Bedarf als persönlichen Duftimpuls in den Alltag integrieren.",
+                )}
+              </p>
+              <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                {[
+                  {
+                    t: tx("Choose a moment", "Moment wählen"),
+                    d: tx(
+                      "Use the roll-on when you want to consciously take a short moment.",
+                      "Nutzen Sie den Roll-on dann, wenn Sie sich bewusst einen kurzen Moment nehmen möchten.",
+                    ),
+                  },
+                  {
+                    t: tx("Apply", "Auftragen"),
+                    d: tx(
+                      "Apply a small amount according to the approved application.",
+                      "Eine kleine Menge entsprechend der freigegebenen Anwendung auftragen.",
+                    ),
+                  },
+                  {
+                    t: tx("Notice the scent", "Duft wahrnehmen"),
+                    d: tx(
+                      "Consciously notice the scent and briefly interrupt the moment.",
+                      "Den Duft bewusst wahrnehmen und den Moment kurz unterbrechen.",
+                    ),
+                  },
+                  {
+                    t: tx("Move on", "Weitergehen"),
+                    d: tx(
+                      "Simply integrate the roll-on back into your own daily rhythm.",
+                      "Den Roll-on unkompliziert wieder in den eigenen Tagesrhythmus integrieren.",
+                    ),
+                  },
+                ].map((step, index) => (
+                  <div key={step.t} className="border-t border-lovable-border pt-4 text-[11px]">
+                    <b className="mr-2 font-normal underline underline-offset-8">0{index + 1}</b>
+                    <span className="uppercase tracking-[0.1em]">{step.t}</span>
+                    <p className="mt-3 text-[11px] leading-5 text-lovable-muted-foreground">{step.d}</p>
+                  </div>
                 ))}
               </div>
             </div>
-            <p className="border-l border-lovable-border pl-8 font-lovable-serif text-xl leading-tight whitespace-pre-line">
-              {dict.shop.howToUseNote}
-            </p>
           </div>
         </section>
 
@@ -415,26 +453,23 @@ export function RollOnPdp({
             </p>
             <span className="mt-4 block h-px w-8 bg-lovable-primary" />
             <ul className="mt-6 space-y-5 text-xs leading-5">
-              <li className="border-t border-lovable-border/60 pt-5">
-                <span>{tx("10 ml roll-on bottle", "10-ml-Roll-on-Flasche")}</span>
-              </li>
-              <li className="border-t border-lovable-border/60 pt-5">
-                <span>{tx("Base oils: sunflower oil, jojoba oil", "Basisöle: Sonnenblumenöl, Jojobaöl")}</span>
-              </li>
-              <li className="border-t border-lovable-border/60 pt-5">
-                <span>
-                  {tx("Scent: lavender, clementine, grapefruit,", "Duft: Lavendel, Clementine, Grapefruit,")}
-                  <br />
-                  {tx("frankincense, patchouli", "Weihrauch, Patchouli")}
-                </span>
-              </li>
-              <li className="border-t border-lovable-border/60 pt-5">
-                <span>
-                  {tx("Apply to wrists, temples, neck, or soles", "Auf Handgelenke, Schläfen, Nacken oder Fußsohlen")}
-                  <br />
-                  {tx("of the feet — several times a day as needed", "auftragen — mehrmals täglich nach Bedarf")}
-                </span>
-              </li>
+              {text.details.map((d) => {
+                const i = d.indexOf(": ");
+                return (
+                  <li key={d} className="border-t border-lovable-border/60 pt-5">
+                    {i > 0 ? (
+                      <>
+                        <span className="block text-[10px] uppercase tracking-[0.15em] text-lovable-muted-foreground">
+                          {d.slice(0, i)}
+                        </span>
+                        <span className="mt-1 block">{d.slice(i + 2)}</span>
+                      </>
+                    ) : (
+                      <span>{d}</span>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </div>
           <div className="px-2 py-4 md:px-8 lg:border-l lg:border-lovable-border/60 lg:px-7 lg:py-12">
@@ -474,46 +509,82 @@ export function RollOnPdp({
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1500px] px-5 py-14 md:px-10 lg:px-16 lg:py-20">
-          <h2 className="mb-8 font-lovable-serif text-2xl md:text-3xl">
-            {dict.shop.youMightAlsoLike}
-          </h2>
-          <div className="grid grid-cols-2 gap-5 md:grid-cols-4 lg:gap-8">
-            {products
-              .filter((p) => p.slug !== "somnobalance-roll-on")
-              .slice(0, 4)
-              .map((p) => {
-                const pText = getProductText(p, lang);
-                return (
-                  <Link
-                    key={p.slug}
-                    href={`/${lang}/shop/${p.slug}`}
-                    className="group block"
-                  >
-                    <div className="relative mb-4 aspect-[4/5] overflow-hidden rounded-md bg-lovable-muted">
-                      <Image
-                        src={p.image}
-                        alt={pText.name}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    </div>
-                    <h3 className="font-lovable-serif text-lg leading-tight">
-                      {pText.name}
-                    </h3>
-                    <p className="mt-1 text-xs leading-5 text-lovable-muted-foreground">
-                      {pText.tagline}
-                    </p>
-                    <div className="mt-3 text-sm font-medium">
-                      {new Intl.NumberFormat("de-DE", {
-                        style: "currency",
-                        currency: "EUR",
-                      }).format(p.price || 0)}
-                    </div>
-                  </Link>
-                );
-              })}
+        <section
+          className="px-5 py-14 md:px-10 lg:px-16"
+          style={{
+            background: "color-mix(in srgb, var(--color-lovable-secondary) 25%, transparent)",
+          }}
+        >
+          <div className="mx-auto max-w-[1500px]">
+            <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
+              {tx("IN THE SOMNOBALANCE CYCLE", "IM SOMNOBALANCE-KREISLAUF")}
+            </p>
+            <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-xs uppercase tracking-[0.2em]">
+              {phaseKeys.map((key, i) => (
+                <span
+                  key={key}
+                  className={
+                    i < 3
+                      ? "font-semibold text-lovable-primary underline underline-offset-8"
+                      : "text-lovable-muted-foreground/60"
+                  }
+                >
+                  {dict.shop.phases[key]}
+                </span>
+              ))}
+            </div>
+            <p className="mt-6 max-w-2xl font-lovable-serif text-xl italic leading-snug text-lovable-primary md:text-2xl">
+              {tx("A companion for different moments.", "Ein Begleiter für unterschiedliche Momente.")}
+            </p>
+            <p className="mt-4 max-w-2xl text-xs leading-6 text-lovable-muted-foreground">
+              {tx(
+                "The SomnoBalance Roll-on can be used in different phases of your day – as a mindful scent impulse in the middle of everyday life, while letting go, or as part of your personal preparation for the evening.",
+                "Der SomnoBalance Roll-on lässt sich in unterschiedlichen Phasen Ihres Tages einsetzen – als bewusster Duftimpuls mitten im Alltag, beim Loslassen oder als Teil Ihrer persönlichen Vorbereitung auf den Abend.",
+              )}
+            </p>
+            <p className="mt-4 text-[11px] text-lovable-muted-foreground">
+              {tx(
+                "The phases give orientation. When and how you integrate the roll-on into your everyday life remains individual.",
+                "Die Phasen geben Orientierung. Wann und wie Sie den Roll-on in Ihren Alltag integrieren, bleibt individuell.",
+              )}
+            </p>
           </div>
+        </section>
+
+        <section className="mx-auto max-w-[1500px] px-5 py-14 md:px-10 lg:px-16 lg:py-20">
+          <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
+            {tx("KEEP DISCOVERING SOMNOBALANCE", "SOMNOBALANCE WEITERENTDECKEN")}
+          </p>
+          <h2 className="mt-4 max-w-xl font-lovable-serif text-2xl italic leading-snug md:text-3xl">
+            {tx("More companions for your regeneration rhythm.", "Weitere Begleiter für Ihren Regenerationsrhythmus.")}
+          </h2>
+          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3 lg:gap-8">
+            {companions.map((item) => {
+              const p = products.find((x) => x.slug === item.slug);
+              if (!p) return null;
+              const pText = getProductText(p, lang);
+              return (
+                <Link key={p.slug} href={`/${lang}/shop/${p.slug}`} className="group block">
+                  <div className="relative mb-4 aspect-[4/5] overflow-hidden rounded-md bg-lovable-muted">
+                    <Image
+                      src={p.image}
+                      alt={pText.name}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                  <h3 className="font-lovable-serif text-lg leading-tight">{pText.name}</h3>
+                  <p className="mt-1 text-xs leading-5 text-lovable-muted-foreground">{item.blurb}</p>
+                </Link>
+              );
+            })}
+          </div>
+          <Link
+            href={`/${lang}/shop`}
+            className="mt-10 inline-block text-xs font-semibold uppercase tracking-wider underline underline-offset-8"
+          >
+            {tx("Discover all products →", "Alle Produkte entdecken →")}
+          </Link>
         </section>
       </div>
     </div>

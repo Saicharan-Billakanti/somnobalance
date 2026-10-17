@@ -3,7 +3,7 @@
 import { useState } from "react";
 import type { Dictionary } from "@/i18n/getDictionary";
 
-export function ContactForm({ dict }: { dict: Dictionary }) {
+export function ContactForm({ dict, defaultTopic = "general" }: { dict: Dictionary; defaultTopic?: string }) {
   const [sent, setSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -52,11 +52,12 @@ export function ContactForm({ dict }: { dict: Dictionary }) {
     >
       <input required name="name" placeholder={dict.contact.form.name} className="input-field" />
       <input required name="email" type="email" placeholder={dict.contact.form.email} className="input-field" />
-      <select name="topic" className="input-field sm:col-span-2" defaultValue="general">
+      <select name="topic" className="input-field sm:col-span-2" defaultValue={defaultTopic}>
         <option value="general">{dict.contact.form.topicGeneral}</option>
         <option value="business">{dict.contact.form.topicBusiness}</option>
         <option value="partner">{dict.contact.form.topicPartner}</option>
         <option value="order">{dict.contact.form.topicOrder}</option>
+        <option value="advice">{dict.contact.form.topicAdvice}</option>
       </select>
       <textarea
         required

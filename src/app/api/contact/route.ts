@@ -6,7 +6,7 @@ import { sendNotification } from "@/lib/mailer";
 const contactSchema = z.object({
   name: z.string().min(1).max(200),
   email: z.string().email(),
-  topic: z.enum(["general", "business", "partner", "order"]),
+  topic: z.enum(["general", "business", "partner", "order", "advice"]),
   message: z.string().min(1).max(5000),
 });
 

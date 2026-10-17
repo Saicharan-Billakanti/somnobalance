@@ -79,7 +79,9 @@ declare global {
   }
 }
 
-export type RitualStep = { icon: LucideIcon; label: string };
+export type RitualStep = { icon: LucideIcon; label: string; description?: string };
+
+export type KeyFeature = { title: string; text: string };
 
 export type ProductSystemConfig = {
   systemRoleLabel: string; // e.g. "RITUAL · REGULATE" shown top-left of hero
@@ -119,6 +121,29 @@ export type ProductSystemConfig = {
   // Starter-Set only: "SomnoBalance im Alltag" — three non-prescriptive
   // usage-moment examples (not a required daily routine).
   dailyMoments?: { eyebrow: string; headline: string; intro: string; cards: { title: string; headline: string; body: string }[] };
+  // Compact "key facts" row shown under the product description (mattress,
+  // neck pillow) - typographic only, no icons or shop badges.
+  keyFeatures?: KeyFeature[];
+  // Short explanation shown directly under the firmness (edition) selector.
+  firmnessNote?: string;
+  // Secondary, deliberately quiet advice link shown under the buy button.
+  consult?: { question: string; label: string };
+  // Separate short note after delivery info (mattress "Nach dem Auspacken").
+  afterUnpacking?: { title: string; body: string };
+  // Starter-Set only: "Im SomnoBalance-Kreislauf" - the four phases with the
+  // relevant ones highlighted, replacing the generic "System" strip.
+  cycleSection?: { eyebrow: string; headline?: string; activePhases: boolean[]; body: string; note: string };
+  // One large centred sentence (e.g. Raumspray "Manchmal beginnt ein Übergang ...").
+  statement?: string;
+  // Starter-Set only: "SomnoBalance weiterentdecken" - a short curated
+  // selection replacing the generic "you might also like" grid.
+  discoverMore?: {
+    eyebrow: string;
+    headline: string;
+    body?: string;
+    cta: string;
+    items: { slug: string; blurb: string }[];
+  };
   brandCloseTagline: [string, string];
   brandCloseNote: [string, string, string];
   translations?: {
@@ -131,11 +156,25 @@ export type ProductSystemConfig = {
       howToUseSteps?: string[];
       howToUseNote?: string[];
       nextCompanionLabel?: string;
-      explainerSections?: { eyebrow: string; headline: string; body: string }[];
+      explainerSections?: { eyebrow: string; headline: string; body: string; image?: string }[];
       timeline?: { eyebrow: string; headline: string; intro: string; steps: { number: string; title: string; body: string }[] };
       bundleContents?: { title: string; subtitle: string; body: string }[];
       togetherSection?: { eyebrow: string; headline: string; body: string };
       dailyMoments?: { eyebrow: string; headline: string; intro: string; cards: { title: string; headline: string; body: string }[] };
+      howToUseStepDescriptions?: string[];
+      keyFeatures?: KeyFeature[];
+      firmnessNote?: string;
+      consult?: { question: string; label: string };
+      afterUnpacking?: { title: string; body: string };
+      statement?: string;
+      cycleSection?: { eyebrow: string; headline?: string; activePhases: boolean[]; body: string; note: string };
+      discoverMore?: {
+        eyebrow: string;
+        headline: string;
+        body?: string;
+        cta: string;
+        items: { slug: string; blurb: string }[];
+      };
       brandCloseTagline?: [string, string];
       brandCloseNote?: [string, string, string];
     };
@@ -169,6 +208,7 @@ export function ProductSystemPage({
   const [selectedVariant, setSelectedVariant] = useState<
     ProductVariant | undefined
   >(product.variants?.[0]);
+  const [editionSelected, setEditionSelected] = useState<string | undefined>(product.editions?.[0]?.label);
   const [added, setAdded] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [elapsed, setElapsed] = useState(0);
@@ -321,7 +361,7 @@ export function ProductSystemPage({
             <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
               {c.systemRoleLabel}
             </p>
-            <h1 className="mt-5 font-sans text-4xl font-medium leading-none md:text-5xl">
+            <h1 className="mt-5 break-words font-sans text-3xl font-medium leading-none sm:text-4xl md:text-5xl">
               {text.name}
             </h1>
             <p className="mt-3 max-w-md font-lovable-serif text-xl leading-tight text-lovable-muted-foreground">
@@ -357,6 +397,38 @@ export function ProductSystemPage({
                 ))}
               </div>
             )}
+            {selectedVariant?.priceNote && (
+              <p className="mt-2 text-[11px] text-lovable-muted-foreground">
+                {(dict.shop.variantNotes as Record<string, string>)[selectedVariant.priceNote] ?? selectedVariant.priceNote}
+              </p>
+            )}
+
+            {product.editions && product.editions.length > 0 && (
+              <div className="mt-6">
+                <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
+                  {tx("Firmness", "Festigkeit")}
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {product.editions.map((ed) => (
+                    <button
+                      key={ed.label}
+                      type="button"
+                      onClick={() => setEditionSelected(ed.label)}
+                      className={`rounded-full border px-4 py-2 text-xs ${
+                        editionSelected === ed.label
+                          ? "border-lovable-primary bg-lovable-primary/10"
+                          : "border-lovable-border text-lovable-muted-foreground hover:bg-lovable-muted"
+                      }`}
+                    >
+                      {ed.label.replace("/", " / ")}
+                    </button>
+                  ))}
+                </div>
+                {c.firmnessNote && (
+                  <p className="mt-3 text-[11px] leading-5 text-lovable-muted-foreground">{c.firmnessNote}</p>
+                )}
+              </div>
+            )}
 
             <div className="mt-7 flex gap-3">
               <div className="flex h-12 items-center rounded-md border border-lovable-border">
@@ -383,7 +455,12 @@ export function ProductSystemPage({
               <Button
                 className="h-12 min-h-0 flex-1 justify-between rounded-full px-7"
                 onClick={() => {
-                  onAddToCart(quantity, selectedVariant?.label);
+                  onAddToCart(
+                    quantity,
+                    product.editions?.length
+                      ? [selectedVariant?.label, editionSelected].filter(Boolean).join(" — ") || undefined
+                      : selectedVariant?.label,
+                  );
                   setAdded(true);
                   window.setTimeout(() => setAdded(false), 1800);
                 }}
@@ -396,6 +473,18 @@ export function ProductSystemPage({
                 <ArrowRight className="size-4" />
               </Button>
             </div>
+
+            {c.consult && (
+              <p className="mt-4 text-[11px] text-lovable-muted-foreground">
+                {c.consult.question}{" "}
+                <Link
+                  href={`/${lang}/contact?topic=advice`}
+                  className="underline underline-offset-4 hover:text-lovable-foreground"
+                >
+                  {c.consult.label}
+                </Link>
+              </p>
+            )}
 
             {text.specs && (
               <div className="my-7 grid grid-cols-3 gap-3 border-y border-lovable-border py-5 text-[10px]">
@@ -411,9 +500,20 @@ export function ProductSystemPage({
               </div>
             )}
 
-            <p className="text-xs leading-6 text-lovable-muted-foreground">
+            <p className="mt-7 whitespace-pre-line text-xs leading-6 text-lovable-muted-foreground">
               {text.description}
             </p>
+
+            {c.keyFeatures && (
+              <dl className="mt-7 grid grid-cols-2 gap-x-5 gap-y-5 border-t border-lovable-border pt-5">
+                {c.keyFeatures.map((f) => (
+                  <div key={f.title}>
+                    <dt className="text-[10px] font-semibold uppercase tracking-[0.12em]">{f.title}</dt>
+                    <dd className="mt-1 text-[11px] leading-5 text-lovable-muted-foreground">{f.text}</dd>
+                  </div>
+                ))}
+              </dl>
+            )}
           </div>
 
           <aside className="relative self-start rounded-md border border-lovable-border bg-lovable-card px-6 py-8 lg:min-h-[530px]">
@@ -493,14 +593,24 @@ export function ProductSystemPage({
                 )}
               </div>
               <div className="grid grid-cols-4 gap-2 pt-3 text-[9px] sm:text-[11px]">
-                {config.howToUseSteps.map((step, index) => (
-                  <span key={step.label}>
-                    <b className="mr-2 font-normal underline underline-offset-8">
-                      0{index + 1}
-                    </b>
-                    {t.howToUseSteps?.[index] || step.label}
-                  </span>
-                ))}
+                {config.howToUseSteps.map((step, index) => {
+                  const desc =
+                    (lang === "en" ? config.translations?.en?.howToUseStepDescriptions?.[index] : undefined) ??
+                    step.description;
+                  return (
+                    <span key={step.label}>
+                      <b className="mr-2 font-normal underline underline-offset-8">
+                        0{index + 1}
+                      </b>
+                      {t.howToUseSteps?.[index] || step.label}
+                      {desc && (
+                        <span className="mt-2 block text-[10px] leading-5 text-lovable-muted-foreground sm:text-[11px]">
+                          {desc}
+                        </span>
+                      )}
+                    </span>
+                  );
+                })}
               </div>
             </div>
             <p className="border-l border-lovable-border pl-8 font-lovable-serif text-xl leading-tight">
@@ -536,6 +646,14 @@ export function ProductSystemPage({
             </div>
           </section>
         ))}
+
+        {c.statement && (
+          <section className="mx-auto max-w-[1500px] border-t border-lovable-border px-5 py-14 text-center md:px-10 lg:px-16 lg:py-20">
+            <p className="mx-auto max-w-3xl font-lovable-serif text-2xl italic leading-snug text-lovable-primary md:text-4xl">
+              {c.statement}
+            </p>
+          </section>
+        )}
 
         {c.timeline && (
           <section className="mx-auto max-w-[1500px] px-5 py-14 md:px-10 lg:px-16 lg:py-20">
@@ -715,6 +833,12 @@ export function ProductSystemPage({
                 </p>
               </div>
             )}
+            {c.afterUnpacking && (
+              <div className="mt-6 rounded-md border border-lovable-border bg-lovable-card p-6">
+                <p className="text-[9px] uppercase tracking-[0.18em]">{c.afterUnpacking.title}</p>
+                <p className="mt-5 text-[10px] leading-5 text-lovable-muted-foreground">{c.afterUnpacking.body}</p>
+              </div>
+            )}
             <p className="mt-10 text-[10px] leading-5 text-lovable-muted-foreground">
               {before}
               <a href={`/${lang}/legal/withdrawal`} className="underline">
@@ -725,6 +849,50 @@ export function ProductSystemPage({
           </div>
         </section>
 
+        {c.cycleSection ? (
+          <section
+            className="px-5 py-14 md:px-10 lg:px-16"
+            style={{
+              background:
+                "color-mix(in srgb, var(--color-lovable-secondary) 25%, transparent)",
+            }}
+          >
+            <div className="mx-auto max-w-[1500px]">
+              <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
+                {c.cycleSection.eyebrow}
+              </p>
+              <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-xs uppercase tracking-[0.2em]">
+                {(["REGULATE", "LET GO", "PREPARE", "REGENERATE"] as const).map((key, i) => (
+                  <span
+                    key={key}
+                    className={
+                      c.cycleSection!.activePhases[i]
+                        ? "font-semibold text-lovable-primary underline underline-offset-8"
+                        : "text-lovable-muted-foreground/60"
+                    }
+                  >
+                    {dict.shop.phases[key]}
+                  </span>
+                ))}
+              </div>
+              {c.cycleSection.headline ? (
+                <>
+                  <p className="mt-6 max-w-2xl font-lovable-serif text-xl italic leading-snug text-lovable-primary md:text-2xl">
+                    {c.cycleSection.headline}
+                  </p>
+                  <p className="mt-4 max-w-2xl whitespace-pre-line text-xs leading-6 text-lovable-muted-foreground">
+                    {c.cycleSection.body}
+                  </p>
+                </>
+              ) : (
+                <p className="mt-6 max-w-2xl font-lovable-serif text-xl italic leading-snug text-lovable-primary md:text-2xl">
+                  {c.cycleSection.body}
+                </p>
+              )}
+              <p className="mt-4 text-[11px] text-lovable-muted-foreground">{c.cycleSection.note}</p>
+            </div>
+          </section>
+        ) : (
         <section
           className="px-5 py-14 md:px-10 lg:px-16"
           style={{
@@ -741,7 +909,48 @@ export function ProductSystemPage({
             </p>
           </div>
         </section>
+        )}
 
+        {c.discoverMore ? (
+          <section className="mx-auto max-w-[1500px] px-5 py-14 md:px-10 lg:px-16 lg:py-20">
+            <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
+              {c.discoverMore.eyebrow}
+            </p>
+            <h2 className="mt-4 max-w-xl font-lovable-serif text-2xl italic leading-snug md:text-3xl">
+              {c.discoverMore.headline}
+            </h2>
+            {c.discoverMore.body && (
+              <p className="mt-5 max-w-2xl text-xs leading-6 text-lovable-muted-foreground">{c.discoverMore.body}</p>
+            )}
+            <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3 lg:gap-8">
+              {c.discoverMore.items.map((item) => {
+                const p = products.find((x) => x.slug === item.slug);
+                if (!p) return null;
+                const pText = getProductText(p, lang);
+                return (
+                  <Link key={p.slug} href={`/${lang}/shop/${p.slug}`} className="group block">
+                    <div className="relative mb-4 aspect-[4/5] overflow-hidden rounded-md bg-lovable-muted">
+                      <Image
+                        src={p.image}
+                        alt={pText.name}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </div>
+                    <h3 className="font-lovable-serif text-lg leading-tight">{pText.name}</h3>
+                    <p className="mt-1 text-xs leading-5 text-lovable-muted-foreground">{item.blurb}</p>
+                  </Link>
+                );
+              })}
+            </div>
+            <Link
+              href={`/${lang}/shop`}
+              className="mt-10 inline-block text-xs font-semibold uppercase tracking-wider underline underline-offset-8"
+            >
+              {c.discoverMore.cta}
+            </Link>
+          </section>
+        ) : (
         <section className="mx-auto max-w-[1500px] px-5 py-14 md:px-10 lg:px-16 lg:py-20">
           <h2 className="mb-8 font-lovable-serif text-2xl md:text-3xl">
             {dict.shop.youMightAlsoLike}
@@ -783,6 +992,7 @@ export function ProductSystemPage({
               })}
           </div>
         </section>
+        )}
       </div>
     </div>
   );
