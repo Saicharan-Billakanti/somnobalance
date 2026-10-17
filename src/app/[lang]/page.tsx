@@ -4,8 +4,8 @@ import Image from "next/image";
 import { getDictionary } from "@/i18n/getDictionary";
 import { isLocale, type Locale } from "@/i18n/config";
 import { notFound } from "next/navigation";
-import { RegenerationCircuit } from "@/components/RegenerationCircuit";
 import { HeroVideo } from "@/components/HeroVideo";
+import { RegenerationCircuit } from "@/components/RegenerationCircuit";
 
 export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -15,10 +15,9 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
 
   return (
     <div>
-      <section className="relative flex min-h-[600px] w-full items-center overflow-hidden xl:min-h-[750px]">
-        <HeroVideo src="/video/hero.mp4" poster="/video/hero-poster.webp" />
-        {/* Keeps the left-aligned copy legible over the video (strongest on mobile). */}
-        <div className="absolute inset-0 bg-offwhite/60 md:bg-gradient-to-r md:from-offwhite/65 md:via-offwhite/10 md:to-transparent" />
+      <section className="relative flex min-h-[620px] w-full items-center overflow-hidden xl:min-h-[780px]">
+        <HeroVideo className="absolute inset-0 h-full w-full object-cover object-center" />
+        <div className="absolute inset-0 bg-gradient-to-r from-white/60 via-white/25 to-transparent" />
         <div className="relative z-10 mx-auto flex w-full max-w-[1400px] items-end justify-between px-4 pb-16 pt-32 sm:px-6 md:px-12 md:pb-24 lg:items-center lg:py-32">
           
           <div className="max-w-xl">
@@ -28,7 +27,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             <h1 className="mt-4 font-serif text-4xl leading-tight text-ink md:text-5xl lg:text-[3.5rem]">
               {dict.home.titlePrefix}
               <br className="hidden lg:block" />
-              <em className="italic text-mauve">{dict.home.titleAccent}</em>
+              <em className="italic text-[#725e80]">{dict.home.titleAccent}</em>
             </h1>
             <p className="mt-6 max-w-md text-base leading-relaxed text-ink/80 md:text-lg">
               {dict.home.subtitle}
@@ -36,7 +35,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             <div className="mt-8 flex">
               <Link
                 href={`/${l}/regenerationscheck`}
-                className="inline-flex items-center gap-2 bg-mauve px-8 py-3.5 text-sm text-white transition-colors hover:bg-mauve-dark"
+                className="inline-flex items-center gap-2 rounded-sm bg-[#786786] px-8 py-3.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-[#625270]"
               >
                 {dict.home.ctaForMe} <span aria-hidden="true">→</span>
               </Link>
@@ -135,7 +134,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
           <div className="mt-16 flex justify-center">
             <Link
               href={`/${l}/regenerationscheck`}
-              className="inline-flex items-center justify-center bg-mauve px-8 py-3.5 text-sm font-medium text-white transition-colors hover:bg-mauve-dark"
+              className="inline-flex items-center justify-center rounded-sm bg-[#786786] px-8 py-3.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-[#625270]"
             >
               {dict.homeSections.moment.checkCta}
             </Link>
@@ -143,13 +142,9 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
         </div>
       </section>
 
-      {/* Section 5 — "SomnoBalance für Sie": editorial product dramaturgy,
-          not a flat product-card wall. Each product keeps the same
-          REGULIEREN—LOSLASSEN—VORBEREITEN—REGENERIEREN phase strip with
-          its relevant phases highlighted, per the brief's "products are
-          flexible companions, not locked to one phase" rule. */}
+      {/* Section 5 — "SomnoBalance für Sie": 2x2 grid of curated products */}
       <section
-        className="py-20 sm:py-24"
+        className="py-24 sm:py-32"
         style={{ background: "color-mix(in srgb, var(--color-scroll-3) 74%, transparent)" }}
       >
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -190,6 +185,12 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                     {dict.home.learnMore}
                   </Link>
                 </div>
+                <Link
+                  href={`/${l}/shop/somnobalance-regeneration-cards`}
+                  className="mt-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-ink transition-opacity hover:opacity-70"
+                >
+                  {l === "de" ? "Mehr erfahren →" : "Learn more →"}
+                </Link>
               </div>
             ))}
           </div>
@@ -205,23 +206,22 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
               <Link
                 href={`/${l}/shop`}
-                className="inline-flex items-center justify-center bg-[#7b6b8a] px-8 py-3.5 text-sm font-medium text-white transition-colors hover:bg-opacity-90"
+                className="inline-flex items-center justify-center rounded-sm bg-[#786786] px-8 py-3.5 text-sm font-medium text-white transition-colors hover:bg-[#625270] shadow-sm"
               >
                 {dict.homeSections.forYou.allProducts}
               </Link>
               <Link
                 href={`/${l}/regenerationscheck`}
-                className="inline-flex items-center justify-center border border-ink/20 bg-white px-8 py-3.5 text-sm font-medium text-ink transition-colors hover:bg-ink/5"
+                className="inline-flex items-center justify-center rounded-sm border border-ink/20 bg-white px-8 py-3.5 text-sm font-medium text-ink transition-colors hover:bg-sand"
               >
                 {dict.homeSections.forYou.startCheck}
               </Link>
             </div>
           </div>
-
         </div>
       </section>
 
-      <section className="py-16 pb-24 sm:py-24 sm:pb-32 bg-white">
+      <section className="py-20 sm:py-28 bg-white">
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 md:px-12">
           <div className="grid gap-6 md:grid-cols-3">
             {[
@@ -250,7 +250,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               <Link
                 key={card.href}
                 href={card.href}
-                className="group relative flex aspect-[16/9] flex-col justify-end overflow-hidden sm:aspect-[4/3] lg:aspect-[16/9]"
+                className="group relative flex aspect-[4/3] flex-col justify-end overflow-hidden rounded-sm"
               >
                 <Image
                   src={card.image}
@@ -259,7 +259,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                   sizes="(min-width: 768px) 33vw, 100vw"
                   className="object-cover transition duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/30 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
                 <div className="relative p-6 sm:p-8">
                   <h3 className="font-serif text-2xl font-bold text-white">{card.title}</h3>
                   <p className="mt-2 text-sm text-white/90">{card.copy}</p>

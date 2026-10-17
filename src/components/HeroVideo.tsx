@@ -2,39 +2,74 @@
 
 import { useEffect, useRef } from "react";
 
-// Homepage hero background video. Muted + inline so autoplay works on mobile;
-// the poster is the fallback while loading and for visitors who prefer
-// reduced motion (the video is paused in that case).
-export function HeroVideo({ src, poster }: { src: string; poster: string }) {
+// Autoplaying background video. Browsers can pause muted autoplay (power
+// saving, tab switches, intersection), so we re-issue play() whenever the
+// video or page state suggests it stopped.
+export function HeroVideo({ className }: { className?: string }) {
   const ref = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    const video = ref.current;
-    if (!video) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const sync = () => {
-      if (reduce.matches) video.pause();
-      else void video.play().catch(() => {});
+    const v = ref.current;
+    if (!v) return;
+    v.muted = true;
+    // Respect reduced-motion: keep the poster frame, do not autoplay.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      v.pause();
+      return;
+    }
+    const play = () => {
+      if (v.paused || v.ended) v.play().catch(() => {});
     };
-    sync();
-    reduce.addEventListener("change", sync);
-    return () => reduce.removeEventListener("change", sync);
+    play();
+    const onVisible = () => {
+      if (document.visibilityState === "visible") play();
+    };
+    const io = new IntersectionObserver((e) => e[0]?.isIntersecting && play());
+    io.observe(v);
+    // Restart explicitly on "ended" and a hair before the end so the loop
+    // never stalls on the last frame, even if the native loop hiccups.
+    const restart = () => {
+      v.currentTime = 0;
+      play();
+    };
+    const onTime = () => {
+      if (v.duration && v.currentTime >= v.duration - 0.08) restart();
+    };
+    v.addEventListener("ended", restart);
+    v.addEventListener("timeupdate", onTime);
+    v.addEventListener("pause", play);
+    v.addEventListener("suspend", play);
+    document.addEventListener("visibilitychange", onVisible);
+    window.addEventListener("pointerdown", play, { once: true });
+    window.addEventListener("scroll", play, { once: true, passive: true });
+    return () => {
+      io.disconnect();
+      v.removeEventListener("ended", restart);
+      v.removeEventListener("timeupdate", onTime);
+      v.removeEventListener("pause", play);
+      v.removeEventListener("suspend", play);
+      document.removeEventListener("visibilitychange", onVisible);
+      window.removeEventListener("pointerdown", play);
+      window.removeEventListener("scroll", play);
+    };
   }, []);
 
   return (
     <video
       ref={ref}
-      className="absolute inset-0 h-full w-full object-cover object-right md:object-center"
+      className={className}
+      poster="/video/hero-poster.jpg"
       autoPlay
       muted
       loop
       playsInline
-      preload="metadata"
-      poster={poster}
+      preload="auto"
       aria-hidden="true"
-      tabIndex={-1}
+      disablePictureInPicture
+      controlsList="nodownload nofullscreen noremoteplayback"
     >
-      <source src={src} type="video/mp4" />
+      <source src="/video/hero.webm" type="video/webm" />
+      <source src="/video/hero.mp4" type="video/mp4" />
     </video>
   );
 }

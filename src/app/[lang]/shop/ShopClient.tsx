@@ -466,13 +466,13 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
                     className="group flex flex-col justify-between overflow-hidden rounded-3xl border border-mauve/15 bg-white shadow-sm transition hover:border-teal/30 hover:shadow-md"
                   >
                     <Link href={`/${lang}/shop/${p.slug}`} className="block">
-                      <div className="relative aspect-square overflow-hidden bg-sand/20">
+                      <div className="relative aspect-square overflow-hidden bg-white">
                         <Image
                           src={p.image}
                           alt={text.name}
                           fill
                           sizes="(min-width: 1280px) 25vw, (min-width: 640px) 50vw, 100vw"
-                          className="object-contain p-6 transition duration-300 group-hover:scale-105"
+                          className="object-contain p-2 transition duration-300 group-hover:scale-105"
                         />
                       </div>
 
