@@ -7,6 +7,7 @@ import { formatPrice } from "@/lib/products";
 import { useAuth } from "@/components/AuthProvider";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/getDictionary";
+import { PartnerLanding } from "./PartnerLanding";
 import { Star, User, Check, Link as LinkIcon, ClipboardList, Ticket, CreditCard, Zap, Banknote, Package } from "lucide-react";
 
 export function PartnerClient({ lang, dict }: { lang: Locale; dict: Dictionary }) {
@@ -16,12 +17,6 @@ export function PartnerClient({ lang, dict }: { lang: Locale; dict: Dictionary }
   const method = (v?: string) => (v ? v.replace("_", " ") : "Stripe Connect");
   const { user } = useAuth();
   const isPartnerUser = Boolean(user?.isAffiliate || user?.role === "affiliate");
-  const [activeTab, setActiveTab] = useState<"overview" | "apply">("overview");
-
-  // Application form state (for regular visitors / customers wanting to become an affiliate)
-  const [formSubmitting, setFormSubmitting] = useState(false);
-  const [formSuccess, setFormSuccess] = useState(false);
-  const [formError, setFormError] = useState<string | null>(null);
 
   // Partner portal dashboard state
   const [portalLoading, setPortalLoading] = useState(false);
@@ -99,44 +94,6 @@ export function PartnerClient({ lang, dict }: { lang: Locale; dict: Dictionary }
     }
   }, [user, isPartnerUser, portalLoadAttemptedFor]);
 
-  const handleApplicationSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setFormSubmitting(true);
-    setFormError(null);
-
-    const fd = new FormData(e.currentTarget);
-    const payload = {
-      name: String(fd.get("name") || ""),
-      email: String(fd.get("email") || ""),
-      phone: String(fd.get("phone") || ""),
-      businessName: String(fd.get("businessName") || ""),
-      businessType: String(fd.get("businessType") || ""),
-      website: String(fd.get("website") || ""),
-      description: String(fd.get("description") || ""),
-      bankName: String(fd.get("bankName") || ""),
-      iban: String(fd.get("iban") || ""),
-      bicSwift: String(fd.get("bicSwift") || ""),
-    };
-
-    try {
-      const res = await fetch("/api/partner/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        setFormError(localizeError(data.error || "Could not submit application.", lang));
-      } else {
-        setFormSuccess(true);
-      }
-    } catch {
-      setFormError(tx("Network error. Please try again.", "Netzwerkfehler. Bitte versuchen Sie es erneut."));
-    } finally {
-      setFormSubmitting(false);
-    }
-  };
-
   const copyReferralLink = (code: string) => {
     const origin = typeof window !== "undefined" ? window.location.origin : "";
     const refUrl = `${origin}/${lang}/shop?ref=${encodeURIComponent(code)}`;
@@ -154,6 +111,14 @@ export function PartnerClient({ lang, dict }: { lang: Locale; dict: Dictionary }
   // Determine if the user is a qualified affiliate with loaded portal data
   const showAffiliateDashboard = Boolean(portalData && portalData.affiliate);
 
+  // Visitors and customers get the public landing page; partners get the dashboard.
+  if (!showAffiliateDashboard && isPartnerUser && portalLoading) {
+    return <div className="mx-auto max-w-6xl px-4 py-24 text-center text-sm text-ink/60">…</div>;
+  }
+  if (!showAffiliateDashboard) {
+    return <PartnerLanding lang={lang} dict={dict} />;
+  }
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
       {/* Header */}
@@ -161,18 +126,14 @@ export function PartnerClient({ lang, dict }: { lang: Locale; dict: Dictionary }
         <p className="text-sm uppercase tracking-[0.2em] text-teal-dark font-semibold">
           {dict.partner.eyebrow}
         </p>
-        <h1 className="mt-3 font-serif text-4xl text-ink sm:text-5xl">
-          {showAffiliateDashboard ? tx("Partner Dashboard", "Partner-Dashboard") : dict.partner.title}
-        </h1>
+        <h1 className="mt-3 font-serif text-4xl text-ink sm:text-5xl">{tx("Partner Dashboard", "Partner-Dashboard")}</h1>
         <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-ink/70 sm:text-lg">
-          {showAffiliateDashboard
-            ? tx("Track your referral links, active promo coupons, commission balance, and connected payout transfers.", "Verfolgen Sie Ihre Empfehlungslinks, aktiven Gutscheine, Ihr Provisionsguthaben und verbundene Auszahlungen.")
-            : dict.partner.intro}
+          {tx("Track your referral links, active promo coupons, commission balance, and connected payout transfers.", "Verfolgen Sie Ihre Empfehlungslinks, aktiven Gutscheine, Ihr Provisionsguthaben und verbundene Auszahlungen.")}
         </p>
       </div>
 
       {/* CASE 1: USER IS AN AFFILIATE (OR DUAL CUSTOMER + AFFILIATE) -> SHOW COMPREHENSIVE DASHBOARD */}
-      {showAffiliateDashboard ? (
+      {showAffiliateDashboard && (
         <div className="mt-12 space-y-8 animate-fade-in">
           {/* 1. Affiliate Profile & Account Details Header Banner */}
           <div className="rounded-3xl border border-teal/20 bg-gradient-to-br from-teal/5 to-white p-6 shadow-sm sm:p-8">
@@ -594,218 +555,6 @@ export function PartnerClient({ lang, dict }: { lang: Locale; dict: Dictionary }
             )}
           </div>
         </div>
-      ) : (
-        /* CASE 2: REGULAR VISITOR OR CUSTOMER ONLY -> SHOW VALUE PROPOSITION & CREATE ACCOUNT / APPLICATION FORM */
-        <>
-          {/* Tabs for Prospective Partners */}
-          <div className="mt-10 flex justify-center">
-            <div className="inline-flex rounded-full border border-mauve/20 bg-sand/40 p-1.5 shadow-sm">
-              <button
-                onClick={() => setActiveTab("overview")}
-                className={`rounded-full px-6 py-2 text-sm font-medium transition ${
-                  activeTab === "overview"
-                    ? "bg-mauve text-white shadow"
-                    : "text-ink/70 hover:text-ink"
-                }`}
-              >
-                {dict.partner.tabs?.overview || tx("Overview & Values", "Überblick & Vorteile")}
-              </button>
-              <button
-                onClick={() => setActiveTab("apply")}
-                className={`rounded-full px-6 py-2 text-sm font-medium transition ${
-                  activeTab === "apply"
-                    ? "bg-mauve text-white shadow"
-                    : "text-ink/70 hover:text-ink"
-                }`}
-              >
-                {dict.partner.tabs?.apply || tx("Create Partner Account", "Partnerkonto erstellen")}
-              </button>
-            </div>
-          </div>
-
-          {/* TAB 1: OVERVIEW */}
-          {activeTab === "overview" && (
-            <div className="mt-12 space-y-12 animate-fade-in">
-              <div className="grid gap-6 sm:grid-cols-3">
-                <div className="rounded-3xl border border-mauve/10 bg-white/70 p-6 shadow-sm">
-                  <div className="text-2xl font-serif text-teal-dark">01</div>
-                  <h3 className="mt-2 font-medium text-ink">{dict.partner.card1Title}</h3>
-                  <p className="mt-2 text-sm text-ink/70">{dict.partner.card1Copy}</p>
-                </div>
-                <div className="rounded-3xl border border-mauve/10 bg-white/70 p-6 shadow-sm">
-                  <div className="text-2xl font-serif text-teal-dark">02</div>
-                  <h3 className="mt-2 font-medium text-ink">{dict.partner.card2Title}</h3>
-                  <p className="mt-2 text-sm text-ink/70">{dict.partner.card2Copy}</p>
-                </div>
-                <div className="rounded-3xl border border-mauve/10 bg-white/70 p-6 shadow-sm">
-                  <div className="text-2xl font-serif text-teal-dark">03</div>
-                  <h3 className="mt-2 font-medium text-ink">
-                    {dict.partner.card3Title || tx("Dedicated portal", "Eigenes Portal")}
-                  </h3>
-                  <p className="mt-2 text-sm text-ink/70">
-                    {dict.partner.card3Copy ||
-                      tx("Track clicks, referred orders, commission payouts, and in-app alerts.", "Verfolgen Sie Klicks, vermittelte Bestellungen, Provisionsauszahlungen und Benachrichtigungen.")}
-                  </p>
-                </div>
-              </div>
-
-              <div className="rounded-3xl border border-mauve/10 bg-gradient-to-br from-sand/50 to-sand/20 p-8 text-center sm:p-12">
-                <h2 className="font-serif text-2xl text-ink">{dict.partner.readyTitle}</h2>
-                <p className="mx-auto mt-3 max-w-xl text-sm text-ink/70">
-                  {dict.partner.readyCopy}
-                </p>
-                <div className="mt-6 flex flex-wrap justify-center items-center gap-4">
-                  <button
-                    onClick={() => setActiveTab("apply")}
-                    className="rounded-full bg-mauve px-8 py-3 text-sm font-medium text-white shadow transition hover:bg-mauve-dark"
-                  >
-                    {dict.partner.cta}
-                  </button>
-                  <Link
-                    href={`/${lang}/login`}
-                    className="text-sm font-medium text-mauve-dark underline underline-offset-4"
-                  >
-                    {dict.partner.alreadyPartnerLogin}
-                  </Link>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* TAB 2: APPLICATION / CREATE ACCOUNT FORM */}
-          {activeTab === "apply" && (
-            <div className="mx-auto mt-12 max-w-2xl rounded-3xl border border-mauve/10 bg-white/80 p-8 shadow-sm sm:p-10 animate-fade-in">
-              {formSuccess ? (
-                <div className="py-8 text-center flex flex-col items-center">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-teal/20 text-teal-dark">
-                    <Check className="size-6" />
-                  </div>
-                  <h3 className="mt-4 font-serif text-2xl text-ink">
-                    {dict.partner.form?.successTitle || tx("Application Received!", "Bewerbung eingegangen!")}
-                  </h3>
-                  <p className="mx-auto mt-2 max-w-md text-sm text-ink/70">
-                    {dict.partner.form?.successCopy ||
-                      tx("Thank you for applying. Our partner team will review your application and activate your custom coupon code within 24–48 hours.", "Vielen Dank für Ihre Bewerbung. Unser Partnerteam prüft Ihre Angaben und aktiviert Ihren persönlichen Gutscheincode innerhalb von 24–48 Stunden.")}
-                  </p>
-                  <Link
-                    href={`/${lang}/login`}
-                    className="mt-6 inline-block rounded-full bg-mauve px-6 py-2.5 text-sm text-white hover:bg-mauve-dark"
-                  >
-                    {dict.partner.form?.successLoginLink || "Log In to Your Account"}
-                  </Link>
-                </div>
-              ) : (
-                <form onSubmit={handleApplicationSubmit} className="space-y-6">
-                  <div>
-                    <h2 className="font-serif text-2xl text-ink">
-                      {dict.partner.form?.title || tx("Partner Application", "Partner-Bewerbung")}
-                    </h2>
-                    <p className="mt-1 text-sm text-ink/60">
-                      {dict.partner.form?.subtitle || tx("Join our verified health and wellness partner network.", "Werden Sie Teil unseres verifizierten Gesundheits- und Wellness-Partnernetzwerks.")}
-                    </p>
-                  </div>
-
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <div>
-                      <label className="text-xs font-medium text-ink/70">
-                        {dict.partner.form?.name || tx("Full Name", "Vollständiger Name")} *
-                      </label>
-                      <input
-                        required
-                        name="name"
-                        defaultValue={user ? `${user.firstName} ${user.lastName}` : ""}
-                        className="input-field mt-1"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-xs font-medium text-ink/70">
-                        {dict.partner.form?.email || tx("Email Address", "E-Mail-Adresse")} *
-                      </label>
-                      <input
-                        required
-                        type="email"
-                        name="email"
-                        defaultValue={user?.email || ""}
-                        className="input-field mt-1"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-xs font-medium text-ink/70">
-                        {dict.partner.form?.phone || tx("Phone Number", "Telefonnummer")}
-                      </label>
-                      <input name="phone" placeholder="+49 ..." className="input-field mt-1" />
-                    </div>
-                    <div>
-                      <label className="text-xs font-medium text-ink/70">
-                        {dict.partner.form?.businessName || tx("Practice / Business Name", "Praxis- / Unternehmensname")}
-                      </label>
-                      <input
-                        name="businessName"
-                        placeholder={tx("e.g. Praxis für Physiotherapie", "z. B. Praxis für Physiotherapie")}
-                        className="input-field mt-1"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-xs font-medium text-ink/70">
-                        {dict.partner.form?.businessType || tx("Field of Practice", "Fachbereich")}
-                      </label>
-                      <input
-                        name="businessType"
-                        placeholder={tx("e.g. Physiotherapy, Health Coach", "z. B. Physiotherapie, Gesundheitscoach")}
-                        className="input-field mt-1"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-xs font-medium text-ink/70">
-                        {dict.partner.form?.website || tx("Website / Social Profile", "Website / Social-Media-Profil")}
-                      </label>
-                      <input name="website" placeholder="https://..." className="input-field mt-1" />
-                    </div>
-                  </div>
-
-                  <div className="border-t border-mauve/10 pt-4">
-                    <h4 className="text-xs font-semibold uppercase tracking-wider text-teal-dark">
-                      {dict.partner.form?.bankDetailsTitle ||
-                        tx("Payout & Banking Details (Optional at registration)", "Auszahlungs- & Bankdaten (bei Registrierung optional)")}
-                    </h4>
-                    <div className="mt-3 grid gap-4 sm:grid-cols-3">
-                      <div>
-                        <label className="text-xs font-medium text-ink/70">
-                          {dict.partner.form?.bankName || tx("Bank Name", "Name der Bank")}
-                        </label>
-                        <input name="bankName" placeholder="Deutsche Bank" className="input-field mt-1" />
-                      </div>
-                      <div>
-                        <label className="text-xs font-medium text-ink/70">
-                          {dict.partner.form?.iban || "IBAN"}
-                        </label>
-                        <input name="iban" placeholder="DE89..." className="input-field mt-1" />
-                      </div>
-                      <div>
-                        <label className="text-xs font-medium text-ink/70">
-                          {dict.partner.form?.bicSwift || "BIC / SWIFT"}
-                        </label>
-                        <input name="bicSwift" placeholder="DEUTDED..." className="input-field mt-1" />
-                      </div>
-                    </div>
-                  </div>
-
-                  {formError && <p className="text-sm text-red-600">{formError}</p>}
-
-                  <button
-                    type="submit"
-                    disabled={formSubmitting}
-                    className="w-full rounded-full bg-mauve py-3.5 text-sm font-medium text-white shadow hover:bg-mauve-dark disabled:opacity-60 transition"
-                  >
-                    {formSubmitting
-                      ? dict.partner.form?.submitting || tx("Submitting…", "Wird übermittelt…")
-                      : dict.partner.form?.submit || tx("Submit Application", "Bewerbung absenden")}
-                  </button>
-                </form>
-              )}
-            </div>
-          )}
-        </>
       )}
     </div>
   );
