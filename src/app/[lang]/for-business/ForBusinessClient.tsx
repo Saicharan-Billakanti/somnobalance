@@ -6,7 +6,8 @@ import Link from "next/link";
 import { useAuth } from "@/components/AuthProvider";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/getDictionary";
-import { MessageCircle, Package, Building2, PartyPopper, Pencil, FileText, Truck, Sparkles } from "lucide-react";
+import { Package, Pencil, FileText, Truck, Sparkles } from "lucide-react";
+import { BusinessLanding } from "./BusinessLanding";
 
 export function ForBusinessClient({
   lang,
@@ -21,23 +22,6 @@ export function ForBusinessClient({
   const tx = (en: string, de: string) => (lang === "de" ? de : en);
   const [tab, setTab] = useState<"apply" | "portal">(initialApp ? "portal" : "apply");
   const [app, setApp] = useState<any>(initialApp);
-
-  // Application form state
-  const [companyName, setCompanyName] = useState("");
-  const [contactName, setContactName] = useState(
-    user ? `${user.firstName || ""} ${user.lastName || ""}`.trim() : ""
-  );
-  const [email, setEmail] = useState(user?.email || "");
-  const [phone, setPhone] = useState("");
-  const [businessType, setBusinessType] = useState("Boutique Hotel / Luxury Resort");
-  const [vatId, setVatId] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [estimatedVolume, setEstimatedVolume] = useState("25-50 units / month");
-  const [notes, setNotes] = useState("");
-  const [submitting, setSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   // Portal & Edit Mode State
   const [isEditingDetails, setIsEditingDetails] = useState(false);
@@ -148,56 +132,6 @@ export function ForBusinessClient({
       scrollToBottom();
     }
   }, [app?.messages, tab]);
-
-  // Handle Form Submission
-  const handleSubmitApplication = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitting(true);
-    setSubmitError(null);
-
-    if (!user) {
-      setSubmitError(localizeError("Please log in or sign up before sending a business request so we can keep track of it.", lang));
-      setSubmitting(false);
-      return;
-    }
-
-    try {
-      const res = await fetch("/api/business/application", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          companyName,
-          contactName,
-          email,
-          phone,
-          businessType,
-          vatId,
-          address,
-          city,
-          estimatedVolume,
-          notes,
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        setSubmitError(localizeError(data.error || "Failed to submit application", lang));
-        return;
-      }
-      setApp(data.application);
-      if (data.application?.id) {
-        localStorage.setItem("somnobalance_b2b_app_id", data.application.id);
-      }
-      if (data.application?.email) {
-        localStorage.setItem("somnobalance_b2b_email", data.application.email);
-      }
-      setSubmitSuccess(true);
-      setTab("portal");
-    } catch {
-      setSubmitError(tx("Network error. Please try again.", "Netzwerkfehler. Bitte versuchen Sie es erneut."));
-    } finally {
-      setSubmitting(false);
-    }
-  };
 
   // Handle Update Facility Details from Portal
   const handleUpdateDetails = async (e: React.FormEvent) => {
@@ -329,238 +263,58 @@ export function ForBusinessClient({
     }
   };
 
+  const tabBar = app && (
+    <div className="flex justify-center">
+      <div className="inline-flex flex-wrap items-center justify-center gap-1.5 rounded-full bg-sand/80 p-1.5 text-sm font-medium shadow-inner">
+        <button
+          onClick={() => setTab("apply")}
+          className={`rounded-full px-5 py-2 transition ${
+            tab === "apply" ? "bg-white text-ink shadow-sm font-semibold" : "text-ink/60 hover:text-ink"
+          }`}
+        >
+          {dict.forBusiness.portal.tabEnquiry}
+        </button>
+        <button
+          onClick={() => setTab("portal")}
+          className={`flex items-center gap-2 rounded-full px-5 py-2 transition ${
+            tab === "portal"
+              ? "bg-teal text-white shadow-sm font-semibold"
+              : "bg-teal/10 text-teal-dark font-semibold hover:bg-teal/20"
+          }`}
+        >
+          <span className="h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
+          {lang === "de" ? "Mein B2B-Portal & Live-Desk" : "My B2B Portal & Live Desk"}
+          {app.status === "approved" && (
+            <span className="rounded-full bg-white/20 px-2 py-0.5 text-[10px] text-white">
+              ✓ {tx("Active", "Aktiv")}
+            </span>
+          )}
+        </button>
+      </div>
+    </div>
+  );
+
+  // Public landing page: first-time visitors (and anyone on the enquiry tab)
+  // see the B2B positioning + short enquiry form, with no portal/contract step.
+  if (tab === "apply" || !app) {
+    return (
+      <div>
+        {tabBar && <div className="px-4 pt-8 sm:px-6">{tabBar}</div>}
+        <BusinessLanding lang={lang} dict={dict} />
+      </div>
+    );
+  }
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-      {/* Dynamic Header */}
       <div className="text-center">
-        <div className="inline-flex items-center gap-2 rounded-full bg-teal/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-teal-dark">
-          <span className="h-2 w-2 rounded-full bg-teal animate-pulse" />
-          {dict.forBusiness?.eyebrow || "SomnoBalance B2B & Hospitality Solutions"}
-        </div>
-        <h1 className="mt-4 font-serif text-3xl text-ink sm:text-5xl">
-          {dict.forBusiness?.title || "Elevate Rest for Your Guests & Practice"}
-        </h1>
-        <p className="mx-auto mt-4 max-w-2xl text-base text-ink/70 sm:text-lg">
-          {dict.forBusiness?.intro ||
-            "Equip premium hotel suites, wellness retreats, clinics, and private practices with ergonomic rest essentials, tiered wholesale pricing, and dedicated commercial support."}
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal-dark">
+          {dict.forBusiness.portal.eyebrow}
         </p>
+        <h1 className="mt-4 font-serif text-3xl text-ink sm:text-5xl">{dict.forBusiness.portal.title}</h1>
       </div>
 
-      {/* Tab switch: only shown once a business has an application on file,
-          to move between the Apply form and their own Portal/Live Desk —
-          the Overview/Wholesale Simulator tab was removed per the client's
-          "only keep apply for business section" instruction. */}
-      {app && (
-        <div className="mt-10 flex justify-center">
-          <div className="inline-flex flex-wrap items-center justify-center gap-1.5 rounded-full bg-sand/80 p-1.5 text-sm font-medium shadow-inner">
-            <button
-              onClick={() => setTab("apply")}
-              className={`rounded-full px-5 py-2 transition ${
-                tab === "apply"
-                  ? "bg-white text-ink shadow-sm font-semibold"
-                  : "text-ink/60 hover:text-ink"
-              }`}
-            >
-              {lang === "de" ? "B2B-Konto beantragen" : "Apply for Business Terms"}
-            </button>
-            <button
-              onClick={() => setTab("portal")}
-              className={`flex items-center gap-2 rounded-full px-5 py-2 transition ${
-                tab === "portal"
-                  ? "bg-teal text-white shadow-sm font-semibold"
-                  : "bg-teal/10 text-teal-dark font-semibold hover:bg-teal/20"
-              }`}
-            >
-              <span className="h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
-              {lang === "de" ? "Mein B2B-Portal & Live-Desk" : "My B2B Portal & Live Desk"}
-              {app.status === "approved" && (
-                <span className="rounded-full bg-white/20 px-2 py-0.5 text-[10px] text-white">
-                  ✓ {tx("Active", "Aktiv")}
-                </span>
-              )}
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* ========================================================================= */}
-      {/* TAB 2: APPLICATION FORM */}
-      {/* ========================================================================= */}
-      {tab === "apply" && (
-        <div className="mx-auto mt-10 max-w-2xl rounded-3xl border border-mauve/15 bg-white p-8 shadow-sm sm:p-10">
-          <div className="flex items-center justify-between border-b border-mauve/10 pb-4">
-            <div>
-              <h2 className="font-serif text-2xl text-ink">
-                {lang === "de" ? "Gewerbliche SomnoBalance-Vereinbarung" : "Business Application & Wholesale Access"}
-              </h2>
-              <p className="mt-1 text-sm text-ink/70">
-                {lang === "de"
-                  ? "Für Hotels, Spas, Kliniken, Praxen und gewerbliche Partner."
-                  : "For boutique hotels, luxury retreats, wellness clinics, physiotherapy practices & retailers."}
-              </p>
-            </div>
-            <Building2 className="size-8 text-ink/40" />
-          </div>
-
-          {submitSuccess && (
-            <div className="mt-6 rounded-2xl bg-teal/15 p-4 text-sm text-teal-dark animate-fade-in flex items-start gap-2">
-              <PartyPopper className="size-5 shrink-0 mt-0.5" />
-              <div>
-                <strong>{tx("Application submitted successfully!", "Antrag erfolgreich übermittelt!")}</strong> {tx("Your request has been queued in our live system and is under review.", "Ihre Anfrage wurde in unserem System erfasst und wird geprüft.")}
-              </div>
-            </div>
-          )}
-
-          {submitError && (
-            <div className="mt-6 rounded-2xl bg-red-50 p-4 text-sm text-red-600">
-              {submitError}
-            </div>
-          )}
-
-          <form onSubmit={handleSubmitApplication} className="mt-8 space-y-5">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div>
-                <label className="text-xs font-medium text-ink/70">{tx("Company / Facility Name *", "Firmen- / Einrichtungsname *")}</label>
-                <input
-                  required
-                  type="text"
-                  value={companyName}
-                  onChange={(e) => setCompanyName(e.target.value)}
-                  placeholder={tx("e.g. Grand Wellness Hotel Tegernsee", "z. B. Grand Wellness Hotel Tegernsee")}
-                  className="input-field mt-1"
-                />
-              </div>
-              <div>
-                <label className="text-xs font-medium text-ink/70">{tx("Contact Person *", "Ansprechpartner:in *")}</label>
-                <input
-                  required
-                  type="text"
-                  value={contactName}
-                  onChange={(e) => setContactName(e.target.value)}
-                  placeholder={tx("First and last name", "Vor- und Nachname")}
-                  className="input-field mt-1"
-                />
-              </div>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div>
-                <label className="text-xs font-medium text-ink/70">{tx("Business Email *", "Geschäftliche E-Mail *")}</label>
-                <input
-                  required
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="concierge@luxuryhotel.com"
-                  className="input-field mt-1"
-                />
-              </div>
-              <div>
-                <label className="text-xs font-medium text-ink/70">{tx("Direct Phone Number", "Direkte Telefonnummer")}</label>
-                <input
-                  type="tel"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder="+49 (0) ..."
-                  className="input-field mt-1"
-                />
-              </div>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div>
-                <label className="text-xs font-medium text-ink/70">{tx("Business Type", "Unternehmensart")}</label>
-                <select
-                  value={businessType}
-                  onChange={(e) => setBusinessType(e.target.value)}
-                  className="input-field mt-1"
-                >
-                  <option value="Boutique Hotel / Luxury Resort">{tx("Boutique Hotel / Luxury Resort", "Boutique-Hotel / Luxus-Resort")}</option>
-                  <option value="Health Clinic / Medical Rehab">{tx("Health Clinic / Medical Rehab", "Gesundheitsklinik / Rehabilitation")}</option>
-                  <option value="Physiotherapy / Private Practice">{tx("Physiotherapy / Private Practice", "Physiotherapie / Privatpraxis")}</option>
-                  <option value="Wellness & Spa Center">{tx("Wellness & Day Spa Center", "Wellness- & Day-Spa-Center")}</option>
-                  <option value="Retailer / Concept Store">{tx("Retailer / Concept Store", "Einzelhändler / Concept Store")}</option>
-                  <option value="Corporate Gifting">{tx("Corporate Gifting / Employee Wellness", "Firmengeschenke / Mitarbeiter-Wellness")}</option>
-                </select>
-              </div>
-              <div>
-                <label className="text-xs font-medium text-ink/70">{tx("EU VAT ID (USt-IdNr.)", "EU-USt-IdNr.")}</label>
-                <input
-                  type="text"
-                  value={vatId}
-                  onChange={(e) => setVatId(e.target.value)}
-                  placeholder={tx("e.g. DE318921445", "z. B. DE318921445")}
-                  className="input-field mt-1"
-                />
-              </div>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div>
-                <label className="text-xs font-medium text-ink/70">{tx("Street Address", "Straße & Hausnummer")}</label>
-                <input
-                  type="text"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                  placeholder={tx("Street and house number", "Straße und Hausnummer")}
-                  className="input-field mt-1"
-                />
-              </div>
-              <div>
-                <label className="text-xs font-medium text-ink/70">{tx("City & Postal Code", "PLZ & Stadt")}</label>
-                <input
-                  type="text"
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                  placeholder={tx("e.g. 80331 Munich, Germany", "z. B. 80331 München, Deutschland")}
-                  className="input-field mt-1"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="text-xs font-medium text-ink/70">
-                {tx("Estimated Monthly Need / Suite Count / Trial Scope", "Geschätzter Monatsbedarf / Anzahl Suiten / Testumfang")}
-              </label>
-              <input
-                type="text"
-                value={estimatedVolume}
-                onChange={(e) => setEstimatedVolume(e.target.value)}
-                placeholder={tx("e.g. 35 luxury suites / restock every 2 months", "z. B. 35 Luxussuiten / Nachbestellung alle 2 Monate")}
-                className="input-field mt-1"
-              />
-            </div>
-
-            <div>
-              <label className="text-xs font-medium text-ink/70">
-                {tx("Inquiry / Specific Product Requirements / Custom Notes", "Anfrage / Produktanforderungen / Anmerkungen")}
-              </label>
-              <textarea
-                rows={3}
-                value={notes}
-                onChange={(e) => setNotes(e.target.value)}
-                placeholder={tx("Let us know about your property, desired sample delivery date, or custom batch requirements...", "Erzählen Sie uns von Ihrem Haus, dem gewünschten Liefertermin für Muster oder besonderen Anforderungen...")}
-                className="input-field mt-1"
-              />
-            </div>
-
-            <button
-              type="submit"
-              disabled={submitting}
-              className="w-full rounded-full bg-mauve py-3.5 text-sm font-semibold text-white shadow-md hover:bg-mauve-dark disabled:opacity-60 transition flex items-center justify-center gap-2"
-            >
-              {submitting ? (
-                <>
-                  <span className="h-4 w-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
-                  {tx("Submitting Application…", "Antrag wird übermittelt…")}
-                </>
-              ) : (
-                tx("Submit Business Application & Open Portal →", "Geschäftsantrag absenden & Portal öffnen →")
-              )}
-            </button>
-          </form>
-        </div>
-      )}
+      <div className="mt-10">{tabBar}</div>
 
       {/* ========================================================================= */}
       {/* TAB 3: DYNAMIC BUSINESS PORTAL & LIVE 2-WAY DESK */}
