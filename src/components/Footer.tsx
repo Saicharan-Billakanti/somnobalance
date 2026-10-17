@@ -25,16 +25,16 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
     { href: `/${lang}/legal/cookies`, label: dict.legalNav.cookies },
   ];
 
-  // Order per the client's spec: Für mich, Unser Ansatz, Regenerationscheck,
-  // Shop, Für mein Unternehmen, Partner werden, Über uns, Kontakt.
+  // Order per the client's spec: Für mich, Das Konzept, Regenerationscheck,
+  // Shop, Für mein Unternehmen, Partner werden, Über Nicole & Alex, Kontakt.
   const explore = [
     { href: `/${lang}/for-me`, label: dict.nav.forMe },
-    { href: `/${lang}/#unser-ansatz`, label: dict.nav.ourApproach },
+    { href: `/${lang}/concept`, label: dict.nav.concept },
     { href: `/${lang}/regenerationscheck`, label: dict.nav.regenerationscheck },
     { href: `/${lang}/shop`, label: dict.nav.shop },
     { href: `/${lang}/for-business`, label: dict.nav.forBusiness },
     { href: `/${lang}/partner`, label: dict.nav.partner },
-    { href: `/${lang}/about`, label: dict.nav.about },
+    { href: `/${lang}/concept#menschen`, label: dict.nav.aboutFounders },
     { href: `/${lang}/contact`, label: dict.nav.contact },
   ];
 
@@ -77,29 +77,60 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
           </div>
         </div>
 
-        <nav aria-label="Explore">
-          <h2 className="font-lovable-sans text-xs font-medium uppercase tracking-[0.15em]">
-            {dict.footer.explore}
-          </h2>
-          <div className="mt-5 flex flex-col gap-2.5 text-[11px] text-lovable-primary-foreground/75">
-            {explore.map((item) => (
-              <Link key={item.href} href={item.href}>
-                {item.label}
-              </Link>
-            ))}
+        {/* Explore + Service & Legal: collapsible on mobile, open columns from md up */}
+        <nav aria-label="Explore" className="md:contents">
+          <details className="group border-b border-lovable-primary-foreground/15 pb-4 md:hidden">
+            <summary className="flex cursor-pointer list-none items-center justify-between font-lovable-sans text-xs font-medium uppercase tracking-[0.15em]">
+              {dict.footer.explore}
+              <span aria-hidden="true" className="transition group-open:rotate-45">+</span>
+            </summary>
+            <div className="mt-5 flex flex-col gap-3 text-xs text-lovable-primary-foreground/75">
+              {explore.map((item) => (
+                <Link key={item.href} href={item.href}>
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </details>
+          <div className="hidden md:block">
+            <h2 className="font-lovable-sans text-xs font-medium uppercase tracking-[0.15em]">
+              {dict.footer.explore}
+            </h2>
+            <div className="mt-5 flex flex-col gap-2.5 text-[11px] text-lovable-primary-foreground/75">
+              {explore.map((item) => (
+                <Link key={item.href} href={item.href}>
+                  {item.label}
+                </Link>
+              ))}
+            </div>
           </div>
         </nav>
 
-        <div>
-          <h2 className="font-lovable-sans text-[10px] font-medium uppercase tracking-[0.15em] text-lovable-primary-foreground/60">
-            {dict.footer.legal}
-          </h2>
-          <div className="mt-4 flex flex-col gap-2 text-[10px] text-lovable-primary-foreground/50">
-            {legal.map((item) => (
-              <Link key={item.href} href={item.href} className="hover:text-lovable-primary-foreground/75">
-                {item.label}
-              </Link>
-            ))}
+        <div className="md:contents">
+          <details className="group border-b border-lovable-primary-foreground/15 pb-4 md:hidden">
+            <summary className="flex cursor-pointer list-none items-center justify-between font-lovable-sans text-xs font-medium uppercase tracking-[0.15em] text-lovable-primary-foreground/80">
+              {dict.footer.legal}
+              <span aria-hidden="true" className="transition group-open:rotate-45">+</span>
+            </summary>
+            <div className="mt-4 flex flex-col gap-3 text-xs text-lovable-primary-foreground/60">
+              {legal.map((item) => (
+                <Link key={item.href} href={item.href}>
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </details>
+          <div className="hidden md:block">
+            <h2 className="font-lovable-sans text-[10px] font-medium uppercase tracking-[0.15em] text-lovable-primary-foreground/60">
+              {dict.footer.legal}
+            </h2>
+            <div className="mt-4 flex flex-col gap-2 text-[10px] text-lovable-primary-foreground/50">
+              {legal.map((item) => (
+                <Link key={item.href} href={item.href} className="hover:text-lovable-primary-foreground/75">
+                  {item.label}
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
 

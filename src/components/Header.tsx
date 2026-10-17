@@ -17,18 +17,21 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   const { user, setUser } = useAuth();
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [accountOpen, setAccountOpen] = useState(false);
 
   const isAffiliate = Boolean(user?.isAffiliate || user?.role === "affiliate");
   const isDualRole = isAffiliate;
   const isAdmin = Boolean(user && user.role === "admin");
   const isBusiness = Boolean(user?.isBusiness && !isAffiliate && user?.role !== "admin");
 
+  // Main navigation per the client's nav mockup: Das Konzept · Für mich ·
+  // Für Unternehmen · Partner werden · Shop. Search, account and cart are icons.
   const nav = [
+    { href: `/${lang}/concept`, label: dict.nav.concept },
+    { href: `/${lang}/for-me`, label: dict.nav.forMe },
+    { href: `/${lang}/for-business`, label: isBusiness ? (lang === "de" ? "Mein B2B-Portal" : "Business Portal") : dict.nav.forBusinessMenu },
+    { href: `/${lang}/partner`, label: dict.nav.partner },
     { href: `/${lang}/shop`, label: dict.nav.shop },
-    { href: `/${lang}/regenerationscheck`, label: dict.nav.regenerationscheck },
-    { href: `/${lang}/#unser-ansatz`, label: dict.nav.ourApproach },
-    { href: `/${lang}/for-business`, label: isBusiness ? (lang === "de" ? "Mein B2B-Portal" : "Business Portal") : dict.nav.forBusiness },
-    { href: `/${lang}/about`, label: dict.nav.about },
   ];
 
   const logout = async () => {
@@ -107,64 +110,69 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
             </Link>
           )}
 
-          {user ? (
-            <div className="hidden items-center gap-3 sm:flex">
-              {isAdmin ? (
-                <Link
-                  href={`/${lang}/admin`}
-                  className="flex flex-col text-right group hover:opacity-80 transition"
-                >
-                  <span className="text-xs font-semibold text-ink group-hover:text-mauve-dark">
-                    {user.firstName || "Admin"}
-                  </span>
-                  <span className="text-[10px] text-teal-dark font-medium underline">
-                    Admin Hub &amp; Staff Roles
-                  </span>
-                </Link>
-              ) : (
-                <Link
-                  href={`/${lang}/account`}
-                  className="flex flex-col text-right group hover:opacity-80 transition"
-                >
-                  <span className="text-xs font-semibold text-ink group-hover:text-mauve-dark">
-                    {dict.nav.greeting.replace("{name}", user.firstName)}
-                  </span>
-                  <span className="text-[10px] text-teal-dark font-medium underline">
-                    My Orders &amp; Profile
-                  </span>
-                </Link>
-              )}
-              <button
-                onClick={logout}
-                className="rounded-full border border-mauve/30 px-3 py-1 text-xs text-mauve-dark hover:bg-sand transition"
+          {/* Account: one icon bundling login / register / account / logout */}
+          <div className="relative hidden sm:block">
+            <button
+              type="button"
+              aria-label={dict.nav.account}
+              aria-expanded={accountOpen}
+              onClick={() => setAccountOpen((v) => !v)}
+              className="flex h-9 w-9 items-center justify-center rounded-full text-ink/70 transition hover:bg-sand hover:text-mauve-dark"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5" />
+              </svg>
+            </button>
+            {accountOpen && (
+              <div
+                className="absolute right-0 top-11 z-50 w-56 rounded-xl border border-mauve/15 bg-white p-2 text-sm shadow-lg"
+                onClick={() => setAccountOpen(false)}
               >
-                {dict.nav.logout}
-              </button>
-            </div>
-          ) : (
-            <div className="hidden items-center gap-2 sm:flex">
-              <Link
-                href={`/${lang}/login`}
-                className="text-sm font-medium text-ink/80 hover:text-mauve-dark transition px-2.5 py-1.5"
-              >
-                {dict.nav.login}
-              </Link>
-              <Link
-                href={`/${lang}/register`}
-                className="rounded-full border border-mauve/30 px-3.5 py-1.5 text-sm font-medium text-mauve-dark hover:bg-sand transition shadow-2xs"
-              >
-                {dict.nav.register}
-              </Link>
-            </div>
-          )}
+                {user ? (
+                  <>
+                    <p className="px-3 py-2 text-xs font-semibold text-ink">
+                      {isAdmin ? user.firstName || "Admin" : dict.nav.greeting.replace("{name}", user.firstName)}
+                    </p>
+                    <Link
+                      href={isAdmin ? `/${lang}/admin` : `/${lang}/account`}
+                      className="block rounded-lg px-3 py-2 text-ink/80 hover:bg-sand"
+                    >
+                      {isAdmin ? "Admin Hub" : tx("My orders & profile", "Meine Bestellungen & Profil")}
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={logout}
+                      className="block w-full rounded-lg px-3 py-2 text-left text-ink/80 hover:bg-sand"
+                    >
+                      {dict.nav.logout}
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <Link href={`/${lang}/login`} className="block rounded-lg px-3 py-2 text-ink/80 hover:bg-sand">
+                      {dict.nav.login}
+                    </Link>
+                    <Link href={`/${lang}/register`} className="block rounded-lg px-3 py-2 text-ink/80 hover:bg-sand">
+                      {dict.nav.register}
+                    </Link>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
 
           <Link
             href={`/${lang}/cart`}
-            className="relative flex items-center gap-1 rounded-full border border-mauve/30 px-3 py-1.5 text-sm text-mauve-dark hover:bg-sand transition"
+            aria-label={dict.nav.cart}
+            className="relative flex h-9 w-9 items-center justify-center rounded-full text-ink/70 transition hover:bg-sand hover:text-mauve-dark"
           >
-            {dict.nav.cart}
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 8h14l-1 12H6L5 8Z" />
+              <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+            </svg>
             {count > 0 && (
-              <span className="ml-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-teal px-1 text-xs text-white">
+              <span className="absolute -right-0.5 -top-0.5 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-mauve px-1 text-[10px] text-white">
                 {count}
               </span>
             )}
@@ -224,18 +232,6 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
               {item.label}
             </Link>
           ))}
-
-          {/* If Customer only, prominent prompt to Become a Partner */}
-          {!isDualRole && !isAdmin && !isBusiness && (
-            <Link
-              href={`/${lang}/partner`}
-              className="mt-1 flex items-center justify-between rounded-lg border border-teal/30 bg-teal/5 px-3 py-2 text-xs font-semibold text-teal-dark"
-              onClick={() => setOpen(false)}
-            >
-              <span>✨ {lang === "de" ? "Partner werden (15% Provision)" : "Become a Partner (15% Commission)"}</span>
-              <span>→</span>
-            </Link>
-          )}
 
           {user ? (
             <div className="mt-3 flex items-center justify-between border-t border-mauve/10 pt-3">
