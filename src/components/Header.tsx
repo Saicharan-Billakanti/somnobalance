@@ -78,7 +78,7 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
           )}
         </div>
 
-        <nav className="hidden gap-7 text-sm font-medium text-ink/80 md:flex">
+        <nav className="hidden gap-7 text-sm font-medium text-ink/80 lg:flex">
           {nav.map((item) => (
             <Link key={item.href} href={item.href} className="hover:text-mauve-dark transition">
               {item.label}
@@ -179,7 +179,7 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
           </Link>
 
           <button
-            className="rounded-lg p-1.5 text-ink hover:bg-sand md:hidden"
+            className="rounded-lg p-1.5 text-ink hover:bg-sand lg:hidden"
             aria-label={tx("Toggle menu", "Menü umschalten")}
             onClick={() => setOpen((v) => !v)}
           >
@@ -190,7 +190,7 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
 
       {/* Mobile Drawer */}
       {open && (
-        <nav className="flex flex-col gap-1 border-t border-mauve/10 bg-offwhite px-4 py-4 md:hidden">
+        <nav className="flex flex-col gap-1 border-t border-mauve/10 bg-offwhite px-4 py-4 lg:hidden">
           {/* Dual Role Switcher in Mobile */}
           {isDualRole && (
             <div className="mb-2 grid grid-cols-2 gap-2 rounded-xl bg-sand p-1.5 text-center text-xs font-medium">

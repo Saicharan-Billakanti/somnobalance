@@ -250,7 +250,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               <Link
                 key={card.href}
                 href={card.href}
-                className="group relative flex aspect-[4/3] flex-col justify-end overflow-hidden rounded-sm"
+                className="group relative flex min-h-[340px] flex-col justify-end overflow-hidden rounded-sm sm:min-h-[360px]"
               >
                 <Image
                   src={card.image}
