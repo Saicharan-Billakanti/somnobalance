@@ -1,9 +1,12 @@
 // Homepage Section 3 — "Der SomnoBalance Regenerationskreislauf"
-const PHASE_GRADIENTS = [
-  "linear-gradient(135deg, #eaddd7 0%, #d8c8c2 100%)",
-  "linear-gradient(135deg, #d3bab7 0%, #c4a19d 100%)",
-  "linear-gradient(135deg, #6c596b 0%, #4b3e4d 100%)",
-  "linear-gradient(135deg, #2c2535 0%, #17131d 100%)",
+// Four flat colour fields (no imagery) from the existing circuit tokens:
+// light day tone -> rose -> muted violet -> dark night. The violet is darkened
+// slightly toward the night tone so white text keeps a readable contrast.
+const PHASE_COLORS = [
+  "var(--color-circuit-regulate)",
+  "var(--color-circuit-letgo)",
+  "color-mix(in srgb, var(--color-circuit-prepare) 70%, var(--color-circuit-regenerate))",
+  "var(--color-circuit-regenerate)",
 ];
 
 const PHASE_TEXT_ON_DARK = [false, false, true, true];
@@ -11,7 +14,6 @@ const PHASE_TEXT_ON_DARK = [false, false, true, true];
 type Phase = {
   number: string;
   name: string;
-  time: string;
   headline: string;
   body: string;
   orientation: string;
@@ -23,14 +25,12 @@ export function RegenerationCircuit({
   intro,
   phases,
   closing,
-  closingSub,
 }: {
   eyebrow: string;
   headline: string;
   intro: string;
   phases: Phase[];
   closing: string;
-  closingSub: string;
 }) {
   return (
     <section className="bg-sand">
@@ -55,7 +55,7 @@ export function RegenerationCircuit({
             <div
               key={phase.name}
               className="flex min-h-[460px] flex-col p-8 lg:min-h-[560px] lg:p-12"
-              style={{ background: PHASE_GRADIENTS[i] }}
+              style={{ background: PHASE_COLORS[i] }}
             >
               <span
                 className="font-serif text-lg lg:text-xl"
@@ -96,7 +96,8 @@ export function RegenerationCircuit({
       </div>
 
       <div
-        className="flex min-h-[160px] items-center justify-center bg-gradient-to-r from-[#594d65] to-[#3a3153] px-4 text-center sm:px-6"
+        className="flex min-h-[160px] items-center justify-center px-4 text-center sm:px-6"
+        style={{ background: "var(--color-circuit-regenerate)" }}
       >
         <div>
           <p className="font-serif text-2xl italic leading-snug text-white md:text-3xl lg:text-4xl">{closing}</p>
