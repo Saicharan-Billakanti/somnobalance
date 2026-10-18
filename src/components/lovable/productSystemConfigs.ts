@@ -227,54 +227,60 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
     brandCloseNote: ["Rest.", "Rebalance.", "Repeat."],
     translations: {
       en: {
-        howToUseSteps: [
-          "Prepare",
-          "Brew",
-          "Give it time",
-          "Enjoy mindfully"
-        ],
-        howToUseStepDescriptions: [
-          "Use 1 heaped teaspoon of tea per 200 ml of water.",
-          "Pour over with boiling water.",
-          "Let steep for 6–8 minutes.",
-          "Integrate the cup of tea as a mindful moment or transition into your own daily rhythm."
-        ],
+        discoverMore: {
+          "eyebrow": "DISCOVER MORE OF SOMNOBALANCE",
+          "headline": "More companions for your rhythm of regeneration.",
+          "cta": "Discover all products →",
+          "items": [
+            {
+              "slug": "somnobalance-regeneration-cards",
+              "blurb": "Regeneration points and rituals as prompts for everyday life."
+            },
+            {
+              "slug": "somnobalance-roll-on",
+              "blurb": "A mindful fragrance cue for on the go and at home."
+            },
+            {
+              "slug": "somnobalance-room-spray",
+              "blurb": "A fragrance cue for your space and for mindful transitions."
+            }
+          ]
+        },
         cycleSection: {
-          "eyebrow": "IN THE SOMNOBALANCE CYCLE",
-          "headline": "A ritual for conscious transitions.",
+          "eyebrow": "WITHIN THE SOMNOBALANCE CYCLE",
+          "headline": "A ritual for mindful transitions.",
           "activePhases": [
             false,
             true,
             true,
             false
           ],
-          "body": "The SomnoBalance Regeneration Tea can accompany the phases of letting go and preparing in particular. A mindfully prepared cup of tea creates a moment in which the active day is interrupted and the transition into quieter phases can be shaped consciously.",
-          "note": "The phases give orientation. When you integrate the tea into your personal daily rhythm remains individual."
+          "body": "SomnoBalance Regeneration Tea can accompany the phases of Letting Go and Preparing. A thoughtfully prepared cup of tea can create a moment to pause the active day and approach calmer phases mindfully.",
+          "note": "The phases provide guidance. When you integrate the tea into your personal daily rhythm remains an individual choice."
         },
-        discoverMore: {
-          "eyebrow": "KEEP DISCOVERING SOMNOBALANCE",
-          "headline": "More companions for your regeneration rhythm.",
-          "cta": "Discover all products →",
-          "items": [
-            {
-              "slug": "somnobalance-regeneration-cards",
-              "blurb": "Regeneration points and rituals as impulses for your everyday life."
-            },
-            {
-              "slug": "somnobalance-roll-on",
-              "blurb": "A mindful scent impulse for on the go and at home."
-            },
-            {
-              "slug": "somnobalance-room-spray",
-              "blurb": "A scent impulse for your room and conscious transitions."
-            }
-          ]
-        },
+        howToUseStepDescriptions: [
+          "Use 1 heaped teaspoon of tea per 200 ml of water.",
+          "Pour boiling water over the tea.",
+          "Leave to steep for 6–8 minutes.",
+          "Make the cup of tea a mindful moment or a transition within your own daily rhythm."
+        ],
+        howToUseSteps: [
+          "Prepare",
+          "Pour",
+          "Allow to steep",
+          "Enjoy mindfully"
+        ],
+        howToUseNote: [
+          "One cup.",
+          "One mindful moment."
+        ],
+        howToUseTitle: [
+          "Sometimes letting go",
+          "begins with something very simple."
+        ],
         systemRoleLabel: "LET GO · PREPARE",
         galleryTagline: ["Take time.", "Arrive."],
         howToUseEyebrow: "Preparation",
-        howToUseTitle: ["Sometimes letting go", "starts with something simple."],
-        howToUseNote: ["A cup.", "A mindful moment."],
         nextCompanionLabel: "Your companion for quieter evening moments.",
       },
     },
@@ -350,54 +356,18 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
     brandCloseNote: ["Rest.", "Rebalance.", "Repeat."],
     translations: {
       en: {
-        howToUseSteps: [
-          "Choose a card",
-          "Apply the impulse",
-          "Give it time",
-          "Return to everyday life"
-        ],
-        howToUseStepDescriptions: [
-          "Choose a single regeneration point or a ritual that fits your moment.",
-          "Follow the application or sequence on the chosen card.",
-          "A regeneration point is held gently for about 2–3 minutes.",
-          "Take the moment with you consciously and continue your day at your own rhythm."
-        ],
-        explainerSections: [
-          {
-            "eyebrow": "TWO TYPES OF CARDS",
-            "headline": "Choose a point – or follow a ritual.",
-            "body": "13 REGENERATION-POINT CARDS\nEach shows one selected regeneration point with its position or orientation and application.\n\n10 REGENERATION-RITUAL CARDS\nThey combine several impulses into a prepared sequence for different situations and moments.\n\nYou can either choose a single regeneration point or follow a prepared regeneration ritual. The 2–3 minutes refer to a single regeneration point only."
-          },
-          {
-            "eyebrow": "NOT A RIGID SYSTEM",
-            "headline": "Not every card. Not every day. Just what suits you right now.",
-            "body": "The regeneration cards give orientation and concrete impulses. You decide for yourself which card you integrate into your everyday life and when."
-          }
-        ],
-        cycleSection: {
-          "eyebrow": "IN THE SOMNOBALANCE CYCLE",
-          "headline": "Impulses for different moments of your day.",
-          "activePhases": [
-            true,
-            true,
-            true,
-            false
-          ],
-          "body": "The SomnoBalance Regeneration Cards can accompany you through different phases of your day. Choose a fitting impulse in the middle of the active day, while letting go, or as part of your personal preparation for the evening.",
-          "note": "The phases give orientation. Which impulse you choose when remains individual."
-        },
         discoverMore: {
-          "eyebrow": "KEEP DISCOVERING SOMNOBALANCE",
-          "headline": "More companions for your regeneration rhythm.",
+          "eyebrow": "DISCOVER MORE OF SOMNOBALANCE",
+          "headline": "More companions for your rhythm of regeneration.",
           "cta": "Discover all products →",
           "items": [
             {
               "slug": "somnobalance-starter-set",
-              "blurb": "Your entry into the SomnoBalance world."
+              "blurb": "Your introduction to the world of SomnoBalance."
             },
             {
               "slug": "somnobalance-roll-on",
-              "blurb": "A mindful scent impulse for on the go and at home."
+              "blurb": "A mindful fragrance cue for on the go and at home."
             },
             {
               "slug": "somnobalance-regeneration-tea",
@@ -405,11 +375,53 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
             }
           ]
         },
+        cycleSection: {
+          "eyebrow": "WITHIN THE SOMNOBALANCE CYCLE",
+          "headline": "Prompts for different moments throughout your day.",
+          "activePhases": [
+            true,
+            true,
+            true,
+            false
+          ],
+          "body": "The SomnoBalance Regeneration Cards can accompany you through different phases of the day. Choose a suitable prompt during an active day, while letting go, or as part of your personal preparation for the evening.",
+          "note": "The phases provide guidance. The choice of which prompt to use and when remains personal."
+        },
+        explainerSections: [
+          {
+            "eyebrow": "TWO TYPES OF CARDS",
+            "headline": "Choose a point – or follow a ritual.",
+            "body": "13 REGENERATION-POINT CARDS\nEach shows one selected regeneration point with its position or orientation and instructions.\n\n10 REGENERATION-RITUAL CARDS\nThey combine several prompts into a prepared sequence for different situations and moments.\n\nYou can either choose an individual regeneration point or follow a prepared regeneration ritual. The 2–3 minutes apply only to one individual regeneration point."
+          },
+          {
+            "eyebrow": "NO FIXED SYSTEM",
+            "headline": "Not every card. Not every day. Just what suits you right now.",
+            "body": "The Regeneration Cards offer guidance and concrete prompts. You decide which card you bring into your everyday life, and when."
+          }
+        ],
+        howToUseStepDescriptions: [
+          "Choose an individual regeneration point or a ritual that suits your moment.",
+          "Follow the instructions or sequence on the selected card.",
+          "Gently hold an individual regeneration point for approximately 2–3 minutes.",
+          "Carry the moment with you consciously and continue your day at your own pace."
+        ],
+        howToUseSteps: [
+          "Choose a card",
+          "Apply the prompt",
+          "Take your time",
+          "Return to everyday life"
+        ],
+        howToUseNote: [
+          "A prompt that",
+          "suits your moment."
+        ],
+        howToUseTitle: [
+          "Choose a card.",
+          "Apply the prompt."
+        ],
         systemRoleLabel: "REGULATE · LET GO · PREPARE",
         galleryTagline: ["Which companion", "do you need right now?"],
         howToUseEyebrow: "Application",
-        howToUseTitle: ["Choose a card.", "Apply impulse."],
-        howToUseNote: ["An impulse for", "your moment."],
         nextCompanionLabel: "Regulate & Let Go — for every moment in daily life.",
       },
     },
@@ -529,67 +541,126 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
         { slug: "somnobalance-mattress", blurb: "Individuell anpassbarer Liegekomfort für eine bewusst gestaltete Schlafumgebung." },
       ],
     },
+    statement: "Hier beginne ich, SomnoBalance in meinen eigenen Alltag zu integrieren.",
     brandCloseTagline: ["Die Phasen sind fest —", "die Anwendung ist individuell."],
     brandCloseNote: ["Rest.", "Rebalance.", "Repeat."],
     translations: {
       en: {
-        systemRoleLabel: "YOUR ENTRY INTO SOMNOBALANCE",
+        statement: "This is where I begin integrating SomnoBalance into my everyday life.",
+        discoverMore: {
+          "eyebrow": "DISCOVER MORE OF SOMNOBALANCE",
+          "headline": "What can complement your rhythm of regeneration.",
+          "body": "SomnoBalance accompanies regeneration throughout the day and into the night. Discover more products to support mindful moments of regeneration and a sleep environment designed to support rest.",
+          "cta": "Explore all products →",
+          "items": [
+            {
+              "slug": "somnobalance-neck-pillow",
+              "blurb": "Adjustable support for a thoughtfully designed sleep environment."
+            },
+            {
+              "slug": "somnobalance-room-spray",
+              "blurb": "A fragrance cue for your space and for mindful transitions."
+            },
+            {
+              "slug": "somnobalance-mattress",
+              "blurb": "Customisable lying comfort for a thoughtfully designed sleep environment."
+            }
+          ]
+        },
+        cycleSection: {
+          "eyebrow": "IN THE SOMNOBALANCE CYCLE",
+          "activePhases": [
+            true,
+            true,
+            true,
+            false
+          ],
+          "body": "The Starter Set particularly supports you through the phases of regulating, letting go, and preparing. The phases provide guidance; when you use each prompt remains a personal choice.",
+          "note": "The phases are fixed – the way they are used is individual."
+        },
+        timeline: {
+          "eyebrow": "YOUR REGENERATION JOURNEY",
+          "headline": "21 days. Your own rhythm.",
+          "intro": "The 21-day guide takes you through the SomnoBalance concept step by step. The aim is not to do as much as possible every day. Small, consciously chosen prompts help you discover what fits naturally into your everyday life.",
+          "steps": [
+            {
+              "number": "01",
+              "title": "WEEK 1 – NOTICE",
+              "body": "Pay closer attention to your everyday life and notice the moments when a brief regeneration prompt might be helpful."
+            },
+            {
+              "number": "02",
+              "title": "WEEK 2 – EXPLORE MORE DEEPLY",
+              "body": "Explore different regeneration prompts and discover which ones suit you and your everyday life."
+            },
+            {
+              "number": "03",
+              "title": "WEEK 3 – INTEGRATE",
+              "body": "Connect selected prompts with recurring moments in your day and use them to develop your personal rhythm of regeneration."
+            },
+            {
+              "number": "04",
+              "title": "MOVING FORWARD – FIND YOUR RHYTHM",
+              "body": "Keep what feels right for you. SomnoBalance provides guidance – you decide which prompts you want to continue using over the long term."
+            }
+          ]
+        },
+        bundleContents: [
+          {
+            "title": "21-Day Guide",
+            "subtitle": "Your guiding thread for the first 21 days.",
+            "body": "Small prompts and rituals help you incorporate mindful moments of regeneration into your everyday life and gradually develop your personal rhythm."
+          },
+          {
+            "title": "Regeneration Card Set",
+            "subtitle": "A prompt for the moment you’re in.",
+            "body": "Choose a regeneration point or ritual that suits your current needs. The cards offer practical, easy-to-follow prompts for mindful moments in everyday life, for letting go, and for preparing for the night."
+          },
+          {
+            "title": "SomnoBalance Roll-on",
+            "subtitle": "A fragrance cue for when you’re out and about or at home.",
+            "body": "When applied and experienced mindfully, the roll-on can become a personal companion for brief moments of regeneration and intentional transitions."
+          },
+          {
+            "title": "SomnoBalance Oil Blend",
+            "subtitle": "Scent as part of your personal ritual.",
+            "body": "A fragrance cue for mindful moments of regeneration and personal rituals. A few drops in a diffuser create a pleasant fragrance atmosphere and can accompany you as you let go and prepare for the evening."
+          }
+        ],
+        dailyMoments: {
+          "eyebrow": "SOMNOBALANCE IN EVERYDAY LIFE",
+          "headline": "Small prompts. Suited to your moment.",
+          "intro": "You do not need to use every component every day. Choose what suits the moment and your personal need for regeneration.",
+          "cards": [
+            {
+              "title": "IN THE MIDDLE OF THE DAY",
+              "headline": "A brief moment to pause.",
+              "body": "For example, choose a regeneration card or use the roll-on as a mindful fragrance cue for a brief moment of regeneration."
+            },
+            {
+              "title": "LETTING GO",
+              "headline": "Let the busy day gradually grow quieter.",
+              "body": "A selected regeneration prompt, the roll-on, or the oil blend can accompany an intentional transition from activity to rest."
+            },
+            {
+              "title": "IN THE EVENING",
+              "headline": "Make intentional space for the night.",
+              "body": "Use a selected prompt or a familiar scent as part of your personal evening routine and create a calm transition into the night."
+            }
+          ]
+        },
+        togetherSection: {
+          "eyebrow": "DESIGNED TO WORK TOGETHER",
+          "headline": "Guidance, prompts, and rituals for your everyday life.",
+          "body": "The 21-day guide provides direction. The Regeneration Cards help you choose suitable prompts. The roll-on and oil blend can accompany mindful moments and transitions with a familiar scent.\n\nYou decide what to use and when. SomnoBalance does not follow a rigid sequence – it follows your personal rhythm of regeneration."
+        },
+        systemRoleLabel: "YOUR INTRODUCTION TO SOMNOBALANCE",
         galleryTagline: ["Three weeks.", "Your path."],
         howToUseEyebrow: "21-Day Guide",
         howToUseTitle: ["Three weeks.", "Your regeneration path."],
         howToUseSteps: ["Week 1", "Week 2", "Week 3", "Move on"],
         howToUseNote: ["How your", "companions interlock."],
-        timeline: {
-          eyebrow: "YOUR REGENERATION PATH",
-          headline: "21 days. Your own rhythm.",
-          intro:
-            "The 21-day guide walks you step by step through the SomnoBalance concept. It's not about doing as much as possible every day. Small, deliberately chosen impulses help you find what fits well into your everyday life.",
-          steps: [
-            { number: "01", title: "WEEK 1 – NOTICE", body: "Observe your everyday life more consciously and discover the moments where a brief regeneration impulse can help." },
-            { number: "02", title: "WEEK 2 – EXPLORE", body: "Get to know different regeneration impulses and find out which ones fit you and your everyday life." },
-            { number: "03", title: "WEEK 3 – INTEGRATE", body: "Connect chosen impulses with recurring moments of your day and develop your own personal regeneration rhythm." },
-            { number: "04", title: "MOVING ON – FINDING YOUR RHYTHM", body: "Keep what works for you. SomnoBalance gives orientation — you decide which impulses stay with you long-term." },
-          ],
-        },
-        bundleContents: [
-          { title: "21-Day Guide", subtitle: "Your thread through the first 21 days.", body: "Small impulses and rituals help you integrate conscious regeneration moments into your everyday life, and develop your personal rhythm step by step." },
-          { title: "Regeneration Cards Set", subtitle: "An impulse to match your moment.", body: "Choose a regeneration point or ritual that fits your current need. The cards give you concrete, easy-to-apply impulses for conscious moments in everyday life, for letting go, and for preparing for the night." },
-          { title: "SomnoBalance Roll-on", subtitle: "A scent impulse for on the go and at home.", body: "Mindfully applied and noticed, the roll-on can become a personal companion for brief regeneration moments and conscious transitions." },
-          { title: "SomnoBalance Oil Blend", subtitle: "Scent as part of your personal ritual.", body: "A scent impulse for conscious regeneration moments and personal rituals. A few drops in the diffuser create a pleasant scent atmosphere and can accompany you while letting go and preparing for the evening." },
-        ],
-        togetherSection: {
-          eyebrow: "THOUGHT TOGETHER",
-          headline: "Orientation, impulses and rituals for your everyday life.",
-          body: "The 21-day guide gives you orientation. The regeneration cards help you choose fitting impulses. Roll-on and oil blend can accompany conscious moments and transitions with a recurring scent.\n\nYou decide for yourself what to use and when. SomnoBalance doesn't follow a rigid process — it follows your personal regeneration rhythm.",
-        },
-        dailyMoments: {
-          eyebrow: "SOMNOBALANCE IN EVERYDAY LIFE",
-          headline: "Small impulses. Matched to your moment.",
-          intro: "You don't need to use every component every day. Choose what fits your moment and your personal regeneration needs.",
-          cards: [
-            { title: "MID-DAY", headline: "A brief moment to pause.", body: "Choose a regeneration card, for example, or use the roll-on as a conscious scent impulse for a brief regeneration moment." },
-            { title: "WHILE LETTING GO", headline: "Letting the active day grow quieter.", body: "A chosen regeneration impulse, the roll-on, or the oil blend can accompany a conscious transition between activity and rest." },
-            { title: "IN THE EVENING", headline: "Giving the night conscious space.", body: "Use a chosen impulse or a familiar scent as part of your personal evening routine and create a calm transition into the night." },
-          ],
-        },
         nextCompanionLabel: "Regulate, Let Go, Prepare — your entry.",
-        cycleSection: {
-          eyebrow: "IN THE SOMNOBALANCE CYCLE",
-          activePhases: [true, true, true, false],
-          body: "The Starter Set accompanies you especially while regulating, letting go and preparing. The phases give orientation. Which impulses you use when remains individual.",
-          note: "The phases are fixed – the application is individual.",
-        },
-        discoverMore: {
-          eyebrow: "KEEP DISCOVERING SOMNOBALANCE",
-          headline: "What can complement your regeneration rhythm.",
-          body: "SomnoBalance accompanies regeneration throughout the day and into the night. Discover more companions for conscious moments of regeneration and a sleep environment that supports regeneration.",
-          cta: "Discover all products →",
-          items: [
-            { slug: "somnobalance-neck-pillow", blurb: "Individually adjustable support for a consciously designed sleep environment." },
-            { slug: "somnobalance-room-spray", blurb: "A scent impulse for your room and conscious transitions." },
-            { slug: "somnobalance-mattress", blurb: "Individually adjustable lying comfort for a consciously designed sleep environment." },
-          ],
-        },
         brandCloseTagline: ["The phases are fixed —", "the application is individual."],
       },
     },
@@ -693,37 +764,74 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
     brandCloseNote: ["Rest.", "Rebalance.", "Repeat."],
     translations: {
       en: {
-        howToUseTitle: [
-          "The night needs different",
-          "conditions than the day."
-        ],
-        howToUseNote: [
-          "As individual as",
-          "your sleeping position."
-        ],
-        howToUseStepDescriptions: [
-          "Use the reversible shape and the insert plates to choose the right height.",
-          "Try out which setting feels comfortable for your preferred sleeping position.",
-          "Integrate the pillow as an individually adjusted part of your sleep environment.",
-          "A suitable sleep environment creates the frame for comfort and regeneration during the night."
-        ],
+        discoverMore: {
+          "eyebrow": "DISCOVER MORE OF SOMNOBALANCE",
+          "headline": "Rethink your sleep environment.",
+          "cta": "Discover all products →",
+          "items": [
+            {
+              "slug": "somnobalance-mattress",
+              "blurb": "Individually adjustable lying comfort for a thoughtfully designed sleep environment."
+            },
+            {
+              "slug": "somnobalance-starter-set",
+              "blurb": "Your introduction to the SomnoBalance world, for mindful moments of regeneration from an active day into the night."
+            },
+            {
+              "slug": "somnobalance-regeneration-cards",
+              "blurb": "Regeneration points and rituals as prompts for everyday life."
+            }
+          ]
+        },
+        cycleSection: {
+          "eyebrow": "IN THE SOMNOBALANCE CYCLE",
+          "headline": "Good conditions for the night.",
+          "activePhases": [
+            false,
+            false,
+            true,
+            true
+          ],
+          "body": "SomnoBalance begins during the day with mindful moments of regeneration and accompanies the transition into the evening. At night, the sleep environment takes centre stage.\n\nThe SomnoBalance Neck Support Pillow can be individually adjusted to different lying preferences, making it part of a thoughtfully designed sleep environment.",
+          "note": "SomnoBalance connects mindful moments of regeneration during the day with good conditions for regeneration at night."
+        },
         keyFeatures: [
           {
             "title": "6 height settings",
-            "text": "from approx. 8 to 15 cm"
+            "text": "approx. 8–15 cm"
           },
           {
             "title": "Reversible shape",
             "text": "two neck rolls of different heights"
           },
           {
-            "title": "Air-Memory foam",
-            "text": "open-pore foam core"
+            "title": "Air Memory foam",
+            "text": "open-cell foam core"
           },
           {
             "title": "Vitalize® cover",
-            "text": "with far-infrared technology"
+            "text": "Far-Infrared Technology"
           }
+        ],
+        howToUseStepDescriptions: [
+          "Use the reversible shape and insert plates to choose a suitable height.",
+          "Try which setting feels comfortable for your preferred sleeping position.",
+          "Integrate the pillow as an individually adjusted part of your sleep environment.",
+          "A suitable sleep environment provides the setting for comfort and regeneration during the night."
+        ],
+        howToUseSteps: [
+          "Adjust the height",
+          "Find your lying position",
+          "Prepare the sleep environment",
+          "Create the right conditions"
+        ],
+        howToUseTitle: [
+          "The night needs different",
+          "conditions than the day."
+        ],
+        howToUseNote: [
+          "As individual as",
+          "your lying position."
         ],
         explainerSections: [
           {
@@ -742,37 +850,6 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
             "body": "The flexible height adjustment and the Vitalize® cover serve different purposes – together they make the neck support pillow a deliberately developed part of the SomnoBalance sleep environment."
           }
         ],
-        cycleSection: {
-          "eyebrow": "IN THE SOMNOBALANCE CYCLE",
-          "headline": "Good conditions for the night.",
-          "activePhases": [
-            false,
-            false,
-            true,
-            true
-          ],
-          "body": "SomnoBalance begins during the day with mindful moments of regeneration and accompanies the transition into the evening. At night, the sleep environment moves into the centre.\n\nThe SomnoBalance Neck Support Pillow can be adapted individually to different lying needs and thus becomes part of a consciously designed sleep environment.",
-          "note": "SomnoBalance connects mindful moments of regeneration during the day with good conditions for regeneration at night."
-        },
-        discoverMore: {
-          "eyebrow": "KEEP DISCOVERING SOMNOBALANCE",
-          "headline": "Rethink your sleep environment.",
-          "cta": "Discover all products →",
-          "items": [
-            {
-              "slug": "somnobalance-mattress",
-              "blurb": "Individually adjustable lying comfort for a consciously designed sleep environment."
-            },
-            {
-              "slug": "somnobalance-starter-set",
-              "blurb": "Your entry into the SomnoBalance world – for mindful moments of regeneration from the active day into the night."
-            },
-            {
-              "slug": "somnobalance-regeneration-cards",
-              "blurb": "Regeneration points and rituals as impulses for your everyday life."
-            }
-          ]
-        },
         systemRoleLabel: "PREPARE · REGENERATE",
         galleryTagline: ["The night needs", "different conditions."],
         galleryCaptions: {
@@ -781,7 +858,6 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
           3: "Six height settings: flip the pillow for a higher or lower neck roll, then add 0, 1 or 2 insert plates — from approx. 8 cm to approx. 15 cm.",
         },
         howToUseEyebrow: "Sleep Environment",
-        howToUseSteps: ["Adjust height", "Find sleeping position", "Prepare sleep environment", "Create good conditions"],
         nextCompanionLabel: "Regulation and rituals prepare — the sleep environment takes over at night.",
       },
     },
@@ -914,16 +990,40 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
     brandCloseNote: ["Rest.", "Rebalance.", "Repeat."],
     translations: {
       en: {
-        howToUseStepDescriptions: [
-          "Choose between H2/H3 and H3/H4.",
-          "Flipping the inner core switches between two firmness levels.",
-          "Match mattress, pillow and sleep environment to your personal needs.",
-          "A suitable sleep environment creates the frame for comfort and regeneration during the night."
-        ],
-        firmnessNote: "The reversible inner core offers two different firmness levels within one mattress. Flipping the inner core adjusts how it feels to lie on.",
-        consult: {
-          "question": "Unsure about size or firmness?",
-          "label": "Request personal advice →"
+        discoverMore: {
+          "eyebrow": "DISCOVER MORE OF SOMNOBALANCE",
+          "headline": "Continue shaping your sleep environment.",
+          "cta": "Discover all products →",
+          "items": [
+            {
+              "slug": "somnobalance-neck-pillow",
+              "blurb": "Individually adjustable support for a thoughtfully designed sleep environment."
+            },
+            {
+              "slug": "somnobalance-starter-set",
+              "blurb": "Your introduction to the SomnoBalance world, for mindful moments of regeneration from an active day into the night."
+            },
+            {
+              "slug": "somnobalance-regeneration-cards",
+              "blurb": "Regeneration points and rituals as prompts for everyday life."
+            }
+          ]
+        },
+        cycleSection: {
+          "eyebrow": "IN THE SOMNOBALANCE CYCLE",
+          "headline": "The right conditions for the night.",
+          "activePhases": [
+            false,
+            false,
+            true,
+            true
+          ],
+          "body": "SomnoBalance supports mindful moments during the day and the transition into the evening; at night, the sleep environment takes centre stage. The mattress can be adjusted to different comfort needs and provides an individually tailored basis for the night.",
+          "note": "SomnoBalance connects mindful moments of regeneration during the day with the right conditions for regeneration at night."
+        },
+        afterUnpacking: {
+          "title": "After unpacking",
+          "body": "After unpacking, please allow the mattress approximately 48–72 hours to reach its full shape and height."
         },
         keyFeatures: [
           {
@@ -935,81 +1035,62 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
             "text": "High-quality mattress construction"
           },
           {
-            "title": "Integrated Viscogel topper",
+            "title": "Integrated visco-gel topper",
             "text": "Comfort within one system"
           },
           {
             "title": "Flexibly adjustable",
-            "text": "Various sizes and firmness combinations"
+            "text": "Different sizes and firmness combinations"
           }
         ],
-        afterUnpacking: {
-          "title": "After unpacking",
-          "body": "Please allow the mattress about 48–72 hours after unpacking to fully expand to its final shape and height."
+        consult: {
+          "question": "Unsure about size or firmness?",
+          "label": "Request a personal consultation →"
         },
-        cycleSection: {
-          "eyebrow": "IN THE SOMNOBALANCE CYCLE",
-          "headline": "Good conditions for the night.",
-          "activePhases": [
-            false,
-            false,
-            true,
-            true
-          ],
-          "body": "SomnoBalance begins during the day with mindful moments of regeneration and accompanies the transition into the evening. At night, the sleep environment moves into the centre. The SomnoBalance Mattress adapts to different comfort needs and thus provides an individually tuned foundation for the night.",
-          "note": "SomnoBalance connects mindful moments of regeneration during the day with good conditions for regeneration at night."
-        },
-        discoverMore: {
-          "eyebrow": "KEEP DISCOVERING SOMNOBALANCE",
-          "headline": "Rethink your sleep environment.",
-          "cta": "Discover all products →",
-          "items": [
-            {
-              "slug": "somnobalance-neck-pillow",
-              "blurb": "Individually adjustable support for a consciously designed sleep environment."
-            },
-            {
-              "slug": "somnobalance-starter-set",
-              "blurb": "Your entry into the SomnoBalance world – for mindful moments of regeneration from the active day into the night."
-            },
-            {
-              "slug": "somnobalance-regeneration-cards",
-              "blurb": "Regeneration points and rituals as impulses for your everyday life."
-            }
-          ]
-        },
+        firmnessNote: "The reversible inner core provides two different firmness levels within one mattress. Turn the inner core over to adjust the feel.",
+        howToUseStepDescriptions: [
+          "Choose between H2/H3 and H3/H4.",
+          "Turn the inner core to switch between firmness levels.",
+          "Align the mattress, pillow and sleep environment with personal needs.",
+          "A suitable sleep environment provides the setting for comfort and regeneration during the night."
+        ],
+        howToUseSteps: [
+          "Choose firmness",
+          "Adjust lying comfort",
+          "Prepare the sleep environment",
+          "Create the right conditions"
+        ],
         systemRoleLabel: "PREPARE · REGENERATE",
         galleryTagline: ["What carries you", "through the night."],
         galleryCaptions: {
-          1: "H2/H3 edition, H2 side: Viscogel topper (blue/white marbled) · H2 turquoise · core · H3 anthracite",
-          2: "H2/H3 edition, H3 side (flipped): Viscogel topper (blue/white marbled) · H3 anthracite · core · H2 turquoise",
-          3: "H3/H4 edition, H3 side: Viscogel topper (blue/white marbled) · H3 anthracite · core · H4 lilac",
-          4: "H3/H4 edition, H4 side (flipped): Viscogel topper (blue/white marbled) · H4 lilac · core · H3 anthracite",
+          1: "H2/H3 edition, H2 side: visco-gel topper (blue/white marbled) · H2 turquoise · core · H3 anthracite",
+          2: "H2/H3 edition, H3 side (flipped): visco-gel topper (blue/white marbled) · H3 anthracite · core · H2 turquoise",
+          3: "H3/H4 edition, H3 side: visco-gel topper (blue/white marbled) · H3 anthracite · core · H4 lilac",
+          4: "H3/H4 edition, H4 side (flipped): visco-gel topper (blue/white marbled) · H4 lilac · core · H3 anthracite",
         },
         howToUseEyebrow: "Sleep Environment",
         howToUseTitle: ["What carries you", "through the night."],
-        howToUseSteps: ["Choose firmness", "Adjust comfort", "Prepare sleep environment", "Create good conditions"],
         howToUseNote: ["The night needs", "its own conditions."],
         explainerSections: [
           {
             eyebrow: "Individually adjustable",
             headline: "One mattress. Two firmness levels.",
-            body: "The SomnoBalance Mattress is available in two editions: H2/H3 or H3/H4. Both combine two different firmness levels within a single mattress.\n\nTo change the feel, simply flip the inner core — comfort adapts to different needs without replacing the whole mattress.\n\nH2 ↔ H3  or  H3 ↔ H4\nFlip the inner core → adjust the feel",
+            body: "The SomnoBalance Mattress is available in two editions: H2/H3 or H3/H4. Both combine two different firmness levels within a single mattress.\n\nTo change the feel, simply turn the inner core — comfort adapts to different needs without replacing the whole mattress.\n\nH2 ↔ H3  or  H3 ↔ H4\nTurn the inner core → adjust the feel of the mattress.",
           },
           {
             eyebrow: "Mattress construction",
             headline: "Comfort, layer by layer.",
-            body: "Inside works a high-quality 7-zone pocket-spring core with around 500 springs at 100 × 200 cm. The spring core is covered on both sides with approx. 3 cm of cold foam, RG 40.\n\nThe two sides carry different firmness levels — flipping the inner core switches between H2 and H3, or H3 and H4, depending on the edition.",
+            body: "Inside works a high-quality 7-zone pocket-spring core with around 500 springs at 100 × 200 cm. The spring core is covered on both sides with approx. 3 cm of cold foam, RG 40.\n\nThe two sides carry different firmness levels — turning the inner core switches between H2 and H3, or H3 and H4, depending on the edition.",
           },
           {
             eyebrow: "Integrated system",
-            headline: "Topper and mattress as one.",
-            body: "A roughly 4 cm Viscogel topper (RG 50) sits on the reversible inner core. Inner core and topper sit together inside the SomnoBalance mattress cover.\n\nThis combines the comfort of an additional topper with the benefits of a closed mattress solution — the topper stays integrated into the whole system, and separate sliding is avoided.",
+            headline: "Topper and mattress as one unit.",
+            body: "A roughly 4 cm visco-gel topper (RG 50) sits on the reversible inner core. Inner core and topper sit together inside the SomnoBalance mattress cover.\n\nThis combines the comfort of an additional topper with the benefits of a closed mattress solution — the topper stays integrated into the whole system, and separate sliding is avoided.",
           },
           {
-            eyebrow: "Adjusting comfort",
+            eyebrow: "Adjust comfort",
             headline: "In just a few steps.",
-            body: "The four-sided zip allows the upper part of the cover to be opened. The Viscogel topper is then removed, the inner core is flipped and the topper is placed back on the core. Afterwards the cover is closed again.",
+            body: "The four-sided zip allows the upper part of the cover to be opened. The visco-gel topper is then removed, the inner core is turned and the topper is placed back on the core. Afterwards the cover is closed again.",
           },
           {
             eyebrow: "For two",

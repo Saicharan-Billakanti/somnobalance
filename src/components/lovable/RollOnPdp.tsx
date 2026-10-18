@@ -156,21 +156,21 @@ export function RollOnPdp({
     {
       slug: "somnobalance-starter-set",
       blurb: tx(
-        "Your entry into the SomnoBalance world – for mindful moments of regeneration from the active day into the night.",
+        "Your introduction to the SomnoBalance world—for mindful moments of regeneration from the active day into the night.",
         "Ihr Einstieg in die SomnoBalance-Welt – für bewusste Regenerationsmomente vom aktiven Tag bis in die Nacht.",
       ),
     },
     {
       slug: "somnobalance-oil-blend",
       blurb: tx(
-        "A scent impulse for mindful moments of regeneration and personal rituals.",
+        "A fragrance cue for mindful moments of regeneration and personal rituals.",
         "Ein Duftimpuls für bewusste Regenerationsmomente und persönliche Rituale.",
       ),
     },
     {
       slug: "somnobalance-room-spray",
       blurb: tx(
-        "A scent impulse for your room and conscious transitions.",
+        "A fragrance cue for your space and for mindful transitions.",
         "Ein Duftimpuls für Ihren Raum und bewusste Übergänge.",
       ),
     },
@@ -319,8 +319,8 @@ export function RollOnPdp({
             </div>
             <div className="my-7 grid grid-cols-3 gap-3 border-y border-lovable-border py-5 text-[10px] uppercase tracking-[0.1em]">
               <span>10 ml</span>
-              <span>{tx("For home & on the go", "Für unterwegs & zu Hause")}</span>
-              <span>{tx("A mindful scent impulse", "Bewusster Duftimpuls")}</span>
+              <span>{tx("For on the go & at home", "Für unterwegs & zu Hause")}</span>
+              <span>{tx("Mindful fragrance cue", "Bewusster Duftimpuls")}</span>
             </div>
             <p className="whitespace-pre-line text-xs leading-6 text-lovable-muted-foreground">
               {text.description}
@@ -392,7 +392,7 @@ export function RollOnPdp({
             <div>
               <p className="max-w-2xl text-xs leading-6 text-lovable-muted-foreground">
                 {tx(
-                  "Apply a small amount to the intended areas of skin and consciously notice the scent. Integrate it into your day as a personal scent impulse as needed.",
+                  "Apply a small amount to the intended areas of skin and mindfully notice the fragrance. Use as needed as a personal fragrance cue in everyday life.",
                   "Eine kleine Menge auf die dafür vorgesehenen Hautbereiche auftragen und den Duft bewusst wahrnehmen. Nach Bedarf als persönlichen Duftimpuls in den Alltag integrieren.",
                 )}
               </p>
@@ -401,28 +401,28 @@ export function RollOnPdp({
                   {
                     t: tx("Choose a moment", "Moment wählen"),
                     d: tx(
-                      "Use the roll-on when you want to consciously take a short moment.",
+                      "Take a brief moment for yourself.",
                       "Nutzen Sie den Roll-on dann, wenn Sie sich bewusst einen kurzen Moment nehmen möchten.",
                     ),
                   },
                   {
                     t: tx("Apply", "Auftragen"),
                     d: tx(
-                      "Apply a small amount according to the approved application.",
+                      "Apply according to the approved instructions.",
                       "Eine kleine Menge entsprechend der freigegebenen Anwendung auftragen.",
                     ),
                   },
                   {
-                    t: tx("Notice the scent", "Duft wahrnehmen"),
+                    t: tx("Notice the fragrance", "Duft wahrnehmen"),
                     d: tx(
-                      "Consciously notice the scent and briefly interrupt the moment.",
+                      "Mindfully notice the fragrance.",
                       "Den Duft bewusst wahrnehmen und den Moment kurz unterbrechen.",
                     ),
                   },
                   {
-                    t: tx("Move on", "Weitergehen"),
+                    t: tx("Continue your day", "Weitergehen"),
                     d: tx(
-                      "Simply integrate the roll-on back into your own daily rhythm.",
+                      "Return to your daily rhythm.",
                       "Den Roll-on unkompliziert wieder in den eigenen Tagesrhythmus integrieren.",
                     ),
                   },
@@ -518,7 +518,7 @@ export function RollOnPdp({
         >
           <div className="mx-auto max-w-[1500px]">
             <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
-              {tx("IN THE SOMNOBALANCE CYCLE", "IM SOMNOBALANCE-KREISLAUF")}
+              {tx("WITHIN THE SOMNOBALANCE CYCLE", "IM SOMNOBALANCE-KREISLAUF")}
             </p>
             <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-xs uppercase tracking-[0.2em]">
               {phaseKeys.map((key, i) => (
@@ -539,13 +539,13 @@ export function RollOnPdp({
             </p>
             <p className="mt-4 max-w-2xl text-xs leading-6 text-lovable-muted-foreground">
               {tx(
-                "The SomnoBalance Roll-on can be used in different phases of your day – as a mindful scent impulse in the middle of everyday life, while letting go, or as part of your personal preparation for the evening.",
+                "The SomnoBalance Roll-on can be used during different phases of the day—as a mindful fragrance cue in the middle of everyday life, when letting go, or as part of personal preparation for the evening.",
                 "Der SomnoBalance Roll-on lässt sich in unterschiedlichen Phasen Ihres Tages einsetzen – als bewusster Duftimpuls mitten im Alltag, beim Loslassen oder als Teil Ihrer persönlichen Vorbereitung auf den Abend.",
               )}
             </p>
             <p className="mt-4 text-[11px] text-lovable-muted-foreground">
               {tx(
-                "The phases give orientation. When and how you integrate the roll-on into your everyday life remains individual.",
+                "The phases provide guidance. When and how you integrate the roll-on into your everyday life remains individual.",
                 "Die Phasen geben Orientierung. Wann und wie Sie den Roll-on in Ihren Alltag integrieren, bleibt individuell.",
               )}
             </p>
@@ -554,10 +554,10 @@ export function RollOnPdp({
 
         <section className="mx-auto max-w-[1500px] px-5 py-14 md:px-10 lg:px-16 lg:py-20">
           <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
-            {tx("KEEP DISCOVERING SOMNOBALANCE", "SOMNOBALANCE WEITERENTDECKEN")}
+            {tx("DISCOVER MORE OF SOMNOBALANCE", "SOMNOBALANCE WEITERENTDECKEN")}
           </p>
           <h2 className="mt-4 max-w-xl font-lovable-serif text-2xl italic leading-snug md:text-3xl">
-            {tx("More companions for your regeneration rhythm.", "Weitere Begleiter für Ihren Regenerationsrhythmus.")}
+            {tx("More companions for your rhythm of regeneration.", "Weitere Begleiter für Ihren Regenerationsrhythmus.")}
           </h2>
           <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3 lg:gap-8">
             {companions.map((item) => {

@@ -685,7 +685,7 @@ export function ProductSystemPage({
         {c.bundleContents && (
           <section className="mx-auto max-w-[1500px] border-t border-lovable-border px-5 py-14 md:px-10 lg:px-16 lg:py-20">
             <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
-              {tx("What's in the Starter Set", "Das ist im Starter-Set enthalten")}
+              {tx("What's included in the Starter Set", "Das ist im Starter-Set enthalten")}
             </p>
             <div className="mt-8 grid gap-8 sm:grid-cols-2">
               {c.bundleContents.map((item) => (
