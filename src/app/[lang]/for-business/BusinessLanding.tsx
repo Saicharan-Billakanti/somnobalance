@@ -110,16 +110,16 @@ export function BusinessLanding({ lang, dict }: { lang: Locale; dict: Dictionary
             <p className="text-base leading-relaxed text-ink/70 md:w-5/12 md:pt-3 lg:text-lg">{fb.areas.intro}</p>
           </div>
 
-          <div className="mt-14 grid gap-6 md:grid-cols-3">
+          <div className="mt-14 grid gap-6 md:grid-cols-3 md:grid-rows-[auto_auto_1fr_auto] md:gap-y-0">
             {fb.areas.items.map((item) => (
-              <article key={item.name} className="flex flex-col bg-offwhite p-7 lg:p-9">
-                <h3 className="font-serif text-2xl text-ink">{item.name}</h3>
+              <article key={item.name} className="flex flex-col bg-offwhite p-7 md:row-span-4 md:grid md:grid-rows-subgrid lg:p-9">
+                <h3 className="font-serif text-2xl leading-snug text-ink">{item.name}</h3>
                 <p className="mt-4 font-serif text-lg italic leading-snug text-mauve">{item.headline}</p>
                 <p className="mt-4 text-sm leading-relaxed text-ink/70">{item.body}</p>
                 <button
                   type="button"
                   onClick={() => focusForm(item.interest as InterestKey)}
-                  className="mt-6 self-start text-left text-xs font-semibold uppercase tracking-wider text-ink transition-opacity hover:opacity-70"
+                  className="mt-6 self-end justify-self-start text-left text-xs font-semibold uppercase tracking-wider text-ink transition-opacity hover:opacity-70"
                 >
                   {item.link}
                 </button>

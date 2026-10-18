@@ -664,7 +664,7 @@ export function ProductSystemPage({
 
         {c.statement && (
           <section className="mx-auto max-w-[1500px] border-t border-lovable-border px-5 py-14 text-center md:px-10 lg:px-16 lg:py-20">
-            <p className="mx-auto max-w-3xl font-lovable-serif text-2xl italic leading-snug text-lovable-primary md:text-4xl">
+            <p className="mx-auto max-w-3xl font-lovable-serif text-2xl italic leading-snug text-lovable-foreground md:text-4xl">
               {c.statement}
             </p>
           </section>
@@ -883,7 +883,7 @@ export function ProductSystemPage({
                     key={key}
                     className={
                       c.cycleSection!.activePhases[i]
-                        ? "font-semibold text-lovable-primary underline underline-offset-8"
+                        ? "font-semibold text-lovable-foreground underline decoration-lovable-primary underline-offset-8"
                         : "text-lovable-muted-foreground/60"
                     }
                   >
@@ -893,7 +893,7 @@ export function ProductSystemPage({
               </div>
               {c.cycleSection.headline ? (
                 <>
-                  <p className="mt-6 max-w-2xl font-lovable-serif text-xl italic leading-snug text-lovable-primary md:text-2xl">
+                  <p className="mt-6 max-w-2xl font-lovable-serif text-xl italic leading-snug text-lovable-foreground md:text-2xl">
                     {c.cycleSection.headline}
                   </p>
                   <p className="mt-4 max-w-2xl whitespace-pre-line text-xs leading-6 text-lovable-muted-foreground">
@@ -901,7 +901,7 @@ export function ProductSystemPage({
                   </p>
                 </>
               ) : (
-                <p className="mt-6 max-w-2xl font-lovable-serif text-xl italic leading-snug text-lovable-primary md:text-2xl">
+                <p className="mt-6 max-w-2xl font-lovable-serif text-xl italic leading-snug text-lovable-foreground md:text-2xl">
                   {c.cycleSection.body}
                 </p>
               )}
@@ -920,7 +920,7 @@ export function ProductSystemPage({
             <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
               {tx("System", "System")}
             </p>
-            <p className="mt-3 max-w-lg font-lovable-serif text-2xl italic leading-snug text-lovable-primary">
+            <p className="mt-3 max-w-lg font-lovable-serif text-2xl italic leading-snug text-lovable-foreground">
               {c.nextCompanionLabel}
             </p>
           </div>

@@ -553,7 +553,7 @@ export function RollOnPdp({
                   key={key}
                   className={
                     i < 3
-                      ? "font-semibold text-lovable-primary underline underline-offset-8"
+                      ? "font-semibold text-lovable-foreground underline decoration-lovable-primary underline-offset-8"
                       : "text-lovable-muted-foreground/60"
                   }
                 >
@@ -561,7 +561,7 @@ export function RollOnPdp({
                 </span>
               ))}
             </div>
-            <p className="mt-6 max-w-2xl font-lovable-serif text-xl italic leading-snug text-lovable-primary md:text-2xl">
+            <p className="mt-6 max-w-2xl font-lovable-serif text-xl italic leading-snug text-lovable-foreground md:text-2xl">
               {tx("A companion for different moments.", "Ein Begleiter für unterschiedliche Momente.")}
             </p>
             <p className="mt-4 max-w-2xl text-xs leading-6 text-lovable-muted-foreground">

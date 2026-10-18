@@ -141,17 +141,22 @@ export default async function ForMePage({ params }: { params: Promise<{ lang: st
 
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {dict.homeSections.forYou.tiles.map((tile) => (
-              <Link key={tile.slug} href={`/${l}/shop/${tile.slug}`} className="group block bg-white">
-                <div className="relative aspect-[4/3] overflow-hidden">
+              <Link
+                key={tile.slug}
+                href={`/${l}/shop/${tile.slug}`}
+                className="group flex flex-col bg-white shadow-sm transition-shadow duration-300 hover:shadow-md"
+              >
+                {/* whole product visible, contained on white */}
+                <div className="relative aspect-[4/3] w-full border-b border-ink/5 bg-white">
                   <Image
                     src={tile.image}
                     alt={tile.title}
                     fill
                     sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 100vw"
-                    className="object-cover transition duration-700 group-hover:scale-105"
+                    className="object-contain p-5 transition-transform duration-500 group-hover:scale-[1.03]"
                   />
                 </div>
-                <p className="p-5 font-serif text-lg leading-snug text-ink">{tile.title}</p>
+                <p className="p-5 font-serif text-xl font-normal leading-snug text-ink">{tile.title}</p>
               </Link>
             ))}
           </div>
