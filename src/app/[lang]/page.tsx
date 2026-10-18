@@ -173,25 +173,30 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                     className="object-contain p-6 transition-transform duration-500 group-hover:scale-[1.03] sm:p-8"
                   />
                 </div>
-                <div className="flex flex-1 flex-col p-6 sm:p-8">
-                  <h3 className="font-serif text-xl font-bold leading-snug text-ink">{tile.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ink/70">{tile.subheadline}</p>
-                  {/* Which of the four phases this product accompanies: filled dot = yes, hollow = not a focus */}
-                  <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[10px] uppercase tracking-[0.18em]">
+                <div className="flex flex-1 flex-col p-6 sm:p-8 lg:p-10">
+                  <h3 className="font-serif text-2xl font-normal leading-snug text-ink lg:text-[1.7rem]">
+                    {tile.title}
+                  </h3>
+                  <p className="mt-3 text-base leading-relaxed text-ink/70">{tile.subheadline}</p>
+                  {/* Phases this product accompanies: filled dot = yes, hollow dot = not a focus */}
+                  <ul className="mt-6 grid grid-cols-2 gap-x-6 gap-y-3 border-t border-ink/10 pt-5 text-[11px] font-medium uppercase tracking-[0.16em]">
                     {dict.homeSections.forYou.phaseLabels.map((label, i) => (
                       <li
                         key={label}
-                        className={`flex items-center gap-1.5 ${tile.activePhases[i] ? "font-semibold text-ink" : "text-ink/35"}`}
+                        className={`flex items-center gap-2 ${tile.activePhases[i] ? "text-ink" : "text-ink/35"}`}
                       >
                         <span
                           aria-hidden="true"
-                          className={`size-1.5 rounded-full ${tile.activePhases[i] ? "bg-mauve" : "border border-ink/30"}`}
+                          style={{ borderRadius: "9999px" }}
+                          className={`inline-block h-2 w-2 shrink-0 ${
+                            tile.activePhases[i] ? "bg-mauve" : "border border-ink/30"
+                          }`}
                         />
                         {label}
                       </li>
                     ))}
                   </ul>
-                  <span className="mt-auto inline-flex items-center gap-2 pt-7 text-xs font-semibold uppercase tracking-wider text-ink transition-opacity group-hover:opacity-70">
+                  <span className="mt-auto pt-8 text-xs font-semibold uppercase tracking-[0.18em] text-mauve-dark transition-colors group-hover:text-ink">
                     {dict.home.learnMore}
                   </span>
                 </div>
