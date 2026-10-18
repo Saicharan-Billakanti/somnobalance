@@ -398,6 +398,24 @@ export function RollOnPdp({
                   "Eine kleine Menge auf die dafür vorgesehenen Hautbereiche auftragen und den Duft bewusst wahrnehmen. Nach Bedarf als persönlichen Duftimpuls in den Alltag integrieren.",
                 )}
               </p>
+              {/* Real photos from the client's final image set (no fixed body areas shown). */}
+              <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
+                {[
+                  { src: "/products/roll-on-application.webp", alt: tx("Applying the roll-on", "Roll-on auftragen") },
+                  { src: "/products/roll-on-bag.webp", alt: tx("The roll-on within reach in a handbag", "Der Roll-on griffbereit in der Tasche") },
+                  { src: "/products/gallery/roll-on-4.webp", alt: tx("Roll-on and oil blend", "Roll-on und Ölmischung") },
+                ].map((img) => (
+                  <div key={img.src} className="relative aspect-[4/3] overflow-hidden rounded-md bg-lovable-muted">
+                    <Image
+                      src={img.src}
+                      alt={img.alt}
+                      fill
+                      sizes="(min-width: 1024px) 28vw, (min-width: 640px) 30vw, 100vw"
+                      className="object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
               <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
                 {[
                   {
