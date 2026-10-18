@@ -1,7 +1,9 @@
+import Image from "next/image";
+
 // Homepage Section 3 — "Der SomnoBalance Regenerationskreislauf"
-// Four flat colour fields (no imagery) from the existing circuit tokens:
-// light day tone -> rose -> muted violet -> dark night. The violet is darkened
-// slightly toward the night tone so white text keeps a readable contrast.
+// Four equal panels, light day tone -> rose -> muted violet -> dark night.
+// Panel 02 carries the soft water photo and panel 04 the moon photo (kept at
+// the owner's request); the violet is darkened so white text stays readable.
 const PHASE_COLORS = [
   "linear-gradient(135deg, #f8f3f4 0%, #eaddd7 100%)",
   "linear-gradient(135deg, #e8cdd6 0%, #d3b0b9 100%)",
@@ -10,6 +12,14 @@ const PHASE_COLORS = [
 ];
 
 const PHASE_TEXT_ON_DARK = [false, false, true, true];
+
+// Optional photo per panel, with a tint so the text keeps its contrast.
+const PHASE_IMAGES: ({ src: string; tint: string } | null)[] = [
+  null,
+  { src: "/mockup/phase-pink-caustics.webp", tint: "rgba(224, 185, 188, 0.28)" },
+  null,
+  { src: "/mockup/phase-moon-night.webp", tint: "rgba(18, 14, 25, 0.45)" },
+];
 
 type Phase = {
   number: string;
@@ -51,12 +61,26 @@ export function RegenerationCircuit({
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         {phases.map((phase, i) => {
           const isDark = PHASE_TEXT_ON_DARK[i];
+          const photo = PHASE_IMAGES[i];
           return (
             <div
               key={phase.name}
-              className="flex min-h-[460px] flex-col p-8 lg:min-h-[560px] lg:p-12"
+              className="relative flex min-h-[460px] flex-col overflow-hidden lg:min-h-[560px]"
               style={{ background: PHASE_COLORS[i] }}
             >
+              {photo && (
+                <>
+                  <Image
+                    src={photo.src}
+                    alt=""
+                    fill
+                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                    className="object-cover object-center"
+                  />
+                  <div className="absolute inset-0" style={{ backgroundColor: photo.tint }} />
+                </>
+              )}
+              <div className="relative z-10 flex flex-1 flex-col p-8 lg:p-12">
               <span
                 className="font-serif text-lg lg:text-xl"
                 style={{ color: isDark ? "rgba(255,255,255,0.9)" : "var(--color-ink)" }}
@@ -89,6 +113,7 @@ export function RegenerationCircuit({
                     {word}
                   </span>
                 ))}
+              </div>
               </div>
             </div>
           );
