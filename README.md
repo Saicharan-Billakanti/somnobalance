@@ -23,8 +23,7 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 This project deploys to **Cloudflare Workers** only, with **Supabase** as the database/auth backend. No Vercel or other hosting platform is used.
 
 ```bash
-npm run build:vinext      # builds the Workers-compatible output via vinext
-npm run deploy:vinext     # deploys to the "somnobalance" Cloudflare Worker
+npm run deploy:vinext     # builds fresh (predeploy) and deploys to the "somnobalance" Cloudflare Worker
 ```
 
 Production is served from `somnobalance.com` / `www.somnobalance.com`, both routed to the `somnobalance` Worker. See `wrangler.jsonc` for the Worker configuration.
