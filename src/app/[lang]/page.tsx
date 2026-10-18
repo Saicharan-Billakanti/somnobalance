@@ -158,34 +158,44 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
 
           <div className="mt-16 grid gap-6 md:grid-cols-2 lg:gap-8">
             {dict.homeSections.forYou.tiles.map((tile) => (
-              <div key={tile.slug} className="flex flex-col">
-                <Link href={`/${l}/shop/${tile.slug}`} className="group relative block aspect-[16/9] overflow-hidden">
+              <Link
+                key={tile.slug}
+                href={`/${l}/shop/${tile.slug}`}
+                className="group flex flex-col overflow-hidden bg-white shadow-sm transition-shadow duration-300 hover:shadow-md"
+              >
+                {/* Whole product always visible: contained on white, never cropped */}
+                <div className="relative aspect-[4/3] w-full border-b border-ink/5 bg-white">
                   <Image
                     src={tile.image}
                     alt={tile.title}
                     fill
                     sizes="(min-width: 768px) 45vw, 90vw"
-                    className="object-cover transition duration-700 group-hover:scale-105"
+                    className="object-contain p-6 transition-transform duration-500 group-hover:scale-[1.03] sm:p-8"
                   />
-                </Link>
-                <div className="flex flex-1 flex-col bg-white p-6 sm:p-8">
-                  <h3 className="font-serif text-xl font-bold text-ink">{tile.title}</h3>
-                  <p className="mt-2 text-sm text-ink/70">{tile.subheadline}</p>
-                  <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-[10px] uppercase tracking-[0.2em]">
-                    {dict.homeSections.forYou.phaseLabels.map((label, i) => (
-                      <span key={label} className={tile.activePhases[i] ? "font-semibold text-ink" : "text-ink/40"}>
-                        {label}
-                      </span>
-                    ))}
-                  </div>
-                  <Link
-                    href={`/${l}/shop/${tile.slug}`}
-                    className="mt-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-ink transition-opacity hover:opacity-70"
-                  >
-                    {dict.home.learnMore}
-                  </Link>
                 </div>
-              </div>
+                <div className="flex flex-1 flex-col p-6 sm:p-8">
+                  <h3 className="font-serif text-xl font-bold leading-snug text-ink">{tile.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-ink/70">{tile.subheadline}</p>
+                  {/* Which of the four phases this product accompanies: filled dot = yes, hollow = not a focus */}
+                  <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[10px] uppercase tracking-[0.18em]">
+                    {dict.homeSections.forYou.phaseLabels.map((label, i) => (
+                      <li
+                        key={label}
+                        className={`flex items-center gap-1.5 ${tile.activePhases[i] ? "font-semibold text-ink" : "text-ink/35"}`}
+                      >
+                        <span
+                          aria-hidden="true"
+                          className={`size-1.5 rounded-full ${tile.activePhases[i] ? "bg-mauve" : "border border-ink/30"}`}
+                        />
+                        {label}
+                      </li>
+                    ))}
+                  </ul>
+                  <span className="mt-auto inline-flex items-center gap-2 pt-7 text-xs font-semibold uppercase tracking-wider text-ink transition-opacity group-hover:opacity-70">
+                    {dict.home.learnMore}
+                  </span>
+                </div>
+              </Link>
             ))}
           </div>
 

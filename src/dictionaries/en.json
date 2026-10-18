@@ -1,1005 +1,1005 @@
-{
-  "nav": {
-    "forMe": "For me",
-    "regenerationscheck": "Regeneration Check",
-    "forBusiness": "For my business",
-    "partner": "Become a partner",
-    "shop": "Shop",
-    "faq": "FAQ",
-    "contact": "Contact",
-    "cart": "Cart",
-    "login": "Log in",
-    "register": "Register",
-    "logout": "Log out",
-    "greeting": "Hi, {name}",
-    "concept": "The Concept",
-    "forBusinessMenu": "For Business",
-    "aboutFounders": "About Nicole & Alex",
-    "account": "Account",
-    "search": "Search"
-  },
-  "authPages": {
-    "login": {
-      "title": "Sign in",
-      "subtitle": "Sign in with your email or phone and password.",
-      "email": "Email",
-      "phone": "Phone",
-      "emailPlaceholder": "Email address",
-      "phonePlaceholder": "+49 170 0000000",
-      "passwordPlaceholder": "Password",
-      "submit": "Sign in",
-      "submitting": "Signing in…",
-      "forgotPassword": "Forgot password?",
-      "noAccount": "Don't have an account?",
-      "createAccount": "Create one"
-    },
-    "register": {
-      "title": "Create account",
-      "subtitle": "Verify your email or phone to create your account, then use your password to sign in.",
-      "verifyByEmail": "Verify by email",
-      "verifyByPhone": "Verify by phone",
-      "firstName": "First name",
-      "lastName": "Last name",
-      "email": "Email address",
-      "phone": "Phone, e.g. +49 170 0000000",
-      "password": "Password (at least 8 characters)",
-      "confirmPassword": "Confirm password",
-      "passwordMismatch": "Passwords don't match.",
-      "sendCode": "Send verification code",
-      "sending": "Sending…",
-      "codeSentEmail": "Verification code sent. Check your email.",
-      "codeSentPhone": "Verification code sent via SMS.",
-      "codePlaceholder": "Verification code",
-      "verify": "Verify and create account",
-      "verifying": "Verifying…",
-      "useDifferentEmail": "Use a different email",
-      "alreadyHaveAccount": "Already have an account?",
-      "signIn": "Sign in"
-    },
-    "forgotPassword": {
-      "title": "Reset password",
-      "subtitle": "Enter your email address and we'll send you a link to reset your password.",
-      "emailPlaceholder": "Email address",
-      "submit": "Send reset link",
-      "submitting": "Sending…",
-      "success": "If an account exists for that email, a reset link has been sent.",
-      "backToLogin": "Back to sign in"
-    },
-    "resetPassword": {
-      "title": "Set a new password",
-      "subtitle": "Choose a new password for your account.",
-      "passwordPlaceholder": "New password (at least 8 characters)",
-      "confirmPasswordPlaceholder": "Confirm new password",
-      "passwordMismatch": "Passwords don't match.",
-      "submit": "Save password",
-      "submitting": "Saving…",
-      "success": "Your password has been updated. Signing you in…",
-      "invalidLink": "This link is invalid or has expired. Please request a new one.",
-      "requestNewLink": "Request a new link"
-    }
-  },
-  "footer": {
-    "tagline": "Regeneration begins in the day and reaches into the night.",
-    "brandStatement": "SomnoBalance brings together self-regulation, mindful rituals and a sleep environment that supports regeneration into one holistic regeneration concept.",
-    "cycleClosing": "And in the morning, the cycle begins again.",
-    "explore": "Explore",
-    "legal": "Service & Legal",
-    "contact": "Contact",
-    "rights": "All rights reserved.",
-    "newsletterTitle": "Stay connected",
-    "newsletterCopy": "Get impulses and news from the SomnoBalance world."
-  },
-  "legalNav": {
-    "impressum": "Impressum",
-    "privacy": "Privacy Policy",
-    "terms": "Terms & Conditions",
-    "shipping": "Shipping & Delivery",
-    "withdrawal": "Right of Withdrawal",
-    "returns": "Refund & Return Policy",
-    "cancellation": "Cancellation Policy",
-    "cookies": "Cookie Policy"
-  },
-  "home": {
-    "eyebrow": "REGULATE · LET GO · PREPARE · REGENERATE",
-    "titlePrefix": "Regeneration begins in the day and reaches ",
-    "titleAccent": "into the night.",
-    "subtitle": "SomnoBalance combines mindful self-regulation during the day, soothing rituals and a sleep environment that supports regeneration – for a natural transition from the active day into the night.",
-    "ctaForMe": "Start your Regeneration Check",
-    "forMeTitle": "For me",
-    "forMeCopy": "Discover your personal path to more calm and conscious regeneration – from the day into the night.",
-    "forMeImage": "/home/tile-for-me.webp",
-    "forBusinessTitle": "For my business",
-    "forBusinessCopy": "Regeneration for employees, teams and guests – with holistic impulses and selected solutions.",
-    "forBusinessImage": "/home/tile-business.webp",
-    "partnerTitle": "Become a partner",
-    "partnerCopy": "Become part of the SomnoBalance concept and bring conscious regeneration into your offering.",
-    "partnerImage": "/home/tile-partner.webp",
-    "learnMore": "Learn more →",
-    "partnerCta": "Discover the partnership →"
-  },
-  "homeSections": {
-    "concept": {
-      "eyebrow": "OUR APPROACH",
-      "headline": "The SomnoBalance idea",
-      "body": "Regeneration doesn't only begin when we sleep. Even during the day, tension, thoughts and habits influence how easily we find calm.\n\nSomnoBalance brings together targeted impulses for self-regulation, mindful rituals and a sleep environment that supports regeneration into one holistic concept that accompanies you from the active day into the night.",
-      "statement": "The day shapes the night. The night, the day that follows.",
-      "phaseStrip": [
-        "Regulate",
-        "Let Go",
-        "Prepare",
-        "Regenerate"
-      ]
-    },
-    "circuit": {
-      "eyebrow": "OUR NATURAL RHYTHM",
-      "headline": "The SomnoBalance Regeneration Cycle",
-      "intro": "Four phases that interlock: Regulate, Let Go, Prepare and Regenerate. SomnoBalance accompanies you with mindful regeneration impulses, soothing rituals and a supportive sleep environment – from the active day into the night.",
-      "closing": "And in the morning, the cycle begins again.",
-      "phases": [
-        {
-          "number": "01",
-          "name": "Regulate",
-          "headline": "Arriving in the day",
-          "body": "Targeted impulses for self-regulation help you pause in everyday life and become more aware of your inner balance.",
-          "orientation": "Clarity · Focus · Inner calm"
-        },
-        {
-          "number": "02",
-          "name": "Let Go",
-          "headline": "Making the day lighter",
-          "body": "Create small moments of slowing down to gain distance from everyday life and consciously find calm.",
-          "orientation": "Relaxation · Lightness · Composure"
-        },
-        {
-          "number": "03",
-          "name": "Prepare",
-          "headline": "Finding calm",
-          "body": "Mindful evening rituals and a pleasant environment accompany the transition from the active day into the night.",
-          "orientation": "Rituals · Mindfulness · Harmony"
-        },
-        {
-          "number": "04",
-          "name": "Regenerate",
-          "headline": "Space for regeneration",
-          "body": "A sleep environment tailored to your needs creates good conditions for restful nights and a new day.",
-          "orientation": "Rest · Regeneration · New day"
-        }
-      ]
-    },
-    "moment": {
-      "eyebrow": "YOUR PERSONAL ORIENTATION",
-      "headline": "What do you need right now?",
-      "intro": "Everyone experiences everyday life differently. Perhaps you wish for more calm during the day, a more conscious transition into the evening, or a more restful night. Our Regeneration Check helps you better understand your current needs and discover fitting SomnoBalance impulses.",
-      "situations": [
-        {
-          "quote": "I'm often tense and hardly find calm during the day.",
-          "reflection": "Discover how small moments of regeneration can accompany your everyday life."
-        },
-        {
-          "quote": "I find it hard to unwind in the evening and switch off.",
-          "reflection": "Conscious transitions and small evening rituals can help you let the day fade out."
-        },
-        {
-          "quote": "I often wake up at night and don't feel rested in the morning.",
-          "reflection": "Find out what role your evening routine and sleep environment can play."
-        },
-        {
-          "quote": "Overall, I wish for more balance and well-being.",
-          "reflection": "Find out which regeneration impulses fit your current life situation."
-        }
-      ],
-      "checkCta": "Start the Regeneration Check →"
-    },
-    "forYou": {
-      "eyebrow": "OUR PRODUCTS",
-      "headline": "SomnoBalance for you",
-      "intro": "Discover the building blocks of SomnoBalance – from targeted regeneration impulses and mindful rituals to a sleep environment that supports your nightly rest.",
-      "phaseLabels": [
-        "Regulate",
-        "Let Go",
-        "Prepare",
-        "Regenerate"
-      ],
-      "closingEyebrow": "DISCOVER SOMNOBALANCE",
-      "allProducts": "Discover all products →",
-      "startCheck": "Start the Regeneration Check",
-      "tiles": [
-        {
-          "slug": "somnobalance-regeneration-cards",
-          "title": "SomnoBalance Regeneration Cards",
-          "subheadline": "Impulses that accompany you through the day.",
-          "activePhases": [
-            true,
-            true,
-            true,
-            false
-          ],
-          "image": "/products/somnobalance-regeneration-cards.webp"
-        },
-        {
-          "slug": "somnobalance-roll-on",
-          "title": "Roll-on, Oil Blend & Room Spray",
-          "subheadline": "Mindful moments of scent for your personal rituals.",
-          "activePhases": [
-            true,
-            true,
-            true,
-            false
-          ],
-          "image": "/products/somnobalance-roll-on.webp"
-        },
-        {
-          "slug": "somnobalance-regeneration-tea",
-          "title": "SomnoBalance Regeneration Tea",
-          "subheadline": "A soothing ritual for mindful pauses.",
-          "activePhases": [
-            false,
-            true,
-            true,
-            false
-          ],
-          "image": "/products/tea-lifestyle-cup.webp"
-        },
-        {
-          "slug": "somnobalance-mattress",
-          "title": "Pillows, Mattresses & Regeneration Beds",
-          "subheadline": "A sleep environment that supports your nightly regeneration.",
-          "activePhases": [
-            true,
-            false,
-            true,
-            true
-          ],
-          "image": "/products/somnobalance-mattress.webp"
-        }
-      ]
-    }
-  },
-  "forMe": {
-    "meta": "For me — SomnoBalance",
-    "hero": {
-      "eyebrow": "FOR ME",
-      "headline": "Regeneration begins with you. And already during the day.",
-      "p1": "Sometimes it's the small moments that make the difference: pausing consciously, finding new calm and shaping the transition from the active day into the night.",
-      "p2": "SomnoBalance brings together impulses for self-regulation, mindful rituals and a sleep environment that supports regeneration. Discover how these building blocks can be integrated into your everyday life step by step.",
-      "primary": "Start the Regeneration Check →",
-      "secondary": "Discover the SomnoBalance principle →"
-    },
-    "recognition": {
-      "eyebrow": "YOUR EVERYDAY LIFE",
-      "headline": "Perhaps you know these moments.",
-      "intro": "The day is full of tasks. In the evening it's hard to gain distance. And sometimes the next morning begins before real rest has set in.",
-      "items": [
-        {
-          "quote": "I hardly find a moment for myself during the day.",
-          "reflection": "A conscious impulse can help you pause."
-        },
-        {
-          "quote": "In the evening my thoughts keep circling.",
-          "reflection": "Small rituals can accompany the transition into the evening."
-        },
-        {
-          "quote": "I wish for a more restful start to the day.",
-          "reflection": "The sleep environment is also part of a conscious regeneration routine."
-        }
-      ]
-    },
-    "phases": {
-      "eyebrow": "SOMNOBALANCE IN EVERYDAY LIFE",
-      "headline": "How to accompany the four phases through your day.",
-      "intro": "No two days are the same. The four SomnoBalance phases give you orientation without prescribing a fixed sequence. Choose the small steps that fit your situation.",
-      "items": [
-        {
-          "name": "Regulate",
-          "title": "A pause in the middle of the day",
-          "body": "Between appointments, tasks and conversations there is often little time to pause. Draw a regeneration card, read the impulse it describes and take a short moment to try it out in peace."
-        },
-        {
-          "name": "Let Go",
-          "title": "Leaving the working day behind",
-          "body": "Before the evening begins, create a conscious transition: put the phone aside, sit down for a moment and – if you like and tolerate scents – choose your personal scent as a ritual."
-        },
-        {
-          "name": "Prepare",
-          "title": "A recurring evening ritual",
-          "body": "Give the evening a recognisable structure. For example, prepare a cup of regeneration tea, reduce distractions and arrange the bedroom so that you feel comfortable in it."
-        },
-        {
-          "name": "Regenerate",
-          "title": "Choosing the sleep environment consciously",
-          "body": "When you lie down to rest, the environment matters too: a pillow that suits how you lie, a suitable mattress and a pleasant sense of space. This way you extend your day and evening rituals into the night."
-        }
-      ]
-    },
-    "routine": {
-      "eyebrow": "SMALL RITUALS THAT FIT INTO EVERYDAY LIFE",
-      "headline": "From the first pause to calm in the night.",
-      "stations": [
-        {
-          "label": "During the day",
-          "body": "Choose a regeneration card and consciously take a short moment for the impulse it describes."
-        },
-        {
-          "label": "At the end of work",
-          "body": "Shape a transition – for example with a quiet pause and a familiar scent, if you tolerate it well."
-        },
-        {
-          "label": "In the evening",
-          "body": "Let the day fade out with a small ritual. A cup of regeneration tea or a consciously designed sleep environment can be part of your routine."
-        },
-        {
-          "label": "At night",
-          "body": "Look for a pillow, a mattress and a sense of space that fit your personal needs."
-        }
-      ]
-    },
-    "companions": {
-      "eyebrow": "SOMNOBALANCE FOR HOME",
-      "headline": "Discover what fits your routine.",
-      "body": "Regeneration cards give impulses for mindful moments during the day. Roll-on, oil blend and room spray can accompany personal rituals. Regeneration tea invites you to take a pause. Pillows and mattresses complete the concept with a needs-oriented sleep environment.",
-      "button": "Discover SomnoBalance products →"
-    },
-    "next": {
-      "eyebrow": "YOUR NEXT STEP",
-      "headline": "What would do you good right now?",
-      "body": "Every everyday life is different. The Regeneration Check helps you understand your current situation more consciously and get to know fitting SomnoBalance impulses.",
-      "button": "Start the Regeneration Check →"
-    }
-  },
-  "forBusiness": {
-    "hero": {
-      "eyebrow": "FOR BUSINESS",
-      "title": "Rethinking regeneration.",
-      "intro": "SomnoBalance combines mindful regeneration impulses with a sleep environment that supports regeneration. For companies, hotels and professional facilities, this opens up individual ways to integrate regeneration into existing offerings and spaces.",
-      "ctaPrimary": "Request a collaboration",
-      "ctaSecondary": "Discover use cases",
-      "imageAlt": "Calm hotel room with a light bed and warm lighting"
-    },
-    "areas": {
-      "eyebrow": "USE CASES",
-      "title": "One concept. Different possibilities.",
-      "intro": "Every environment has different requirements for regeneration. SomnoBalance can be used individually, according to the people, spaces and existing offerings.",
-      "items": [
-        {
-          "name": "Hotels & Hospitality",
-          "headline": "Carry your guests' regeneration experience into the night.",
-          "body": "From mindful arrival and small rituals to the sleep environment: SomnoBalance can complement the guest experience with coordinated regeneration impulses. Selected ritual products, regeneration cards and matching pillow and sleep-system solutions are conceivable – tailored to your property.",
-          "link": "Request solutions for hotels →",
-          "interest": "hotel"
-        },
-        {
-          "name": "Companies & Teams",
-          "headline": "Enable mindful moments of regeneration in the working day.",
-          "body": "Between appointments, responsibility and high concentration, there is often little room to pause. SomnoBalance offers everyday impulses for self-regulation and small rituals that can be integrated into breaks, team formats or corporate health offerings.",
-          "link": "Discuss options for teams →",
-          "interest": "company"
-        },
-        {
-          "name": "Practices, Clinics & Wellness Areas",
-          "headline": "Make regeneration tangible as a complementary building block.",
-          "body": "For professional facilities, SomnoBalance offers suggestions that allow people to create mindful moments of regeneration beyond individual treatments. Which materials, products or formats make sense is agreed together and tailored to your offering.",
-          "link": "Request use cases →",
-          "interest": "practice"
-        }
-      ]
-    },
-    "solutions": {
-      "eyebrow": "SHAPING IT TOGETHER",
-      "title": "Not a standard solution. A concept that fits you.",
-      "body": "Whether a selected regeneration ritual, an offering for employees or a well-thought-out concept for guest rooms: we first look at your target group, your spaces and your existing offerings. Building on that, we develop a fitting combination of SomnoBalance building blocks together.",
-      "blocksLabel": "Possible building blocks",
-      "blocks": [
-        "Regeneration cards and application impulses",
-        "Roll-on, oil blend, room spray and tea",
-        "Accompanying formats",
-        "Pillows, mattresses and regeneration beds"
-      ]
-    },
-    "collab": {
-      "eyebrow": "COLLABORATION",
-      "title": "From the first idea to the right implementation.",
-      "body": "We want to understand what you would like to achieve for your guests, employees or clients. In a personal conversation we clarify the possibilities, the appropriate scope and the next steps – without obligation and tailored to your facility.",
-      "cta": "Enquire without obligation →"
-    },
-    "form": {
-      "title": "Let's talk about your possibilities.",
-      "intro": "Briefly tell us which area you are interested in. We will get in touch to discuss the next steps together.",
-      "company": "Company / facility",
-      "contact": "Contact person",
-      "email": "Business email",
-      "phone": "Phone (optional)",
-      "interest": "Area of interest",
-      "interestOptions": {
-        "hotel": "Hotel / Hospitality",
-        "company": "Company / Teams",
-        "practice": "Practice / Clinic / Wellness",
-        "other": "Other"
-      },
-      "message": "Message (optional)",
-      "submit": "Send enquiry →",
-      "submitting": "Sending…",
-      "success": "Thank you for your enquiry. We will get back to you personally.",
-      "error": "Something went wrong while sending. Please try again.",
-      "privacy": "We use your details solely to process your enquiry. You can find more information in our {link}.",
-      "privacyLink": "Privacy Policy"
-    },
-    "portal": {
-      "eyebrow": "MY B2B PORTAL",
-      "title": "Your business customer area",
-      "tabEnquiry": "Request a collaboration"
-    }
-  },
-  "partner": {
-    "eyebrow": "BECOME A PARTNER",
-    "portal": {
-      "loginTitle": "Partner Portal Login",
-      "loginSubtitle": "Enter your partner email to view your dashboard, coupons, earnings, and payouts.",
-      "emailPlaceholder": "Enter your partner email",
-      "accessButton": "Open Partner Dashboard",
-      "loading": "Loading dashboard…",
-      "greeting": "Welcome back, {name}",
-      "partnerCode": "Partner ID",
-      "status": "Status",
-      "active": "Active",
-      "pending": "Pending Approval",
-      "suspended": "Suspended",
-      "myCoupons": "Your Referral Coupons",
-      "couponCopy": "Share this code with your clients or patients for an exclusive discount:",
-      "referralLink": "Your Referral Link",
-      "copyLink": "Copy link",
-      "copied": "Copied ✓",
-      "metrics": {
-        "orders": "Referral Orders",
-        "earned": "Total Commission Earned",
-        "paid": "Total Paid Out",
-        "available": "Available Balance",
-        "threshold": "Payout Threshold (€{amount})",
-        "thresholdNotice": "€{remaining} remaining until your next automatic payout"
-      },
-      "recentOrders": "Referred Orders & Commissions",
-      "noOrders": "No referred orders yet. Share your referral link to earn your first commission!",
-      "orderRef": "Order",
-      "date": "Date",
-      "commission": "Commission",
-      "payouts": "Payout Ledger",
-      "noPayouts": "No payouts disbursed yet.",
-      "reference": "Reference",
-      "amount": "Amount",
-      "notifications": "Notifications"
-    },
-    "landing": {
-      "hero": {
-        "eyebrow": "BECOME A PARTNER",
-        "title": "Carrying SomnoBalance forward together.",
-        "p1": "SomnoBalance connects people who integrate conscious regeneration into their everyday lives and want to share that experience with others.",
-        "p2": "Whether you use SomnoBalance professionally or are personally convinced: our partner programme gives you the opportunity to recommend the concept and to share in orders you refer.",
-        "primary": "Become a partner",
-        "secondary": "How the partnership works"
-      },
-      "about": {
-        "title": "A partnership that fits you.",
-        "body": "You decide how and to what extent you recommend SomnoBalance – personally, in your professional environment or through your own channels. The focus is on a concept you can stand behind and recommendations that fit your surroundings."
-      },
-      "how": {
-        "title": "How the referral works",
-        "intro": "A clear process – from your recommendation to transparent attribution.",
-        "steps": [
-          {
-            "title": "Recommend",
-            "body": "Once you have been approved, you receive a personal referral link or code. You can share it with interested people in a fitting context."
-          },
-          {
-            "title": "Attribute orders",
-            "body": "If an order is placed via your link or code, it can be attributed to your partnership in accordance with the applicable programme terms."
-          },
-          {
-            "title": "Keep an overview",
-            "body": "In your partner portal you will find information about attributed referrals and the related remuneration."
-          }
-        ]
-      },
-      "portalInfo": {
-        "title": "Everything at a glance.",
-        "body": "With your personal referral link or code, referred orders can be attributed to you. In the partner portal you get an overview of your referrals and the related remuneration."
-      },
-      "close": {
-        "title": "Would you like to recommend SomnoBalance?",
-        "body": "Become part of our partner network and discover the possibilities of working together. We look forward to learning more about you and your interest in SomnoBalance.",
-        "primary": "Become a partner now",
-        "existing": "Already a partner? Log in"
-      },
-      "apply": {
-        "name": "Name",
-        "email": "Email address",
-        "kind": "Type of recommendation",
-        "kindOptions": {
-          "private": "Private",
-          "professional": "Professional",
-          "company": "Company"
-        },
-        "message": "Short message (optional)",
-        "privacy": "I have taken note of the {link}.",
-        "privacyLink": "Privacy Policy",
-        "submitting": "Submitting…",
-        "successTitle": "Thank you for your interest!",
-        "successCopy": "We will review your details and get back to you. Once approved, you will receive your personal referral link or code.",
-        "successLogin": "Go to login",
-        "error": "Your application could not be submitted. Please try again."
-      }
-    },
-    "meta": "Become a partner — SomnoBalance"
-  },
-  "applicationForm": {
-    "businessTitle": "Apply for a wholesale account",
-    "businessIntro": "Tell us about your project — we'll follow up with pricing and next steps.",
-    "partnerTitle": "Apply to become a partner",
-    "partnerIntro": "Tell us about your practice or property — we'll follow up with your referral link.",
-    "contactName": "Your name",
-    "email": "Email",
-    "phone": "Phone (optional)",
-    "companyName": "Company / property name",
-    "companyType": "Type",
-    "companyTypeHotel": "Hotel",
-    "companyTypePlanningOffice": "Planning office",
-    "companyTypeClinic": "Clinic",
-    "companyTypeOther": "Other",
-    "propertyCount": "Number of rooms / properties (optional)",
-    "projectStage": "Project stage",
-    "projectStagePlanning": "Planning",
-    "projectStageActive": "Active project",
-    "projectStageRenovation": "Renovation",
-    "projectStageOther": "Other",
-    "profession": "Profession",
-    "professionPhysio": "Physiotherapist",
-    "professionAltPractitioner": "Alternative practitioner",
-    "professionKinesiologist": "Kinesiologist",
-    "professionMassage": "Massage therapist",
-    "professionHotel": "Hotel",
-    "professionOther": "Other",
-    "practiceOrPropertyName": "Practice / property name",
-    "website": "Website (optional)",
-    "message": "Anything else we should know? (optional)",
-    "submit": "Submit application",
-    "submitting": "Submitting…",
-    "success": "Thank you — we've received your application and will be in touch shortly.",
-    "error": "Something went wrong. Please try again or reach out via our contact page.",
-    "required": "Required"
-  },
-  "faq": {
-    "title": "FAQ",
-    "heading": "Frequently asked questions",
-    "items": [
-      {
-        "q": "Where do you ship?",
-        "a": "Currently within Germany only, via DHL. Deliveries outside Germany are not yet offered. See our Shipping & Delivery page for details."
-      },
-      {
-        "q": "How long does delivery take?",
-        "a": "In-stock items (Ritual collection, cards, pillow, starter set) are dispatched immediately and generally arrive within 1–3 business days. Mattresses are made to order and take approximately 3–4 weeks to manufacture before they ship — mattresses from 160 × 200 cm arrive as 3–4 separate parcels."
-      },
-      {
-        "q": "Is shipping free?",
-        "a": "Orders over €59 ship free of charge. For mattresses, shipping is always included in the price shown, regardless of order value."
-      },
-      {
-        "q": "Can I return a product?",
-        "a": "Yes. As a consumer in the EU you have a 14-day right of withdrawal from the date of delivery, with no need to give a reason. See our Right of Withdrawal page for the full policy and a model withdrawal form. Separately, damaged or defective products are covered by our Refund & Return Policy, and a statutory 2-year warranty applies to defects present at delivery."
-      },
-      {
-        "q": "What payment methods do you accept?",
-        "a": "Card, SEPA Direct Debit, and PayPal, processed through our payment provider, Stripe. Card and bank details are never stored on our own servers."
-      },
-      {
-        "q": "Is SomnoBalance the same company as Willing1863?",
-        "a": "SomnoBalance is the brand you experience. It is operated by Friedrich-Alexander Willing, trading as \"Willing1863\" — Willing1863 is named only for legal-disclosure purposes. Full legal detail is in our Impressum."
-      },
-      {
-        "q": "Do you offer wholesale or hospitality pricing?",
-        "a": "Yes — see our For my business page or contact us directly to discuss terms for hotels and wellness properties."
-      }
-    ]
-  },
-  "contact": {
-    "eyebrow": "Contact",
-    "title": "We'd like to hear from you",
-    "intro": "Questions about an order, a wholesale enquiry, or a partnership — reach us directly.",
-    "email": "Email",
-    "phone": "Phone",
-    "address": "Postal address",
-    "form": {
-      "name": "Name",
-      "email": "Email",
-      "topicGeneral": "General enquiry",
-      "topicBusiness": "For my business",
-      "topicPartner": "Become a partner",
-      "topicOrder": "An existing order",
-      "topicAdvice": "Product advice",
-      "message": "Message",
-      "send": "Send message",
-      "sending": "Sending…",
-      "thanks": "Thank you — we've received your message and will get back to you soon.",
-      "genericError": "Something went wrong sending your message.",
-      "networkError": "Could not reach the server. Please try again."
-    }
-  },
-  "shop": {
-    "eyebrow": "Shop",
-    "title": "Tools for the ritual",
-    "intro": "Each piece supports one phase of the SomnoBalance system. Prices shown include statutory German VAT (MwSt.). Shipped via DHL within Germany — free from €59, included in the price for mattresses.",
-    "inclVat": "incl. VAT",
-    "from": "from",
-    "size": "Size",
-    "firmness": "Edition",
-    "inclVatShipping": "incl. VAT · free shipping from €59",
-    "freeDelivery": "Free Delivery",
-    "partnerMemberTitle": "Partner Member",
-    "partnerMemberCopy": "You earn a commission on customer referrals.",
-    "partnerMemberCta": "Open Partner Portal →",
-    "partnerTeaserTitle": "Healthcare Professional?",
-    "partnerTeaserCopy": "Join our verified health partner network and earn a commission on client referrals.",
-    "partnerTeaserCta": "Become a partner →",
-    "ingredients": "Ingredients (INCI)",
-    "withdrawalNote": "14-day right of withdrawal within the EU. See {link}.",
-    "withdrawalLinkLabel": "Right of Withdrawal",
-    "addToCart": "Add to cart",
-    "addedToCart": "Added to cart ✓",
-    "quantity": "Quantity",
-    "productInfo": "Product information",
-    "shippingReturns": "Shipping & Returns",
-    "youMightAlsoLike": "You might also like",
-    "ritualCompanions": "Ritual companions",
-    "rollOnGalleryTagline": "A companion\nfor your day.",
-    "viewAllProducts": "View all products",
-    "howToUseEyebrow": "How to use",
-    "howToUseTitle": "A small moment.\nIn the middle of the day.",
-    "productDetailsEyebrow": "Product details",
-    "soundTitle": "SOMNOBALANCE\nSOUND",
-    "soundIntro": "A moment to arrive.\nAccompany your SomnoBalance moment with a calm sound atmosphere.",
-    "variantNotes": {
-      "Two independent firmness zones": "Two independent firmness zones"
-    },
-    "editionNotes": {
-      "Reversible between firmness H2 and H3": "Reversible between firmness H2 and H3",
-      "Reversible between firmness H3 and H4": "Reversible between firmness H3 and H4"
-    },
-    "categories": {
-      "Sleep": "Sleep",
-      "Ritual": "Ritual",
-      "Care": "Care"
-    },
-    "phases": {
-      "REGULATE": "Regulate",
-      "LET GO": "Let Go",
-      "PREPARE": "Prepare",
-      "REGENERATE": "Regenerate"
-    }
-  },
-  "cart": {
-    "emptyTitle": "Your cart is empty",
-    "emptyCopy": "Nothing here yet — a good moment to start a ritual.",
-    "browseShop": "Browse the shop",
-    "title": "Your cart",
-    "subtotal": "Subtotal, incl. VAT",
-    "checkout": "Proceed to checkout",
-    "remove": "Remove",
-    "loginPromptTitle": "Sign in to complete your purchase",
-    "loginPromptSubtitle": "Log in to your SomnoBalance account or register in seconds to continue to checkout.",
-    "loginAndCheckout": "Log in & Checkout",
-    "registerAndCheckout": "Create account & Checkout",
-    "continueAsGuest": "Continue as guest",
-    "promoCode": "Promo or Partner Referral Code",
-    "applyCode": "Apply",
-    "codeApplied": "Coupon {code} applied (-{rate}%)",
-    "removeCode": "Remove",
-    "discount": "Discount"
-  },
-  "checkout": {
-    "orderReceived": "Order received",
-    "demoCheckout": "This was a demo checkout",
-    "orderReference": "Order reference: {id}",
-    "demoNotice": "No payment was taken. This flow exists to show how checkout will work once our payment gateway is live — real charges will be enabled after that integration is approved.",
-    "backToShop": "Back to shop",
-    "emptyTitle": "Your cart is empty",
-    "browseShop": "Browse the shop",
-    "title": "Checkout",
-    "demoEnv": "Demo environment — no live payment processing yet.",
-    "contactShipping": "Contact & shipping address",
-    "firstName": "First name",
-    "lastName": "Last name",
-    "email": "Email",
-    "street": "Street and house number",
-    "postalCode": "Postal code",
-    "city": "City",
-    "germanyOnlyNote": "We currently ship within Germany only. See our {link}.",
-    "shippingPolicyLabel": "Shipping & Delivery Policy",
-    "paymentMethod": "Payment method",
-    "card": "Card",
-    "sepa": "SEPA Direct Debit",
-    "paypal": "PayPal",
-    "cardNumber": "Card number",
-    "cardExpiry": "MM / YY",
-    "cardCvc": "CVC",
-    "iban": "IBAN",
-    "sepaNote": "By confirming, you authorise SomnoBalance to send instructions to your bank to debit your account via SEPA Direct Debit.",
-    "paypalNote": "You will be redirected to PayPal to complete payment once this integration is live.",
-    "orderSummary": "Order summary",
-    "subtotal": "Subtotal, incl. VAT",
-    "shipping": "Shipping",
-    "total": "Total",
-    "placeOrder": "Place order (demo)",
-    "continueToPayment": "Continue to payment",
-    "placingOrder": "Redirecting to payment…",
-    "stripeNote": "You'll enter your card details on Stripe's secure payment page in the next step.",
-    "paymentSuccessNotice": "Thank you — your payment was received and your order is being prepared.",
-    "paymentCancelledTitle": "Payment cancelled",
-    "paymentCancelledNotice": "Your payment was not completed and no charge was made. You can review your shipping details and try again.",
-    "backToCheckout": "Back to checkout",
-    "agreementNote": "By placing this order you agree to our {termsLink} and confirm you have read our {withdrawalLink}.",
-    "termsLabel": "Terms & Conditions",
-    "withdrawalLabel": "Right of Withdrawal Policy",
-    "genericError": "Something went wrong placing your order.",
-    "networkError": "Could not reach the server. Please try again.",
-    "loggedInAs": "Signed in as {name} ({email})",
-    "switchAccount": "Switch account",
-    "promoCode": "Promo or Partner Code",
-    "applyCode": "Apply",
-    "codeApplied": "Coupon {code} applied (-{rate}%)",
-    "removeCode": "Remove",
-    "discount": "Discount"
-  },
-  "auth": {
-    "account": "Account",
-    "loginTitle": "Log in",
-    "loginWelcome": "Welcome back to your SomnoBalance ritual.",
-    "email": "Email Address",
-    "password": "Password",
-    "passwordMin": "Password (min. 8 characters)",
-    "loginButton": "Log in",
-    "loggingIn": "Logging in…",
-    "newHere": "New here?",
-    "createAccount": "Create an account",
-    "registerTitle": "Create an account",
-    "registerWelcome": "Save your details for faster checkout and track your orders.",
-    "firstName": "First name",
-    "lastName": "Last name",
-    "creatingAccount": "Creating account…",
-    "alreadyHaveAccount": "Already have an account?",
-    "loginError": "Could not log in.",
-    "registerError": "Could not create your account.",
-    "networkError": "Could not reach the server. Please try again.",
-    "phone": "Mobile Number (Germany +49 / India +91)",
-    "phonePlaceholder": "+49 170 1234567 or +91 98765 43210",
-    "phoneHint": "Real-time SMS verification for German (+49) and Indian (+91) numbers",
-    "phoneNotice": "You will receive a 6-digit SMS verification code in the next step.",
-    "adminCodeLabel": "Admin Registration Code (Optional)",
-    "adminCodePlaceholder": "e.g. ADMIN_2K26",
-    "adminCodeNotice": "Enter an admin code like ADMIN_2K26 to create an account with Administrator privileges.",
-    "verifyPhone": "Verify Number",
-    "sendOtp": "Request SMS Code",
-    "sendingOtp": "Sending SMS code…",
-    "otpSentNotice": "A 6-digit SMS verification code was sent to {phone}.",
-    "otpPlaceholder": "6-digit SMS Code",
-    "verifyOtp": "Verify Code",
-    "verifyingOtp": "Verifying…",
-    "phoneVerified": "Phone number verified ✓",
-    "resendOtp": "Resend Code",
-    "resendWait": "Resend code ({seconds}s)",
-    "phoneRequiredError": "Please verify your phone number before completing registration.",
-    "verificationTitle": "SMS Verification",
-    "enterCodePrompt": "Enter the 6-digit verification code sent via SMS to {phone}:",
-    "enter6DigitCode": "Enter 6-Digit Code",
-    "sentTo": "Sent to",
-    "changePhone": "← Change phone number",
-    "requestOtpAndContinue": "Request SMS Code & Continue →",
-    "verifyAndCreate": "Verify Code & Create Account ✓",
-    "verifyingAndCreating": "Verifying & creating account…",
-    "validPhoneRequired": "Please enter a valid German (+49) or Indian (+91) phone number.",
-    "passwordMinLength": "The password must be at least 8 characters long.",
-    "fullCodeRequired": "Please enter the complete 6-digit SMS code.",
-    "otpTitle": "Enter Verification Code",
-    "otpSubtitle": "We have sent a 6-digit verification code to your email address.",
-    "emailOtpLabel": "Email Verification Code",
-    "emailOtpDesc": "Please enter the 6-digit code sent to your email address.",
-    "mobileOtpLabel": "Mobile Verification Code",
-    "mobileOtpDesc": "Please enter the 6-digit code sent to your mobile phone via SMS.",
-    "verifyButton": "Verify & Continue",
-    "verifying": "Verifying…",
-    "resendEmail": "Resend Email Code",
-    "resendMobile": "Resend SMS Code",
-    "codeSent": "A new code has been sent.",
-    "emailVerified": "Email verified ✓",
-    "mobileVerified": "Mobile verified ✓",
-    "enterBothCodes": "Please enter the 6-digit codes."
-  },
-  "admin": {
-    "notConfiguredTitle": "Admin not configured",
-    "notConfiguredCopy": "Set an ADMIN_PASSWORD environment variable to enable this page.",
-    "title": "Admin Dashboard",
-    "subtitle": "Store operations, orders, partner referrals, and payout disbursements.",
-    "logout": "Log out",
-    "noDb": "No database is configured in this environment, so there is nothing to show yet.",
-    "loadError": "Could not reach the database. Try again in a moment.",
-    "orders": "Orders",
-    "date": "Date",
-    "customer": "Customer",
-    "items": "Items",
-    "total": "Total",
-    "payment": "Payment",
-    "status": "Status",
-    "noOrders": "No orders yet.",
-    "messages": "Contact messages",
-    "from": "From",
-    "topic": "Topic",
-    "message": "Message",
-    "noMessages": "No messages yet.",
-    "loginTitle": "Admin",
-    "loginSubtitle": "Internal use only.",
-    "passwordPlaceholder": "Admin password",
-    "loginButton": "Log in",
-    "checking": "Checking…",
-    "loginFailed": "Login failed",
-    "networkError": "Could not reach the server.",
-    "tabs": {
-      "orders": "Orders & Inquiries",
-      "affiliates": "Partners & Affiliates",
-      "coupons": "Coupons & Commission Rates",
-      "commissions": "Commission Ledger & Payouts"
-    },
-    "affiliates": {
-      "title": "Partner Applications & Directory",
-      "code": "Code",
-      "name": "Partner",
-      "contact": "Contact",
-      "business": "Practice / Business",
-      "status": "Status",
-      "actions": "Actions",
-      "approve": "Approve",
-      "reject": "Reject",
-      "suspend": "Suspend",
-      "activate": "Activate",
-      "noAffiliates": "No partners registered yet."
-    },
-    "coupons": {
-      "title": "Active Referral Coupons",
-      "createTitle": "Create New Affiliate Coupon",
-      "code": "Coupon Code (e.g. SOMNO10)",
-      "discount": "Customer Discount (%)",
-      "commission": "Partner Commission (%)",
-      "minOrder": "Min Order Value (€)",
-      "partner": "Assign to Partner",
-      "createButton": "Create Coupon",
-      "creating": "Creating…",
-      "noCoupons": "No referral coupons created yet."
-    },
-    "commissions": {
-      "title": "Commission Ledger",
-      "payoutsTitle": "Disbursed Payouts",
-      "order": "Order ID",
-      "partner": "Partner",
-      "base": "Base Amount",
-      "rate": "Rate",
-      "earned": "Earned Commission",
-      "status": "Status",
-      "recordPayout": "Record Payout",
-      "payoutPartner": "Partner",
-      "payoutAmount": "Amount (€)",
-      "payoutRef": "Payment Reference (e.g. SEPA/IBAN transfer ID)",
-      "payoutNotes": "Notes",
-      "payoutButton": "Record Payout",
-      "recording": "Recording…",
-      "noCommissions": "No commission records yet.",
-      "noPayouts": "No payouts recorded yet."
-    }
-  },
-  "cookieConsent": {
-    "notice": "We use essential cookies to run this site, and — only with your consent — embedded Spotify players for our ritual playlists, which may set third-party cookies. See our {link}.",
-    "linkLabel": "Cookie Policy",
-    "essentialOnly": "Essential only",
-    "acceptAll": "Accept all"
-  },
-  "legalPages": {
-    "impressum": {
-      "title": "Legal Notice (Impressum)"
-    },
-    "privacy": {
-      "title": "Privacy Policy"
-    },
-    "terms": {
-      "title": "Terms & Conditions (AGB)"
-    },
-    "shipping": {
-      "title": "Shipping & Delivery Policy"
-    },
-    "withdrawal": {
-      "title": "Right of Withdrawal"
-    },
-    "returns": {
-      "title": "Refund & Return Policy"
-    },
-    "cancellation": {
-      "title": "Cancellation Policy"
-    },
-    "cookies": {
-      "title": "Cookie Policy"
-    },
-    "lastUpdated": "Last updated"
-  },
-  "concept": {
-    "meta": "The Concept — SomnoBalance",
-    "hero": {
-      "eyebrow": "THE CONCEPT",
-      "headline": "Regeneration is not a single moment. It is an interplay.",
-      "p1": "Regeneration doesn't begin in bed. What we experience during the day, how we deal with tension and which transitions we allow ourselves can influence how we find calm in the evening.",
-      "p2": "SomnoBalance brings together impulses for self-regulation, mindful rituals and a sleep environment that supports regeneration. The result is a holistic path that accompanies people from the active day into the night – and begins again the next morning.",
-      "leitsatz": "The day shapes the night. The night, the day that follows."
-    },
-    "story": {
-      "eyebrow": "OUR STORY",
-      "headline": "Two experiences became one shared idea.",
-      "paragraphs": [
-        "The idea for SomnoBalance grew out of the daily work in Nicole Willing's kinesiology practice. Again and again she met people who, besides personal and health challenges, also spoke of inner restlessness, tension and difficult nights. It became clear: anyone who wants to support regeneration shouldn't start only at bedtime.",
-        "Nicole therefore looked more closely at everyday ways of self-regulation. From this she developed her own collection of regeneration impulses and selected acupressure points, meant to help people create mindful pauses and pay closer attention to their body's signals again.",
-        "At the same time, Friedrich Alexander Willing contributed his more than 35 years of experience with beds, mattresses and high-quality sleep systems. His focus is on the environment in which we spend the night: lying comfort, individual needs and the quality of the sleep environment.",
-        "SomnoBalance emerged from both perspectives: a concept that doesn't separate the day from the night but connects the two. It is not a single product that takes centre stage, but the interplay of self-regulation, rituals and sleep environment."
-      ]
-    },
-    "people": {
-      "eyebrow": "THE PEOPLE BEHIND THE BRAND",
-      "headline": "Two perspectives. One shared idea.",
-      "profiles": [
-        {
-          "name": "Nicole Willing",
-          "image": "/team/nicole-willing.webp",
-          "imageAlt": "Portrait of Nicole Willing",
-          "body": "Nicole Willing is a kinesiologist and the developer of the SomnoBalance method. She has been supporting people in her practice for around ten years. From her experience of how closely tension, inner calm and regeneration are linked in everyday life, she developed practical regeneration impulses that can be consciously integrated into the day. Her aim is to encourage people toward greater self-awareness and self-regulation – without complicated routines or unrealistic promises."
-        },
-        {
-          "name": "Friedrich Alexander Willing",
-          "image": "/team/friedrich-alexander-willing.webp",
-          "imageAlt": "Portrait of Friedrich Alexander Willing",
-          "body": "Friedrich Alexander Willing has worked with beds, mattresses and individual sleep systems for more than 35 years. His experience shows how important a sleep environment tailored to personal needs is. At SomnoBalance he complements the impulses for the day with the perspective of the night – from high-quality lying comfort to the conscious design of the bedroom."
-        }
-      ],
-      "closing": "What connects us is the conviction that lasting regeneration doesn't begin at a single point. It emerges when we look at the person and their everyday life as a whole."
-    },
-    "phases": {
-      "eyebrow": "OUR REGENERATION PATH",
-      "headline": "Four phases that interlock.",
-      "intro": "SomnoBalance follows a simple idea: the day prepares the night, and the night creates the foundation for a new day. The four phases offer orientation – not as a rigid programme, but as an invitation to shape your own rhythm more consciously.",
-      "items": [
-        {
-          "name": "Regulate",
-          "title": "Consciously arriving in the day",
-          "body": "Small regeneration impulses and selected points invite you to pause in everyday life, notice your own state and consciously support self-regulation."
-        },
-        {
-          "name": "Let Go",
-          "title": "Shaping transitions",
-          "body": "Between tasks, thoughts and obligations, a moment of distance is sometimes needed. Simple rituals can help you avoid carrying the day unchecked into the evening."
-        },
-        {
-          "name": "Prepare",
-          "title": "Giving calm room",
-          "body": "Mindful evening habits, pleasant scents and a quiet environment accompany the transition into the night. What matters is not perfection but a routine that fits your own life."
-        },
-        {
-          "name": "Regenerate",
-          "title": "Supporting the night",
-          "body": "An individually tailored sleep environment with suitable pillows, mattresses and sleep systems creates good conditions for restful nights. In the morning, the cycle begins again."
-        }
-      ]
-    },
-    "blocks": {
-      "eyebrow": "ONE CONCEPT, MANY BUILDING BLOCKS",
-      "headline": "Not the single product. The interplay.",
-      "p1": "Regeneration cards offer suggestions for small, mindful moments during the day. Scents, roll-on, oil blend, room spray and tea can accompany personal rituals. The 21-day guide helps turn individual impulses into a recurring practice. Pillows, mattresses and regeneration beds complete the concept where the night begins.",
-      "p2": "Every building block can stand on its own. It gains its particular meaning, however, in the context of your personal regeneration path. SomnoBalance doesn't want to prescribe a fixed routine, but to offer orientation and support people in finding their own rhythm."
-    },
-    "cta": {
-      "headline": "Discover your personal regeneration path.",
-      "body": "Whether you want to pause more consciously during the day, shape the evening more calmly or take a fresh look at your sleep environment: begin where it suits you right now.",
-      "primary": "Start the Regeneration Check →",
-      "secondary": "Discover SomnoBalance for me →"
-    }
-  }
-}
+{
+  "nav": {
+    "forMe": "For me",
+    "regenerationscheck": "Regeneration Check",
+    "forBusiness": "For my business",
+    "partner": "Become a partner",
+    "shop": "Shop",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "cart": "Cart",
+    "login": "Log in",
+    "register": "Register",
+    "logout": "Log out",
+    "greeting": "Hi, {name}",
+    "concept": "The Concept",
+    "forBusinessMenu": "For Business",
+    "aboutFounders": "About Nicole & Alex",
+    "account": "Account",
+    "search": "Search"
+  },
+  "authPages": {
+    "login": {
+      "title": "Sign in",
+      "subtitle": "Sign in with your email or phone and password.",
+      "email": "Email",
+      "phone": "Phone",
+      "emailPlaceholder": "Email address",
+      "phonePlaceholder": "+49 170 0000000",
+      "passwordPlaceholder": "Password",
+      "submit": "Sign in",
+      "submitting": "Signing in…",
+      "forgotPassword": "Forgot password?",
+      "noAccount": "Don't have an account?",
+      "createAccount": "Create one"
+    },
+    "register": {
+      "title": "Create account",
+      "subtitle": "Verify your email or phone to create your account, then use your password to sign in.",
+      "verifyByEmail": "Verify by email",
+      "verifyByPhone": "Verify by phone",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email address",
+      "phone": "Phone, e.g. +49 170 0000000",
+      "password": "Password (at least 8 characters)",
+      "confirmPassword": "Confirm password",
+      "passwordMismatch": "Passwords don't match.",
+      "sendCode": "Send verification code",
+      "sending": "Sending…",
+      "codeSentEmail": "Verification code sent. Check your email.",
+      "codeSentPhone": "Verification code sent via SMS.",
+      "codePlaceholder": "Verification code",
+      "verify": "Verify and create account",
+      "verifying": "Verifying…",
+      "useDifferentEmail": "Use a different email",
+      "alreadyHaveAccount": "Already have an account?",
+      "signIn": "Sign in"
+    },
+    "forgotPassword": {
+      "title": "Reset password",
+      "subtitle": "Enter your email address and we'll send you a link to reset your password.",
+      "emailPlaceholder": "Email address",
+      "submit": "Send reset link",
+      "submitting": "Sending…",
+      "success": "If an account exists for that email, a reset link has been sent.",
+      "backToLogin": "Back to sign in"
+    },
+    "resetPassword": {
+      "title": "Set a new password",
+      "subtitle": "Choose a new password for your account.",
+      "passwordPlaceholder": "New password (at least 8 characters)",
+      "confirmPasswordPlaceholder": "Confirm new password",
+      "passwordMismatch": "Passwords don't match.",
+      "submit": "Save password",
+      "submitting": "Saving…",
+      "success": "Your password has been updated. Signing you in…",
+      "invalidLink": "This link is invalid or has expired. Please request a new one.",
+      "requestNewLink": "Request a new link"
+    }
+  },
+  "footer": {
+    "tagline": "Regeneration begins in the day and reaches into the night.",
+    "brandStatement": "SomnoBalance brings together self-regulation, mindful rituals and a sleep environment that supports regeneration into one holistic regeneration concept.",
+    "cycleClosing": "And in the morning, the cycle begins again.",
+    "explore": "Explore",
+    "legal": "Service & Legal",
+    "contact": "Contact",
+    "rights": "All rights reserved.",
+    "newsletterTitle": "Stay connected",
+    "newsletterCopy": "Get impulses and news from the SomnoBalance world."
+  },
+  "legalNav": {
+    "impressum": "Impressum",
+    "privacy": "Privacy Policy",
+    "terms": "Terms & Conditions",
+    "shipping": "Shipping & Delivery",
+    "withdrawal": "Right of Withdrawal",
+    "returns": "Refund & Return Policy",
+    "cancellation": "Cancellation Policy",
+    "cookies": "Cookie Policy"
+  },
+  "home": {
+    "eyebrow": "REGULATE · LET GO · PREPARE · REGENERATE",
+    "titlePrefix": "Regeneration begins in the day and reaches ",
+    "titleAccent": "into the night.",
+    "subtitle": "SomnoBalance combines mindful self-regulation during the day, soothing rituals and a sleep environment that supports regeneration – for a natural transition from the active day into the night.",
+    "ctaForMe": "Start your Regeneration Check",
+    "forMeTitle": "For me",
+    "forMeCopy": "Discover your personal path to more calm and conscious regeneration – from the day into the night.",
+    "forMeImage": "/home/tile-for-me.webp",
+    "forBusinessTitle": "For my business",
+    "forBusinessCopy": "Regeneration for employees, teams and guests – with holistic impulses and selected solutions.",
+    "forBusinessImage": "/home/tile-business.webp",
+    "partnerTitle": "Become a partner",
+    "partnerCopy": "Become part of the SomnoBalance concept and bring conscious regeneration into your offering.",
+    "partnerImage": "/home/tile-partner.webp",
+    "learnMore": "Learn more →",
+    "partnerCta": "Discover the partnership →"
+  },
+  "homeSections": {
+    "concept": {
+      "eyebrow": "OUR APPROACH",
+      "headline": "The SomnoBalance idea",
+      "body": "Regeneration doesn't only begin when we sleep. Even during the day, tension, thoughts and habits influence how easily we find calm.\n\nSomnoBalance brings together targeted impulses for self-regulation, mindful rituals and a sleep environment that supports regeneration into one holistic concept that accompanies you from the active day into the night.",
+      "statement": "The day shapes the night. The night, the day that follows.",
+      "phaseStrip": [
+        "Regulate",
+        "Let Go",
+        "Prepare",
+        "Regenerate"
+      ]
+    },
+    "circuit": {
+      "eyebrow": "OUR NATURAL RHYTHM",
+      "headline": "The SomnoBalance Regeneration Cycle",
+      "intro": "Four phases that interlock: Regulate, Let Go, Prepare and Regenerate. SomnoBalance accompanies you with mindful regeneration impulses, soothing rituals and a supportive sleep environment – from the active day into the night.",
+      "closing": "And in the morning, the cycle begins again.",
+      "phases": [
+        {
+          "number": "01",
+          "name": "Regulate",
+          "headline": "Arriving in the day",
+          "body": "Targeted impulses for self-regulation help you pause in everyday life and become more aware of your inner balance.",
+          "orientation": "Clarity · Focus · Inner calm"
+        },
+        {
+          "number": "02",
+          "name": "Let Go",
+          "headline": "Making the day lighter",
+          "body": "Create small moments of slowing down to gain distance from everyday life and consciously find calm.",
+          "orientation": "Relaxation · Lightness · Composure"
+        },
+        {
+          "number": "03",
+          "name": "Prepare",
+          "headline": "Finding calm",
+          "body": "Mindful evening rituals and a pleasant environment accompany the transition from the active day into the night.",
+          "orientation": "Rituals · Mindfulness · Harmony"
+        },
+        {
+          "number": "04",
+          "name": "Regenerate",
+          "headline": "Space for regeneration",
+          "body": "A sleep environment tailored to your needs creates good conditions for restful nights and a new day.",
+          "orientation": "Rest · Regeneration · New day"
+        }
+      ]
+    },
+    "moment": {
+      "eyebrow": "YOUR PERSONAL ORIENTATION",
+      "headline": "What do you need right now?",
+      "intro": "Everyone experiences everyday life differently. Perhaps you wish for more calm during the day, a more conscious transition into the evening, or a more restful night. Our Regeneration Check helps you better understand your current needs and discover fitting SomnoBalance impulses.",
+      "situations": [
+        {
+          "quote": "I'm often tense and hardly find calm during the day.",
+          "reflection": "Discover how small moments of regeneration can accompany your everyday life."
+        },
+        {
+          "quote": "I find it hard to unwind in the evening and switch off.",
+          "reflection": "Conscious transitions and small evening rituals can help you let the day fade out."
+        },
+        {
+          "quote": "I often wake up at night and don't feel rested in the morning.",
+          "reflection": "Find out what role your evening routine and sleep environment can play."
+        },
+        {
+          "quote": "Overall, I wish for more balance and well-being.",
+          "reflection": "Find out which regeneration impulses fit your current life situation."
+        }
+      ],
+      "checkCta": "Start the Regeneration Check →"
+    },
+    "forYou": {
+      "eyebrow": "OUR PRODUCTS",
+      "headline": "SomnoBalance for you",
+      "intro": "Discover the building blocks of SomnoBalance – from targeted regeneration impulses and mindful rituals to a sleep environment that supports your nightly rest.",
+      "phaseLabels": [
+        "Regulate",
+        "Let Go",
+        "Prepare",
+        "Regenerate"
+      ],
+      "closingEyebrow": "DISCOVER SOMNOBALANCE",
+      "allProducts": "Discover all products →",
+      "startCheck": "Start the Regeneration Check",
+      "tiles": [
+        {
+          "slug": "somnobalance-regeneration-cards",
+          "title": "SomnoBalance Regeneration Cards",
+          "subheadline": "Impulses that accompany you through the day.",
+          "activePhases": [
+            true,
+            true,
+            true,
+            false
+          ],
+          "image": "/products/somnobalance-regeneration-cards.webp"
+        },
+        {
+          "slug": "somnobalance-roll-on",
+          "title": "Roll-on, Oil Blend & Room Spray",
+          "subheadline": "Mindful moments of scent for your personal rituals.",
+          "activePhases": [
+            true,
+            true,
+            true,
+            false
+          ],
+          "image": "/home/tile-scent-trio.webp"
+        },
+        {
+          "slug": "somnobalance-regeneration-tea",
+          "title": "SomnoBalance Regeneration Tea",
+          "subheadline": "A soothing ritual for mindful pauses.",
+          "activePhases": [
+            false,
+            true,
+            true,
+            false
+          ],
+          "image": "/products/somnobalance-regeneration-tea.webp"
+        },
+        {
+          "slug": "somnobalance-mattress",
+          "title": "Pillows, Mattresses & Regeneration Beds",
+          "subheadline": "A sleep environment that supports your nightly regeneration.",
+          "activePhases": [
+            true,
+            false,
+            true,
+            true
+          ],
+          "image": "/home/tile-sleep-duo.webp"
+        }
+      ]
+    }
+  },
+  "forMe": {
+    "meta": "For me — SomnoBalance",
+    "hero": {
+      "eyebrow": "FOR ME",
+      "headline": "Regeneration begins with you. And already during the day.",
+      "p1": "Sometimes it's the small moments that make the difference: pausing consciously, finding new calm and shaping the transition from the active day into the night.",
+      "p2": "SomnoBalance brings together impulses for self-regulation, mindful rituals and a sleep environment that supports regeneration. Discover how these building blocks can be integrated into your everyday life step by step.",
+      "primary": "Start the Regeneration Check →",
+      "secondary": "Discover the SomnoBalance principle →"
+    },
+    "recognition": {
+      "eyebrow": "YOUR EVERYDAY LIFE",
+      "headline": "Perhaps you know these moments.",
+      "intro": "The day is full of tasks. In the evening it's hard to gain distance. And sometimes the next morning begins before real rest has set in.",
+      "items": [
+        {
+          "quote": "I hardly find a moment for myself during the day.",
+          "reflection": "A conscious impulse can help you pause."
+        },
+        {
+          "quote": "In the evening my thoughts keep circling.",
+          "reflection": "Small rituals can accompany the transition into the evening."
+        },
+        {
+          "quote": "I wish for a more restful start to the day.",
+          "reflection": "The sleep environment is also part of a conscious regeneration routine."
+        }
+      ]
+    },
+    "phases": {
+      "eyebrow": "SOMNOBALANCE IN EVERYDAY LIFE",
+      "headline": "How to accompany the four phases through your day.",
+      "intro": "No two days are the same. The four SomnoBalance phases give you orientation without prescribing a fixed sequence. Choose the small steps that fit your situation.",
+      "items": [
+        {
+          "name": "Regulate",
+          "title": "A pause in the middle of the day",
+          "body": "Between appointments, tasks and conversations there is often little time to pause. Draw a regeneration card, read the impulse it describes and take a short moment to try it out in peace."
+        },
+        {
+          "name": "Let Go",
+          "title": "Leaving the working day behind",
+          "body": "Before the evening begins, create a conscious transition: put the phone aside, sit down for a moment and – if you like and tolerate scents – choose your personal scent as a ritual."
+        },
+        {
+          "name": "Prepare",
+          "title": "A recurring evening ritual",
+          "body": "Give the evening a recognisable structure. For example, prepare a cup of regeneration tea, reduce distractions and arrange the bedroom so that you feel comfortable in it."
+        },
+        {
+          "name": "Regenerate",
+          "title": "Choosing the sleep environment consciously",
+          "body": "When you lie down to rest, the environment matters too: a pillow that suits how you lie, a suitable mattress and a pleasant sense of space. This way you extend your day and evening rituals into the night."
+        }
+      ]
+    },
+    "routine": {
+      "eyebrow": "SMALL RITUALS THAT FIT INTO EVERYDAY LIFE",
+      "headline": "From the first pause to calm in the night.",
+      "stations": [
+        {
+          "label": "During the day",
+          "body": "Choose a regeneration card and consciously take a short moment for the impulse it describes."
+        },
+        {
+          "label": "At the end of work",
+          "body": "Shape a transition – for example with a quiet pause and a familiar scent, if you tolerate it well."
+        },
+        {
+          "label": "In the evening",
+          "body": "Let the day fade out with a small ritual. A cup of regeneration tea or a consciously designed sleep environment can be part of your routine."
+        },
+        {
+          "label": "At night",
+          "body": "Look for a pillow, a mattress and a sense of space that fit your personal needs."
+        }
+      ]
+    },
+    "companions": {
+      "eyebrow": "SOMNOBALANCE FOR HOME",
+      "headline": "Discover what fits your routine.",
+      "body": "Regeneration cards give impulses for mindful moments during the day. Roll-on, oil blend and room spray can accompany personal rituals. Regeneration tea invites you to take a pause. Pillows and mattresses complete the concept with a needs-oriented sleep environment.",
+      "button": "Discover SomnoBalance products →"
+    },
+    "next": {
+      "eyebrow": "YOUR NEXT STEP",
+      "headline": "What would do you good right now?",
+      "body": "Every everyday life is different. The Regeneration Check helps you understand your current situation more consciously and get to know fitting SomnoBalance impulses.",
+      "button": "Start the Regeneration Check →"
+    }
+  },
+  "forBusiness": {
+    "hero": {
+      "eyebrow": "FOR BUSINESS",
+      "title": "Rethinking regeneration.",
+      "intro": "SomnoBalance combines mindful regeneration impulses with a sleep environment that supports regeneration. For companies, hotels and professional facilities, this opens up individual ways to integrate regeneration into existing offerings and spaces.",
+      "ctaPrimary": "Request a collaboration",
+      "ctaSecondary": "Discover use cases",
+      "imageAlt": "Calm hotel room with a light bed and warm lighting"
+    },
+    "areas": {
+      "eyebrow": "USE CASES",
+      "title": "One concept. Different possibilities.",
+      "intro": "Every environment has different requirements for regeneration. SomnoBalance can be used individually, according to the people, spaces and existing offerings.",
+      "items": [
+        {
+          "name": "Hotels & Hospitality",
+          "headline": "Carry your guests' regeneration experience into the night.",
+          "body": "From mindful arrival and small rituals to the sleep environment: SomnoBalance can complement the guest experience with coordinated regeneration impulses. Selected ritual products, regeneration cards and matching pillow and sleep-system solutions are conceivable – tailored to your property.",
+          "link": "Request solutions for hotels →",
+          "interest": "hotel"
+        },
+        {
+          "name": "Companies & Teams",
+          "headline": "Enable mindful moments of regeneration in the working day.",
+          "body": "Between appointments, responsibility and high concentration, there is often little room to pause. SomnoBalance offers everyday impulses for self-regulation and small rituals that can be integrated into breaks, team formats or corporate health offerings.",
+          "link": "Discuss options for teams →",
+          "interest": "company"
+        },
+        {
+          "name": "Practices, Clinics & Wellness Areas",
+          "headline": "Make regeneration tangible as a complementary building block.",
+          "body": "For professional facilities, SomnoBalance offers suggestions that allow people to create mindful moments of regeneration beyond individual treatments. Which materials, products or formats make sense is agreed together and tailored to your offering.",
+          "link": "Request use cases →",
+          "interest": "practice"
+        }
+      ]
+    },
+    "solutions": {
+      "eyebrow": "SHAPING IT TOGETHER",
+      "title": "Not a standard solution. A concept that fits you.",
+      "body": "Whether a selected regeneration ritual, an offering for employees or a well-thought-out concept for guest rooms: we first look at your target group, your spaces and your existing offerings. Building on that, we develop a fitting combination of SomnoBalance building blocks together.",
+      "blocksLabel": "Possible building blocks",
+      "blocks": [
+        "Regeneration cards and application impulses",
+        "Roll-on, oil blend, room spray and tea",
+        "Accompanying formats",
+        "Pillows, mattresses and regeneration beds"
+      ]
+    },
+    "collab": {
+      "eyebrow": "COLLABORATION",
+      "title": "From the first idea to the right implementation.",
+      "body": "We want to understand what you would like to achieve for your guests, employees or clients. In a personal conversation we clarify the possibilities, the appropriate scope and the next steps – without obligation and tailored to your facility.",
+      "cta": "Enquire without obligation →"
+    },
+    "form": {
+      "title": "Let's talk about your possibilities.",
+      "intro": "Briefly tell us which area you are interested in. We will get in touch to discuss the next steps together.",
+      "company": "Company / facility",
+      "contact": "Contact person",
+      "email": "Business email",
+      "phone": "Phone (optional)",
+      "interest": "Area of interest",
+      "interestOptions": {
+        "hotel": "Hotel / Hospitality",
+        "company": "Company / Teams",
+        "practice": "Practice / Clinic / Wellness",
+        "other": "Other"
+      },
+      "message": "Message (optional)",
+      "submit": "Send enquiry →",
+      "submitting": "Sending…",
+      "success": "Thank you for your enquiry. We will get back to you personally.",
+      "error": "Something went wrong while sending. Please try again.",
+      "privacy": "We use your details solely to process your enquiry. You can find more information in our {link}.",
+      "privacyLink": "Privacy Policy"
+    },
+    "portal": {
+      "eyebrow": "MY B2B PORTAL",
+      "title": "Your business customer area",
+      "tabEnquiry": "Request a collaboration"
+    }
+  },
+  "partner": {
+    "eyebrow": "BECOME A PARTNER",
+    "portal": {
+      "loginTitle": "Partner Portal Login",
+      "loginSubtitle": "Enter your partner email to view your dashboard, coupons, earnings, and payouts.",
+      "emailPlaceholder": "Enter your partner email",
+      "accessButton": "Open Partner Dashboard",
+      "loading": "Loading dashboard…",
+      "greeting": "Welcome back, {name}",
+      "partnerCode": "Partner ID",
+      "status": "Status",
+      "active": "Active",
+      "pending": "Pending Approval",
+      "suspended": "Suspended",
+      "myCoupons": "Your Referral Coupons",
+      "couponCopy": "Share this code with your clients or patients for an exclusive discount:",
+      "referralLink": "Your Referral Link",
+      "copyLink": "Copy link",
+      "copied": "Copied ✓",
+      "metrics": {
+        "orders": "Referral Orders",
+        "earned": "Total Commission Earned",
+        "paid": "Total Paid Out",
+        "available": "Available Balance",
+        "threshold": "Payout Threshold (€{amount})",
+        "thresholdNotice": "€{remaining} remaining until your next automatic payout"
+      },
+      "recentOrders": "Referred Orders & Commissions",
+      "noOrders": "No referred orders yet. Share your referral link to earn your first commission!",
+      "orderRef": "Order",
+      "date": "Date",
+      "commission": "Commission",
+      "payouts": "Payout Ledger",
+      "noPayouts": "No payouts disbursed yet.",
+      "reference": "Reference",
+      "amount": "Amount",
+      "notifications": "Notifications"
+    },
+    "landing": {
+      "hero": {
+        "eyebrow": "BECOME A PARTNER",
+        "title": "Carrying SomnoBalance forward together.",
+        "p1": "SomnoBalance connects people who integrate conscious regeneration into their everyday lives and want to share that experience with others.",
+        "p2": "Whether you use SomnoBalance professionally or are personally convinced: our partner programme gives you the opportunity to recommend the concept and to share in orders you refer.",
+        "primary": "Become a partner",
+        "secondary": "How the partnership works"
+      },
+      "about": {
+        "title": "A partnership that fits you.",
+        "body": "You decide how and to what extent you recommend SomnoBalance – personally, in your professional environment or through your own channels. The focus is on a concept you can stand behind and recommendations that fit your surroundings."
+      },
+      "how": {
+        "title": "How the referral works",
+        "intro": "A clear process – from your recommendation to transparent attribution.",
+        "steps": [
+          {
+            "title": "Recommend",
+            "body": "Once you have been approved, you receive a personal referral link or code. You can share it with interested people in a fitting context."
+          },
+          {
+            "title": "Attribute orders",
+            "body": "If an order is placed via your link or code, it can be attributed to your partnership in accordance with the applicable programme terms."
+          },
+          {
+            "title": "Keep an overview",
+            "body": "In your partner portal you will find information about attributed referrals and the related remuneration."
+          }
+        ]
+      },
+      "portalInfo": {
+        "title": "Everything at a glance.",
+        "body": "With your personal referral link or code, referred orders can be attributed to you. In the partner portal you get an overview of your referrals and the related remuneration."
+      },
+      "close": {
+        "title": "Would you like to recommend SomnoBalance?",
+        "body": "Become part of our partner network and discover the possibilities of working together. We look forward to learning more about you and your interest in SomnoBalance.",
+        "primary": "Become a partner now",
+        "existing": "Already a partner? Log in"
+      },
+      "apply": {
+        "name": "Name",
+        "email": "Email address",
+        "kind": "Type of recommendation",
+        "kindOptions": {
+          "private": "Private",
+          "professional": "Professional",
+          "company": "Company"
+        },
+        "message": "Short message (optional)",
+        "privacy": "I have taken note of the {link}.",
+        "privacyLink": "Privacy Policy",
+        "submitting": "Submitting…",
+        "successTitle": "Thank you for your interest!",
+        "successCopy": "We will review your details and get back to you. Once approved, you will receive your personal referral link or code.",
+        "successLogin": "Go to login",
+        "error": "Your application could not be submitted. Please try again."
+      }
+    },
+    "meta": "Become a partner — SomnoBalance"
+  },
+  "applicationForm": {
+    "businessTitle": "Apply for a wholesale account",
+    "businessIntro": "Tell us about your project — we'll follow up with pricing and next steps.",
+    "partnerTitle": "Apply to become a partner",
+    "partnerIntro": "Tell us about your practice or property — we'll follow up with your referral link.",
+    "contactName": "Your name",
+    "email": "Email",
+    "phone": "Phone (optional)",
+    "companyName": "Company / property name",
+    "companyType": "Type",
+    "companyTypeHotel": "Hotel",
+    "companyTypePlanningOffice": "Planning office",
+    "companyTypeClinic": "Clinic",
+    "companyTypeOther": "Other",
+    "propertyCount": "Number of rooms / properties (optional)",
+    "projectStage": "Project stage",
+    "projectStagePlanning": "Planning",
+    "projectStageActive": "Active project",
+    "projectStageRenovation": "Renovation",
+    "projectStageOther": "Other",
+    "profession": "Profession",
+    "professionPhysio": "Physiotherapist",
+    "professionAltPractitioner": "Alternative practitioner",
+    "professionKinesiologist": "Kinesiologist",
+    "professionMassage": "Massage therapist",
+    "professionHotel": "Hotel",
+    "professionOther": "Other",
+    "practiceOrPropertyName": "Practice / property name",
+    "website": "Website (optional)",
+    "message": "Anything else we should know? (optional)",
+    "submit": "Submit application",
+    "submitting": "Submitting…",
+    "success": "Thank you — we've received your application and will be in touch shortly.",
+    "error": "Something went wrong. Please try again or reach out via our contact page.",
+    "required": "Required"
+  },
+  "faq": {
+    "title": "FAQ",
+    "heading": "Frequently asked questions",
+    "items": [
+      {
+        "q": "Where do you ship?",
+        "a": "Currently within Germany only, via DHL. Deliveries outside Germany are not yet offered. See our Shipping & Delivery page for details."
+      },
+      {
+        "q": "How long does delivery take?",
+        "a": "In-stock items (Ritual collection, cards, pillow, starter set) are dispatched immediately and generally arrive within 1–3 business days. Mattresses are made to order and take approximately 3–4 weeks to manufacture before they ship — mattresses from 160 × 200 cm arrive as 3–4 separate parcels."
+      },
+      {
+        "q": "Is shipping free?",
+        "a": "Orders over €59 ship free of charge. For mattresses, shipping is always included in the price shown, regardless of order value."
+      },
+      {
+        "q": "Can I return a product?",
+        "a": "Yes. As a consumer in the EU you have a 14-day right of withdrawal from the date of delivery, with no need to give a reason. See our Right of Withdrawal page for the full policy and a model withdrawal form. Separately, damaged or defective products are covered by our Refund & Return Policy, and a statutory 2-year warranty applies to defects present at delivery."
+      },
+      {
+        "q": "What payment methods do you accept?",
+        "a": "Card, SEPA Direct Debit, and PayPal, processed through our payment provider, Stripe. Card and bank details are never stored on our own servers."
+      },
+      {
+        "q": "Is SomnoBalance the same company as Willing1863?",
+        "a": "SomnoBalance is the brand you experience. It is operated by Friedrich-Alexander Willing, trading as \"Willing1863\" — Willing1863 is named only for legal-disclosure purposes. Full legal detail is in our Impressum."
+      },
+      {
+        "q": "Do you offer wholesale or hospitality pricing?",
+        "a": "Yes — see our For my business page or contact us directly to discuss terms for hotels and wellness properties."
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "We'd like to hear from you",
+    "intro": "Questions about an order, a wholesale enquiry, or a partnership — reach us directly.",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Postal address",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "topicGeneral": "General enquiry",
+      "topicBusiness": "For my business",
+      "topicPartner": "Become a partner",
+      "topicOrder": "An existing order",
+      "topicAdvice": "Product advice",
+      "message": "Message",
+      "send": "Send message",
+      "sending": "Sending…",
+      "thanks": "Thank you — we've received your message and will get back to you soon.",
+      "genericError": "Something went wrong sending your message.",
+      "networkError": "Could not reach the server. Please try again."
+    }
+  },
+  "shop": {
+    "eyebrow": "Shop",
+    "title": "Tools for the ritual",
+    "intro": "Each piece supports one phase of the SomnoBalance system. Prices shown include statutory German VAT (MwSt.). Shipped via DHL within Germany — free from €59, included in the price for mattresses.",
+    "inclVat": "incl. VAT",
+    "from": "from",
+    "size": "Size",
+    "firmness": "Edition",
+    "inclVatShipping": "incl. VAT · free shipping from €59",
+    "freeDelivery": "Free Delivery",
+    "partnerMemberTitle": "Partner Member",
+    "partnerMemberCopy": "You earn a commission on customer referrals.",
+    "partnerMemberCta": "Open Partner Portal →",
+    "partnerTeaserTitle": "Healthcare Professional?",
+    "partnerTeaserCopy": "Join our verified health partner network and earn a commission on client referrals.",
+    "partnerTeaserCta": "Become a partner →",
+    "ingredients": "Ingredients (INCI)",
+    "withdrawalNote": "14-day right of withdrawal within the EU. See {link}.",
+    "withdrawalLinkLabel": "Right of Withdrawal",
+    "addToCart": "Add to cart",
+    "addedToCart": "Added to cart ✓",
+    "quantity": "Quantity",
+    "productInfo": "Product information",
+    "shippingReturns": "Shipping & Returns",
+    "youMightAlsoLike": "You might also like",
+    "ritualCompanions": "Ritual companions",
+    "rollOnGalleryTagline": "A companion\nfor your day.",
+    "viewAllProducts": "View all products",
+    "howToUseEyebrow": "How to use",
+    "howToUseTitle": "A small moment.\nIn the middle of the day.",
+    "productDetailsEyebrow": "Product details",
+    "soundTitle": "SOMNOBALANCE\nSOUND",
+    "soundIntro": "A moment to arrive.\nAccompany your SomnoBalance moment with a calm sound atmosphere.",
+    "variantNotes": {
+      "Two independent firmness zones": "Two independent firmness zones"
+    },
+    "editionNotes": {
+      "Reversible between firmness H2 and H3": "Reversible between firmness H2 and H3",
+      "Reversible between firmness H3 and H4": "Reversible between firmness H3 and H4"
+    },
+    "categories": {
+      "Sleep": "Sleep",
+      "Ritual": "Ritual",
+      "Care": "Care"
+    },
+    "phases": {
+      "REGULATE": "Regulate",
+      "LET GO": "Let Go",
+      "PREPARE": "Prepare",
+      "REGENERATE": "Regenerate"
+    }
+  },
+  "cart": {
+    "emptyTitle": "Your cart is empty",
+    "emptyCopy": "Nothing here yet — a good moment to start a ritual.",
+    "browseShop": "Browse the shop",
+    "title": "Your cart",
+    "subtotal": "Subtotal, incl. VAT",
+    "checkout": "Proceed to checkout",
+    "remove": "Remove",
+    "loginPromptTitle": "Sign in to complete your purchase",
+    "loginPromptSubtitle": "Log in to your SomnoBalance account or register in seconds to continue to checkout.",
+    "loginAndCheckout": "Log in & Checkout",
+    "registerAndCheckout": "Create account & Checkout",
+    "continueAsGuest": "Continue as guest",
+    "promoCode": "Promo or Partner Referral Code",
+    "applyCode": "Apply",
+    "codeApplied": "Coupon {code} applied (-{rate}%)",
+    "removeCode": "Remove",
+    "discount": "Discount"
+  },
+  "checkout": {
+    "orderReceived": "Order received",
+    "demoCheckout": "This was a demo checkout",
+    "orderReference": "Order reference: {id}",
+    "demoNotice": "No payment was taken. This flow exists to show how checkout will work once our payment gateway is live — real charges will be enabled after that integration is approved.",
+    "backToShop": "Back to shop",
+    "emptyTitle": "Your cart is empty",
+    "browseShop": "Browse the shop",
+    "title": "Checkout",
+    "demoEnv": "Demo environment — no live payment processing yet.",
+    "contactShipping": "Contact & shipping address",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "street": "Street and house number",
+    "postalCode": "Postal code",
+    "city": "City",
+    "germanyOnlyNote": "We currently ship within Germany only. See our {link}.",
+    "shippingPolicyLabel": "Shipping & Delivery Policy",
+    "paymentMethod": "Payment method",
+    "card": "Card",
+    "sepa": "SEPA Direct Debit",
+    "paypal": "PayPal",
+    "cardNumber": "Card number",
+    "cardExpiry": "MM / YY",
+    "cardCvc": "CVC",
+    "iban": "IBAN",
+    "sepaNote": "By confirming, you authorise SomnoBalance to send instructions to your bank to debit your account via SEPA Direct Debit.",
+    "paypalNote": "You will be redirected to PayPal to complete payment once this integration is live.",
+    "orderSummary": "Order summary",
+    "subtotal": "Subtotal, incl. VAT",
+    "shipping": "Shipping",
+    "total": "Total",
+    "placeOrder": "Place order (demo)",
+    "continueToPayment": "Continue to payment",
+    "placingOrder": "Redirecting to payment…",
+    "stripeNote": "You'll enter your card details on Stripe's secure payment page in the next step.",
+    "paymentSuccessNotice": "Thank you — your payment was received and your order is being prepared.",
+    "paymentCancelledTitle": "Payment cancelled",
+    "paymentCancelledNotice": "Your payment was not completed and no charge was made. You can review your shipping details and try again.",
+    "backToCheckout": "Back to checkout",
+    "agreementNote": "By placing this order you agree to our {termsLink} and confirm you have read our {withdrawalLink}.",
+    "termsLabel": "Terms & Conditions",
+    "withdrawalLabel": "Right of Withdrawal Policy",
+    "genericError": "Something went wrong placing your order.",
+    "networkError": "Could not reach the server. Please try again.",
+    "loggedInAs": "Signed in as {name} ({email})",
+    "switchAccount": "Switch account",
+    "promoCode": "Promo or Partner Code",
+    "applyCode": "Apply",
+    "codeApplied": "Coupon {code} applied (-{rate}%)",
+    "removeCode": "Remove",
+    "discount": "Discount"
+  },
+  "auth": {
+    "account": "Account",
+    "loginTitle": "Log in",
+    "loginWelcome": "Welcome back to your SomnoBalance ritual.",
+    "email": "Email Address",
+    "password": "Password",
+    "passwordMin": "Password (min. 8 characters)",
+    "loginButton": "Log in",
+    "loggingIn": "Logging in…",
+    "newHere": "New here?",
+    "createAccount": "Create an account",
+    "registerTitle": "Create an account",
+    "registerWelcome": "Save your details for faster checkout and track your orders.",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "creatingAccount": "Creating account…",
+    "alreadyHaveAccount": "Already have an account?",
+    "loginError": "Could not log in.",
+    "registerError": "Could not create your account.",
+    "networkError": "Could not reach the server. Please try again.",
+    "phone": "Mobile Number (Germany +49 / India +91)",
+    "phonePlaceholder": "+49 170 1234567 or +91 98765 43210",
+    "phoneHint": "Real-time SMS verification for German (+49) and Indian (+91) numbers",
+    "phoneNotice": "You will receive a 6-digit SMS verification code in the next step.",
+    "adminCodeLabel": "Admin Registration Code (Optional)",
+    "adminCodePlaceholder": "e.g. ADMIN_2K26",
+    "adminCodeNotice": "Enter an admin code like ADMIN_2K26 to create an account with Administrator privileges.",
+    "verifyPhone": "Verify Number",
+    "sendOtp": "Request SMS Code",
+    "sendingOtp": "Sending SMS code…",
+    "otpSentNotice": "A 6-digit SMS verification code was sent to {phone}.",
+    "otpPlaceholder": "6-digit SMS Code",
+    "verifyOtp": "Verify Code",
+    "verifyingOtp": "Verifying…",
+    "phoneVerified": "Phone number verified ✓",
+    "resendOtp": "Resend Code",
+    "resendWait": "Resend code ({seconds}s)",
+    "phoneRequiredError": "Please verify your phone number before completing registration.",
+    "verificationTitle": "SMS Verification",
+    "enterCodePrompt": "Enter the 6-digit verification code sent via SMS to {phone}:",
+    "enter6DigitCode": "Enter 6-Digit Code",
+    "sentTo": "Sent to",
+    "changePhone": "← Change phone number",
+    "requestOtpAndContinue": "Request SMS Code & Continue →",
+    "verifyAndCreate": "Verify Code & Create Account ✓",
+    "verifyingAndCreating": "Verifying & creating account…",
+    "validPhoneRequired": "Please enter a valid German (+49) or Indian (+91) phone number.",
+    "passwordMinLength": "The password must be at least 8 characters long.",
+    "fullCodeRequired": "Please enter the complete 6-digit SMS code.",
+    "otpTitle": "Enter Verification Code",
+    "otpSubtitle": "We have sent a 6-digit verification code to your email address.",
+    "emailOtpLabel": "Email Verification Code",
+    "emailOtpDesc": "Please enter the 6-digit code sent to your email address.",
+    "mobileOtpLabel": "Mobile Verification Code",
+    "mobileOtpDesc": "Please enter the 6-digit code sent to your mobile phone via SMS.",
+    "verifyButton": "Verify & Continue",
+    "verifying": "Verifying…",
+    "resendEmail": "Resend Email Code",
+    "resendMobile": "Resend SMS Code",
+    "codeSent": "A new code has been sent.",
+    "emailVerified": "Email verified ✓",
+    "mobileVerified": "Mobile verified ✓",
+    "enterBothCodes": "Please enter the 6-digit codes."
+  },
+  "admin": {
+    "notConfiguredTitle": "Admin not configured",
+    "notConfiguredCopy": "Set an ADMIN_PASSWORD environment variable to enable this page.",
+    "title": "Admin Dashboard",
+    "subtitle": "Store operations, orders, partner referrals, and payout disbursements.",
+    "logout": "Log out",
+    "noDb": "No database is configured in this environment, so there is nothing to show yet.",
+    "loadError": "Could not reach the database. Try again in a moment.",
+    "orders": "Orders",
+    "date": "Date",
+    "customer": "Customer",
+    "items": "Items",
+    "total": "Total",
+    "payment": "Payment",
+    "status": "Status",
+    "noOrders": "No orders yet.",
+    "messages": "Contact messages",
+    "from": "From",
+    "topic": "Topic",
+    "message": "Message",
+    "noMessages": "No messages yet.",
+    "loginTitle": "Admin",
+    "loginSubtitle": "Internal use only.",
+    "passwordPlaceholder": "Admin password",
+    "loginButton": "Log in",
+    "checking": "Checking…",
+    "loginFailed": "Login failed",
+    "networkError": "Could not reach the server.",
+    "tabs": {
+      "orders": "Orders & Inquiries",
+      "affiliates": "Partners & Affiliates",
+      "coupons": "Coupons & Commission Rates",
+      "commissions": "Commission Ledger & Payouts"
+    },
+    "affiliates": {
+      "title": "Partner Applications & Directory",
+      "code": "Code",
+      "name": "Partner",
+      "contact": "Contact",
+      "business": "Practice / Business",
+      "status": "Status",
+      "actions": "Actions",
+      "approve": "Approve",
+      "reject": "Reject",
+      "suspend": "Suspend",
+      "activate": "Activate",
+      "noAffiliates": "No partners registered yet."
+    },
+    "coupons": {
+      "title": "Active Referral Coupons",
+      "createTitle": "Create New Affiliate Coupon",
+      "code": "Coupon Code (e.g. SOMNO10)",
+      "discount": "Customer Discount (%)",
+      "commission": "Partner Commission (%)",
+      "minOrder": "Min Order Value (€)",
+      "partner": "Assign to Partner",
+      "createButton": "Create Coupon",
+      "creating": "Creating…",
+      "noCoupons": "No referral coupons created yet."
+    },
+    "commissions": {
+      "title": "Commission Ledger",
+      "payoutsTitle": "Disbursed Payouts",
+      "order": "Order ID",
+      "partner": "Partner",
+      "base": "Base Amount",
+      "rate": "Rate",
+      "earned": "Earned Commission",
+      "status": "Status",
+      "recordPayout": "Record Payout",
+      "payoutPartner": "Partner",
+      "payoutAmount": "Amount (€)",
+      "payoutRef": "Payment Reference (e.g. SEPA/IBAN transfer ID)",
+      "payoutNotes": "Notes",
+      "payoutButton": "Record Payout",
+      "recording": "Recording…",
+      "noCommissions": "No commission records yet.",
+      "noPayouts": "No payouts recorded yet."
+    }
+  },
+  "cookieConsent": {
+    "notice": "We use essential cookies to run this site, and — only with your consent — embedded Spotify players for our ritual playlists, which may set third-party cookies. See our {link}.",
+    "linkLabel": "Cookie Policy",
+    "essentialOnly": "Essential only",
+    "acceptAll": "Accept all"
+  },
+  "legalPages": {
+    "impressum": {
+      "title": "Legal Notice (Impressum)"
+    },
+    "privacy": {
+      "title": "Privacy Policy"
+    },
+    "terms": {
+      "title": "Terms & Conditions (AGB)"
+    },
+    "shipping": {
+      "title": "Shipping & Delivery Policy"
+    },
+    "withdrawal": {
+      "title": "Right of Withdrawal"
+    },
+    "returns": {
+      "title": "Refund & Return Policy"
+    },
+    "cancellation": {
+      "title": "Cancellation Policy"
+    },
+    "cookies": {
+      "title": "Cookie Policy"
+    },
+    "lastUpdated": "Last updated"
+  },
+  "concept": {
+    "meta": "The Concept — SomnoBalance",
+    "hero": {
+      "eyebrow": "THE CONCEPT",
+      "headline": "Regeneration is not a single moment. It is an interplay.",
+      "p1": "Regeneration doesn't begin in bed. What we experience during the day, how we deal with tension and which transitions we allow ourselves can influence how we find calm in the evening.",
+      "p2": "SomnoBalance brings together impulses for self-regulation, mindful rituals and a sleep environment that supports regeneration. The result is a holistic path that accompanies people from the active day into the night – and begins again the next morning.",
+      "leitsatz": "The day shapes the night. The night, the day that follows."
+    },
+    "story": {
+      "eyebrow": "OUR STORY",
+      "headline": "Two experiences became one shared idea.",
+      "paragraphs": [
+        "The idea for SomnoBalance grew out of the daily work in Nicole Willing's kinesiology practice. Again and again she met people who, besides personal and health challenges, also spoke of inner restlessness, tension and difficult nights. It became clear: anyone who wants to support regeneration shouldn't start only at bedtime.",
+        "Nicole therefore looked more closely at everyday ways of self-regulation. From this she developed her own collection of regeneration impulses and selected acupressure points, meant to help people create mindful pauses and pay closer attention to their body's signals again.",
+        "At the same time, Friedrich Alexander Willing contributed his more than 35 years of experience with beds, mattresses and high-quality sleep systems. His focus is on the environment in which we spend the night: lying comfort, individual needs and the quality of the sleep environment.",
+        "SomnoBalance emerged from both perspectives: a concept that doesn't separate the day from the night but connects the two. It is not a single product that takes centre stage, but the interplay of self-regulation, rituals and sleep environment."
+      ]
+    },
+    "people": {
+      "eyebrow": "THE PEOPLE BEHIND THE BRAND",
+      "headline": "Two perspectives. One shared idea.",
+      "profiles": [
+        {
+          "name": "Nicole Willing",
+          "image": "/team/nicole-willing.webp",
+          "imageAlt": "Portrait of Nicole Willing",
+          "body": "Nicole Willing is a kinesiologist and the developer of the SomnoBalance method. She has been supporting people in her practice for around ten years. From her experience of how closely tension, inner calm and regeneration are linked in everyday life, she developed practical regeneration impulses that can be consciously integrated into the day. Her aim is to encourage people toward greater self-awareness and self-regulation – without complicated routines or unrealistic promises."
+        },
+        {
+          "name": "Friedrich Alexander Willing",
+          "image": "/team/friedrich-alexander-willing.webp",
+          "imageAlt": "Portrait of Friedrich Alexander Willing",
+          "body": "Friedrich Alexander Willing has worked with beds, mattresses and individual sleep systems for more than 35 years. His experience shows how important a sleep environment tailored to personal needs is. At SomnoBalance he complements the impulses for the day with the perspective of the night – from high-quality lying comfort to the conscious design of the bedroom."
+        }
+      ],
+      "closing": "What connects us is the conviction that lasting regeneration doesn't begin at a single point. It emerges when we look at the person and their everyday life as a whole."
+    },
+    "phases": {
+      "eyebrow": "OUR REGENERATION PATH",
+      "headline": "Four phases that interlock.",
+      "intro": "SomnoBalance follows a simple idea: the day prepares the night, and the night creates the foundation for a new day. The four phases offer orientation – not as a rigid programme, but as an invitation to shape your own rhythm more consciously.",
+      "items": [
+        {
+          "name": "Regulate",
+          "title": "Consciously arriving in the day",
+          "body": "Small regeneration impulses and selected points invite you to pause in everyday life, notice your own state and consciously support self-regulation."
+        },
+        {
+          "name": "Let Go",
+          "title": "Shaping transitions",
+          "body": "Between tasks, thoughts and obligations, a moment of distance is sometimes needed. Simple rituals can help you avoid carrying the day unchecked into the evening."
+        },
+        {
+          "name": "Prepare",
+          "title": "Giving calm room",
+          "body": "Mindful evening habits, pleasant scents and a quiet environment accompany the transition into the night. What matters is not perfection but a routine that fits your own life."
+        },
+        {
+          "name": "Regenerate",
+          "title": "Supporting the night",
+          "body": "An individually tailored sleep environment with suitable pillows, mattresses and sleep systems creates good conditions for restful nights. In the morning, the cycle begins again."
+        }
+      ]
+    },
+    "blocks": {
+      "eyebrow": "ONE CONCEPT, MANY BUILDING BLOCKS",
+      "headline": "Not the single product. The interplay.",
+      "p1": "Regeneration cards offer suggestions for small, mindful moments during the day. Scents, roll-on, oil blend, room spray and tea can accompany personal rituals. The 21-day guide helps turn individual impulses into a recurring practice. Pillows, mattresses and regeneration beds complete the concept where the night begins.",
+      "p2": "Every building block can stand on its own. It gains its particular meaning, however, in the context of your personal regeneration path. SomnoBalance doesn't want to prescribe a fixed routine, but to offer orientation and support people in finding their own rhythm."
+    },
+    "cta": {
+      "headline": "Discover your personal regeneration path.",
+      "body": "Whether you want to pause more consciously during the day, shape the evening more calmly or take a fresh look at your sleep environment: begin where it suits you right now.",
+      "primary": "Start the Regeneration Check →",
+      "secondary": "Discover SomnoBalance for me →"
+    }
+  }
+}
