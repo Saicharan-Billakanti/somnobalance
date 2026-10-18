@@ -64,11 +64,14 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
   "somnobalance-room-spray": {
     systemRoleLabel: "LOSLASSEN · VORBEREITEN",
     galleryTagline: ["Raum schaffen.", "Übergang beginnen."],
+    // Client order: 1 bottle (original label) · 2 spray used naturally in a
+    // room · 3 everyday transition from activity to a quieter moment ·
+    // 4 warm room atmosphere for the evening.
     galleryImages: [
-      "/products/room-spray-bottle.webp",
-      "/products/room-spray-hand.webp",
-      "/products/room-spray-curtain.webp",
       "/products/somnobalance-room-spray.webp",
+      "/products/room-spray-curtain.webp",
+      "/products/gallery/room-spray-transition.webp",
+      "/products/gallery/room-spray-evening.webp",
     ],
     howToUseImage: "/products/room-spray-curtain.webp",
     howToUseEyebrow: "Anwendung",
@@ -79,7 +82,7 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
       { icon: Cloud, label: "Übergang gestalten", description: "Nutzen Sie den Duft als wiederkehrenden Impuls für einen bewussten Wechsel zwischen Aktivität und ruhigeren Momenten." },
       { icon: Moon, label: "Auf den Abend vorbereiten", description: "Integrieren Sie das Raumspray nach Bedarf in Ihren persönlichen Übergang in den Abend." },
     ],
-    howToUseNote: ["Verändere nicht den", "ganzen Abend."],
+    howToUseNote: ["", ""],
     nextCompanionLabel: "Ihr Begleiter für den Übergang zur Nacht.",
     statement: "Manchmal beginnt ein Übergang mit der Atmosphäre eines Raumes.",
     cycleSection: {
@@ -122,48 +125,48 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
           "with the room."
         ],
         howToUseStepDescriptions: [
-          "Notice consciously which atmosphere you would like to create for the coming moment.",
-          "Shake well before use, spray into the room and distribute.",
-          "Use the scent as a recurring impulse for a conscious change between activity and quieter moments.",
-          "Integrate the room spray into your personal transition into the evening as needed."
+          "Notice what kind of atmosphere you would like to create for the moment ahead.",
+          "Shake thoroughly before use, spray into the room, and allow the fragrance to disperse.",
+          "Use the fragrance as a recurring cue for a mindful shift between activity and quieter moments.",
+          "If desired, integrate the room spray into your personal transition into the evening."
         ],
         statement: "Sometimes a transition begins with the atmosphere of a room.",
         cycleSection: {
           "eyebrow": "IN THE SOMNOBALANCE CYCLE",
-          "headline": "Atmosphere for conscious transitions.",
+          "headline": "Atmosphere for mindful transitions.",
           "activePhases": [
             false,
             true,
             true,
             false
           ],
-          "body": "The SomnoBalance Room Spray accompanies the phases of letting go and preparing in particular. With a few sprays the atmosphere of a room can be changed consciously, and a recurring scent impulse can be integrated into personal transitions and rituals.",
-          "note": "The phases give orientation. When you integrate the room spray into your personal daily rhythm remains individual."
+          "body": "The SomnoBalance Room Spray primarily accompanies the phases of letting go and preparing. With a few sprays, the atmosphere of a room can be consciously changed, and a recurring fragrance cue can be integrated into personal transitions and rituals.",
+          "note": "The phases provide guidance. When you integrate the room spray into your personal daily rhythm remains an individual choice."
         },
         discoverMore: {
-          "eyebrow": "KEEP DISCOVERING SOMNOBALANCE",
-          "headline": "More companions for your regeneration rhythm.",
+          "eyebrow": "DISCOVER MORE OF SOMNOBALANCE",
+          "headline": "More companions for your rhythm of regeneration.",
           "cta": "Discover all products →",
           "items": [
             {
               "slug": "somnobalance-roll-on",
-              "blurb": "A mindful scent impulse for on the go and at home."
+              "blurb": "A mindful fragrance cue for on the go and at home."
             },
             {
               "slug": "somnobalance-oil-blend",
-              "blurb": "A scent impulse for mindful moments of regeneration and personal rituals."
+              "blurb": "A fragrance cue for mindful moments of regeneration and personal rituals."
             },
             {
               "slug": "somnobalance-regeneration-tea",
-              "blurb": "A mindful ritual for calmer moments and the transition into the evening."
+              "blurb": "A mindful ritual for quieter moments and the transition into the evening."
             }
           ]
         },
         systemRoleLabel: "LET GO · PREPARE",
         galleryTagline: ["Create space.", "Begin transition."],
         howToUseEyebrow: "Application",
-        howToUseSteps: ["Notice the room", "Set a scent impulse", "Shape the transition", "Prepare for the evening"],
-        howToUseNote: ["Do not change the", "whole evening."],
+        howToUseSteps: ["Notice the room", "Add a fragrance cue", "Shape the transition", "Prepare for the evening"],
+        howToUseNote: ["", ""],
         nextCompanionLabel: "Your companion for the transition to night.",
       },
     },

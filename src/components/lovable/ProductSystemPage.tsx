@@ -613,11 +613,13 @@ export function ProductSystemPage({
                 })}
               </div>
             </div>
-            <p className="border-l border-lovable-border pl-8 font-lovable-serif text-xl leading-tight">
-              {c.howToUseNote[0]}
-              <br />
-              {c.howToUseNote[1]}
-            </p>
+            {c.howToUseNote[0] && (
+              <p className="border-l border-lovable-border pl-8 font-lovable-serif text-xl leading-tight">
+                {c.howToUseNote[0]}
+                <br />
+                {c.howToUseNote[1]}
+              </p>
+            )}
           </div>
         </section>
 
@@ -814,7 +816,7 @@ export function ProductSystemPage({
               <Accordion
                 items={[
                   {
-                    title: tx("Product & safety information", "Produkt- & Sicherheitsinformationen"),
+                    title: tx("PRODUCT & SAFETY INFORMATION", "PRODUKT- & SICHERHEITSINFORMATIONEN"),
                     content: (
                       <p className="whitespace-pre-line text-[10px] leading-5">
                         {text.safetyInfo}

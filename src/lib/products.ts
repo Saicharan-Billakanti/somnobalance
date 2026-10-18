@@ -192,13 +192,13 @@ export const products: Product[] = [
     name: "SomnoBalance Room Spray",
     category: "Ritual",
     price: 19,
-    tagline: "A scent impulse for your room and conscious transitions.",
-    description: "The SomnoBalance Room Spray brings SomnoBalance's characteristic scent composition into the room with just a few sprays. It can help to accompany conscious transitions in everyday life atmospherically – from the active day into quieter moments and the preparation for the evening.\n\nLavender, clementine, grapefruit, frankincense and patchouli combine into a recurring scent impulse that can give your personal moment of regeneration a familiar frame.",
+    tagline: "A fragrance cue for your space and mindful transitions.",
+    description: "The SomnoBalance Room Spray brings SomnoBalance's characteristic fragrance composition into a room with just a few sprays. It can help accompany mindful transitions in everyday life through atmosphere — from an active day into quieter moments and the preparation for the evening.\n\nLavender, clementine, grapefruit, frankincense, and patchouli come together in a recurring fragrance cue that can provide a familiar setting for your personal moment of regeneration.",
     details: [
-      "Content: 100 ml",
-      "Base: alcohol · water · blend of essential oils",
-      "Scent composition: lavender · clementine · grapefruit · frankincense · patchouli",
-      "Application: shake well before use, spray into the room and distribute.",
+      "Contents: 100 ml",
+      "Base: Alcohol · Water · Blend of essential oils",
+      "Fragrance composition: Lavender · Clementine · Grapefruit · Frankincense · Patchouli",
+      "Application: Shake thoroughly before use, spray into the room, and allow the fragrance to disperse.",
     ],
     phase: "PREPARE",
     image: "/products/SomnoBalance Room Spray.webp",
@@ -208,7 +208,7 @@ export const products: Product[] = [
     legalNote:
       "Hazard/GHS data below (UFI, manufacturer address, pictograms) is taken from the client's specification document and must be verified against the final product label before go-live.",
     safetyInfo:
-      "GHS02 (flame) and GHS07 (exclamation mark) hazard pictograms apply, per the current product label. Do not ingest. Do not spray directly on skin. Avoid contact with eyes. May cause allergic skin reactions and eye irritation. If in eyes: rinse cautiously with water for several minutes. If eye irritation persists, get medical advice/attention. Keep out of reach of children. DANGER! Keep away from heat, hot surfaces, sparks, open flames and other ignition sources. Harmful to aquatic life with long-lasting effects.\n\nUFI: 7G10-E083-A005-2U4C\nManufacturer: Almara Soap, s.r.o., Ve Žlíbku 1800/77, 193 00 Prague 9, Czech Republic\n\nThese details are provisional, taken from the client's specification document, and must be checked against the final approved label/safety data sheet before this product goes on sale.",
+      "Do not ingest. Do not spray directly onto the skin. Avoid contact with eyes.\nMay cause allergic skin reactions and eye irritation.\nIf in eyes, rinse cautiously with water for several minutes. If eye irritation persists, seek medical advice/medical attention.\nKeep out of reach of children.\nDANGER! Keep away from heat, hot surfaces, sparks, open flames, and other ignition sources.\nHarmful to aquatic life with long-lasting effects.\n\nUFI: 7G10-E083-A005-2U4C\nManufacturer: Almara Soap, s.r.o., Ve Žlíbku 1800/77, 193 00 Prague 9, Czech Republic.",
     translations: {
       de: {
         name: "SomnoBalance Raumspray",
@@ -221,7 +221,7 @@ export const products: Product[] = [
           "Anwendung: Vor Gebrauch gründlich schütteln, in den Raum sprühen und verteilen.",
         ],
         safetyInfo:
-          "Gefahrenpiktogramme GHS02 (Flamme) und GHS07 (Ausrufezeichen) gemäß aktuellem Produktetikett. Nicht innerlich anwenden. Nicht direkt auf die Haut sprühen. Augenkontakt vermeiden. Kann allergische Hautreaktionen und Augenreizungen verursachen. Bei Augenkontakt sofort mehrere Minuten lang vorsichtig mit Wasser spülen. Bei anhaltender Augenreizung ärztlichen Rat einholen/ärztliche Hilfe hinzuziehen. Außerhalb der Reichweite von Kindern aufbewahren. GEFAHR! Von Hitze, heißen Oberflächen, Funken, offenen Flammen und anderen Zündquellen fernhalten. Schädlich für Wasserorganismen, mit langfristiger Wirkung.\n\nUFI: 7G10-E083-A005-2U4C\nHersteller: Almara Soap, s.r.o., Ve Žlíbku 1800/77, 193 00 Prag 9, Tschechische Republik\n\nDiese Angaben sind vorläufig, der Spezifikation des Kunden entnommen, und müssen vor dem Verkaufsstart mit dem final freigegebenen Etikett/Sicherheitsdatenblatt abgeglichen werden.",
+          "Nicht innerlich anwenden. Nicht direkt auf die Haut sprühen. Augenkontakt vermeiden. Kann allergische Hautreaktionen und Augenreizungen verursachen. Bei Augenkontakt sofort mehrere Minuten lang vorsichtig mit Wasser spülen. Bei anhaltender Augenreizung ärztlichen Rat einholen/ärztliche Hilfe hinzuziehen. Außerhalb der Reichweite von Kindern aufbewahren. GEFAHR! Von Hitze, heißen Oberflächen, Funken, offenen Flammen und anderen Zündquellen fernhalten. Schädlich für Wasserorganismen, mit langfristiger Wirkung.\n\nUFI: 7G10-E083-A005-2U4C\nHersteller: Almara Soap, s.r.o., Ve Žlíbku 1800/77, 193 00 Prag 9, Tschechische Republik",
       },
     },
   },
