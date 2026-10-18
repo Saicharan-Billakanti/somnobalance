@@ -273,7 +273,7 @@ export function ProductSystemPage({
     cta: tx("Discover all products →", "Alle Produkte entdecken →"),
     items: products
       .filter((x) => x.slug !== product.slug)
-      .slice(0, 3)
+      .slice(0, 4)
       .map((x) => ({ slug: x.slug, blurb: getProductText(x, lang).tagline })),
   };
 
@@ -937,7 +937,7 @@ export function ProductSystemPage({
           {discover.body && (
             <p className="mt-5 max-w-2xl text-xs leading-6 text-lovable-muted-foreground">{discover.body}</p>
           )}
-          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3 lg:gap-8">
+          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
             {discover.items.map((item) => {
               const p = products.find((x) => x.slug === item.slug);
               if (!p) return null;

@@ -176,6 +176,13 @@ export function RollOnPdp({
         "Ein Duftimpuls für Ihren Raum und bewusste Übergänge.",
       ),
     },
+    {
+      slug: "somnobalance-regeneration-tea",
+      blurb: tx(
+        "A mindful ritual for calmer moments and the transition into the evening.",
+        "Ein bewusstes Ritual für ruhigere Momente und den Übergang in den Abend.",
+      ),
+    },
   ];
   const phaseKeys = ["REGULATE", "LET GO", "PREPARE", "REGENERATE"] as const;
 
@@ -579,7 +586,7 @@ export function RollOnPdp({
           <h2 className="mt-4 max-w-xl font-lovable-serif text-2xl italic leading-snug md:text-3xl">
             {tx("More companions for your rhythm of regeneration.", "Weitere Begleiter für Ihren Regenerationsrhythmus.")}
           </h2>
-          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3 lg:gap-8">
+          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
             {companions.map((item) => {
               const p = products.find((x) => x.slug === item.slug);
               if (!p) return null;

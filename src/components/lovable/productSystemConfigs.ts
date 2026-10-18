@@ -75,7 +75,8 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
         {
           "slug": "somnobalance-starter-set",
           "blurb": "Ihr Einstieg in die SomnoBalance-Welt – für bewusste Regenerationsmomente vom aktiven Tag bis in die Nacht."
-        }
+        },
+        { "slug": "somnobalance-regeneration-tea", "blurb": "Ein bewusstes Ritual für ruhigere Momente und den Übergang in den Abend." },
       ]
     },
     brandCloseTagline: ["A small ritual.", "Wherever you are."],
@@ -110,7 +111,8 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
             {
               "slug": "somnobalance-starter-set",
               "blurb": "Your introduction to the SomnoBalance world, for mindful moments of regeneration from the active day into the night."
-            }
+            },
+            { "slug": "somnobalance-regeneration-tea", "blurb": "A mindful ritual for calmer moments and the transition into the evening." },
           ]
         },
         systemRoleLabel: "REGULATE · LET GO · PREPARE",
@@ -178,7 +180,8 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
         {
           "slug": "somnobalance-regeneration-tea",
           "blurb": "Ein bewusstes Ritual für ruhigere Momente und den Übergang in den Abend."
-        }
+        },
+        { "slug": "somnobalance-starter-set", "blurb": "Ihr Einstieg in die SomnoBalance-Welt – für bewusste Regenerationsmomente vom aktiven Tag bis in die Nacht." },
       ]
     },
     brandCloseTagline: ["A small ritual.", "Wherever you are."],
@@ -224,7 +227,8 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
             {
               "slug": "somnobalance-regeneration-tea",
               "blurb": "A mindful ritual for quieter moments and the transition into the evening."
-            }
+            },
+            { "slug": "somnobalance-starter-set", "blurb": "Your introduction to the SomnoBalance world, for mindful moments of regeneration from an active day into the night." },
           ]
         },
         systemRoleLabel: "LET GO · PREPARE",
@@ -285,7 +289,8 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
         {
           "slug": "somnobalance-room-spray",
           "blurb": "Ein Duftimpuls für Ihren Raum und bewusste Übergänge."
-        }
+        },
+        { "slug": "somnobalance-oil-blend", "blurb": "Ein Duftimpuls für bewusste Regenerationsmomente und persönliche Rituale." },
       ]
     },
     brandCloseTagline: ["A small ritual.", "Wherever you are."],
@@ -308,7 +313,8 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
             {
               "slug": "somnobalance-room-spray",
               "blurb": "A fragrance cue for your space and for mindful transitions."
-            }
+            },
+            { "slug": "somnobalance-oil-blend", "blurb": "A fragrance cue for mindful moments of regeneration and personal rituals." },
           ]
         },
         cycleSection: {
@@ -414,7 +420,8 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
         {
           "slug": "somnobalance-regeneration-tea",
           "blurb": "Ein bewusstes Ritual für ruhigere Momente und den Übergang in den Abend."
-        }
+        },
+        { "slug": "somnobalance-room-spray", "blurb": "Ein Duftimpuls für Ihren Raum und bewusste Übergänge." },
       ]
     },
     brandCloseTagline: ["A small ritual.", "Wherever you are."],
@@ -437,7 +444,8 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
             {
               "slug": "somnobalance-regeneration-tea",
               "blurb": "A mindful ritual for calmer moments and the transition into the evening."
-            }
+            },
+            { "slug": "somnobalance-room-spray", "blurb": "A fragrance cue for your space and for mindful transitions." },
           ]
         },
         cycleSection: {
@@ -604,6 +612,7 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
         { slug: "somnobalance-neck-pillow", blurb: "Individuell anpassbare Unterstützung für eine bewusst gestaltete Schlafumgebung." },
         { slug: "somnobalance-room-spray", blurb: "Ein Duftimpuls für Ihren Raum und bewusste Übergänge." },
         { slug: "somnobalance-mattress", blurb: "Individuell anpassbarer Liegekomfort für eine bewusst gestaltete Schlafumgebung." },
+        { "slug": "somnobalance-regeneration-tea", "blurb": "Ein bewusstes Ritual für ruhigere Momente und den Übergang in den Abend." },
       ],
     },
     statement: "Hier beginne ich, SomnoBalance in meinen eigenen Alltag zu integrieren.",
@@ -629,7 +638,8 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
             {
               "slug": "somnobalance-mattress",
               "blurb": "Customisable lying comfort for a thoughtfully designed sleep environment."
-            }
+            },
+            { "slug": "somnobalance-regeneration-tea", "blurb": "A mindful ritual for calmer moments and the transition into the evening." },
           ]
         },
         cycleSection: {
@@ -824,7 +834,8 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
         {
           "slug": "somnobalance-regeneration-cards",
           "blurb": "Regenerationspunkte und Rituale als Impulse für Ihren Alltag."
-        }
+        },
+        { "slug": "somnobalance-room-spray", "blurb": "Ein Duftimpuls für Ihren Raum und bewusste Übergänge." },
       ]
     },
     brandCloseTagline: ["A small ritual.", "Wherever you are."],
@@ -847,7 +858,8 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
             {
               "slug": "somnobalance-regeneration-cards",
               "blurb": "Regeneration points and rituals as prompts for everyday life."
-            }
+            },
+            { "slug": "somnobalance-room-spray", "blurb": "A fragrance cue for your space and for mindful transitions." },
           ]
         },
         cycleSection: {
@@ -1051,7 +1063,8 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
         {
           "slug": "somnobalance-regeneration-cards",
           "blurb": "Regenerationspunkte und Rituale als Impulse für Ihren Alltag."
-        }
+        },
+        { "slug": "somnobalance-room-spray", "blurb": "Ein Duftimpuls für Ihren Raum und bewusste Übergänge." },
       ]
     },
     brandCloseTagline: ["A small ritual.", "Wherever you are."],
@@ -1074,7 +1087,8 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
             {
               "slug": "somnobalance-regeneration-cards",
               "blurb": "Regeneration points and rituals as prompts for everyday life."
-            }
+            },
+            { "slug": "somnobalance-room-spray", "blurb": "A fragrance cue for your space and for mindful transitions." },
           ]
         },
         cycleSection: {
