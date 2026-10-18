@@ -3,10 +3,10 @@
 // light day tone -> rose -> muted violet -> dark night. The violet is darkened
 // slightly toward the night tone so white text keeps a readable contrast.
 const PHASE_COLORS = [
-  "var(--color-circuit-regulate)",
-  "var(--color-circuit-letgo)",
-  "color-mix(in srgb, var(--color-circuit-prepare) 70%, var(--color-circuit-regenerate))",
-  "var(--color-circuit-regenerate)",
+  "linear-gradient(135deg, #f8f3f4 0%, #eaddd7 100%)",
+  "linear-gradient(135deg, #e8cdd6 0%, #d3b0b9 100%)",
+  "linear-gradient(135deg, #765a78 0%, #4f3d55 100%)",
+  "linear-gradient(135deg, #352a3f 0%, #1c1623 100%)",
 ];
 
 const PHASE_TEXT_ON_DARK = [false, false, true, true];

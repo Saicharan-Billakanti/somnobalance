@@ -185,12 +185,6 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                     {dict.home.learnMore}
                   </Link>
                 </div>
-                <Link
-                  href={`/${l}/shop/somnobalance-regeneration-cards`}
-                  className="mt-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-ink transition-opacity hover:opacity-70"
-                >
-                  {l === "de" ? "Mehr erfahren →" : "Learn more →"}
-                </Link>
               </div>
             ))}
           </div>

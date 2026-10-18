@@ -278,13 +278,13 @@ export function ProductSystemPage({
       >
         <section className="mx-auto grid max-w-[1500px] gap-8 px-5 pb-10 pt-10 md:px-10 lg:grid-cols-[1.45fr_1fr_0.55fr] lg:px-16">
           <div className="min-w-0">
-            <div className="relative aspect-square overflow-hidden rounded-md bg-lovable-muted">
+            <div className="relative aspect-square overflow-hidden rounded-md border border-lovable-border bg-white">
               <Image
                 src={gallery[active]}
                 alt={text.name}
                 width={1200}
                 height={1200}
-                className="h-full w-full object-contain"
+                className="h-full w-full object-contain p-4"
               />
               <div className="absolute bottom-10 left-10 hidden text-[11px] uppercase leading-[2] tracking-[0.25em] text-lovable-primary md:block">
                 {c.galleryTagline.map((line, i) => (
@@ -324,13 +324,13 @@ export function ProductSystemPage({
               >
                 <ArrowLeft className="size-4" />
               </Button>
-              <div className="grid min-w-0 flex-1 grid-cols-4 gap-3">
+              <div className="flex min-w-0 flex-1 gap-3 overflow-x-auto pb-1">
                 {gallery.map((image, index) => (
                   <button
                     key={index}
                     onClick={() => setActive(index)}
                     aria-label={`${tx("View product image", "Produktbild ansehen")} ${index + 1}`}
-                    className={`aspect-square overflow-hidden rounded-sm border bg-lovable-muted transition-colors ${
+                    className={`size-[72px] shrink-0 overflow-hidden rounded-sm border bg-white transition-colors sm:size-20 ${
                       active === index
                         ? "border-lovable-primary"
                         : "border-transparent"
@@ -341,7 +341,7 @@ export function ProductSystemPage({
                       alt=""
                       width={300}
                       height={300}
-                      className="h-full w-full object-contain"
+                      className="h-full w-full object-contain p-1"
                     />
                   </button>
                 ))}
@@ -516,7 +516,7 @@ export function ProductSystemPage({
             )}
           </div>
 
-          <aside className="relative self-start rounded-md border border-lovable-border bg-lovable-card px-6 py-8 lg:min-h-[530px]">
+          <aside className="relative self-start rounded-md border border-lovable-border bg-lovable-card px-6 py-8">
             <h2 className="font-lovable-serif text-xl whitespace-pre-line">
               {dict.shop.soundTitle}
             </h2>
@@ -932,12 +932,12 @@ export function ProductSystemPage({
                 const pText = getProductText(p, lang);
                 return (
                   <Link key={p.slug} href={`/${lang}/shop/${p.slug}`} className="group block">
-                    <div className="relative mb-4 aspect-[4/5] overflow-hidden rounded-md bg-lovable-muted">
+                    <div className="relative mb-4 aspect-square overflow-hidden rounded-md border border-lovable-border bg-white">
                       <Image
                         src={p.image}
                         alt={pText.name}
                         fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        className="object-contain p-4 transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
                     <h3 className="font-lovable-serif text-lg leading-tight">{pText.name}</h3>
@@ -970,12 +970,12 @@ export function ProductSystemPage({
                     href={`/${lang}/shop/${p.slug}`}
                     className="group block"
                   >
-                    <div className="relative mb-4 aspect-[4/5] overflow-hidden rounded-md bg-lovable-muted">
+                    <div className="relative mb-4 aspect-square overflow-hidden rounded-md border border-lovable-border bg-white">
                       <Image
                         src={p.image}
                         alt={pText.name}
                         fill
-                        className="object-contain transition-transform duration-500 group-hover:scale-105"
+                        className="object-contain p-4 transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
                     <h3 className="font-lovable-serif text-lg leading-tight">
