@@ -47,10 +47,72 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
     ],
     howToUseNote: ["Ein Impuls passend", "zu Ihrem Moment."],
     nextCompanionLabel: "Ihr Begleiter für Loslassen & Vorbereiten.",
+    cycleSection: {
+      "eyebrow": "IM SOMNOBALANCE-KREISLAUF",
+      "headline": "Duft als Teil Ihrer Rituale.",
+      "activePhases": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "body": "Die SomnoBalance Ölmischung begleitet persönliche Rituale und Duftmomente – über Diffuser oder Duftlampe im Tagesverlauf, beim Loslassen und bei der Vorbereitung auf den Abend.",
+      "note": "Die Phasen geben Orientierung. Wann Sie die Ölmischung in Ihren Tagesrhythmus integrieren, bleibt individuell."
+    },
+    discoverMore: {
+      "eyebrow": "SOMNOBALANCE WEITERENTDECKEN",
+      "headline": "Weitere Begleiter für Ihren Regenerationsrhythmus.",
+      "cta": "Alle Produkte entdecken →",
+      "items": [
+        {
+          "slug": "somnobalance-roll-on",
+          "blurb": "Ein bewusster Duftimpuls für unterwegs und zu Hause."
+        },
+        {
+          "slug": "somnobalance-room-spray",
+          "blurb": "Ein Duftimpuls für Ihren Raum und bewusste Übergänge."
+        },
+        {
+          "slug": "somnobalance-starter-set",
+          "blurb": "Ihr Einstieg in die SomnoBalance-Welt – für bewusste Regenerationsmomente vom aktiven Tag bis in die Nacht."
+        }
+      ]
+    },
     brandCloseTagline: ["A small ritual.", "Wherever you are."],
     brandCloseNote: ["Rest.", "Rebalance.", "Repeat."],
     translations: {
       en: {
+        cycleSection: {
+          "eyebrow": "IN THE SOMNOBALANCE CYCLE",
+          "headline": "Fragrance as part of your rituals.",
+          "activePhases": [
+            true,
+            true,
+            true,
+            false
+          ],
+          "body": "The SomnoBalance Oil Blend accompanies personal rituals and fragrance moments – through a diffuser or oil burner during the day, while letting go and when preparing for the evening.",
+          "note": "The phases provide guidance. When you integrate the oil blend into your daily rhythm remains an individual choice."
+        },
+        discoverMore: {
+          "eyebrow": "DISCOVER MORE OF SOMNOBALANCE",
+          "headline": "More companions for your rhythm of regeneration.",
+          "cta": "Discover all products →",
+          "items": [
+            {
+              "slug": "somnobalance-roll-on",
+              "blurb": "A mindful fragrance cue for on the go and at home."
+            },
+            {
+              "slug": "somnobalance-room-spray",
+              "blurb": "A fragrance cue for your space and for mindful transitions."
+            },
+            {
+              "slug": "somnobalance-starter-set",
+              "blurb": "Your introduction to the SomnoBalance world, for mindful moments of regeneration from the active day into the night."
+            }
+          ]
+        },
         systemRoleLabel: "REGULATE · LET GO · PREPARE",
         galleryTagline: ["Let go.", "Prepare."],
         howToUseEyebrow: "Application",

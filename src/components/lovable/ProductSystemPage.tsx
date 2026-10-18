@@ -264,6 +264,19 @@ export function ProductSystemPage({
     lang === "en" && config.translations?.en ? config.translations.en : {};
   const c = { ...config, ...t };
 
+  // Every product page ends with the same "Discover more" block. Pages without
+  // their own list fall back to three other products, in the same design.
+  const discover = c.discoverMore ?? {
+    eyebrow: tx("DISCOVER MORE OF SOMNOBALANCE", "SOMNOBALANCE WEITERENTDECKEN"),
+    headline: tx("More companions for your rhythm of regeneration.", "Weitere Begleiter für Ihren Regenerationsrhythmus."),
+    body: undefined as string | undefined,
+    cta: tx("Discover all products →", "Alle Produkte entdecken →"),
+    items: products
+      .filter((x) => x.slug !== product.slug)
+      .slice(0, 3)
+      .map((x) => ({ slug: x.slug, blurb: getProductText(x, lang).tagline })),
+  };
+
   return (
     <div
       className={`${newsreader.variable} ${workSans.variable} relative text-lovable-foreground`}
@@ -914,88 +927,44 @@ export function ProductSystemPage({
         </section>
         )}
 
-        {c.discoverMore ? (
-          <section className="mx-auto max-w-[1500px] px-5 py-14 md:px-10 lg:px-16 lg:py-20">
-            <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
-              {c.discoverMore.eyebrow}
-            </p>
-            <h2 className="mt-4 max-w-xl font-lovable-serif text-2xl italic leading-snug md:text-3xl">
-              {c.discoverMore.headline}
-            </h2>
-            {c.discoverMore.body && (
-              <p className="mt-5 max-w-2xl text-xs leading-6 text-lovable-muted-foreground">{c.discoverMore.body}</p>
-            )}
-            <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3 lg:gap-8">
-              {c.discoverMore.items.map((item) => {
-                const p = products.find((x) => x.slug === item.slug);
-                if (!p) return null;
-                const pText = getProductText(p, lang);
-                return (
-                  <Link key={p.slug} href={`/${lang}/shop/${p.slug}`} className="group block">
-                    <div className="relative mb-4 aspect-square overflow-hidden rounded-md border border-lovable-border bg-white">
-                      <Image
-                        src={p.image}
-                        alt={pText.name}
-                        fill
-                        className="object-contain p-4 transition-transform duration-500 group-hover:scale-105"
-                      />
-                    </div>
-                    <h3 className="font-lovable-serif text-lg leading-tight">{pText.name}</h3>
-                    <p className="mt-1 text-xs leading-5 text-lovable-muted-foreground">{item.blurb}</p>
-                  </Link>
-                );
-              })}
-            </div>
-            <Link
-              href={`/${lang}/shop`}
-              className="mt-10 inline-block text-xs font-semibold uppercase tracking-wider underline underline-offset-8"
-            >
-              {c.discoverMore.cta}
-            </Link>
-          </section>
-        ) : (
         <section className="mx-auto max-w-[1500px] px-5 py-14 md:px-10 lg:px-16 lg:py-20">
-          <h2 className="mb-8 font-lovable-serif text-2xl md:text-3xl">
-            {dict.shop.youMightAlsoLike}
+          <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
+            {discover.eyebrow}
+          </p>
+          <h2 className="mt-4 max-w-xl font-lovable-serif text-2xl italic leading-snug md:text-3xl">
+            {discover.headline}
           </h2>
-          <div className="grid grid-cols-2 gap-5 md:grid-cols-4 lg:gap-8">
-            {products
-              .filter((p) => p.slug !== product.slug)
-              .slice(0, 4)
-              .map((p) => {
-                const pText = getProductText(p, lang);
-                return (
-                  <Link
-                    key={p.slug}
-                    href={`/${lang}/shop/${p.slug}`}
-                    className="group block"
-                  >
-                    <div className="relative mb-4 aspect-square overflow-hidden rounded-md border border-lovable-border bg-white">
-                      <Image
-                        src={p.image}
-                        alt={pText.name}
-                        fill
-                        className="object-contain p-4 transition-transform duration-500 group-hover:scale-105"
-                      />
-                    </div>
-                    <h3 className="font-lovable-serif text-lg leading-tight">
-                      {pText.name}
-                    </h3>
-                    <p className="mt-1 text-xs leading-5 text-lovable-muted-foreground">
-                      {pText.tagline}
-                    </p>
-                    <div className="mt-3 text-sm font-medium">
-                      {new Intl.NumberFormat("de-DE", {
-                        style: "currency",
-                        currency: "EUR",
-                      }).format(p.price || 0)}
-                    </div>
-                  </Link>
-                );
-              })}
+          {discover.body && (
+            <p className="mt-5 max-w-2xl text-xs leading-6 text-lovable-muted-foreground">{discover.body}</p>
+          )}
+          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3 lg:gap-8">
+            {discover.items.map((item) => {
+              const p = products.find((x) => x.slug === item.slug);
+              if (!p) return null;
+              const pText = getProductText(p, lang);
+              return (
+                <Link key={p.slug} href={`/${lang}/shop/${p.slug}`} className="group block">
+                  <div className="relative mb-4 aspect-square overflow-hidden rounded-md border border-lovable-border bg-white">
+                    <Image
+                      src={p.image}
+                      alt={pText.name}
+                      fill
+                      className="object-contain p-4 transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                  <h3 className="font-lovable-serif text-lg leading-tight">{pText.name}</h3>
+                  <p className="mt-1 text-xs leading-5 text-lovable-muted-foreground">{item.blurb}</p>
+                </Link>
+              );
+            })}
           </div>
+          <Link
+            href={`/${lang}/shop`}
+            className="mt-10 inline-block text-xs font-semibold uppercase tracking-wider underline underline-offset-8"
+          >
+            {discover.cta}
+          </Link>
         </section>
-        )}
       </div>
     </div>
   );
