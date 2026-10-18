@@ -56,7 +56,7 @@ export function PartnerLanding({ lang, dict }: { lang: Locale; dict: Dictionary 
         className="px-4 py-20 sm:px-6 sm:py-28"
         style={{ background: "color-mix(in srgb, var(--color-scroll-1) 74%, transparent)" }}
       >
-        <div className="mx-auto max-w-6xl">
+        <div className="mx-auto max-w-[1232px]">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/60">{t.hero.eyebrow}</p>
           <div className="mt-5 flex flex-col gap-10 md:flex-row md:items-start md:justify-between lg:gap-20">
             <h1 className="font-serif text-4xl leading-[1.1] text-ink md:w-1/2 md:text-5xl lg:text-6xl">
@@ -98,7 +98,7 @@ export function PartnerLanding({ lang, dict }: { lang: Locale; dict: Dictionary 
         className="scroll-mt-24 px-4 py-20 sm:px-6 sm:py-28"
         style={{ background: "color-mix(in srgb, var(--color-scroll-2) 74%, transparent)" }}
       >
-        <div className="mx-auto max-w-6xl">
+        <div className="mx-auto max-w-[1232px]">
           <h2 className="font-serif text-3xl leading-tight text-ink md:text-4xl lg:text-5xl">{t.how.title}</h2>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-ink/70 lg:text-lg">{t.how.intro}</p>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
@@ -122,7 +122,8 @@ export function PartnerLanding({ lang, dict }: { lang: Locale; dict: Dictionary 
 
       {/* 5 · Abschluss + Bewerbung */}
       <section id="bewerbung" className="scroll-mt-24 bg-white px-4 py-20 sm:px-6 sm:py-28">
-        <div className="mx-auto max-w-2xl">
+        <div className="mx-auto max-w-[1232px]">
+        <div className="max-w-2xl">
           <h2 className="font-serif text-3xl leading-tight text-ink md:text-4xl">{t.close.title}</h2>
           <p className="mt-4 text-base leading-relaxed text-ink/70">{t.close.body}</p>
 
@@ -212,6 +213,7 @@ export function PartnerLanding({ lang, dict }: { lang: Locale; dict: Dictionary 
               </div>
             </form>
           )}
+        </div>
         </div>
       </section>
     </div>

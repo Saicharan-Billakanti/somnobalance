@@ -289,7 +289,7 @@ export function ProductSystemPage({
             "color-mix(in srgb, var(--color-lovable-background) 78%, transparent)",
         }}
       >
-        <section className="mx-auto grid max-w-[1500px] gap-8 px-5 pb-10 pt-10 md:px-10 lg:grid-cols-[1.45fr_1fr_0.55fr] lg:px-16">
+        <section className="mx-auto grid max-w-7xl gap-8 px-4 pb-10 pt-10 sm:px-6 lg:grid-cols-[1.45fr_1fr_0.55fr]">
           <div className="min-w-0">
             <div className="relative aspect-square overflow-hidden rounded-md border border-lovable-border bg-white">
               <Image
@@ -577,7 +577,7 @@ export function ProductSystemPage({
               "color-mix(in srgb, var(--color-lovable-secondary) 25%, transparent)",
           }}
         >
-          <div className="mx-auto grid max-w-[1500px] items-center gap-8 px-5 md:px-10 lg:grid-cols-[280px_1fr_180px] lg:px-16">
+          <div className="mx-auto grid max-w-7xl items-center gap-8 px-4 sm:px-6 lg:grid-cols-[280px_1fr_180px]">
             <div>
               <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
                 {c.howToUseEyebrow}
@@ -639,7 +639,7 @@ export function ProductSystemPage({
         {c.explainerSections?.map((section, i) => (
           <section
             key={section.headline}
-            className={`mx-auto grid max-w-[1500px] items-center gap-8 px-5 py-10 md:px-10 lg:px-16 ${
+            className={`mx-auto grid max-w-7xl items-center gap-8 px-4 py-10 sm:px-6 ${
               section.image ? "lg:grid-cols-2" : ""
             } ${i > 0 ? "border-t border-lovable-border" : ""}`}
           >
@@ -663,7 +663,7 @@ export function ProductSystemPage({
         ))}
 
         {c.statement && (
-          <section className="mx-auto max-w-[1500px] border-t border-lovable-border px-5 py-14 text-center md:px-10 lg:px-16 lg:py-20">
+          <section className="mx-auto max-w-7xl border-t border-lovable-border px-4 py-14 text-center sm:px-6 lg:py-20">
             <p className="mx-auto max-w-3xl font-lovable-serif text-2xl italic leading-snug text-lovable-foreground md:text-4xl">
               {c.statement}
             </p>
@@ -671,7 +671,7 @@ export function ProductSystemPage({
         )}
 
         {c.timeline && (
-          <section className="mx-auto max-w-[1500px] px-5 py-14 md:px-10 lg:px-16 lg:py-20">
+          <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:py-20">
             <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
               {c.timeline.eyebrow}
             </p>
@@ -696,7 +696,7 @@ export function ProductSystemPage({
         )}
 
         {c.bundleContents && (
-          <section className="mx-auto max-w-[1500px] border-t border-lovable-border px-5 py-14 md:px-10 lg:px-16 lg:py-20">
+          <section className="mx-auto max-w-7xl border-t border-lovable-border px-4 py-14 sm:px-6 lg:py-20">
             <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
               {tx("What's included in the Starter Set", "Das ist im Starter-Set enthalten")}
             </p>
@@ -713,7 +713,7 @@ export function ProductSystemPage({
         )}
 
         {c.togetherSection && (
-          <section className="mx-auto max-w-[1500px] border-t border-lovable-border px-5 py-14 text-center md:px-10 lg:px-16 lg:py-20">
+          <section className="mx-auto max-w-7xl border-t border-lovable-border px-4 py-14 text-center sm:px-6 lg:py-20">
             <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
               {c.togetherSection.eyebrow}
             </p>
@@ -727,7 +727,7 @@ export function ProductSystemPage({
         )}
 
         {c.dailyMoments && (
-          <section className="mx-auto max-w-[1500px] border-t border-lovable-border px-5 py-14 md:px-10 lg:px-16 lg:py-20">
+          <section className="mx-auto max-w-7xl border-t border-lovable-border px-4 py-14 sm:px-6 lg:py-20">
             <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
               {c.dailyMoments.eyebrow}
             </p>
@@ -752,7 +752,7 @@ export function ProductSystemPage({
         )}
 
         {config.vitalizeImage && (
-          <section className="mx-auto grid max-w-[1500px] items-center gap-8 px-5 py-14 md:px-10 lg:grid-cols-2 lg:px-16 lg:py-20">
+          <section className="mx-auto grid max-w-7xl items-center gap-8 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:py-20">
             <div className="relative aspect-[4/3] overflow-hidden rounded-md bg-lovable-muted">
               <Image
                 src={config.vitalizeImage}
@@ -787,7 +787,7 @@ export function ProductSystemPage({
           </section>
         )}
 
-        <section className="mx-auto grid max-w-[1500px] lg:grid-cols-[0.9fr_1.05fr_0.75fr]">
+        <section className="mx-auto grid max-w-7xl px-4 sm:px-6 lg:grid-cols-[0.9fr_1.05fr_0.75fr]">
           <div className="relative min-h-[520px] bg-white">
             <Image
               src={product.image}
@@ -867,13 +867,13 @@ export function ProductSystemPage({
 
         {c.cycleSection ? (
           <section
-            className="px-5 py-14 md:px-10 lg:px-16"
+            className="px-4 py-14 sm:px-6"
             style={{
               background:
                 "color-mix(in srgb, var(--color-lovable-secondary) 25%, transparent)",
             }}
           >
-            <div className="mx-auto max-w-[1500px]">
+            <div className="mx-auto max-w-[1232px]">
               <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
                 {c.cycleSection.eyebrow}
               </p>
@@ -910,13 +910,13 @@ export function ProductSystemPage({
           </section>
         ) : (
         <section
-          className="px-5 py-14 md:px-10 lg:px-16"
+          className="px-4 py-14 sm:px-6"
           style={{
             background:
               "color-mix(in srgb, var(--color-lovable-secondary) 25%, transparent)",
           }}
         >
-          <div className="mx-auto max-w-[1500px]">
+          <div className="mx-auto max-w-[1232px]">
             <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
               {tx("System", "System")}
             </p>
@@ -927,7 +927,7 @@ export function ProductSystemPage({
         </section>
         )}
 
-        <section className="mx-auto max-w-[1500px] px-5 py-14 md:px-10 lg:px-16 lg:py-20">
+        <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:py-20">
           <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
             {discover.eyebrow}
           </p>

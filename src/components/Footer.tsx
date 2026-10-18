@@ -47,7 +47,7 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
         className="object-cover object-center"
       />
       <div className="absolute inset-0 bg-[#140e1b]/85" />
-      <div className="relative mx-auto max-w-[1400px] px-6 py-16 md:px-12 lg:px-16">
+      <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6">
         <div className="flex min-w-0 flex-col">
           <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-5 md:gap-8 lg:gap-10">
             <div className="sm:col-span-2 md:col-span-1 md:pr-4">

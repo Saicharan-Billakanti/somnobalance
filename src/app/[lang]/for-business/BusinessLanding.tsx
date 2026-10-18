@@ -63,7 +63,7 @@ export function BusinessLanding({ lang, dict }: { lang: Locale; dict: Dictionary
         className="px-4 py-16 sm:px-6 sm:py-24"
         style={{ background: "color-mix(in srgb, var(--color-scroll-1) 74%, transparent)" }}
       >
-        <div className="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-2 lg:gap-20">
+        <div className="mx-auto grid max-w-[1232px] items-center gap-12 md:grid-cols-2 lg:gap-20">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/60">{fb.hero.eyebrow}</p>
             <h1 className="mt-5 font-serif text-4xl leading-[1.1] text-ink md:text-5xl lg:text-6xl">{fb.hero.title}</h1>
@@ -101,7 +101,7 @@ export function BusinessLanding({ lang, dict }: { lang: Locale; dict: Dictionary
 
       {/* 2 · Drei Einsatzbereiche */}
       <section id="einsatzmoeglichkeiten" className="scroll-mt-24 bg-white px-4 py-20 sm:px-6 sm:py-28">
-        <div className="mx-auto max-w-6xl">
+        <div className="mx-auto max-w-[1232px]">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/60">{fb.areas.eyebrow}</p>
           <div className="mt-5 flex flex-col gap-6 md:flex-row md:justify-between lg:gap-20">
             <h2 className="font-serif text-3xl leading-tight text-ink md:w-1/2 md:text-4xl lg:text-5xl">
@@ -134,7 +134,7 @@ export function BusinessLanding({ lang, dict }: { lang: Locale; dict: Dictionary
         className="px-4 py-20 sm:px-6 sm:py-28"
         style={{ background: "color-mix(in srgb, var(--color-scroll-2) 74%, transparent)" }}
       >
-        <div className="mx-auto max-w-4xl">
+        <div className="mx-auto max-w-[1232px]">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/60">{fb.solutions.eyebrow}</p>
           <h2 className="mt-5 font-serif text-3xl leading-tight text-ink md:text-4xl lg:text-5xl">
             {fb.solutions.title}
@@ -145,7 +145,7 @@ export function BusinessLanding({ lang, dict }: { lang: Locale; dict: Dictionary
           <p className="mt-10 text-xs font-semibold uppercase tracking-[0.2em] text-ink/60">
             {fb.solutions.blocksLabel}
           </p>
-          <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+          <ul className="mt-4 grid max-w-4xl gap-3 sm:grid-cols-2">
             {fb.solutions.blocks.map((block) => (
               <li key={block} className="bg-white px-5 py-4 text-sm text-ink/80 shadow-sm">
                 {block}
@@ -173,7 +173,8 @@ export function BusinessLanding({ lang, dict }: { lang: Locale; dict: Dictionary
 
       {/* 5 · Kontaktformular */}
       <section id="anfrage" className="scroll-mt-24 bg-white px-4 py-20 sm:px-6 sm:py-28">
-        <div className="mx-auto max-w-2xl">
+        <div className="mx-auto max-w-[1232px]">
+        <div className="max-w-2xl">
           <h2 className="font-serif text-3xl leading-tight text-ink md:text-4xl">{fb.form.title}</h2>
           <p className="mt-4 text-base leading-relaxed text-ink/70">{fb.form.intro}</p>
 
@@ -309,6 +310,7 @@ export function BusinessLanding({ lang, dict }: { lang: Locale; dict: Dictionary
               </p>
             </form>
           )}
+        </div>
         </div>
       </section>
     </div>

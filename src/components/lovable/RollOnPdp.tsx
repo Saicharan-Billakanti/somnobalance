@@ -198,7 +198,7 @@ export function RollOnPdp({
             "color-mix(in srgb, var(--color-lovable-background) 78%, transparent)",
         }}
       >
-        <section className="mx-auto grid max-w-[1500px] gap-8 px-5 pb-10 pt-10 md:px-10 lg:grid-cols-[1.45fr_1fr_0.55fr] lg:px-16">
+        <section className="mx-auto grid max-w-7xl gap-8 px-4 pb-10 pt-10 sm:px-6 lg:grid-cols-[1.45fr_1fr_0.55fr]">
           <div className="min-w-0">
             <div className="relative aspect-square overflow-hidden rounded-md border border-lovable-border bg-white">
               <Image
@@ -388,7 +388,7 @@ export function RollOnPdp({
               "linear-gradient(to bottom, transparent, color-mix(in srgb, var(--color-lovable-secondary) 25%, transparent), transparent)",
           }}
         >
-          <div className="mx-auto grid max-w-[1500px] gap-8 px-5 md:px-10 lg:grid-cols-[280px_1fr] lg:px-16">
+          <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[280px_1fr]">
             <div>
               <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
                 {dict.shop.howToUseEyebrow}
@@ -465,7 +465,7 @@ export function RollOnPdp({
           </div>
         </section>
 
-        <section className="mx-auto grid max-w-[1500px] gap-8 px-5 py-14 md:px-10 lg:grid-cols-[0.9fr_1.05fr_0.75fr] lg:gap-0 lg:px-16 lg:py-20">
+        <section className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.9fr_1.05fr_0.75fr] lg:gap-0 lg:py-20">
           <div className="relative min-h-[520px] overflow-hidden rounded-md bg-white">
             <Image
               src="/products/SomnoBalance Roll-on.webp"
@@ -538,12 +538,12 @@ export function RollOnPdp({
         </section>
 
         <section
-          className="px-5 py-14 md:px-10 lg:px-16"
+          className="px-4 py-14 sm:px-6"
           style={{
             background: "color-mix(in srgb, var(--color-lovable-secondary) 25%, transparent)",
           }}
         >
-          <div className="mx-auto max-w-[1500px]">
+          <div className="mx-auto max-w-[1232px]">
             <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
               {tx("WITHIN THE SOMNOBALANCE CYCLE", "IM SOMNOBALANCE-KREISLAUF")}
             </p>
@@ -579,7 +579,7 @@ export function RollOnPdp({
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1500px] px-5 py-14 md:px-10 lg:px-16 lg:py-20">
+        <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:py-20">
           <p className="text-[10px] uppercase tracking-[0.25em] text-lovable-muted-foreground">
             {tx("DISCOVER MORE OF SOMNOBALANCE", "SOMNOBALANCE WEITERENTDECKEN")}
           </p>

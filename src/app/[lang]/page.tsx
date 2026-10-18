@@ -18,7 +18,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
       <section className="relative flex min-h-[620px] w-full items-center overflow-hidden xl:min-h-[780px]">
         <HeroVideo className="absolute inset-0 h-full w-full object-cover object-center" />
         <div className="absolute inset-0 bg-gradient-to-r from-white/60 via-white/25 to-transparent" />
-        <div className="relative z-10 mx-auto flex w-full max-w-[1400px] items-end justify-between px-4 pb-16 pt-32 sm:px-6 md:px-12 md:pb-24 lg:items-center lg:py-32">
+        <div className="relative z-10 mx-auto flex w-full max-w-7xl items-end justify-between px-4 pb-16 pt-32 sm:px-6 md:pb-24 lg:items-center lg:py-32">
           
           <div className="max-w-xl">
             <p className="text-xs uppercase tracking-[0.2em] text-ink/60 md:text-sm">
@@ -50,7 +50,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
         className="px-4 py-24 sm:px-6 sm:py-32"
         style={{ background: "color-mix(in srgb, var(--color-scroll-1) 74%, transparent)" }}
       >
-        <div className="mx-auto flex max-w-6xl flex-col gap-12 md:flex-row md:items-start md:justify-between lg:gap-24">
+        <div className="mx-auto flex max-w-[1232px] flex-col gap-12 md:flex-row md:items-start md:justify-between lg:gap-24">
           <div className="md:w-5/12">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/60">
               {dict.homeSections.concept.eyebrow}
@@ -72,7 +72,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
           {dict.homeSections.concept.statement}
         </blockquote>
         
-        <div className="mx-auto mt-20 flex w-full max-w-6xl flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs md:flex-nowrap md:justify-between font-medium uppercase tracking-[0.2em] text-ink/60 md:mt-32">
+        <div className="mx-auto mt-20 flex w-full max-w-[1232px] flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs md:flex-nowrap md:justify-between font-medium uppercase tracking-[0.2em] text-ink/60 md:mt-32">
           {dict.homeSections.concept.phaseStrip.map((name, i, arr) => (
             <React.Fragment key={name}>
               <span className="shrink-0">{name}</span>
@@ -103,7 +103,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
         className="py-24 sm:py-32"
         style={{ background: "color-mix(in srgb, var(--color-scroll-2) 74%, transparent)" }}
       >
-        <div className="mx-auto max-w-[1400px] px-4 sm:px-6 md:px-12">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between lg:gap-24">
             <div className="md:w-1/2">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/60">
@@ -147,7 +147,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
         className="py-24 sm:py-32"
         style={{ background: "color-mix(in srgb, var(--color-scroll-3) 74%, transparent)" }}
       >
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <p className="text-xs uppercase tracking-[0.2em] text-teal-dark">
             {dict.homeSections.forYou.eyebrow}
           </p>
@@ -231,7 +231,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
       </section>
 
       <section className="py-20 sm:py-28 bg-white">
-        <div className="mx-auto max-w-[1400px] px-4 sm:px-6 md:px-12">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="grid gap-6 md:grid-cols-3">
             {[
               {

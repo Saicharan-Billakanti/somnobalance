@@ -34,7 +34,7 @@ export default async function ConceptPage({ params }: { params: Promise<{ lang: 
         className="px-4 py-20 sm:px-6 sm:py-28"
         style={{ background: "color-mix(in srgb, var(--color-scroll-1) 74%, transparent)" }}
       >
-        <div className="mx-auto max-w-6xl">
+        <div className="mx-auto max-w-[1232px]">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/60">{c.hero.eyebrow}</p>
           <div className="mt-5 flex flex-col gap-10 md:flex-row md:items-start md:justify-between lg:gap-20">
             <h1 className="font-serif text-4xl leading-[1.1] text-ink md:w-1/2 md:text-5xl lg:text-6xl">
@@ -56,7 +56,7 @@ export default async function ConceptPage({ params }: { params: Promise<{ lang: 
         className="px-4 py-20 sm:px-6 sm:py-28"
         style={{ background: "color-mix(in srgb, var(--color-scroll-2) 74%, transparent)" }}
       >
-        <div className="mx-auto flex max-w-6xl flex-col gap-10 md:flex-row md:justify-between lg:gap-20">
+        <div className="mx-auto flex max-w-[1232px] flex-col gap-10 md:flex-row md:justify-between lg:gap-20">
           <div className="md:w-5/12">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/60">{c.story.eyebrow}</p>
             <h2 className="mt-5 font-serif text-3xl leading-tight text-ink md:text-4xl lg:text-5xl">
@@ -73,13 +73,13 @@ export default async function ConceptPage({ params }: { params: Promise<{ lang: 
 
       {/* 3 · Die Menschen hinter SomnoBalance (footer anchor: #menschen) */}
       <section id="menschen" className="scroll-mt-24 bg-white px-4 py-20 sm:px-6 sm:py-28">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-[1232px]">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/60">{c.people.eyebrow}</p>
           <h2 className="mt-5 max-w-2xl font-serif text-3xl leading-tight text-ink md:text-4xl lg:text-5xl">
             {c.people.headline}
           </h2>
 
-          <div className="mt-14 grid gap-12 md:grid-cols-2 md:gap-10 lg:gap-16">
+          <div className="mt-14 grid max-w-5xl gap-12 md:grid-cols-2 md:gap-10 lg:gap-16">
             {c.people.profiles.map((person) => (
               <article key={person.name}>
                 <div className="relative aspect-[4/5] overflow-hidden bg-sand">
@@ -108,7 +108,7 @@ export default async function ConceptPage({ params }: { params: Promise<{ lang: 
         className="px-4 py-20 sm:px-6 sm:py-28"
         style={{ background: "color-mix(in srgb, var(--color-scroll-1) 74%, transparent)" }}
       >
-        <div className="mx-auto max-w-6xl">
+        <div className="mx-auto max-w-[1232px]">
           <div className="flex flex-col gap-6 md:flex-row md:justify-between lg:gap-20">
             <div className="md:w-5/12">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/60">{c.phases.eyebrow}</p>

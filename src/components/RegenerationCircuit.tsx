@@ -44,7 +44,7 @@ export function RegenerationCircuit({
 }) {
   return (
     <section className="bg-sand">
-      <div className="mx-auto flex max-w-[1400px] flex-col gap-8 px-4 pb-12 pt-24 sm:px-6 md:flex-row md:items-start md:justify-between md:px-12 lg:pt-32">
+      <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 pb-12 pt-24 sm:px-6 md:flex-row md:items-start md:justify-between lg:pt-32">
         <div className="md:w-1/2">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/60">{eyebrow}</p>
           <h2 className="mt-5 max-w-sm font-serif text-4xl leading-tight text-ink md:text-5xl lg:text-[3.5rem] lg:leading-[1.1]">
