@@ -248,7 +248,7 @@ export const products: Product[] = [
     returnEligible: true,
     legalNote:
       "Mandatory food-law disclosures (nutritional information, allergen labelling, best-before format) must be added from the current manufacturer documentation before this page is used for real sales — not yet added here.",
-    safetyInfo: "Net quantity: 80 g. Ingredients: lemon balm, orange blossom, sweet blackberry leaves, raspberry leaves, liquorice root, cardamom, fennel, anise. Store dry and protected from heat.\n\nManufacturer: YuboFiT® Bio-Manufaktur, foxx-merch Marketing und Vertriebs GmbH, D-31141 Hildesheim, Germany",
+    safetyInfo: "Net quantity: 80 g. Ingredients: lemon balm, orange blossom, sweet blackberry leaves, raspberry leaves, liquorice root, cardamom, fennel, anise. Store dry and protected from heat.\n\nManufacturer: YuboFiT® Bio-Manufaktur, foxx-merch Marketing und Vertriebs GmbH, Hansenng 106, D-31141 Hildesheim, Germany",
     translations: {
       de: {
         name: "SomnoBalance Regenerationstee",
@@ -261,7 +261,7 @@ export const products: Product[] = [
           "Zubereitung: 1 gehäufter Teelöffel pro 200 ml Wasser; mit kochendem Wasser übergießen; 6–8 Minuten ziehen lassen.",
           "Lagerung: vor Wärme schützen; trocken lagern.",
         ],
-        safetyInfo: "Nettofüllmenge: 80 g. Zutaten: Melisse, Orangenblüte, süße Brombeerblätter, Himbeerblätter, Süßholzwurzel, Kardamom, Fenchel, Anis. Trocken und vor Wärme geschützt lagern.\n\nHersteller: YuboFiT® Bio-Manufaktur, foxx-merch Marketing und Vertriebs GmbH, D-31141 Hildesheim",
+        safetyInfo: "Nettofüllmenge: 80 g. Zutaten: Melisse, Orangenblüte, süße Brombeerblätter, Himbeerblätter, Süßholzwurzel, Kardamom, Fenchel, Anis. Trocken und vor Wärme geschützt lagern.\n\nHersteller: YuboFiT® Bio-Manufaktur, foxx-merch Marketing und Vertriebs GmbH, Hansenng 106, D-31141 Hildesheim",
       },
     },
   },
