@@ -763,6 +763,7 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
       "/products/gallery/neck-pillow-3.webp",
       "/products/gallery/neck-pillow-4.webp",
       "/products/gallery/neck-pillow-spray.webp",
+      "/products/gallery/mattress-lifestyle.webp",
     ],
     galleryCaptions: {
       1: "Wendbare Form mit zwei unterschiedlich hohen Nackenrollen.",
@@ -966,6 +967,7 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
       "/products/mattress-detail-edge.webp",
       "/products/mattress-detail-handle.webp",
       "/products/mattress-detail-workmanship.webp",
+      "/products/gallery/mattress-lifestyle.webp",
     ],
     // Per the client's reference diagram (SomnoBalance_Produktinformation_
     // Matratze_1Seite.pdf): each Variante is the SAME wendbarer Innenkern
