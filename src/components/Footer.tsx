@@ -38,15 +38,10 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   ];
 
   return (
-    <footer className="relative overflow-hidden text-lovable-primary-foreground">
-      <Image
-        src="/mockup/footer-night.webp"
-        alt="SomnoBalance night"
-        fill
-        sizes="100vw"
-        className="object-cover object-center"
-      />
-      <div className="absolute inset-0 bg-[#140e1b]/85" />
+    <footer
+      className="relative overflow-hidden text-lovable-primary-foreground"
+      style={{ background: "linear-gradient(180deg, var(--color-circuit-regenerate) 0%, #140e1b 100%)" }}
+    >
       <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6">
         <div className="flex min-w-0 flex-col">
           <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-5 md:gap-8 lg:gap-10">

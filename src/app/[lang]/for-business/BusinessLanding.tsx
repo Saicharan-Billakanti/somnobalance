@@ -58,18 +58,23 @@ export function BusinessLanding({ lang, dict }: { lang: Locale; dict: Dictionary
 
   return (
     <div>
-      {/* 1 · Hero */}
-      <section
-        className="px-4 py-16 sm:px-6 sm:py-24"
-        style={{ background: "color-mix(in srgb, var(--color-scroll-1) 74%, transparent)" }}
-      >
-        <div className="mx-auto grid max-w-[1232px] items-center gap-12 md:grid-cols-2 lg:gap-20">
-          <div>
+      {/* 1 · Hero – full-size picture, same structure as the home page video hero */}
+      <section className="relative flex min-h-[560px] w-full items-center overflow-hidden xl:min-h-[700px]">
+        <Image
+          src="/business/hotel-room.webp"
+          alt={fb.hero.imageAlt}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+        {/* keeps the left-aligned copy legible over the picture (stronger on phones) */}
+        <div className="absolute inset-0 bg-offwhite/70 md:bg-transparent md:bg-gradient-to-r md:from-offwhite/85 md:via-offwhite/35 md:to-transparent" />
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:py-32">
+          <div className="max-w-xl">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/60">{fb.hero.eyebrow}</p>
             <h1 className="mt-5 font-serif text-4xl leading-[1.1] text-ink md:text-5xl lg:text-6xl">{fb.hero.title}</h1>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-ink/70 lg:text-lg lg:leading-loose">
-              {fb.hero.intro}
-            </p>
+            <p className="mt-6 text-base leading-relaxed text-ink/80 lg:text-lg lg:leading-loose">{fb.hero.intro}</p>
             <div className="mt-8 flex flex-col items-start gap-5 sm:flex-row sm:items-center">
               <button
                 type="button"
@@ -85,16 +90,6 @@ export function BusinessLanding({ lang, dict }: { lang: Locale; dict: Dictionary
                 {fb.hero.ctaSecondary} →
               </a>
             </div>
-          </div>
-          <div className="relative aspect-[4/3] overflow-hidden bg-sand">
-            <Image
-              src="/business/hotel-room.webp"
-              alt={fb.hero.imageAlt}
-              fill
-              priority
-              sizes="(min-width: 768px) 45vw, 100vw"
-              className="object-cover"
-            />
           </div>
         </div>
       </section>
@@ -119,7 +114,7 @@ export function BusinessLanding({ lang, dict }: { lang: Locale; dict: Dictionary
                 <button
                   type="button"
                   onClick={() => focusForm(item.interest as InterestKey)}
-                  className="mt-6 self-end justify-self-start text-left text-xs font-semibold uppercase tracking-wider text-ink transition-opacity hover:opacity-70"
+                  className="mt-6 self-start justify-self-start text-left text-xs font-semibold uppercase tracking-wider text-ink transition-opacity hover:opacity-70"
                 >
                   {item.link}
                 </button>
