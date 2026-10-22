@@ -6,13 +6,9 @@ import { FooterNewsletterForm } from "@/components/FooterNewsletterForm";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/getDictionary";
 
-// Social links are placeholders (# ) — swap in the real profile URLs once
-// the client shares them.
 const social = [
-  { label: "Instagram", href: "#", icon: InstagramIcon },
-  { label: "Facebook", href: "#", icon: FacebookIcon },
-  { label: "Pinterest", href: "#", icon: null },
-  { label: "YouTube", href: "#", icon: YouTubeIcon },
+  { label: "Instagram", href: "https://www.instagram.com/somnobalance", icon: InstagramIcon },
+  { label: "Facebook", href: "https://www.facebook.com/share/1EhPeBdAXF/?mibextid=wwXIfr", icon: FacebookIcon },
 ];
 
 export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
@@ -63,14 +59,12 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
                   <a
                     key={label}
                     href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     aria-label={label}
-                    className={
-                      Icon
-                        ? "size-9 rounded-full border border-lovable-primary-foreground/25 text-lovable-primary-foreground hover:bg-lovable-primary-foreground/15 transition flex items-center justify-center"
-                        : "size-9 rounded-full border border-lovable-primary-foreground/25 font-lovable-serif text-sm text-lovable-primary-foreground hover:bg-lovable-primary-foreground/15 transition flex items-center justify-center"
-                    }
+                    className="size-9 rounded-full border border-lovable-primary-foreground/25 text-lovable-primary-foreground hover:bg-lovable-primary-foreground/15 transition flex items-center justify-center"
                   >
-                    {Icon ? <Icon className="size-4" /> : "p"}
+                    <Icon className="size-4" />
                   </a>
                 ))}
               </div>
@@ -157,15 +151,6 @@ function FacebookIcon({ className }: { className?: string }) {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={className} aria-hidden="true">
       <path d="M14 9h3V5h-3c-2.2 0-4 1.8-4 4v2H7v4h3v6h4v-6h3l1-4h-4V9c0-.6.4-1 1-1z" />
-    </svg>
-  );
-}
-
-function YouTubeIcon({ className }: { className?: string }) {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={className} aria-hidden="true">
-      <rect x="3" y="6" width="18" height="12" rx="3" />
-      <path d="M10.5 9.5v5l4.5-2.5-4.5-2.5z" fill="currentColor" stroke="none" />
     </svg>
   );
 }
