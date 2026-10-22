@@ -401,8 +401,8 @@ export function RollOnPdp({
             <div>
               <p className="max-w-2xl text-xs leading-6 text-lovable-muted-foreground">
                 {tx(
-                  "Apply a small amount to the intended areas of skin and mindfully notice the fragrance. Use as needed as a personal fragrance cue in everyday life.",
-                  "Eine kleine Menge auf die dafür vorgesehenen Hautbereiche auftragen und den Duft bewusst wahrnehmen. Nach Bedarf als persönlichen Duftimpuls in den Alltag integrieren.",
+                  "Apply a small amount of the roll-on oil to selected areas of skin, for example the wrists, décolleté or temples, and mindfully notice the fragrance. Use as needed as a personal fragrance cue in everyday life.",
+                  "Tragen Sie eine kleine Menge des Roll-On-Öls auf ausgewählte Hautstellen auf, beispielsweise auf die Handgelenke, das Dekolleté oder die Schläfen, und nehmen Sie den Duft bewusst wahr. Nach Bedarf als persönlichen Duftimpuls in den Alltag integrieren.",
                 )}
               </p>
               {/* Real photos from the client's final image set (no fixed body areas shown). */}
@@ -521,6 +521,10 @@ export function RollOnPdp({
                           "For external use only; discontinue if skin irritation occurs. Keep out of reach of children.",
                           "Nur zur äußerlichen Anwendung; bei Hautreizungen die Anwendung abbrechen. Für Kinder unzugänglich aufbewahren.",
                         )}
+                      </p>
+                      <p className="mt-4 text-[10px] leading-5">
+                        {tx("Manufacturer", "Hersteller")}: Almara Soap, s.r.o., Ve Žlíbku 1800/77, 193 00{" "}
+                        {tx("Prague 9, Czech Republic", "Prag 9, Tschechische Republik")}
                       </p>
                     </>
                   ),

@@ -635,6 +635,7 @@
     "from": "from",
     "size": "Size",
     "firmness": "Edition",
+    "unitPrice": "Unit price",
     "inclVatShipping": "incl. VAT · free shipping from €59",
     "freeDelivery": "Free Delivery",
     "partnerMemberTitle": "Partner Member",

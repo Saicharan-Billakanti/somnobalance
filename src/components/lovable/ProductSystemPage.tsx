@@ -391,6 +391,13 @@ export function ProductSystemPage({
                 {dict.shop.inclVatShipping}
               </span>
             </div>
+            {product.basePrice && (
+              <p className="mt-1 text-[11px] text-lovable-muted-foreground">
+                {dict.shop.unitPrice}:{" "}
+                {new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(product.basePrice.amount)}{" "}
+                / {product.basePrice.unit}
+              </p>
+            )}
 
             {product.variants && (
               <div className="mt-5 flex flex-wrap gap-2">

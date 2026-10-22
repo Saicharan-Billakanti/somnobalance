@@ -71,6 +71,8 @@ export type Product = {
   name: string;
   category: "Sleep" | "Ritual" | "Care";
   price?: number;
+  // Legally required unit price (Grundpreis), e.g. loose tea per 100 g.
+  basePrice?: { amount: number; unit: string };
   variants?: ProductVariant[];
   editions?: ProductEdition[];
   tagline: string;
@@ -118,7 +120,7 @@ export const products: Product[] = [
       "Contents: 10 ml",
       "Base: sunflower oil · jojoba oil",
       "Fragrance blend: lavender · clementine · grapefruit · frankincense · patchouli",
-      "Application: according to the final approved product label",
+      "Application: apply a small amount of the roll-on oil to selected areas of skin, for example the wrists, décolleté or temples.",
       "Notes: for external use only; further required notices as on the approved label.",
     ],
     phase: "REGULATE",
@@ -140,7 +142,7 @@ export const products: Product[] = [
           "Inhalt: 10 ml",
           "Basis: Sonnenblumenöl · Jojobaöl",
           "Duftkomposition: Lavendel · Clementine · Grapefruit · Weihrauch · Patchouli",
-          "Anwendung: entsprechend der final freigegebenen Produktkennzeichnung",
+          "Anwendung: Tragen Sie eine kleine Menge des Roll-On-Öls auf ausgewählte Hautstellen auf, beispielsweise auf die Handgelenke, das Dekolleté oder die Schläfen.",
           "Hinweise: Nur zur äußerlichen Anwendung. Weitere erforderliche Hinweise entsprechend der finalen Kennzeichnung.",
         ],
         ingredients:
@@ -230,13 +232,14 @@ export const products: Product[] = [
     name: "SomnoBalance Regeneration Tea",
     category: "Ritual",
     price: 12,
+    basePrice: { amount: 15, unit: "100 g" },
     tagline: "A mindful ritual for calmer moments and the transition into the evening.",
     description: "SomnoBalance Regeneration Tea combines lemon balm, orange blossom, sweet blackberry leaves, raspberry leaves, liquorice root, cardamom, fennel and anise into a finely balanced herbal blend.\n\nA thoughtfully prepared cup of tea can become a small ritual—for a break during the day, for letting go after an active day, or as part of your personal preparation for the evening.",
     details: [
       "Contents: 80 g loose tea",
       "Ingredients: lemon balm · orange blossom · sweet blackberry leaves · raspberry leaves · liquorice root · cardamom · fennel · anise",
       "Preparation: 1 heaped teaspoon per 200 ml of water; pour over with boiling water; steep for 6–8 minutes.",
-      "Storage: store in a dry place and protect from heat, subject to confirmation against the final label.",
+      "Storage: protect from heat; store in a dry place.",
     ],
     phase: "LET GO",
     image: "/products/SomnoBalance Regeneration Tea.webp",
@@ -245,7 +248,7 @@ export const products: Product[] = [
     returnEligible: true,
     legalNote:
       "Mandatory food-law disclosures (nutritional information, allergen labelling, best-before format) must be added from the current manufacturer documentation before this page is used for real sales — not yet added here.",
-    safetyInfo: "Net quantity: 80 g. Ingredients: lemon balm, orange blossom, sweet blackberry leaves, raspberry leaves, liquorice root, cardamom, fennel, anise. Store dry and protected from heat.",
+    safetyInfo: "Net quantity: 80 g. Ingredients: lemon balm, orange blossom, sweet blackberry leaves, raspberry leaves, liquorice root, cardamom, fennel, anise. Store dry and protected from heat.\n\nManufacturer: YuboFiT® Bio-Manufaktur, foxx-merch Marketing und Vertriebs GmbH, D-31141 Hildesheim, Germany",
     translations: {
       de: {
         name: "SomnoBalance Regenerationstee",
@@ -256,9 +259,9 @@ export const products: Product[] = [
           "Inhalt: 80 g loser Tee",
           "Zutaten: Melisse · Orangenblüte · süße Brombeerblätter · Himbeerblätter · Süßholzwurzel · Kardamom · Fenchel · Anis",
           "Zubereitung: 1 gehäufter Teelöffel pro 200 ml Wasser; mit kochendem Wasser übergießen; 6–8 Minuten ziehen lassen.",
-          "Lagerung: entsprechend der finalen Verpackungsangabe, aktuell trocken und vor Wärme geschützt.",
+          "Lagerung: vor Wärme schützen; trocken lagern.",
         ],
-        safetyInfo: "Nettofüllmenge: 80 g. Zutaten: Melisse, Orangenblüte, süße Brombeerblätter, Himbeerblätter, Süßholzwurzel, Kardamom, Fenchel, Anis. Trocken und vor Wärme geschützt lagern.",
+        safetyInfo: "Nettofüllmenge: 80 g. Zutaten: Melisse, Orangenblüte, süße Brombeerblätter, Himbeerblätter, Süßholzwurzel, Kardamom, Fenchel, Anis. Trocken und vor Wärme geschützt lagern.\n\nHersteller: YuboFiT® Bio-Manufaktur, foxx-merch Marketing und Vertriebs GmbH, D-31141 Hildesheim",
       },
     },
   },

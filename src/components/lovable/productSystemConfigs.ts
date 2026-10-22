@@ -761,7 +761,7 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
     },
     howToUseEyebrow: "Schlafumgebung",
     howToUseTitle: ["Die Nacht braucht andere", "Bedingungen als der Tag."],
-    howToUseImage: "/products/pillow.webp",
+    howToUseImage: "/products/neck-pillow-height-settings.webp",
     howToUseSteps: [
       { icon: Moon, label: "Höhe einstellen", description: "Wählen Sie mithilfe der wendbaren Form und der Einlegeplatten die passende Höhe." },
       { icon: Bed, label: "Liegeposition finden", description: "Probieren Sie aus, welche Einstellung sich für Ihre bevorzugte Schlafposition angenehm anfühlt." },
@@ -968,7 +968,7 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
       3: "Variante H3/H4, H3-Seite: Visko-Gel-Topper (blau/weiß marmoriert) · H3 anthrazit · Kern · H4 fliederfarben",
       4: "Variante H3/H4, H4-Seite (gewendet): Visko-Gel-Topper (blau/weiß marmoriert) · H4 fliederfarben · Kern · H3 anthrazit",
     },
-    howToUseImage: "/products/bed.webp",
+    howToUseImage: "/products/mattress-detail-handle.webp",
     howToUseEyebrow: "Schlafumgebung",
     howToUseTitle: ["Was Sie durch", "die Nacht trägt."],
     howToUseSteps: [
