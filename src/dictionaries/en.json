@@ -427,6 +427,11 @@
       "eyebrow": "MY B2B PORTAL",
       "title": "Your business customer area",
       "tabEnquiry": "Request a collaboration"
+    },
+    "method": {
+      "p1": "SomnoBalance is not only a regeneration concept for everyday life. With the SomnoBalance Method developed by Nicole Willing, there is also a body-oriented application that works as a complementary offering for wellness hotels, spa areas and health practices.",
+      "p2": "Interested facilities can get to know and learn the application in a practice-oriented training.",
+      "link": "Get to know the SomnoBalance Method"
     }
   },
   "partner": {
@@ -624,8 +629,8 @@
   },
   "shop": {
     "eyebrow": "Shop",
-    "title": "Tools for the ritual",
-    "intro": "Each piece supports one phase of the SomnoBalance system. Prices shown include statutory German VAT (MwSt.). Shipped via DHL within Germany — free from €59, included in the price for mattresses.",
+    "title": "Shape regeneration with intention.",
+    "intro": "Discover selected products that accompany you from the active day into the night.",
     "inclVat": "incl. VAT",
     "from": "from",
     "size": "Size",
@@ -672,7 +677,15 @@
       "LET GO": "Let Go",
       "PREPARE": "Prepare",
       "REGENERATE": "Regenerate"
-    }
+    },
+    "intro2": "From small impulses for self-regulation and soothing rituals to a sleep environment that supports regeneration – every product is part of the holistic SomnoBalance concept.",
+    "phasesLine": [
+      "Regulate.",
+      "Let go.",
+      "Prepare.",
+      "Regenerate."
+    ],
+    "shippingNote": "Free DHL shipping within Germany on orders of €59 or more. Shipping is already included for mattresses."
   },
   "cart": {
     "emptyTitle": "Your cart is empty",
@@ -1000,6 +1013,32 @@
       "body": "Whether you want to pause more consciously during the day, shape the evening more calmly or take a fresh look at your sleep environment: begin where it suits you right now.",
       "primary": "Start the Regeneration Check →",
       "secondary": "Discover SomnoBalance for me →"
+    },
+    "method": {
+      "eyebrow": "THE SOMNOBALANCE METHOD",
+      "headline": "Developed in practice. For new paths to regeneration.",
+      "p1": "The SomnoBalance Method was developed by Nicole Willing from her many years of work as a kinesiologist.",
+      "p2": "In her practice she repeatedly meets people who, alongside physical or emotional strain, also report ongoing stress, inner restlessness and sleep problems.",
+      "p3": "These observations led to a closer look at the connections between tension, relaxation and regeneration.",
+      "listIntro": "The result is an independent, body-oriented application that combines several elements:",
+      "elements": [
+        "Targeted acupressure points",
+        "Kinesiological exercises",
+        "Selected elements of energetic jaw-joint relaxation according to Philip Rafferty",
+        "Accompanying use of essential oils"
+      ],
+      "p4": "The individual elements follow a defined sequence and together form the SomnoBalance Method.",
+      "p5": "The focus is on conscious body awareness, releasing tension and the opportunity to experience relaxation and calm.",
+      "practice": "Nicole Willing offers the SomnoBalance Method in her kinesiology practice in Lemgo. There, interested people can learn more about how the method came about and how it is applied.",
+      "practiceButton": "To Nicole Willing’s practice",
+      "training": {
+        "title": "The SomnoBalance Method in your facility too",
+        "p1": "For wellness hotels, spa areas and health practices, the SomnoBalance Method is an interesting way to extend an existing offering with a distinctive treatment.",
+        "p2": "In a practice-oriented training, Nicole Willing teaches the method and its practical application. Her aim is to make SomnoBalance available in more facilities.",
+        "question": "Would you like to offer the SomnoBalance Method in your facility?",
+        "invite": "We look forward to your enquiry and will gladly tell you about the possibilities of working together.",
+        "button": "Enquire about collaboration"
+      }
     }
   }
 }

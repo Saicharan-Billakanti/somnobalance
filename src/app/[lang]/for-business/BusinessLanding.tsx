@@ -150,6 +150,22 @@ export function BusinessLanding({ lang, dict }: { lang: Locale; dict: Dictionary
         </div>
       </section>
 
+      {/* 3b · Short cross-reference to the SomnoBalance Method on "Das Konzept" */}
+      <section className="bg-white px-4 py-16 sm:px-6 sm:py-20">
+        <div className="mx-auto max-w-[1232px]">
+          <div className="max-w-3xl">
+            <p className="text-base leading-relaxed text-ink/70 lg:text-lg">{fb.method.p1}</p>
+            <p className="mt-4 text-base leading-relaxed text-ink/70 lg:text-lg">{fb.method.p2}</p>
+            <Link
+              href={`/${lang}/concept#methode`}
+              className="mt-6 inline-block text-sm text-mauve-dark underline underline-offset-4 hover:opacity-80"
+            >
+              {fb.method.link} →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* 4 · Persönliche Zusammenarbeit */}
       <section className="bg-sand px-4 py-20 text-center sm:px-6 sm:py-28">
         <div className="mx-auto max-w-3xl">

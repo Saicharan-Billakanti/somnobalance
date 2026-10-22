@@ -25,6 +25,7 @@ export default async function ConceptPage({ params }: { params: Promise<{ lang: 
   if (!isLocale(lang)) notFound();
   const dict = await getDictionary(lang as Locale);
   const c = dict.concept;
+  const m = c.method;
   const l = lang as Locale;
 
   return (
@@ -100,6 +101,62 @@ export default async function ConceptPage({ params }: { params: Promise<{ lang: 
           <p className="mx-auto mt-16 max-w-3xl text-center font-serif text-xl italic leading-snug text-mauve md:text-2xl">
             {c.people.closing}
           </p>
+        </div>
+      </section>
+
+      {/* 3b · Die SomnoBalance-Methode (anchor from "Für Unternehmen": #methode).
+          Kept separate from the four-phase concept. Left column is reserved for an
+          authentic practice photo once one is supplied; until then the four
+          elements sit in a quiet panel. */}
+      <section id="methode" className="scroll-mt-24 bg-offwhite px-4 py-20 sm:px-6 sm:py-28">
+        <div className="mx-auto max-w-[1232px]">
+          <div className="grid gap-10 md:grid-cols-[5fr_7fr] lg:gap-20">
+            <div className="self-start bg-white p-8 shadow-sm lg:p-10">
+              <p className="text-sm leading-relaxed text-ink/70">{m.listIntro}</p>
+              <ul className="mt-6 divide-y divide-ink/10 border-y border-ink/10">
+                {m.elements.map((el) => (
+                  <li key={el} className="py-4 font-serif text-lg leading-snug text-ink">
+                    {el}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-6 text-sm leading-relaxed text-ink/70">{m.p4}</p>
+            </div>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/60">{m.eyebrow}</p>
+              <h2 className="mt-5 font-serif text-3xl leading-tight text-ink md:text-4xl lg:text-5xl">{m.headline}</h2>
+              <div className="mt-8 space-y-5 text-base leading-relaxed text-ink/70 lg:text-lg lg:leading-loose">
+                <p>{m.p1}</p>
+                <p>{m.p2}</p>
+                <p>{m.p3}</p>
+                <p>{m.p5}</p>
+              </div>
+              <p className="mt-8 text-base leading-relaxed text-ink/70">{m.practice}</p>
+              <a
+                href="https://www.kinesiologie-willing.de/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 inline-flex items-center border border-mauve px-7 py-3 text-sm text-mauve-dark transition-colors hover:bg-mauve hover:text-white"
+              >
+                {m.practiceButton} →
+              </a>
+            </div>
+          </div>
+
+          {/* Training / cooperation note — visually secondary */}
+          <div className="mt-16 max-w-3xl border-t border-ink/10 pt-10">
+            <h3 className="font-serif text-2xl text-ink">{m.training.title}</h3>
+            <p className="mt-4 text-base leading-relaxed text-ink/70">{m.training.p1}</p>
+            <p className="mt-4 text-base leading-relaxed text-ink/70">{m.training.p2}</p>
+            <p className="mt-6 font-serif text-lg italic text-ink">{m.training.question}</p>
+            <p className="mt-2 text-base leading-relaxed text-ink/70">{m.training.invite}</p>
+            <Link
+              href={`/${l}/contact?topic=business`}
+              className="mt-6 inline-flex items-center bg-mauve px-8 py-3.5 text-sm text-white transition-colors hover:bg-mauve-dark"
+            >
+              {m.training.button} →
+            </Link>
+          </div>
         </div>
       </section>
 

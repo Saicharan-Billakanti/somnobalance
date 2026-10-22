@@ -427,6 +427,11 @@
       "eyebrow": "MEIN B2B-PORTAL",
       "title": "Ihr Geschäftskundenbereich",
       "tabEnquiry": "Zusammenarbeit anfragen"
+    },
+    "method": {
+      "p1": "SomnoBalance ist nicht nur ein Regenerationskonzept für den Alltag. Mit der von Nicole Willing entwickelten SomnoBalance-Methode steht auch eine körperorientierte Anwendung zur Verfügung, die sich als ergänzendes Angebot für Wellnesshotels, Spa-Bereiche und Gesundheitspraxen eignet.",
+      "p2": "Interessierte Einrichtungen können die Anwendung im Rahmen einer praxisorientierten Ausbildung kennenlernen und erlernen.",
+      "link": "SomnoBalance-Methode kennenlernen"
     }
   },
   "partner": {
@@ -624,8 +629,8 @@
   },
   "shop": {
     "eyebrow": "Shop",
-    "title": "Werkzeuge für das Ritual",
-    "intro": "Jedes Produkt unterstützt eine Phase des SomnoBalance-Systems. Die angezeigten Preise verstehen sich inkl. der gesetzlichen deutschen Mehrwertsteuer (MwSt.). Versand per DHL innerhalb Deutschlands — kostenfrei ab 59 €, bei Matratzen im Preis enthalten.",
+    "title": "Regeneration bewusst gestalten.",
+    "intro": "Entdecken Sie ausgewählte Produkte, die Sie vom aktiven Tag bis in die Nacht begleiten.",
     "inclVat": "inkl. MwSt.",
     "from": "ab",
     "size": "Größe",
@@ -672,7 +677,15 @@
       "LET GO": "Loslassen",
       "PREPARE": "Vorbereiten",
       "REGENERATE": "Regenerieren"
-    }
+    },
+    "intro2": "Von kleinen Impulsen zur Selbstregulation über wohltuende Rituale bis hin zu einer regenerationsfördernden Schlafumgebung – jedes Produkt ist Teil des ganzheitlichen SomnoBalance-Konzepts.",
+    "phasesLine": [
+      "Regulieren.",
+      "Loslassen.",
+      "Vorbereiten.",
+      "Regenerieren."
+    ],
+    "shippingNote": "Kostenfreier DHL-Versand innerhalb Deutschlands ab 59 € Bestellwert. Bei Matratzen ist der Versand bereits inklusive."
   },
   "cart": {
     "emptyTitle": "Ihr Warenkorb ist leer",
@@ -1000,6 +1013,32 @@
       "body": "Ob Sie tagsüber bewusster innehalten, den Abend ruhiger gestalten oder Ihre Schlafumgebung neu betrachten möchten: Beginnen Sie dort, wo es für Sie gerade passt.",
       "primary": "Regenerationscheck starten →",
       "secondary": "SomnoBalance für mich entdecken →"
+    },
+    "method": {
+      "eyebrow": "DIE SOMNOBALANCE-METHODE",
+      "headline": "Aus der Praxis entwickelt. Für neue Wege der Regeneration.",
+      "p1": "Die SomnoBalance-Methode wurde von Nicole Willing aus ihrer langjährigen Arbeit als Kinesiologin entwickelt.",
+      "p2": "In ihrer Praxis begegnet sie immer wieder Menschen, die neben körperlichen oder emotionalen Belastungen auch von anhaltendem Stress, innerer Unruhe und Schlafproblemen berichten.",
+      "p3": "Diese Beobachtungen führten zu einer intensiveren Auseinandersetzung mit den Zusammenhängen zwischen Anspannung, Entspannung und Regeneration.",
+      "listIntro": "Daraus entstand eine eigenständige, körperorientierte Anwendung, die verschiedene Elemente miteinander verbindet:",
+      "elements": [
+        "Gezielte Akupressurpunkte",
+        "Kinesiologische Übungen",
+        "Ausgewählte Elemente der energetischen Kiefergelenksentspannung nach Philip Rafferty",
+        "Begleitender Einsatz ätherischer Öle"
+      ],
+      "p4": "Die einzelnen Elemente folgen einem festgelegten Ablauf und bilden gemeinsam die SomnoBalance-Methode.",
+      "p5": "Im Mittelpunkt stehen das bewusste Körpererleben, das Loslassen von Anspannung und die Möglichkeit, Entspannung und Ruhe zu erfahren.",
+      "practice": "Nicole Willing bietet die SomnoBalance-Methode in ihrer Kinesiologie-Praxis in Lemgo an. Dort erfahren Interessierte mehr über die Entstehung und die Anwendung der Methode.",
+      "practiceButton": "Zur Praxis von Nicole Willing",
+      "training": {
+        "title": "Die SomnoBalance-Methode auch in Ihrer Einrichtung",
+        "p1": "Die SomnoBalance-Methode bietet auch für Wellnesshotels, Spa-Bereiche und Gesundheitspraxen eine interessante Möglichkeit, das bestehende Angebot um eine besondere Anwendung zu erweitern.",
+        "p2": "Im Rahmen einer praxisorientierten Ausbildung vermittelt Nicole Willing die Methode und ihre praktische Anwendung. Ihr Ziel ist es, SomnoBalance auch in weiteren Einrichtungen zugänglich zu machen.",
+        "question": "Sie möchten die SomnoBalance-Methode in Ihrer Einrichtung anbieten?",
+        "invite": "Wir freuen uns über Ihre Anfrage und informieren Sie gerne über die Möglichkeiten einer Zusammenarbeit.",
+        "button": "Zusammenarbeit anfragen"
+      }
     }
   }
 }

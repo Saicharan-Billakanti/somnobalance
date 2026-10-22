@@ -7,7 +7,7 @@ import { formatPrice, getDisplayPrice, getProductText, getProductPhases, type Pr
 import { useCart } from "@/components/CartProvider";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/getDictionary";
-import { Package, SlidersHorizontal, Search, Sparkles, BedSingle, Leaf, Check, X } from "lucide-react";
+import { SlidersHorizontal, Search, Sparkles, BedSingle, Leaf, Check, X } from "lucide-react";
 
 type ShopClientProps = {
   products: Product[];
@@ -127,25 +127,17 @@ export function ShopClient({ products, lang, dict }: { products: any[]; lang: Lo
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
       {/* Header Banner */}
       <div className="border-b border-mauve/15 pb-8">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <p className="text-xs uppercase tracking-[0.25em] text-teal-dark font-semibold">
-              {dict.shop?.eyebrow || "SomnoBalance Collection"}
-            </p>
-            <h1 className="mt-2 font-serif text-3xl text-ink sm:text-4xl lg:text-5xl">
-              {dict.shop?.title || "Rituals & Sleep Architecture"}
-            </h1>
-            <p className="mt-2 max-w-2xl text-sm text-ink/70 sm:text-base">
-              {dict.shop?.intro ||
-                "Sensory tools, ergonomic neck support, and ritual compositions designed to transition your nervous system into restorative rest."}
-            </p>
+        <div className="max-w-3xl">
+          <p className="text-xs uppercase tracking-[0.25em] text-teal-dark font-semibold">{dict.shop.eyebrow}</p>
+          <h1 className="mt-2 font-serif text-3xl leading-tight text-ink sm:text-4xl lg:text-5xl">{dict.shop.title}</h1>
+          <div className="mt-4 space-y-3 text-sm leading-relaxed text-ink/70 sm:text-base sm:leading-loose">
+            <p>{dict.shop.intro}</p>
+            <p>{dict.shop.intro2}</p>
           </div>
-
-          {/* Quick Stats or Free Shipping Threshold banner */}
-          <div className="flex items-center gap-2 rounded-2xl border border-teal/20 bg-teal/5 px-4 py-3 text-xs text-teal-dark font-medium">
-            <Package className="size-4" />
-            {lang === "de" ? "Kostenloser DHL-Versand ab 59 €" : "Free DHL Standard Shipping over €59"}
-          </div>
+          <p className="mt-4 font-serif text-base italic text-mauve sm:text-lg">
+            {dict.shop.phasesLine.join(" ")}
+          </p>
+          <p className="mt-4 text-xs leading-relaxed text-ink/55">{dict.shop.shippingNote}</p>
         </div>
       </div>
 
