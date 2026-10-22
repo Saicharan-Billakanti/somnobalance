@@ -1039,7 +1039,9 @@
         "question": "Sie möchten die SomnoBalance-Methode in Ihrer Einrichtung anbieten?",
         "invite": "Wir freuen uns über Ihre Anfrage und informieren Sie gerne über die Möglichkeiten einer Zusammenarbeit.",
         "button": "Zusammenarbeit anfragen"
-      }
+      },
+      "image": "/team/nicole-practice.webp",
+      "imageAlt": "Nicole Willing bei einer SomnoBalance-Anwendung in ihrer Praxis"
     }
   }
 }

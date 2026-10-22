@@ -1039,7 +1039,9 @@
         "question": "Would you like to offer the SomnoBalance Method in your facility?",
         "invite": "We look forward to your enquiry and will gladly tell you about the possibilities of working together.",
         "button": "Enquire about collaboration"
-      }
+      },
+      "image": "/team/nicole-practice.webp",
+      "imageAlt": "Nicole Willing giving a SomnoBalance application in her practice"
     }
   }
 }

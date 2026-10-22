@@ -105,22 +105,18 @@ export default async function ConceptPage({ params }: { params: Promise<{ lang: 
       </section>
 
       {/* 3b · Die SomnoBalance-Methode (anchor from "Für Unternehmen": #methode).
-          Kept separate from the four-phase concept. Left column is reserved for an
-          authentic practice photo once one is supplied; until then the four
-          elements sit in a quiet panel. */}
+          Kept separate from the four-phase concept: photo left, copy right. */}
       <section id="methode" className="scroll-mt-24 bg-offwhite px-4 py-20 sm:px-6 sm:py-28">
         <div className="mx-auto max-w-[1232px]">
-          <div className="grid gap-10 md:grid-cols-[5fr_7fr] lg:gap-20">
-            <div className="self-start bg-white p-8 shadow-sm lg:p-10">
-              <p className="text-sm leading-relaxed text-ink/70">{m.listIntro}</p>
-              <ul className="mt-6 divide-y divide-ink/10 border-y border-ink/10">
-                {m.elements.map((el) => (
-                  <li key={el} className="py-4 font-serif text-lg leading-snug text-ink">
-                    {el}
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-6 text-sm leading-relaxed text-ink/70">{m.p4}</p>
+          <div className="grid items-start gap-10 md:grid-cols-[5fr_7fr] lg:gap-20">
+            <div className="relative aspect-[3/4] overflow-hidden bg-sand md:sticky md:top-28">
+              <Image
+                src={m.image}
+                alt={m.imageAlt}
+                fill
+                sizes="(min-width: 768px) 40vw, 100vw"
+                className="object-cover object-[50%_30%]"
+              />
             </div>
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/60">{m.eyebrow}</p>
@@ -129,6 +125,17 @@ export default async function ConceptPage({ params }: { params: Promise<{ lang: 
                 <p>{m.p1}</p>
                 <p>{m.p2}</p>
                 <p>{m.p3}</p>
+                <p>{m.listIntro}</p>
+              </div>
+              <ul className="mt-5 divide-y divide-ink/10 border-y border-ink/10">
+                {m.elements.map((el) => (
+                  <li key={el} className="py-3.5 font-serif text-lg leading-snug text-ink">
+                    {el}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-6 space-y-5 text-base leading-relaxed text-ink/70 lg:text-lg lg:leading-loose">
+                <p>{m.p4}</p>
                 <p>{m.p5}</p>
               </div>
               <p className="mt-8 text-base leading-relaxed text-ink/70">{m.practice}</p>

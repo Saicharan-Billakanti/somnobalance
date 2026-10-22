@@ -171,6 +171,7 @@ export const products: Product[] = [
     returnPeriodDays: 14,
     refundPolicy: "14-Day Money-Back Guarantee",
     returnEligible: true,
+    safetyInfo: "Manufacturer: Almara Soap, s.r.o., Ve Žlíbku 1800/77, 193 00 Prague 9, Czech Republic",
     legalNote:
       "This is a concentrated essential-oil blend, not for direct skin contact. Mandatory hazard and safety declarations must be copied verbatim from the current German product labelling before this page is used for real sales — not yet added here.",
     translations: {
@@ -186,6 +187,7 @@ export const products: Product[] = [
           "Hinweise des jeweiligen Geräts beachten",
           "Nicht zur Hautanwendung — Augenkontakt vermeiden, für Kinder unzugänglich aufbewahren",
         ],
+        safetyInfo: "Hersteller: Almara Soap, s.r.o., Ve Žlíbku 1800/77, 193 00 Prag 9, Tschechische Republik",
       },
     },
   },
