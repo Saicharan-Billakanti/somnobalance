@@ -48,6 +48,7 @@ const workSans = Work_Sans({
 // product -> application -> everyday.
 const gallery = [
   "/products/roll-on-bottle.webp",
+  "/products/gallery/roll-on-wrist.webp",
   "/products/roll-on-application.webp",
   "/products/gallery/roll-on-evening.webp",
   "/products/roll-on-bag.webp",
@@ -409,8 +410,8 @@ export function RollOnPdp({
               {/* Real photos from the client's final image set (no fixed body areas shown). */}
               <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
                 {[
+                  { src: "/products/gallery/roll-on-wrist.webp", alt: tx("Applying the roll-on to the wrist", "Roll-on am Handgelenk auftragen") },
                   { src: "/products/roll-on-application.webp", alt: tx("Applying the roll-on", "Roll-on auftragen") },
-                  { src: "/products/roll-on-bag.webp", alt: tx("The roll-on within reach in a handbag", "Der Roll-on griffbereit in der Tasche") },
                   { src: "/products/gallery/roll-on-evening.webp", alt: tx("The roll-on as part of the evening ritual", "Der Roll-on als Teil des Abendrituals") },
                 ].map((img) => (
                   <div key={img.src} className="relative aspect-[4/3] overflow-hidden rounded-md bg-lovable-muted">
