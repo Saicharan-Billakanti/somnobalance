@@ -36,6 +36,7 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
       "/products/oil-blend-diffuser.webp",
       "/products/oil-blend-ingredients.webp",
       "/products/gallery/oil-blend-4.webp",
+      "/products/gallery/oil-rollon-pair.webp",
     ],
     howToUseEyebrow: "Anwendung",
     howToUseTitle: ["Wenn der Tag", "leiser werden darf."],
@@ -139,6 +140,8 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
       "/products/gallery/room-spray-evening.webp",
       "/products/room-spray-bottle.webp",
       "/products/room-spray-hand.webp",
+      "/products/gallery/room-spray-on-pillow.webp",
+      "/products/gallery/room-spray-pillow-bed.webp",
     ],
     howToUseImage: "/products/room-spray-curtain.webp",
     howToUseEyebrow: "Anwendung",
@@ -247,6 +250,7 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
     galleryTagline: ["Zeit nehmen.", "Ankommen."],
     galleryImages: [
       "/products/tea-lifestyle-cup.webp",
+      "/products/gallery/tea-pouring.webp",
       "/products/tea-lifestyle-cloth.webp",
       "/products/tea-blend-bowl.webp",
       "/products/somnobalance-regeneration-tea.webp",
@@ -363,6 +367,7 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
     galleryTagline: ["Welche Begleitung", "brauchen Sie gerade?"],
     galleryImages: [
       "/products/somnobalance-regeneration-cards.webp",
+      "/products/gallery/cards-in-use.webp",
       "/products/cards-front-pair.webp",
       "/products/cards-hand.webp",
       "/products/cards-front-back.webp",
@@ -502,12 +507,16 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
 
   "somnobalance-starter-set": {
     systemRoleLabel: "IHR EINSTIEG IN SOMNOBALANCE",
-    howToUseImage: "/products/starter-set-guide-cards.webp",
+    howToUseImage: "/products/gallery/starter-set-guide-table.webp",
     galleryTagline: ["Drei Wochen.", "Ihr Weg."],
     galleryImages: [
       "/products/somnobalance-starter-set.webp",
       "/products/starter-set-components.webp",
       "/products/starter-set-guide-cards.webp",
+      "/products/gallery/starter-set-guide-rollon.webp",
+      "/products/gallery/starter-set-guide-table.webp",
+      "/products/gallery/starter-set-bag-large.webp",
+      "/products/gallery/starter-set-cards-fan.webp",
       "/products/oil-blend-diffuser.webp",
     ],
     howToUseEyebrow: "21-Tage-Guide",
@@ -753,6 +762,7 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
       "/products/neck-pillow-detail-corner.webp",
       "/products/gallery/neck-pillow-3.webp",
       "/products/gallery/neck-pillow-4.webp",
+      "/products/gallery/neck-pillow-spray.webp",
     ],
     galleryCaptions: {
       1: "Wendbare Form mit zwei unterschiedlich hohen Nackenrollen.",

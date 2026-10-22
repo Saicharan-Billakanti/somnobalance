@@ -49,6 +49,7 @@ const workSans = Work_Sans({
 const gallery = [
   "/products/roll-on-bottle.webp",
   "/products/roll-on-application.webp",
+  "/products/gallery/roll-on-evening.webp",
   "/products/roll-on-bag.webp",
   "/products/gallery/roll-on-4.webp",
   "/products/gallery/roll-on-5.webp",
@@ -410,7 +411,7 @@ export function RollOnPdp({
                 {[
                   { src: "/products/roll-on-application.webp", alt: tx("Applying the roll-on", "Roll-on auftragen") },
                   { src: "/products/roll-on-bag.webp", alt: tx("The roll-on within reach in a handbag", "Der Roll-on griffbereit in der Tasche") },
-                  { src: "/products/gallery/roll-on-4.webp", alt: tx("Roll-on and oil blend", "Roll-on und Ölmischung") },
+                  { src: "/products/gallery/roll-on-evening.webp", alt: tx("The roll-on as part of the evening ritual", "Der Roll-on als Teil des Abendrituals") },
                 ].map((img) => (
                   <div key={img.src} className="relative aspect-[4/3] overflow-hidden rounded-md bg-lovable-muted">
                     <Image
