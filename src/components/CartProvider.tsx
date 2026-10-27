@@ -1,6 +1,7 @@
 "use client";
 
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { useAuth } from "@/components/AuthProvider";
 import { priceOrderItems, computeShipping } from "@/lib/products";
 
 type CartLine = { slug: string; qty: number; variant?: string };
@@ -26,10 +27,29 @@ function sameLine(a: { slug: string; variant?: string }, b: { slug: string; vari
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [lines, setLines] = useState<CartLine[]>([]);
   const [hydrated, setHydrated] = useState(false);
+  const { user, loading } = useAuth();
+  const previousUserId = useRef<string | null>(null);
+
+  const clear = useCallback(() => {
+    setLines([]);
+    try {
+      window.localStorage.removeItem(STORAGE_KEY);
+      window.localStorage.removeItem("sb_coupon");
+    } catch {
+      // The in-memory cart still clears when storage is unavailable.
+    }
+  }, []);
+
+  useEffect(() => {
+    if (loading) return;
+    if (previousUserId.current && previousUserId.current !== user?.id) clear();
+    previousUserId.current = user?.id ?? null;
+  }, [user?.id, loading, clear]);
 
   useEffect(() => {
     try {
       const raw = window.localStorage.getItem(STORAGE_KEY);
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- Restore browser storage after hydration without changing the server render.
       if (raw) setLines(JSON.parse(raw));
     } catch {
       // ignore malformed/unavailable storage
@@ -66,8 +86,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         ? prev.filter((l) => !sameLine(l, { slug, variant }))
         : prev.map((l) => (sameLine(l, { slug, variant }) ? { ...l, qty } : l))
     );
-
-  const clear = () => setLines([]);
 
   const { count, total, shipping } = useMemo(() => {
     const priced = priceOrderItems(lines);
