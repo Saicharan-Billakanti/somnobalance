@@ -67,6 +67,7 @@ export function AdminDashboardClient({
   const [coupons, setCoupons] = useState(initialCoupons);
   const [commissions, setCommissions] = useState(initialCommissions);
   const [payouts, setPayouts] = useState(initialPayouts);
+  const [processingPayoutId, setProcessingPayoutId] = useState<string | null>(null);
   const [businessApps, setBusinessApps] = useState(initialBusinessApps);
   const [storeSettings, setStoreSettings] = useState(initialStoreSettings);
   const [productsList, setProductsList] = useState(initialProducts);
@@ -491,6 +492,24 @@ export function AdminDashboardClient({
       console.error(err);
     } finally {
       setRecordingPayout(false);
+    }
+  };
+
+  const handleProcessPayout = async (payoutId: string) => {
+    setProcessingPayoutId(payoutId);
+    try {
+      const response = await fetch("/api/admin/affiliates", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "process_payout", payoutId }),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Payout processing failed.");
+      setPayouts((current) => current.map((p) => p.id === payoutId ? { ...p, ...data.payout } : p));
+    } catch (error) {
+      window.alert(error instanceof Error ? error.message : "Payout processing failed.");
+    } finally {
+      setProcessingPayoutId(null);
     }
   };
 
@@ -2283,15 +2302,8 @@ export function AdminDashboardClient({
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-medium text-ink/70">Disbursement Method *</label>
-                    <select
-                      value={payoutMethod}
-                      onChange={(e) => setPayoutMethod(e.target.value as any)}
-                      className="input-field mt-1 text-xs"
-                    >
-                      <option value="stripe_connect">⚡ Connected Stripe Account</option>
-                      <option value="bank_transfer">🏛️ SEPA Bank Transfer</option>
-                    </select>
+                    <label className="text-xs font-medium text-ink/70">Disbursement Method</label>
+                    <div className="input-field mt-1 text-xs">Stripe Connect</div>
                   </div>
                 </div>
 
@@ -2306,14 +2318,14 @@ export function AdminDashboardClient({
                         </span>
                         <span className="font-mono text-[11px] text-ink/80 font-bold">
                           {payoutMethod === "stripe_connect"
-                            ? target?.stripeAccountId || "acct_1SB921SomnoPartner"
-                            : target?.iban || "DE89370400440532013000"}
+                          ? target?.stripeAccountId || "Not connected"
+                            : "Not available"}
                         </span>
                       </div>
                       <p className="mt-1 text-[11px] text-ink/60">
                         {payoutMethod === "stripe_connect"
-                          ? "Instant transfer via Stripe Transfers API directly to partner's connected account."
-                          : "Traditional SEPA bank wire transfer."}
+                          ? "Transfers funds to the partner's Stripe balance; bank arrival follows their Stripe payout schedule."
+                          : "Bank transfer payouts are not automated."}
                       </p>
                     </div>
                   );
@@ -2456,7 +2468,7 @@ export function AdminDashboardClient({
 
           {/* Payouts Disbursed History Table */}
           <div className="rounded-3xl border border-mauve/15 bg-white p-6 shadow-sm sm:p-8">
-            <h2 className="font-serif text-xl text-ink">Disbursed Commission Payouts ({payouts.length})</h2>
+            <h2 className="font-serif text-xl text-ink">Partner Payout Requests and Transfers ({payouts.length})</h2>
             <div className="mt-4 overflow-x-auto">
               <table className="w-full min-w-[700px] text-left text-xs">
                 <thead className="border-b border-mauve/10 bg-sand/50 uppercase tracking-wider text-ink/50">
@@ -2468,6 +2480,7 @@ export function AdminDashboardClient({
                     <th className="px-4 py-3">Stripe / Bank Ref</th>
                     <th className="px-4 py-3">Status</th>
                     <th className="px-4 py-3">Date</th>
+                    <th className="px-4 py-3">Action</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-mauve/10">
@@ -2493,6 +2506,13 @@ export function AdminDashboardClient({
                       </td>
                       <td className="px-4 py-3 text-ink/50">
                         {new Date(p.createdAt || p.paymentDate || Date.now()).toLocaleDateString()}
+                      </td>
+                      <td className="px-4 py-3">
+                        {p.status === "pending" && p.paymentMethod === "stripe_connect" ? (
+                          <button type="button" disabled={processingPayoutId === p.id} onClick={() => handleProcessPayout(p.id)} className="rounded-full bg-mauve px-3 py-1 text-[10px] text-white disabled:opacity-50">
+                            {processingPayoutId === p.id ? "Processing…" : "Review and transfer"}
+                          </button>
+                        ) : p.status === "processing" ? <span className="text-xs text-ink/60">Transferred to Stripe balance</span> : "—"}
                       </td>
                     </tr>
                   ))}

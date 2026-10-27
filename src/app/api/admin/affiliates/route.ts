@@ -6,6 +6,7 @@ import {
   updateAffiliateStatus,
   createAffiliateCoupon,
   createAffiliatePayout,
+  processAffiliatePayout,
   updateAffiliateStripeAccount,
   createStripeConnectAccount,
   getStripeConnectAccountStatus,
@@ -109,6 +110,13 @@ export async function POST(request: Request) {
         paymentReference,
         notes,
       });
+      return NextResponse.json({ success: true, payout });
+    }
+
+    if (action === "process_payout") {
+      const { payoutId } = body;
+      if (!payoutId) return NextResponse.json({ error: "Missing payoutId" }, { status: 400 });
+      const payout = await processAffiliatePayout(String(payoutId));
       return NextResponse.json({ success: true, payout });
     }
 

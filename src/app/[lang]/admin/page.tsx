@@ -2,7 +2,6 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { ADMIN_COOKIE_NAME, adminConfigured, verifyAdminOrPartnerAccess } from "@/lib/adminAuth";
-import { getSupabase, supabaseConfigured } from "@/lib/supabase";
 import { getDB, dbConfigured as d1Configured, getRecentContactMessages } from "@/lib/db";
 import { getAllOrders } from "@/lib/userService";
 import { getAllAdminAffiliateData } from "@/lib/affiliateService";
@@ -15,15 +14,6 @@ import { AdminDashboardClient } from "./AdminDashboardClient";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { robots: { index: false, follow: false } };
-
-async function loadContactMessages(supabase: ReturnType<typeof getSupabase>) {
-  const { data } = await supabase
-    .from("ContactMessage")
-    .select("*")
-    .order("createdAt", { ascending: false })
-    .limit(50);
-  return data ?? [];
-}
 
 export default async function AdminPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -50,10 +40,6 @@ export default async function AdminPage({ params }: { params: Promise<{ lang: st
   if (d1Configured()) {
     try {
       messages = await getRecentContactMessages(getDB(), 50);
-    } catch {}
-  } else if (supabaseConfigured()) {
-    try {
-      messages = await loadContactMessages(getSupabase());
     } catch {}
   }
 

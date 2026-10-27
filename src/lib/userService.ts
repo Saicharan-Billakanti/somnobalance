@@ -1,208 +1,85 @@
-import { getSupabase, supabaseConfigured } from "@/lib/supabase";
-import { getAffiliateByEmail } from "@/lib/affiliateService";
-import { getBusinessApplicationByEmail } from "@/lib/businessService";
-import {
-  getDB,
-  dbConfigured,
-  getRecentOrders,
-  getOrderById as getD1OrderById,
-  updateOrderStatus as updateD1OrderStatus,
-} from "@/lib/db";
+import { getDB, getOrderById as getD1OrderById, getRecentOrders, updateOrderStatus as updateD1OrderStatus } from "@/lib/db";
+import type { DbUser } from "@/lib/db";
 
 export type UserProfile = {
-  id: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  phone?: string;
-  street?: string;
-  postalCode?: string;
-  city?: string;
-  country?: string;
+  id: string; email: string; firstName: string; lastName: string; phone?: string; street?: string;
+  postalCode?: string; city?: string; country?: string;
   role?: "customer" | "affiliate" | "business" | "admin";
-  isAffiliate?: boolean;
-  isBusiness?: boolean;
-  isAdmin?: boolean;
+  isAffiliate?: boolean; isBusiness?: boolean; isAdmin?: boolean;
 };
 
-function requireDatabase() {
-  if (!supabaseConfigured()) throw new Error("Database is not configured.");
-  return getSupabase();
-}
-
-export async function getUserById(userId: string): Promise<UserProfile | null> {
-  if (!supabaseConfigured() || !userId) return null;
-
-  const supabase = getSupabase();
-  let { data: user, error } = await supabase
-    .from("User")
-    .select("id, email, firstName, lastName, phone, street, postalCode, city, country, role")
-    .eq("id", userId)
-    .maybeSingle();
-
-  if (!user && !error && userId.includes("@")) {
-    const result = await supabase
-      .from("User")
-      .select("id, email, firstName, lastName, phone, street, postalCode, city, country, role")
-      .eq("email", userId.trim().toLowerCase())
-      .maybeSingle();
-    user = result.data;
-    error = result.error;
-  }
-
-  if (error) throw new Error(`Failed to load user: ${error.message}`);
-  if (!user) return null;
-
-  const [affiliate, businessApp] = await Promise.all([
-    getAffiliateByEmail(user.email),
-    getBusinessApplicationByEmail(user.email),
-  ]);
-  const isAffiliate = Boolean(affiliate && ["active", "pending"].includes(affiliate.status));
-  const isBusiness = Boolean(businessApp);
-  const isAdmin = user.role === "admin";
-  const role = isAdmin ? "admin" : isBusiness ? "business" : isAffiliate ? "affiliate" : "customer";
-
+function userProfile(user: DbUser): UserProfile {
+  const role = user.role === "admin" || user.role === "business" || user.role === "affiliate" ? user.role : "customer";
   return {
-    id: user.id,
-    email: user.email,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    phone: user.phone || "",
-    street: user.street || "",
-    postalCode: user.postalCode || "",
-    city: user.city || "",
-    country: user.country || "Germany",
-    role,
-    isAffiliate,
-    isBusiness,
-    isAdmin,
+    id: user.id, email: user.email, firstName: user.firstName, lastName: user.lastName,
+    phone: user.phone || "", street: user.street || "", postalCode: user.postalCode || "",
+    city: user.city || "", country: user.country || "Germany", role,
+    isAffiliate: role === "affiliate", isBusiness: role === "business", isAdmin: role === "admin",
   };
 }
 
-export async function getUserByPhone(phone: string): Promise<UserProfile | null> {
-  if (!supabaseConfigured() || !phone) return null;
-  const { data, error } = await getSupabase()
-    .from("User")
-    .select("id")
-    .eq("phone", phone.trim())
-    .maybeSingle();
-  if (error) throw new Error(`Failed to load user: ${error.message}`);
-  return data ? getUserById(data.id) : null;
+const USER_SELECT = `SELECT id, createdAt, email, passwordHash, firstName, lastName, phone, emailVerifiedAt, phoneVerifiedAt,
+  street, postalCode, city, country, role FROM "User"`;
+
+export async function getUserById(userId: string): Promise<UserProfile | null> {
+  if (!userId) return null;
+  const db = getDB();
+  const user = await db.prepare(`${USER_SELECT} WHERE id = ?`).bind(userId).first<DbUser>();
+  if (user) return userProfile(user);
+  return userId.includes("@") ? getUserByEmail(userId) : null;
 }
 
-export async function updateUserProfile(
-  userId: string,
-  updates: Partial<UserProfile>
-): Promise<UserProfile | null> {
-  const { data, error } = await requireDatabase()
-    .from("User")
-    .update({
-      firstName: updates.firstName,
-      lastName: updates.lastName,
-      phone: updates.phone,
-      street: updates.street,
-      postalCode: updates.postalCode,
-      city: updates.city,
-      country: updates.country,
-    })
-    .eq("id", userId)
-    .select("id")
-    .maybeSingle();
-  if (error) throw new Error(`Failed to update user profile: ${error.message}`);
-  return data ? getUserById(userId) : null;
+export async function getUserByEmail(email: string): Promise<UserProfile | null> {
+  if (!email) return null;
+  const user = await getDB().prepare(`${USER_SELECT} WHERE LOWER(email) = LOWER(?)`).bind(email.trim()).first<DbUser>();
+  return user ? userProfile(user) : null;
+}
+
+export async function getUserByPhone(phone: string): Promise<UserProfile | null> {
+  if (!phone) return null;
+  const user = await getDB().prepare(`${USER_SELECT} WHERE phone = ?`).bind(phone.trim()).first<DbUser>();
+  return user ? userProfile(user) : null;
+}
+
+export async function updateUserProfile(userId: string, updates: Partial<UserProfile>): Promise<UserProfile | null> {
+  const fields: Array<[keyof UserProfile, string]> = [
+    ["firstName", "firstName"], ["lastName", "lastName"], ["phone", "phone"],
+    ["street", "street"], ["postalCode", "postalCode"], ["city", "city"], ["country", "country"],
+  ];
+  const changed = fields.filter(([key]) => updates[key] !== undefined);
+  if (changed.length) {
+    const assignments = changed.map(([, column]) => `"${column}" = ?`).join(", ");
+    const values = changed.map(([key]) => updates[key] ?? null);
+    await getDB().prepare(`UPDATE "User" SET ${assignments} WHERE id = ?`).bind(...values, userId).run();
+  }
+  return getUserById(userId);
 }
 
 export async function getUserOrders(userEmail: string): Promise<any[]> {
   if (!userEmail) return [];
-  if (dbConfigured()) {
-    try {
-      const db = getDB();
-      const { results: orders } = await db
-        .prepare(`SELECT * FROM "Order" WHERE LOWER(email) = LOWER(?) ORDER BY createdAt DESC`)
-        .bind(userEmail.trim())
-        .all<any>();
-      if (orders && orders.length > 0) {
-        const placeholders = orders.map(() => "?").join(",");
-        const ids = orders.map((o: any) => o.id);
-        const { results: allItems } = await db
-          .prepare(`SELECT * FROM "OrderItem" WHERE orderId IN (${placeholders}) ORDER BY rowid`)
-          .bind(...ids)
-          .all<any>();
-        const itemsByOrder = new Map<string, any[]>();
-        for (const item of allItems) {
-          const list = itemsByOrder.get(item.orderId) ?? [];
-          list.push(item);
-          itemsByOrder.set(item.orderId, list);
-        }
-        return orders.map((o: any) => ({ ...o, items: itemsByOrder.get(o.id) ?? [] }));
-      }
-      return orders || [];
-    } catch (err) {
-      console.error("[userService] D1 getUserOrders error:", err);
-    }
-  }
-  if (!supabaseConfigured()) return [];
-  const { data, error } = await getSupabase()
-    .from("Order")
-    .select("*, items:OrderItem(*)")
-    .ilike("email", userEmail.trim().toLowerCase())
-    .order("createdAt", { ascending: false });
-  if (error) throw new Error(`Failed to load user orders: ${error.message}`);
-  return data || [];
+  const db = getDB();
+  // Keep unpaid checkout attempts for Stripe webhook reconciliation, but do
+  // not present them as completed customer orders.
+  const { results: orders } = await db.prepare(`SELECT * FROM "Order" WHERE LOWER(email) = LOWER(?) AND status = 'PAID' ORDER BY createdAt DESC`)
+    .bind(userEmail.trim()).all<any>();
+  if (!orders.length) return [];
+  const ids = orders.map((order: any) => order.id);
+  const placeholders = ids.map(() => "?").join(",");
+  const { results: items } = await db.prepare(`SELECT * FROM "OrderItem" WHERE orderId IN (${placeholders}) ORDER BY rowid`)
+    .bind(...ids).all<any>();
+  const byOrder = new Map<string, any[]>();
+  for (const item of items) byOrder.set(item.orderId, [...(byOrder.get(item.orderId) || []), item]);
+  return orders.map((order: any) => ({ ...order, items: byOrder.get(order.id) || [] }));
 }
 
-export async function getOrderById(orderId: string): Promise<any | null> {
-  if (dbConfigured()) {
-    try {
-      const order = await getD1OrderById(getDB(), orderId);
-      if (order) return order;
-    } catch (err) {
-      console.error("[userService] D1 getOrderById error:", err);
-    }
-  }
-  if (!supabaseConfigured()) return null;
-  const { data, error } = await getSupabase()
-    .from("Order")
-    .select("*, items:OrderItem(*)")
-    .eq("id", orderId)
-    .maybeSingle();
-  if (error) throw new Error(`Failed to load order: ${error.message}`);
-  return data;
-}
-
-export async function getAllOrders(): Promise<any[]> {
-  if (dbConfigured()) {
-    try {
-      return await getRecentOrders(getDB(), 100);
-    } catch (err) {
-      console.error("[userService] D1 getAllOrders error:", err);
-    }
-  }
-  if (!supabaseConfigured()) return [];
-  const { data, error } = await getSupabase()
-    .from("Order")
-    .select("*, items:OrderItem(*)")
-    .order("createdAt", { ascending: false });
-  if (error) throw new Error(`Failed to load orders: ${error.message}`);
-  return data || [];
-}
-
+export async function getOrderById(orderId: string): Promise<any | null> { return getD1OrderById(getDB(), orderId); }
+export async function getAllOrders(): Promise<any[]> { return getRecentOrders(getDB(), 100); }
 export async function updateOrderStatus(orderId: string, updates: Record<string, any>): Promise<any> {
-  if (dbConfigured() && updates.status) {
-    try {
-      await updateD1OrderStatus(getDB(), orderId, updates.status);
-      return { id: orderId, ...updates };
-    } catch (err) {
-      console.error("[userService] D1 updateOrderStatus error:", err);
-    }
-  }
-  const { data, error } = await requireDatabase()
-    .from("Order")
-    .update(updates)
-    .eq("id", orderId)
-    .select("*")
-    .maybeSingle();
-  if (error) throw new Error(`Failed to update order: ${error.message}`);
-  if (!data) throw new Error("Order was not found.");
-  return data;
+  const columns: Record<string, string> = { status: "status", returnStatus: "returnStatus", returnReason: "returnReason", returnNote: "returnNote", returnRequestedAt: "returnRequestedAt", returnApprovedAt: "returnApprovedAt", refundStatus: "refundStatus", carrier: "carrier", trackingNumber: "trackingNumber" };
+  const entries = Object.entries(updates).filter(([key]) => columns[key]);
+  if (!entries.length) throw new Error("No supported order fields were supplied.");
+  const assignments = entries.map(([key]) => `"${columns[key]}" = ?`).join(", ");
+  const result = await getDB().prepare(`UPDATE "Order" SET ${assignments} WHERE id = ?`).bind(...entries.map(([, value]) => value), orderId).run();
+  if (!result.meta?.changes) throw new Error("Order was not found.");
+  return getOrderById(orderId);
 }

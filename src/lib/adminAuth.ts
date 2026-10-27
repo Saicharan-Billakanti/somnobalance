@@ -74,7 +74,7 @@ export async function verifyAdminOrPartnerAccess(adminCookieValue?: string): Pro
       }
     }
 
-    // If no Supabase user session, check the direct admin session cookie.
+    // Check the direct admin session cookie.
     const adminVal = adminCookieValue || cookieStore.get(ADMIN_COOKIE_NAME)?.value;
     if (verifySessionCookieValue(adminVal)) {
       return true;

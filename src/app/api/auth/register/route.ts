@@ -85,7 +85,12 @@ export async function POST(request: Request) {
     const emailOtpRes = await createAndStoreOtp(db, email, "EMAIL", "REGISTRATION");
 
     // 6. Dispatch Email OTP
-    await sendOtpEmail(email, emailOtpRes.otp, lang);
+    const delivery = await sendOtpEmail(email, emailOtpRes.otp, lang);
+    if (!delivery.success) {
+      return NextResponse.json({ ok: false, persisted: true, requiresVerification: true,
+        userId: id, email, emailDelivery: "failed",
+        error: "Konto gespeichert. Der E-Mail-Code konnte nicht versendet werden. Bitte nutzen Sie die Funktion zum erneuten Senden." }, { status: 502 });
+    }
 
     return NextResponse.json({
       ok: true,

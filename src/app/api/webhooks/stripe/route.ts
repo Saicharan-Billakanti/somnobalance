@@ -1,17 +1,9 @@
 import { NextResponse } from "next/server";
 import type Stripe from "stripe";
 import { getStripe, stripeConfigured } from "@/lib/stripe";
-import { getDB, dbConfigured, updateOrderStatus } from "@/lib/db";
+import { getDB, dbConfigured } from "@/lib/db";
 import { sendNotification } from "@/lib/mailer";
-
-// Affiliate commission tracking (processOrderCommission from
-// affiliateService) is intentionally NOT wired back in here: it depends on
-// Supabase's AffiliateCoupon/Affiliate/CommissionRecord tables, which have
-// no D1 equivalent yet (0001_init.sql only covers User/Order/OrderItem/
-// ContactMessage). A paid order with a coupon code currently does NOT
-// credit the referring partner — tracked as a required follow-up before
-// the partner program can run fully on D1, not something to guess a
-// schema for here.
+import { recordPaidOrderCommission } from "@/lib/affiliateService";
 
 // Stripe signs the raw body — read as text before verifying.
 export async function POST(request: Request) {
@@ -36,22 +28,36 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 
-  if (event.type === "checkout.session.completed") {
-    const session = event.data.object as Stripe.Checkout.Session;
-    const orderId = session.client_reference_id ?? session.metadata?.orderId;
+  const db = getDB();
+  const reservation = await db.prepare('INSERT OR IGNORE INTO "StripeWebhookEvent" (eventId) VALUES (?)').bind(event.id).run();
+  if (!reservation.meta?.changes) return NextResponse.json({ received: true, duplicate: true });
 
-    if (orderId) {
-      try {
-        await updateOrderStatus(getDB(), orderId, "PAID");
-        await sendNotification(
-          `Order ${orderId} paid`,
-          `Stripe session ${session.id} completed payment.`
-        );
-      } catch (err) {
-        console.error("[stripe webhook] failed to mark order paid:", err);
+  try {
+    if (["checkout.session.completed", "checkout.session.async_payment_succeeded"].includes(event.type)) {
+      const session = event.data.object as Stripe.Checkout.Session;
+      const orderId = session.client_reference_id ?? session.metadata?.orderId;
+      if (orderId && session.payment_status === "paid") {
+        const order = await db.prepare('SELECT id,stripeSessionId,status FROM "Order" WHERE id=?').bind(orderId).first<{id:string;stripeSessionId:string|null;status:string}>();
+        if (order && order.stripeSessionId === session.id) {
+          const paymentIntentId = typeof session.payment_intent === "string" ? session.payment_intent : session.payment_intent?.id ?? null;
+          const updated = await db.prepare('UPDATE "Order" SET status=\'PAID\',stripePaymentIntentId=COALESCE(?,stripePaymentIntentId) WHERE id=? AND stripeSessionId=? AND status<>\'PAID\'').bind(paymentIntentId,orderId,session.id).run();
+          await recordPaidOrderCommission(orderId);
+          if (updated.meta?.changes) {
+            await sendNotification(`Order ${orderId} paid`, `Stripe session ${session.id} completed payment.`);
+          }
+        } else {
+          console.error("[stripe webhook] session does not match a stored order", { orderId, sessionId: session.id });
+        }
       }
+    } else if (event.type === "checkout.session.expired") {
+      const session = event.data.object as Stripe.Checkout.Session;
+      const orderId = session.client_reference_id ?? session.metadata?.orderId;
+      if (orderId) await db.prepare('UPDATE "Order" SET status=\'CANCELLED\' WHERE id=? AND stripeSessionId=? AND status=\'PENDING_PAYMENT\'').bind(orderId,session.id).run();
     }
+    return NextResponse.json({ received: true });
+  } catch (err) {
+    await db.prepare('DELETE FROM "StripeWebhookEvent" WHERE eventId=?').bind(event.id).run().catch(() => undefined);
+    console.error("[stripe webhook] failed to process event:", err);
+    return NextResponse.json({ error: "Webhook processing failed" }, { status: 500 });
   }
-
-  return NextResponse.json({ received: true });
 }

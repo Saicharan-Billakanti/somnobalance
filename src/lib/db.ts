@@ -2,7 +2,7 @@
 //
 // Cloudflare D1 database access layer.
 // Uses native D1Database binding — accessed via `import { env } from "cloudflare:workers"`.
-// All Supabase imports have been removed.
+// Runtime persistence is Cloudflare D1.
 
 import { env } from "cloudflare:workers";
 
@@ -74,6 +74,11 @@ export type DbUser = {
   phone: string | null;
   emailVerifiedAt: string | null;
   phoneVerifiedAt: string | null;
+  street: string | null;
+  postalCode: string | null;
+  city: string | null;
+  country: string;
+  role: string;
 };
 
 export type DbOrder = {
@@ -123,7 +128,7 @@ export async function getUserById(
 ): Promise<DbUser | null> {
   return db
     .prepare(
-      `SELECT id, createdAt, email, passwordHash, firstName, lastName, phone, emailVerifiedAt, phoneVerifiedAt
+      `SELECT id, createdAt, email, passwordHash, firstName, lastName, phone, emailVerifiedAt, phoneVerifiedAt, street, postalCode, city, country, role
        FROM "User" WHERE id = ?`
     )
     .bind(id)
@@ -136,7 +141,7 @@ export async function getUserByEmail(
 ): Promise<DbUser | null> {
   return db
     .prepare(
-      `SELECT id, createdAt, email, passwordHash, firstName, lastName, phone, emailVerifiedAt, phoneVerifiedAt
+      `SELECT id, createdAt, email, passwordHash, firstName, lastName, phone, emailVerifiedAt, phoneVerifiedAt, street, postalCode, city, country, role
        FROM "User" WHERE email = ?`
     )
     .bind(email)
@@ -149,7 +154,7 @@ export async function getUserByPhone(
 ): Promise<DbUser | null> {
   return db
     .prepare(
-      `SELECT id, createdAt, email, passwordHash, firstName, lastName, phone, emailVerifiedAt, phoneVerifiedAt
+      `SELECT id, createdAt, email, passwordHash, firstName, lastName, phone, emailVerifiedAt, phoneVerifiedAt, street, postalCode, city, country, role
        FROM "User" WHERE phone = ?`
     )
     .bind(phone)
@@ -261,6 +266,13 @@ export async function insertOrderWithItems(
     subtotal: number;
     shipping: number;
     total: number;
+    affiliateId?: string | null;
+    couponId?: string | null;
+    couponCode?: string | null;
+    discountAmount?: number;
+    discountRate?: number;
+    commissionRate?: number;
+    commissionBaseType?: string;
   },
   items: Array<{ id: string; slug: string; name: string; price: number; qty: number }>
 ): Promise<void> {
@@ -270,8 +282,9 @@ export async function insertOrderWithItems(
     .prepare(
       `INSERT INTO "Order"
          (id, firstName, lastName, email, street, postalCode, city, country,
-          subtotal, shipping, total)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+          subtotal, shipping, total, affiliateId, couponId, couponCode,
+          discountAmount, discountRate, commissionRate, commissionBaseType)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
     )
     .bind(
       order.id,
@@ -284,7 +297,14 @@ export async function insertOrderWithItems(
       order.country,
       order.subtotal,
       order.shipping,
-      order.total
+      order.total,
+      order.affiliateId ?? null,
+      order.couponId ?? null,
+      order.couponCode ?? null,
+      order.discountAmount ?? 0,
+      order.discountRate ?? 0,
+      order.commissionRate ?? 0,
+      order.commissionBaseType ?? "discounted_value"
     );
 
   const itemStmts = items.map((item) =>

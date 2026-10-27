@@ -1,27 +1,16 @@
-import { getUserById, getUserByPhone, type UserProfile } from "@/lib/userService";
-import { getSupabaseServer } from "@/lib/supabase-server";
+import { cookies } from "next/headers";
+import { SESSION_COOKIE_NAME, verifySessionCookieValue } from "@/lib/auth";
+import { getUserById } from "@/lib/userService";
 
-export type CurrentUser = UserProfile | null;
+export type CurrentUser = Awaited<ReturnType<typeof getUserById>>;
 
 export async function getCurrentUser(): Promise<CurrentUser> {
-  try {
-    const supabase = await getSupabaseServer();
-    const { data, error } = await supabase.auth.getUser();
-    if (error || (!data.user?.email && !data.user?.phone)) return null;
-
-    const dbUser = data.user.email
-      ? await getUserById(data.user.email)
-      : await getUserByPhone(data.user.phone || "");
-    if (!dbUser) return null;
-
-    if (dbUser.role === "admin" || data.user.email?.toLowerCase() === "arunkumar17012006@gmail.com") {
-      return { ...dbUser, role: "admin", isAdmin: true };
-    }
-    return dbUser;
-  } catch (err) {
-    console.error("[getCurrentUser Supabase Auth error]:", err);
+  const cookieStore = await cookies();
+  const userId = verifySessionCookieValue(cookieStore.get(SESSION_COOKIE_NAME)?.value);
+  if (!userId) return null;
+  const user = await getUserById(userId);
+  if (user?.email.toLowerCase() === "arunkumar17012006@gmail.com") {
+    return { ...user, role: "admin", isAdmin: true };
   }
-
-  return null;
+  return user;
 }
-

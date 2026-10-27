@@ -1,60 +1,27 @@
-import { NextResponse } from "next/server";
 import { registerAffiliate } from "@/lib/affiliateService";
-import { sendNotification } from "@/lib/mailer";
+import { notificationConfigured, sendNotification } from "@/lib/mailer";
+import { partnerSchema, readSubmission, protectSubmission, SubmissionError, submissionError } from "@/lib/submission";
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json().catch(() => ({}));
-    const {
-      name,
-      email,
-      phone,
-      businessName,
-      businessType,
-      website,
-      country,
-      address,
-      audienceType,
-      description,
-      bankName,
-      iban,
-      bicSwift,
-    } = body;
-
-    if (!name || !email) {
-      return NextResponse.json(
-        { error: "Name and email are required." },
-        { status: 400 }
-      );
+    const parsed = partnerSchema.safeParse(await readSubmission(request));
+    if (!parsed.success) throw new SubmissionError(400, "Bitte die Angaben prüfen.");
+    const { honeypot, ...data } = parsed.data;
+    if (!notificationConfigured()) throw new SubmissionError(503, "E-Mail-Dienst nicht konfiguriert.");
+    await protectSubmission(request, data.email, honeypot);
+    const affiliate = await registerAffiliate(data);
+    // Banking information stays in the application store, not in email.
+    const fields = [
+      `Name: ${data.name}`, `E-Mail: ${data.email}`, `Telefon: ${data.phone || "–"}`,
+      `Unternehmen: ${data.businessName || "–"}`, `Art: ${data.businessType || "–"}`,
+      `Website: ${data.website || "–"}`, `Land: ${data.country || "–"}`,
+      `Adresse: ${data.address || "–"}`, `Zielgruppe: ${data.audienceType || "–"}`,
+      `Nachricht: ${data.description || "–"}`,
+    ];
+    const mail = await sendNotification("SomnoBalance: Partner werden – Bewerbung", fields.join("\n"), data.email);
+    if (mail.status !== "accepted") {
+      return Response.json({ error: "Bewerbung gespeichert, E-Mail-Benachrichtigung fehlgeschlagen.", persisted: true, notification: "failed" }, { status: 502 });
     }
-
-    const affiliate = await registerAffiliate({
-      name: String(name),
-      email: String(email),
-      phone: phone ? String(phone) : undefined,
-      businessName: businessName ? String(businessName) : undefined,
-      businessType: businessType ? String(businessType) : undefined,
-      website: website ? String(website) : undefined,
-      country: country ? String(country) : undefined,
-      address: address ? String(address) : undefined,
-      audienceType: audienceType ? String(audienceType) : undefined,
-      description: description ? String(description) : undefined,
-      bankName: bankName ? String(bankName) : undefined,
-      iban: iban ? String(iban) : undefined,
-      bicSwift: bicSwift ? String(bicSwift) : undefined,
-    });
-
-    await sendNotification(
-      `New Partner Application: ${name}`,
-      `${name} <${email}>\nBusiness: ${businessName || "Individual"}\nType: ${businessType || "N/A"}\nAudience: ${audienceType || "N/A"}`
-    );
-
-    return NextResponse.json({ success: true, affiliate });
-  } catch (err) {
-    console.error("[partner register error]:", err);
-    return NextResponse.json(
-      { error: "Could not submit partner application. Please try again." },
-      { status: 500 }
-    );
-  }
+    return Response.json({ success: true, affiliate, notification: "accepted" });
+  } catch (error) { return submissionError(error); }
 }

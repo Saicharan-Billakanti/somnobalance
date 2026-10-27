@@ -21,6 +21,7 @@ export function BusinessLanding({ lang, dict }: { lang: Locale; dict: Dictionary
   const [interest, setInterest] = useState<InterestKey>("hotel");
   const [message, setMessage] = useState("");
   const [honeypot, setHoneypot] = useState("");
+  const [savedNotice, setSavedNotice] = useState(false);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   const focusForm = (key?: InterestKey) => {
@@ -30,11 +31,6 @@ export function BusinessLanding({ lang, dict }: { lang: Locale; dict: Dictionary
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Spam trap: bots fill the hidden field; pretend success and drop it.
-    if (honeypot) {
-      setStatus("sent");
-      return;
-    }
     setStatus("sending");
     const lines = [
       `${fb.form.company}: ${company}`,
@@ -46,8 +42,20 @@ export function BusinessLanding({ lang, dict }: { lang: Locale; dict: Dictionary
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: contact, email, topic: "business", message: lines.join("\n") }),
+        body: JSON.stringify({
+          name: contact,
+          email,
+          topic: "business",
+          companyName: company,
+          phone,
+          businessType: fb.form.interestOptions[interest],
+          message: lines.join("\n"),
+          honeypot,
+        }),
       });
+      const response = await res.json();
+      if (response.persisted === true && response.notification !== "accepted") setSavedNotice(true);
+      if (response.persisted === true && !res.ok) { setStatus("sent"); return; }
       setStatus(res.ok ? "sent" : "error");
     } catch {
       setStatus("error");
@@ -191,7 +199,7 @@ export function BusinessLanding({ lang, dict }: { lang: Locale; dict: Dictionary
 
           {status === "sent" ? (
             <p role="status" className="mt-10 bg-teal/15 p-6 text-sm text-teal-dark">
-              {fb.form.success}
+              {savedNotice ? "Ihre Angaben wurden gespeichert. Die E-Mail-Benachrichtigung ist fehlgeschlagen. Bitte nicht erneut absenden." : fb.form.success}
             </p>
           ) : (
             <form onSubmit={submit} className="mt-10 space-y-5">

@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { Dictionary } from "@/i18n/getDictionary";
 
 export function ContactForm({ dict, defaultTopic = "general" }: { dict: Dictionary; defaultTopic?: string }) {
+  const [savedNotice, setSavedNotice] = useState(false);
   const [sent, setSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -11,7 +12,7 @@ export function ContactForm({ dict, defaultTopic = "general" }: { dict: Dictiona
   if (sent) {
     return (
       <div className="mt-14 rounded-2xl border border-teal/20 bg-teal/5 p-6 text-ink/70">
-        {dict.contact.form.thanks}
+        {savedNotice ? "Ihre Angaben wurden gespeichert. Die E-Mail-Benachrichtigung ist fehlgeschlagen. Bitte nicht erneut absenden." : dict.contact.form.thanks}
       </div>
     );
   }
@@ -37,6 +38,9 @@ export function ContactForm({ dict, defaultTopic = "general" }: { dict: Dictiona
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload),
           });
+          const response = await res.json();
+          if (response.persisted === true && response.notification !== "accepted") setSavedNotice(true);
+          if (response.persisted === true && !res.ok) { setSavedNotice(true); setSent(true); return; }
           if (!res.ok) {
             setError(dict.contact.form.genericError);
             return;

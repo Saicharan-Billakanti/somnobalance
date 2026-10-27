@@ -13,6 +13,7 @@ type Kind = "private" | "professional" | "company";
 // later in the partner portal, not at application).
 export function PartnerLanding({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   const t = dict.partner.landing;
+  const [savedNotice, setSavedNotice] = useState(false);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
 
@@ -35,6 +36,8 @@ export function PartnerLanding({ lang, dict }: { lang: Locale; dict: Dictionary 
           description: String(fd.get("message") || ""),
         }),
       });
+      const response = await res.json();
+      if (response.persisted === true && !res.ok) { setSavedNotice(true); setStatus("sent"); return; }
       if (res.ok) {
         setStatus("sent");
       } else {
@@ -130,7 +133,7 @@ export function PartnerLanding({ lang, dict }: { lang: Locale; dict: Dictionary 
           {status === "sent" ? (
             <div role="status" className="mt-10 bg-teal/15 p-6 text-sm text-teal-dark">
               <p className="font-serif text-xl text-ink">{t.apply.successTitle}</p>
-              <p className="mt-2">{t.apply.successCopy}</p>
+              <p className="mt-2">{savedNotice ? "Ihre Angaben wurden gespeichert. Die E-Mail-Benachrichtigung ist fehlgeschlagen. Bitte nicht erneut absenden." : t.apply.successCopy}</p>
               <Link
                 href={`/${lang}/login`}
                 className="mt-5 inline-block bg-mauve px-6 py-2.5 text-sm text-white hover:bg-mauve-dark"

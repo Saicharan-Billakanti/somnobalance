@@ -1,49 +1,59 @@
-// src/lib/mailer.ts
-//
-// HTTP-based email via Resend (https://resend.com) or Cloudflare Email.
-// Replaces nodemailer, which depends on Node.js net/tls sockets unavailable
-// on Cloudflare Workers.
-//
-// Required environment variable (set as a Cloudflare Worker secret):
-//   RESEND_API_KEY  — from https://resend.com/api-keys
-//   MAIL_FROM       — verified sender address, e.g. "SomnoBalance <noreply@somnobalance.com>"
-//   MAIL_TO         — notification recipient, e.g. "faw@willing1863.com"
+import { serverConfig } from "@/lib/serverConfig";
+import { emailSchema } from "@/lib/submission";
 
-const RESEND_API = "https://api.resend.com/emails";
+export type MailResult =
+  | { status: "accepted"; id: string }
+  | { status: "failed"; reason: "configuration" | "provider" | "network" };
 
-function mailerConfigured(): boolean {
-  return Boolean(process.env.RESEND_API_KEY && process.env.MAIL_FROM);
+export function escapeHtml(value: string): string {
+  return value.replace(/[&<>"']/g, character => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character]!);
 }
 
-export async function sendNotification(subject: string, text: string): Promise<void> {
-  const mailTo = process.env.MAIL_TO;
-  if (!mailerConfigured() || !mailTo) {
-    console.log(`[mailer] not configured — would have sent notification: ${subject}\n${text}`);
-    return;
-  }
+export function notificationConfigured(): boolean {
+  return Boolean(serverConfig("RESEND_API_KEY") && validSender() && emailSchema.safeParse(serverConfig("MAIL_TO")).success);
+}
 
+function validSender(): string | undefined {
+  const from = serverConfig("MAIL_FROM");
+  if (!from || /[\r\n]/.test(from)) return undefined;
+  const address = from.match(/<([^<>]+)>$/)?.[1] || from;
+  return emailSchema.safeParse(address).success ? from : undefined;
+}
+
+export async function sendEmail(to: string, subject: string, text: string, replyTo?: string, html?: string): Promise<MailResult> {
+  const key = serverConfig("RESEND_API_KEY");
+  const from = validSender();
+  if (!key || !from || !emailSchema.safeParse(to).success || (replyTo && !emailSchema.safeParse(replyTo).success)) {
+    return { status: "failed", reason: "configuration" };
+  }
   try {
-    const res = await fetch(RESEND_API, {
+    const response = await fetch("https://api.resend.com/emails", {
       method: "POST",
-      headers: {
-        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from: process.env.MAIL_FROM,
-        to: [mailTo],
-        subject,
-        text,
+      headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+      signal: AbortSignal.timeout(10000),
+      body: JSON.stringify({ from, to: [to], subject: subject.replace(/[\r\n]/g, " "), text,
+        html: html ?? `<pre style="white-space:pre-wrap;font-family:sans-serif">${escapeHtml(text)}</pre>`,
+        ...(replyTo ? { reply_to: replyTo } : {}),
       }),
     });
-
-    if (!res.ok) {
-      const body = await res.text().catch(() => "(unreadable)");
-      console.error(`[mailer] Resend API error ${res.status}: ${body}`);
+    if (!response.ok) {
+      console.warn("[mailer] provider rejected request", response.status);
+      return { status: "failed", reason: "provider" };
     }
-  } catch (err) {
-    console.error("[mailer] failed to send notification:", err);
+    const body = await response.json() as { id?: unknown };
+    if (typeof body.id !== "string" || !body.id) return { status: "failed", reason: "provider" };
+    // Acceptance is not proof of inbox delivery.
+    return { status: "accepted", id: body.id };
+  } catch {
+    console.warn("[mailer] provider request failed or timed out");
+    return { status: "failed", reason: "network" };
   }
+}
+
+export async function sendNotification(subject: string, text: string, replyTo?: string): Promise<MailResult> {
+  const to = serverConfig("MAIL_TO");
+  if (!to) return { status: "failed", reason: "configuration" };
+  return sendEmail(to, subject, text, replyTo);
 }
 
 export async function sendOtpEmail(
@@ -51,6 +61,7 @@ export async function sendOtpEmail(
   otp: string,
   lang: "de" | "en" = "de"
 ): Promise<{ success: boolean; error?: string }> {
+  if (!/^\d{6}$/.test(otp)) return { success: false, error: "Invalid verification code" };
   const subject =
     lang === "de"
       ? `${otp} ist Ihr SomnoBalance Bestätigungscode`
@@ -84,36 +95,18 @@ export async function sendOtpEmail(
           <p style="font-size: 12px; color: #9c9488;">SomnoBalance · Regeneration · Rest · Balance</p>
         </div>`;
 
-  if (!mailerConfigured()) {
-    console.log(`[mailer] Demo mode — Email OTP for ${to}: [${otp}]`);
-    return { success: true };
-  }
+  const result = await sendEmail(to, subject, text, undefined, html);
+  return result.status === "accepted"
+    ? { success: true }
+    : { success: false, error: "Email delivery request failed" };
+}
 
-  try {
-    const res = await fetch(RESEND_API, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from: process.env.MAIL_FROM,
-        to: [to],
-        subject,
-        text,
-        html,
-      }),
-    });
-
-    if (!res.ok) {
-      const errBody = await res.text().catch(() => "(unreadable)");
-      console.error(`[mailer] Resend OTP error ${res.status}: ${errBody}`);
-      return { success: false, error: "Email delivery failed" };
-    }
-
-    return { success: true };
-  } catch (err) {
-    console.error("[mailer] Resend OTP exception:", err);
-    return { success: false, error: "Email network error" };
-  }
+export async function sendPasswordResetEmail(to: string, otp: string, lang: "de" | "en" = "de") {
+  if (!/^\d{6}$/.test(otp)) return { success: false, error: "Invalid reset code" };
+  const subject = lang === "de" ? "Ihr SomnoBalance Passwort-Reset-Code" : "Your SomnoBalance password reset code";
+  const text = lang === "de"
+    ? `Sie haben eine Passwortzurücksetzung angefordert. Ihr Code lautet ${otp} und ist 10 Minuten gültig. Wenn Sie das nicht angefordert haben, ignorieren Sie diese E-Mail.`
+    : `You requested a password reset. Your code is ${otp} and is valid for 10 minutes. If you did not request this, you can ignore this email.`;
+  const result = await sendEmail(to, subject, text);
+  return result.status === "accepted" ? { success: true } : { success: false, error: "Could not deliver password reset code." };
 }

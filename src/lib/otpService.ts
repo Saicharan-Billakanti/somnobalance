@@ -1,6 +1,5 @@
 import crypto from "crypto";
 import { validateAndNormalizePhone } from "./phoneUtils";
-import { getOtpSupabase, otpSupabaseConfigured } from "./supabase";
 
 const RESEND_COOLDOWN_MS = 60 * 1000; // 60 seconds cooldown
 
@@ -9,7 +8,7 @@ const otpSendCooldownStore = new Map<string, number>();
 
 // Secret for signing verification tokens.
 function getSigningSecret(): string | undefined {
-  return process.env.SESSION_SECRET ?? process.env.JWT_SECRET ?? "somnobalance_secret_key_2026";
+  return process.env.SESSION_SECRET ?? process.env.JWT_SECRET;
 }
 
 function getStoreKey(phone: string, purpose: string): string {
@@ -17,43 +16,10 @@ function getStoreKey(phone: string, purpose: string): string {
 }
 
 /**
- * Sends SMS through the configured OTP-only Supabase project or demo fallback in dev.
+ * SMS is unavailable until a dedicated SMS provider is configured.
  */
 async function dispatchSms(to: string): Promise<{ success: boolean; provider: string; error?: string }> {
-  if (otpSupabaseConfigured() && process.env.ENABLE_SUPABASE_PHONE_AUTH === "true") {
-    try {
-      const otpSupabase = getOtpSupabase();
-      const { error } = await otpSupabase.auth.signInWithOtp({
-        phone: to,
-        options: { channel: "sms" },
-      });
-
-      if (!error) {
-        return { success: true, provider: "supabase_otp" };
-      }
-
-      console.warn("[otpService] OTP Supabase Phone Auth notice:", error.message);
-      return {
-        success: false,
-        provider: "none",
-        error: error.message || "OTP Supabase Phone Auth rejected the SMS dispatch request.",
-      };
-    } catch (err: any) {
-      console.warn("[otpService] OTP Supabase Phone Auth dispatch failed:", err?.message || err);
-      return {
-        success: false,
-        provider: "none",
-        error: err?.message || "OTP Supabase Phone Auth dispatch failed.",
-      };
-    }
-  }
-
-  // Development / Demo fallback when live SMS provider is not active
-  console.log(`[otpService] SMS dispatched in simulated mode to ${to}. Test verification code: 123456`);
-  return {
-    success: true,
-    provider: "simulated_sms",
-  };
+  return { success: false, provider: "none", error: "SMS provider is not configured." };
 }
 
 /**
@@ -129,7 +95,8 @@ export async function verifyPhoneOtp(
 
   const normalizedPhone = validation.normalized;
   const now = Date.now();
-  const secret = getSigningSecret()!;
+  const secret = getSigningSecret();
+  if (!secret) return { success: false, error: "OTP signing secret is not configured." };
 
   const generateToken = () => {
     const tokenPayload = {
@@ -148,48 +115,7 @@ export async function verifyPhoneOtp(
     return `${payloadStr}.${signature}`;
   };
 
-  if (otpSupabaseConfigured() && process.env.ENABLE_SUPABASE_PHONE_AUTH === "true") {
-    try {
-      const otpSupabase = getOtpSupabase();
-      const { data, error } = await otpSupabase.auth.verifyOtp({
-        phone: normalizedPhone,
-        token: otpCode.trim(),
-        type: "sms",
-      });
-
-      if (!error && data?.user) {
-        return {
-          success: true,
-          verificationToken: generateToken(),
-          phone: normalizedPhone,
-        };
-      }
-
-      if (error) {
-        return { success: false, error: error.message || "Ungültiger Bestätigungscode / Invalid code." };
-      }
-    } catch (err: any) {
-      console.warn("[otpService] OTP Supabase verify failed:", err?.message || err);
-      return {
-        success: false,
-        error: err?.message || "OTP Supabase verification failed.",
-      };
-    }
-  }
-
-  // Simulated / dev code check (accepts 123456 or valid 6-digit input in dev mode)
-  if (otpCode.trim() === "123456" || otpCode.trim().length === 6) {
-    return {
-      success: true,
-      verificationToken: generateToken(),
-      phone: normalizedPhone,
-    };
-  }
-
-  return {
-    success: false,
-    error: "Ungültiger Bestätigungscode (Nutzen Sie z. B. 123456) / Invalid verification code.",
-  };
+  return { success: false, error: "SMS verification is unavailable." };
 }
 
 export const verifyGermanPhoneOtp = verifyPhoneOtp;
@@ -230,7 +156,7 @@ export function validatePhoneVerificationToken(
     const payload = JSON.parse(Buffer.from(payloadStr, "base64url").toString("utf8"));
     const now = Date.now();
 
-    if (now > payload.expiresAt) {
+    if (!Number.isFinite(payload.expiresAt) || now > payload.expiresAt) {
       return { isValid: false, error: "Das Verifikationstoken ist abgelaufen. Bitte erneut verifizieren." };
     }
 

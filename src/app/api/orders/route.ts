@@ -4,14 +4,8 @@ import { getDB, dbConfigured, insertOrderWithItems, updateOrderStripeSession, de
 import { getStripe, stripeConfigured } from "@/lib/stripe";
 import { sendNotification } from "@/lib/mailer";
 import { priceOrderItems, computeShipping } from "@/lib/products";
+import { validateCoupon } from "@/lib/affiliateService";
 
-// Coupon/affiliate-commission validation is intentionally NOT wired back in
-// here yet: it depended on Supabase's AffiliateCoupon/Affiliate/
-// CommissionRecord tables, which don't exist in D1 (0001_init.sql only
-// covers User/Order/OrderItem/ContactMessage). Restoring it needs a D1
-// schema + data migration for the affiliate/partner system, tracked as a
-// separate follow-up rather than guessed at here.
-//
 // getProductReturnInfo()'s per-item returnPeriodDays/refundPolicy/
 // refundRules were also dropped from this route in the D1 rewrite, but
 // confirmed via grep that no current frontend page reads them from the
@@ -26,8 +20,9 @@ const orderSchema = z.object({
   street: z.string().min(1).max(300),
   postalCode: z.string().min(1).max(20),
   city: z.string().min(1).max(200),
-  country: z.string().min(1).max(100),
+  country: z.string().trim().min(1).max(100),
   lang: z.enum(["de", "en"]).default("de"),
+  couponCode: z.string().trim().max(64).nullable().optional(),
   items: z
     .array(
       z.object({
@@ -52,6 +47,16 @@ export async function POST(request: Request) {
 
   const data = parsed.data;
 
+  // The shop currently ships only within Germany. Enforce this on the server
+  // as well as in the checkout UI so callers cannot submit another country.
+  if (!['de', 'germany', 'deutschland'].includes(data.country.toLowerCase())) {
+    return NextResponse.json({
+      error: data.lang === "de"
+        ? "Wir liefern derzeit nur innerhalb Deutschlands."
+        : "We currently deliver within Germany only.",
+    }, { status: 400 });
+  }
+
   // Re-price every line server-side — never trust a price sent by the client.
   const priced = priceOrderItems(data.items);
   if ("error" in priced) {
@@ -67,7 +72,13 @@ export async function POST(request: Request) {
 
   const subtotal = items.reduce((sum, item) => sum + item.price * item.qty, 0);
   const shipping = computeShipping(priced.lines);
-  const total = subtotal + shipping;
+  const couponResult = data.couponCode ? await validateCoupon(data.couponCode, subtotal, data.email) : null;
+  if (couponResult && !couponResult.valid) {
+    return NextResponse.json({ error: couponResult.error }, { status: 400 });
+  }
+  const discountAmount = couponResult?.valid ? couponResult.discountAmount : 0;
+  const discountedSubtotal = couponResult?.valid ? couponResult.finalSubtotal : subtotal;
+  const total = discountedSubtotal + shipping;
 
   // DB not configured — accept the order shape but skip persistence.
   if (!dbConfigured()) {
@@ -102,10 +113,19 @@ export async function POST(request: Request) {
         street: data.street,
         postalCode: data.postalCode,
         city: data.city,
-        country: data.country,
+        country: "Germany",
         subtotal,
         shipping,
         total,
+        ...(couponResult?.valid ? {
+          affiliateId: couponResult.affiliateId,
+          couponId: couponResult.couponId,
+          couponCode: couponResult.couponCode,
+          discountAmount,
+          discountRate: couponResult.discountRate,
+          commissionRate: couponResult.commissionRate,
+          commissionBaseType: couponResult.commissionBaseType,
+        } : {}),
       },
       items.map((item) => ({ id: crypto.randomUUID(), ...item }))
     );
@@ -131,6 +151,7 @@ export async function POST(request: Request) {
       checkoutUrl: null,
       status: "PENDING_PAYMENT",
       subtotal,
+      discountAmount,
       shipping,
       total,
     });
@@ -139,6 +160,16 @@ export async function POST(request: Request) {
   const origin = request.headers.get("origin") ?? new URL(request.url).origin;
   try {
     const stripe = getStripe();
+    const stripeCoupon = couponResult?.valid && discountAmount > 0
+      ? await stripe.coupons.create({
+          amount_off: Math.round(discountAmount * 100),
+          currency: "eur",
+          duration: "once",
+          max_redemptions: 1,
+          name: `SomnoBalance ${couponResult.couponCode}`,
+          metadata: { orderId },
+        })
+      : null;
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       customer_email: data.email,
@@ -164,6 +195,7 @@ export async function POST(request: Request) {
               },
             ]
           : undefined,
+      ...(stripeCoupon ? { discounts: [{ coupon: stripeCoupon.id }] } : {}),
       success_url: `${origin}/${data.lang}/checkout/success?order=${orderId}`,
       cancel_url: `${origin}/${data.lang}/checkout/cancel?order=${orderId}`,
       metadata: { orderId },
@@ -177,6 +209,7 @@ export async function POST(request: Request) {
       checkoutUrl: session.url,
       status: "PENDING_PAYMENT",
       subtotal,
+      discountAmount,
       shipping,
       total,
     });

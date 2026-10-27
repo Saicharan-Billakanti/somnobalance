@@ -1,9 +1,12 @@
+import { getCurrentUser } from "@/lib/currentUser";
 import { NextResponse } from "next/server";
 import { getOrderById, updateOrderStatus } from "@/lib/userService";
 import { sendNotification } from "@/lib/mailer";
 
 export async function POST(request: Request) {
   try {
+    const user = await getCurrentUser();
+    if (!user?.email) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     const body = await request.json().catch(() => ({}));
     const { orderId, returnReason, returnNote } = body;
 
@@ -12,7 +15,7 @@ export async function POST(request: Request) {
     }
 
     const order = await getOrderById(orderId);
-    if (!order) {
+    if (!order || order.email?.trim().toLowerCase() !== user.email.trim().toLowerCase()) {
       return NextResponse.json({ error: "Order not found" }, { status: 404 });
     }
 
@@ -35,10 +38,10 @@ export async function POST(request: Request) {
       message: "Return request received and pending admin approval.",
       order: updated,
     });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("[orders return error]:", err);
     return NextResponse.json(
-      { error: err.message || "Failed to process return request" },
+      { error: "Failed to process return request" },
       { status: 500 }
     );
   }

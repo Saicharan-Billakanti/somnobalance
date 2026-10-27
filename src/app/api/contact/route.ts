@@ -1,51 +1,38 @@
-import { NextResponse } from "next/server";
-import { z } from "zod";
-import { getDB, dbConfigured, insertContactMessage } from "@/lib/db";
+import { getDB, insertContactMessage } from "@/lib/db";
 import { sendNotification } from "@/lib/mailer";
-
-const contactSchema = z.object({
-  name: z.string().min(1).max(200),
-  email: z.string().email(),
-  topic: z.enum(["general", "business", "partner", "order", "advice"]),
-  message: z.string().min(1).max(5000),
-});
+import { submitBusinessApplication } from "@/lib/businessService";
+import { contactSchema, readSubmission, protectSubmission, SubmissionError, submissionError } from "@/lib/submission";
 
 export async function POST(request: Request) {
-  const body = await request.json().catch(() => null);
-  const parsed = contactSchema.safeParse(body);
-
-  if (!parsed.success) {
-    return NextResponse.json(
-      { error: "Invalid message", details: parsed.error.flatten() },
-      { status: 400 }
-    );
-  }
-
-  const data = parsed.data;
-  const persisted = dbConfigured();
-
-  if (persisted) {
-    try {
-      await insertContactMessage(getDB(), {
-        id: crypto.randomUUID(),
-        name: data.name,
+  try {
+    const parsed = contactSchema.safeParse(await readSubmission(request));
+    if (!parsed.success) throw new SubmissionError(400, "Bitte die Angaben prüfen.");
+    const data = parsed.data;
+    await protectSubmission(request, data.email, data.honeypot);
+    await insertContactMessage(getDB(), {
+      id: crypto.randomUUID(), name: data.name, email: data.email, topic: data.topic, message: data.message,
+    });
+    if (data.topic === "business") {
+      await submitBusinessApplication({
+        userId: "",
+        companyName: data.companyName || data.name,
+        contactName: data.name,
         email: data.email,
-        topic: data.topic,
-        message: data.message,
+        phone: data.phone,
+        businessType: data.businessType || "Business enquiry",
+        country: "Germany",
+        notes: data.message,
       });
-    } catch (err) {
-      console.error("[contact] failed to save message:", err);
-      return NextResponse.json(
-        { error: "Could not send your message. Please try again." },
-        { status: 500 }
-      );
     }
-  }
-
-  await sendNotification(
-    `New contact form message (${data.topic})`,
-    `${data.name} <${data.email}>\n\n${data.message}${persisted ? "" : "\n\n[not persisted — D1 not configured]"}`
-  );
-
-  return NextResponse.json({ ok: true, persisted });
+    const subjects = { general: "Kontaktanfrage", business: "Für Unternehmen – Anfrage", partner: "Partneranfrage", order: "Bestellanfrage", advice: "Beratungsanfrage" };
+    const mail = await sendNotification(
+      `SomnoBalance: ${subjects[data.topic]}`,
+      `${data.name} <${data.email}>\n\n${data.message}`, data.email,
+    );
+    if (mail.status !== "accepted") {
+      console.warn("[contact] enquiry saved but email notification was not accepted", mail.reason);
+      return Response.json({ ok: true, persisted: true, notification: "failed" });
+    }
+    return Response.json({ ok: true, persisted: true, notification: "accepted" });
+  } catch (error) { return submissionError(error); }
 }

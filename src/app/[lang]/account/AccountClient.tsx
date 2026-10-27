@@ -6,7 +6,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { formatPrice } from "@/lib/products";
 import { useAuth } from "@/components/AuthProvider";
-import { getSupabaseBrowser } from "@/lib/supabase-browser";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/getDictionary";
 
@@ -36,8 +35,6 @@ export function AccountClient({
   const [tab, setTab] = useState<"orders" | "profile">("orders");
 
   const logout = async () => {
-    const supabase = await getSupabaseBrowser();
-    await supabase.auth.signOut();
     await fetch("/api/auth/logout", { method: "POST" });
     setUser(null);
     router.push(`/${lang}`);
@@ -66,6 +63,12 @@ export function AccountClient({
   const [savingProfile, setSavingProfile] = useState(false);
   const [profileSuccess, setProfileSuccess] = useState(false);
   const [profileError, setProfileError] = useState<string | null>(null);
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const [passwordSuccess, setPasswordSuccess] = useState(false);
+  const [passwordError, setPasswordError] = useState<string | null>(null);
+  const [changingPassword, setChangingPassword] = useState(false);
 
   // Phone OTP Verification State
   const isPhoneChanged = phone.trim() !== initialPhone.trim() && phone.trim().length > 0;
@@ -187,6 +190,34 @@ export function AccountClient({
     }
   };
 
+  const handleChangePassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setPasswordSuccess(false);
+    setPasswordError(null);
+    if (newPassword !== confirmNewPassword) {
+      setPasswordError(tx("The new passwords do not match.", "Die neuen Passwörter stimmen nicht überein."));
+      return;
+    }
+    setChangingPassword(true);
+    try {
+      const response = await fetch("/api/auth/password/change", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ currentPassword, newPassword }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || tx("Could not change password.", "Passwort konnte nicht geändert werden."));
+      setCurrentPassword("");
+      setNewPassword("");
+      setConfirmNewPassword("");
+      setPasswordSuccess(true);
+    } catch (error) {
+      setPasswordError(error instanceof Error ? error.message : tx("Network error. Please try again.", "Netzwerkfehler. Bitte erneut versuchen."));
+    } finally {
+      setChangingPassword(false);
+    }
+  };
+
   const isDualRole = Boolean(user?.isAffiliate);
   const isBusiness = Boolean(user?.isBusiness);
 
@@ -276,7 +307,12 @@ export function AccountClient({
             orders.map((order) => {
               const isExpanded = expandedOrderId === order.id;
               const isDelivered = order.deliveryStatus === "DELIVERED";
-              const isInTransit = order.deliveryStatus === "IN_TRANSIT" || order.status === "PAID";
+              const isInTransit = order.deliveryStatus === "IN_TRANSIT";
+              const orderStatusLabel = isDelivered
+                ? tx("Delivered", "Zugestellt")
+                : isInTransit
+                  ? tx("In Transit", "Unterwegs")
+                  : tx("Paid, processing", "Bezahlt, in Bearbeitung");
 
               return (
                 <div
@@ -293,10 +329,12 @@ export function AccountClient({
                           className={`rounded-full px-3 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${
                             isDelivered
                               ? "bg-emerald-100 text-emerald-800"
-                              : "bg-teal/15 text-teal-dark"
+                              : isInTransit
+                                ? "bg-teal/15 text-teal-dark"
+                                : "bg-amber-100 text-amber-800"
                           }`}
                         >
-                          ● {isDelivered ? tx("Delivered", "Zugestellt") : tx("In Transit", "Unterwegs")}
+                          ● {orderStatusLabel}
                         </span>
                       </div>
                       <p className="mt-1 text-xs text-ink/50">
@@ -313,7 +351,7 @@ export function AccountClient({
                   </div>
 
                   {/* Return & Refund Policy Window Card (Driven by Admin Settings) */}
-                  {(() => {
+                  {order.status === "PAID" && (() => {
                     const orderDate = new Date(order.createdAt || Date.now());
                     const returnDays = order.returnPeriodDays ?? 30;
                     const refundPolicy = order.refundPolicy || `${returnDays}-Day Money-Back Guarantee`;
@@ -419,71 +457,35 @@ export function AccountClient({
                     );
                   })()}
 
-                  {/* DHL Live Tracking Timeline */}
+                  {/* Shipping information */}
                   <div className="mt-6 rounded-2xl bg-sand/40 p-5">
-                    <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-mauve/10">
-                      <div className="flex items-center gap-2 text-xs">
+                    {order.trackingNumber ? (
+                      <div className="flex flex-wrap items-center gap-2 text-xs">
                         <span className="font-bold text-ink">{tx("Courier:", "Versanddienstleister:")}</span>
-                        <span className="rounded bg-white px-2 py-0.5 text-xs text-teal-dark font-semibold">
+                        <span className="rounded bg-white px-2 py-0.5 text-teal-dark font-semibold">
                           {order.carrier || "DHL GoGreen"}
                         </span>
                         <span className="font-bold text-ink ml-2">{tx("Tracking No:", "Sendungsnummer:")}</span>
-                        <span className="font-mono text-xs text-ink/80 bg-white px-2 py-0.5 rounded">
-                          {order.trackingNumber || "DHL-DE-8921471094"}
+                        <span className="font-mono text-ink/80 bg-white px-2 py-0.5 rounded">
+                          {order.trackingNumber}
+                        </span>
+                        <span className="ml-auto text-ink/60">
+                          {isDelivered
+                            ? tx("Delivered to recipient", "An Empfänger zugestellt")
+                            : isInTransit
+                              ? tx("In transit", "Unterwegs")
+                              : tx("Tracking information available", "Sendungsinformationen verfügbar")}
                         </span>
                       </div>
-
-                      <span className="text-[11px] text-ink/60 font-medium">
-                        {isDelivered ? tx("Delivered to recipient", "An Empfänger zugestellt") : tx("Estimated Arrival: 1-2 Business Days", "Voraussichtliche Ankunft: 1–2 Werktage")}
-                      </span>
-                    </div>
-
-                    {/* Timeline visual */}
-                    <div className="mt-6 grid grid-cols-4 gap-2 text-center text-xs">
-                      <div className="flex flex-col items-center">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-teal text-white text-xs font-bold shadow-sm">
-                          ✓
-                        </div>
-                        <span className="mt-2 font-semibold text-ink">{tx("Order Paid", "Bestellung bezahlt")}</span>
-                        <span className="text-[10px] text-ink/50">{tx("Verified", "Bestätigt")}</span>
-                      </div>
-
-                      <div className="flex flex-col items-center">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-teal text-white text-xs font-bold shadow-sm">
-                          ✓
-                        </div>
-                        <span className="mt-2 font-semibold text-ink">{tx("Packed", "Verpackt")}</span>
-                        <span className="text-[10px] text-ink/50">{tx("Logistics Hub", "Logistikzentrum")}</span>
-                      </div>
-
-                      <div className="flex flex-col items-center">
-                        <div
-                          className={`flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold shadow-sm ${
-                            isInTransit ? "bg-teal text-white animate-pulse" : "bg-teal text-white"
-                          }`}
-                        >
-                          2
-                        </div>
-                        <span className="mt-2 font-semibold text-teal-dark">{tx("In Transit", "Unterwegs")}</span>
-                        <span className="text-[10px] text-ink/50">{tx("DHL Hub", "DHL-Hub")}</span>
-                      </div>
-
-                      <div className="flex flex-col items-center">
-                        <div
-                          className={`flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold ${
-                            isDelivered ? "bg-teal text-white" : "bg-sand-dark text-ink/40"
-                          }`}
-                        >
-                          {isDelivered ? "✓" : "3"}
-                        </div>
-                        <span className={`mt-2 font-semibold ${isDelivered ? "text-ink" : "text-ink/40"}`}>
-                          {tx("Delivery", "Zustellung")}
-                        </span>
-                        <span className="text-[10px] text-ink/40">{tx("Recipient", "Empfänger")}</span>
-                      </div>
-                    </div>
+                    ) : (
+                      <p className="text-xs text-ink/60">
+                        {tx(
+                          "Your order is being prepared. Shipping and tracking details will appear here once it is dispatched.",
+                          "Ihre Bestellung wird vorbereitet. Versand- und Sendungsdaten erscheinen hier, sobald das Paket verschickt wurde."
+                        )}
+                      </p>
+                    )}
                   </div>
-
                   {/* Order Items List */}
                   <div className="mt-6 space-y-3">
                     <div className="flex items-center justify-between">
@@ -596,7 +598,14 @@ export function AccountClient({
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label className="text-xs font-medium text-ink/70">{tx("Email Address (Account ID)", "E-Mail-Adresse (Konto-ID)")}</label>
+              <div className="flex items-center justify-between">
+                <label className="text-xs font-medium text-ink/70">{tx("Email Address (Account ID)", "E-Mail-Adresse (Konto-ID)")}</label>
+                {initialProfile?.emailVerifiedAt && (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-800">
+                    ✓ {tx("Verified", "Verifiziert")}
+                  </span>
+                )}
+              </div>
               <input
                 disabled
                 type="email"
@@ -605,14 +614,7 @@ export function AccountClient({
               />
             </div>
             <div>
-              <div className="flex items-center justify-between">
-                <label className="text-xs font-medium text-ink/70">Mobilfunknummer (Deutschland +49)</label>
-                {phoneVerified && (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-800">
-                    ✓ Verifiziert
-                  </span>
-                )}
-              </div>
+              <label className="text-xs font-medium text-ink/70">Mobilfunknummer (Deutschland +49)</label>
               <div className="mt-1 flex gap-2">
                 <input
                   type="tel"
@@ -740,6 +742,39 @@ export function AccountClient({
               className="rounded-full bg-mauve px-8 py-3.5 text-sm font-semibold text-white hover:bg-mauve-dark disabled:opacity-60 transition shadow-sm"
             >
               {savingProfile ? tx("Saving Details…", "Wird gespeichert…") : tx("Save Profile Details", "Profildaten speichern")}
+            </button>
+          </div>
+        </form>
+      )}
+
+      {tab === "profile" && (
+        <form
+          onSubmit={handleChangePassword}
+          className="mt-6 max-w-3xl rounded-3xl border border-mauve/15 bg-white p-6 shadow-sm sm:p-10 space-y-5"
+        >
+          <div>
+            <h2 className="font-serif text-2xl text-ink">{tx("Change Password", "Passwort ändern")}</h2>
+            <p className="mt-1 text-xs text-ink/60">{tx("Enter your current password and choose a new one.", "Geben Sie Ihr aktuelles Passwort ein und wählen Sie ein neues.")}</p>
+          </div>
+          {passwordSuccess && <p role="status" className="rounded-2xl bg-teal/15 p-4 text-xs font-semibold text-teal-dark">{tx("Password changed successfully.", "Passwort erfolgreich geändert.")}</p>}
+          {passwordError && <p role="alert" className="rounded-2xl bg-red-50 p-4 text-xs font-semibold text-red-600">{passwordError}</p>}
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label htmlFor="current-password" className="text-xs font-medium text-ink/70">{tx("Current password", "Aktuelles Passwort")}</label>
+              <input id="current-password" required type="password" autoComplete="current-password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} className="input-field mt-1" />
+            </div>
+            <div>
+              <label htmlFor="new-password" className="text-xs font-medium text-ink/70">{tx("New password (at least 8 characters)", "Neues Passwort (mindestens 8 Zeichen)")}</label>
+              <input id="new-password" required minLength={8} maxLength={200} type="password" autoComplete="new-password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className="input-field mt-1" />
+            </div>
+            <div>
+              <label htmlFor="confirm-new-password" className="text-xs font-medium text-ink/70">{tx("Confirm new password", "Neues Passwort bestätigen")}</label>
+              <input id="confirm-new-password" required minLength={8} maxLength={200} type="password" autoComplete="new-password" value={confirmNewPassword} onChange={(e) => setConfirmNewPassword(e.target.value)} className="input-field mt-1" />
+            </div>
+          </div>
+          <div className="flex justify-end">
+            <button type="submit" disabled={changingPassword} className="rounded-full bg-mauve px-8 py-3 text-sm font-semibold text-white hover:bg-mauve-dark disabled:opacity-60">
+              {changingPassword ? tx("Changing…", "Wird geändert…") : tx("Change Password", "Passwort ändern")}
             </button>
           </div>
         </form>
