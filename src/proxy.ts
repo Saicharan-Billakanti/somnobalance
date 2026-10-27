@@ -39,7 +39,8 @@ function localeProxy(request: NextRequest): NextResponse | undefined {
 // While locked, every visitor sees only a neutral "under construction" page
 // (503) — no password field, no hint that a login exists. People who are meant
 // to see the site open the unadvertised address /__unlock, enter the password,
-// and get a signed cookie that keeps the site open for them for 12 hours.
+// and get a signed session cookie that keeps the site open for them until the
+// browser is closed (and at most 12 hours).
 // Payment-provider webhooks stay reachable (they verify their own signature).
 const UNLOCK_COOKIE = "sb_unlock";
 const UNLOCK_PATH = "/__unlock";
@@ -163,7 +164,8 @@ async function handleUnlockPost(request: NextRequest, password: string): Promise
   const ts = String(Date.now());
   const response = NextResponse.redirect(new URL(next, request.url), 303);
   response.cookies.set(UNLOCK_COOKIE, `${ts}.${await sign(password, ts)}`, {
-    maxAge: UNLOCK_TTL_MS / 1000,
+    // no maxAge: a session cookie, gone when the browser (or incognito
+    // window) is closed. UNLOCK_TTL_MS still caps a very long-open session.
     path: "/",
     httpOnly: true,
     secure: true,
