@@ -34,16 +34,16 @@ function localeProxy(request: NextRequest): NextResponse | undefined {
   return response;
 }
 
-// Optional site-wide password. Set the SITE_PASSWORD secret to lock the site;
-// leave it unset to keep the site open. The lock is asked for on EVERY page
-// load (refresh, new tab, typed URL): a correct password only unlocks the one
-// document request that follows it, via a signed cookie that lives for a few
-// seconds and is cleared as soon as the page is served. In-site navigation
-// (client-side route changes, API calls, assets) is not interrupted.
+// Optional "site not public yet" lock. Set the SITE_PASSWORD secret to lock the
+// site; leave it unset to keep the site open.
+// While locked, every visitor sees only a neutral "under construction" page
+// (503) — no password field, no hint that a login exists. People who are meant
+// to see the site open the unadvertised address /__unlock, enter the password,
+// and get a signed cookie that keeps the site open for them for 12 hours.
 // Payment-provider webhooks stay reachable (they verify their own signature).
 const UNLOCK_COOKIE = "sb_unlock";
 const UNLOCK_PATH = "/__unlock";
-const UNLOCK_TTL_MS = 30_000;
+const UNLOCK_TTL_MS = 12 * 60 * 60 * 1000;
 
 function timingSafeEqual(a: string, b: string): boolean {
   let diff = a.length ^ b.length;
@@ -80,19 +80,6 @@ function isStaticAsset(pathname: string): boolean {
   return /\.[a-z0-9]+$/i.test(pathname);
 }
 
-// A real page load (not a client-side route fetch, API call or asset).
-function isDocumentRequest(request: NextRequest): boolean {
-  const { pathname, searchParams } = request.nextUrl;
-  if (pathname.startsWith("/api")) return false;
-  if (request.method !== "GET" && request.method !== "HEAD") return false;
-  if (request.headers.get("rsc") || request.headers.get("next-router-prefetch") || searchParams.has("_rsc")) {
-    return false;
-  }
-  const dest = request.headers.get("sec-fetch-dest");
-  if (dest) return dest === "document" || dest === "iframe";
-  return (request.headers.get("accept") ?? "").includes("text/html");
-}
-
 function safeNext(value: string | null | undefined): string {
   return value && value.startsWith("/") && !value.startsWith("//") ? value : "/";
 }
@@ -120,7 +107,7 @@ function lockedPage(next: string, wrong: boolean): NextResponse {
 </style></head><body>
 <form method="post" action="${UNLOCK_PATH}">
   <h1>SomnoBalance</h1>
-  <p>This website is password protected.</p>
+  <p>Team access</p>
   ${wrong ? '<div class="err">Incorrect password.</div>' : ""}
   <input type="hidden" name="next" value="${escapeHtml(next)}">
   <input type="password" name="password" placeholder="Password" autocomplete="off" autofocus required>
@@ -131,6 +118,37 @@ function lockedPage(next: string, wrong: boolean): NextResponse {
     headers: {
       "Content-Type": "text/html; charset=utf-8",
       "Cache-Control": "no-store",
+      "X-Robots-Tag": "noindex, nofollow",
+    },
+  });
+}
+
+function maintenancePage(): NextResponse {
+  const html = `<!doctype html>
+<html lang="de"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>SomnoBalance</title>
+<style>
+  html,body{height:100%;margin:0}
+  body{display:flex;align-items:center;justify-content:center;background:#f7f2ef;color:#2a2430;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;text-align:center;padding:24px;box-sizing:border-box}
+  main{max-width:460px}
+  h1{font:400 34px/1.15 Georgia,serif;margin:0 0 18px;color:#6d5a7d}
+  p{margin:0 0 12px;font-size:16px;line-height:1.6;color:#5f5668}
+  small{display:block;margin-top:22px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#8a8092}
+</style></head><body>
+<main>
+  <h1>SomnoBalance</h1>
+  <p>Unsere Website befindet sich im Aufbau und ist in Kürze für Sie da.</p>
+  <p>Our website is currently under construction and will be available soon.</p>
+  <small>Ruhe · Regeneration · Selbstheilung</small>
+</main></body></html>`;
+  return new NextResponse(html, {
+    status: 503,
+    headers: {
+      "Content-Type": "text/html; charset=utf-8",
+      "Cache-Control": "no-store",
+      "Retry-After": "86400",
       "X-Robots-Tag": "noindex, nofollow",
     },
   });
@@ -165,22 +183,18 @@ export async function proxy(request: NextRequest) {
     return lockedPage("/", false);
   }
 
-  let consumeUnlock = false;
-  if (gated && isDocumentRequest(request) && !isStaticAsset(pathname)) {
-    if (!(await hasValidUnlock(request, password!))) {
-      return lockedPage(pathname + request.nextUrl.search, false);
-    }
-    consumeUnlock = true;
+  // Everyone without the unlock cookie sees only the "under construction" page
+  // (pages, client-side route fetches and API calls alike).
+  if (gated && !isStaticAsset(pathname) && !(await hasValidUnlock(request, password!))) {
+    return maintenancePage();
   }
 
   if (isStaticAsset(pathname)) return NextResponse.next();
 
   const redirect = localeProxy(request);
-  if (redirect) return redirect; // keep the unlock cookie for the redirected page load
+  if (redirect) return redirect;
 
-  const response = NextResponse.next();
-  if (consumeUnlock) response.cookies.delete(UNLOCK_COOKIE);
-  return response;
+  return NextResponse.next();
 }
 
 export const config = {
