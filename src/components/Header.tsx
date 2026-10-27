@@ -13,7 +13,7 @@ import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   const tx = (en: string, de: string) => (lang === "de" ? de : en);
   const { count } = useCart();
-  const { user, setUser } = useAuth();
+  const { user, setUser, loading } = useAuth();
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
@@ -126,7 +126,11 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
                 className="absolute right-0 top-11 z-50 w-56 rounded-xl border border-mauve/15 bg-white p-2 text-sm shadow-lg"
                 onClick={() => setAccountOpen(false)}
               >
-                {user ? (
+                {loading ? (
+                  <p role="status" className="px-3 py-2 text-ink/60">
+                    {tx("Checking your session…", "Anmeldung wird geprüft…")}
+                  </p>
+                ) : user ? (
                   <>
                     <p className="px-3 py-2 text-xs font-semibold text-ink">
                       {isAdmin ? user.firstName || "Admin" : dict.nav.greeting.replace("{name}", user.firstName)}
@@ -230,7 +234,11 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
             </Link>
           ))}
 
-          {user ? (
+          {loading ? (
+            <p role="status" className="mt-3 border-t border-mauve/10 px-3 pt-3 text-sm text-ink/60">
+              {tx("Checking your session…", "Anmeldung wird geprüft…")}
+            </p>
+          ) : user ? (
             <div className="mt-3 flex items-center justify-between border-t border-mauve/10 pt-3">
               {isAdmin ? (
                 <Link
