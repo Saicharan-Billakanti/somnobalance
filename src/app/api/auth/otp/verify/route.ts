@@ -119,6 +119,10 @@ export async function POST(request: Request) {
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
+        role: user.role,
+        isAdmin: user.role === "admin",
+        isAffiliate: user.role === "affiliate",
+        isBusiness: user.role === "business",
       },
     });
 

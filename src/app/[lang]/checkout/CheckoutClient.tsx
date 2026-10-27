@@ -16,7 +16,7 @@ export function CheckoutClient({ lang, dict }: { lang: Locale; dict: Dictionary 
   const searchParams = useSearchParams();
   const initialCoupon = searchParams.get("coupon") || searchParams.get("ref") || "";
 
-  const { lines, total, shipping, clear } = useCart();
+  const { lines, total, shipping } = useCart();
   const { user } = useAuth();
   const [placed, setPlaced] = useState<Placed | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -203,13 +203,23 @@ export function CheckoutClient({ lang, dict }: { lang: Locale; dict: Dictionary 
             }
 
             if (data.checkoutUrl) {
-              clear();
+              // Keep the cart intact while the customer is on Stripe. It is
+              // cleared only after the success page confirms payment.
               window.location.href = data.checkoutUrl;
               return;
             }
 
+            if (data.persisted) {
+              setError(
+                lang === "de"
+                  ? "Die Zahlung konnte nicht gestartet werden. Ihr Warenkorb bleibt erhalten. Bitte versuchen Sie es später erneut."
+                  : "Payment could not be started. Your cart has been kept. Please try again later."
+              );
+              setSubmitting(false);
+              return;
+            }
+
             setPlaced({ orderId: data.id, persisted: data.persisted });
-            clear();
           } catch {
             setError(dict.checkout.networkError);
           } finally {

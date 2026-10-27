@@ -168,6 +168,10 @@ export function RegisterClient({ lang, dict }: { lang: Locale; dict: Dictionary 
             });
             const data = await res.json();
             if (!res.ok) {
+              if (data.persisted && data.requiresVerification) {
+                setVerificationPending({ userId: data.userId, email: data.email });
+                setNotice(data.error);
+              }
               setError(data.error || dict.auth.registerError);
               return;
             }

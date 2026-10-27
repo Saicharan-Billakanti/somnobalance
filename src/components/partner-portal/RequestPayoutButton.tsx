@@ -1,12 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useLang } from "@/lib/useLang";
 import type { PayoutReadiness } from "@/lib/affiliateMockData";
 
 export function RequestPayoutButton({ readiness }: { readiness: PayoutReadiness }) {
   const { tx } = useLang();
+  const router = useRouter();
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [error, setError] = useState("");
 
   const blockers: string[] = [];
   if (readiness.availableBalance < readiness.minimumPayout) blockers.push(tx("Payout amount is below the minimum threshold.", "Der Auszahlungsbetrag liegt unter der Mindestgrenze."));
@@ -24,11 +27,17 @@ export function RequestPayoutButton({ readiness }: { readiness: PayoutReadiness 
 
   async function handleRequest() {
     setStatus("submitting");
-    // No backend endpoint exists yet — this simulates the request so the
-    // UI states (submitting/success) can be reviewed. Replace with a real
-    // POST once the payout API exists.
-    await new Promise((r) => setTimeout(r, 900));
-    setStatus("success");
+    setError("");
+    try {
+      const response = await fetch("/api/partner/payout/request", { method: "POST" });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "Could not request payout.");
+      setStatus("success");
+      router.refresh();
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "Something went wrong. Please try again.");
+      setStatus("error");
+    }
   }
 
   return (
@@ -41,8 +50,8 @@ export function RequestPayoutButton({ readiness }: { readiness: PayoutReadiness 
       >
         {status === "submitting" ? tx("Requesting…", "Wird angefordert…") : tx("Request payout", "Auszahlung anfordern")}
       </button>
-      {status === "success" && <p className="mt-3 text-sm text-green-700">{tx("Payout request submitted.", "Auszahlungsanfrage gesendet.")}</p>}
-      {status === "error" && <p className="mt-3 text-sm text-red-700">{tx("Something went wrong. Please try again.", "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.")}</p>}
+      {status === "success" && <p className="mt-3 text-sm text-green-700">{tx("Payout request submitted for review.", "Auszahlungsanfrage zur Prüfung gesendet.")}</p>}
+      {status === "error" && <p className="mt-3 text-sm text-red-700">{error}</p>}
       {blockers.length > 0 && (
         <ul className="mt-3 space-y-1 text-sm text-ink/60">
           {blockers.map((b) => (

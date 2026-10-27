@@ -1,4 +1,4 @@
-// Server routes and Supabase return English error strings; the UI is
+// Server routes return English error strings; the UI is
 // bilingual, so translate the known ones before showing them in German.
 const de: Record<string, string> = {
   "Please enter your email and password.": "Bitte geben Sie Ihre E-Mail-Adresse und Ihr Passwort ein.",
@@ -21,7 +21,6 @@ const de: Record<string, string> = {
   "Message is required": "Bitte geben Sie eine Nachricht ein.",
   "No business account or inquiry found. Please submit your application first.":
     "Kein Geschäftskonto und keine Anfrage gefunden. Bitte senden Sie zuerst Ihre Bewerbung ab.",
-  "Supabase Auth is not configured.": "Die Authentifizierung ist nicht konfiguriert.",
   "Invalid message": "Ungültige Nachricht.",
   "Could not send your message. Please try again.": "Ihre Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut.",
   "Missing coupon code": "Gutscheincode fehlt.",

@@ -23,6 +23,11 @@ export function LoginClient({ lang, dict }: { lang: Locale; dict: Dictionary }) 
 
   const [emailCode, setEmailCode] = useState("");
 
+  const postLoginPath = () => {
+    const requested = new URLSearchParams(window.location.search).get("redirect");
+    return requested?.startsWith(`/${lang}/`) && !requested.startsWith("//") ? requested : `/${lang}`;
+  };
+
   if (verificationPending) {
     return (
       <div className="mx-auto max-w-md px-4 py-20 sm:px-6">
@@ -58,7 +63,7 @@ export function LoginClient({ lang, dict }: { lang: Locale; dict: Dictionary }) 
 
               if (data.user) {
                 setUser(data.user);
-                router.push(`/${lang}`);
+                router.push(postLoginPath());
                 router.refresh();
               }
             } catch {
@@ -175,7 +180,7 @@ export function LoginClient({ lang, dict }: { lang: Locale; dict: Dictionary }) 
               });
             } else if (data.user) {
               setUser(data.user);
-              router.push(`/${lang}`);
+              router.push(postLoginPath());
               router.refresh();
             }
           } catch {

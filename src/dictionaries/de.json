@@ -746,7 +746,7 @@
     "stripeNote": "Sie geben Ihre Kartendaten im nächsten Schritt auf der sicheren Zahlungsseite von Stripe ein.",
     "paymentSuccessNotice": "Vielen Dank — Ihre Zahlung ist eingegangen und Ihre Bestellung wird vorbereitet.",
     "paymentCancelledTitle": "Zahlung abgebrochen",
-    "paymentCancelledNotice": "Ihre Zahlung wurde nicht abgeschlossen, es wurde nichts berechnet. Sie können Ihre Lieferdaten prüfen und es erneut versuchen.",
+    "paymentCancelledNotice": "Ihre Zahlung wurde nicht abgeschlossen und es wurde nichts berechnet. Ihr Warenkorb bleibt erhalten. Sie können Ihre Lieferdaten prüfen und es erneut versuchen.",
     "backToCheckout": "Zurück zur Kasse",
     "agreementNote": "Mit der Bestellung stimmen Sie unseren {termsLink} zu und bestätigen, unsere {withdrawalLink} gelesen zu haben.",
     "termsLabel": "AGB",

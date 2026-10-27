@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
-import { getSupabase, supabaseConfigured, otpSupabaseConfigured } from "@/lib/supabase";
+import { dbConfigured, getDB } from "@/lib/db";
 import { stripeConfigured, getStripe } from "@/lib/stripe";
 
-async function checkSupabase() {
-  if (!supabaseConfigured()) return { configured: false, connected: false };
+async function checkD1() {
+  if (!dbConfigured()) return { configured: false, connected: false };
   try {
-    const { error } = await getSupabase().from("User").select("id", { count: "exact", head: true });
-    return { configured: true, connected: !error, error: error?.message };
+    await getDB().prepare("SELECT 1").first();
+    return { configured: true, connected: true };
   } catch (err) {
     return { configured: true, connected: false, error: err instanceof Error ? err.message : "unknown error" };
   }
@@ -23,12 +23,11 @@ async function checkStripe() {
 }
 
 export async function GET() {
-  const [supabase, stripe] = await Promise.all([checkSupabase(), checkStripe()]);
+  const [d1, stripe] = await Promise.all([checkD1(), checkStripe()]);
 
   return NextResponse.json({
     timestamp: new Date().toISOString(),
-    supabase,
-    supabaseOtp: { configured: otpSupabaseConfigured() },
+    d1,
     stripe,
   });
 }

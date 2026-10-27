@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { getSupabaseBrowser } from "@/lib/supabase-browser";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/getDictionary";
 
@@ -20,16 +19,12 @@ export function ForgotPasswordClient({ lang, dict }: { lang: Locale; dict: Dicti
     setBusy(true);
     setMessage(null);
     try {
-      const supabase = await getSupabaseBrowser();
-      const redirectTo = `${window.location.origin}/${lang}/reset-password`;
-      const { error } = await supabase.auth.resetPasswordForEmail(email.trim().toLowerCase(), { redirectTo });
-      if (error) {
-        setMessage(error.message);
-        return;
-      }
+      const response = await fetch("/api/auth/password/reset/request", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: email.trim().toLowerCase(), lang }) });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "Could not request password reset.");
       setSent(true);
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Supabase Auth is not configured.");
+      setMessage(error instanceof Error ? error.message : "Could not request password reset.");
     } finally {
       setBusy(false);
     }

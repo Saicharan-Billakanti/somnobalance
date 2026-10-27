@@ -69,7 +69,16 @@ export async function POST(request: Request) {
   }
 
   const res = NextResponse.json({
-    user: { id: user.id, email: user.email, firstName: user.firstName, lastName: user.lastName },
+    user: {
+      id: user.id,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      role: user.role,
+      isAdmin: user.role === "admin",
+      isAffiliate: user.role === "affiliate",
+      isBusiness: user.role === "business",
+    },
   });
 
   res.cookies.set(SESSION_COOKIE_NAME, createSessionCookieValue(user.id), {

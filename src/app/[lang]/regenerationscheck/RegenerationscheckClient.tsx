@@ -217,6 +217,7 @@ function ResultScreen({
         >
           {quiz.lowScoreResult.cta}
         </Link>
+        <QuizNewsletterSignup lang={lang} answers={answers} />
         <div>
           <button onClick={onRestart} className="mt-10 block w-full text-sm text-ink/40 hover:text-ink">
             {quiz.restart}
@@ -284,7 +285,49 @@ function ResultScreen({
           {quiz.restart}
         </button>
       </div>
+      <QuizNewsletterSignup lang={lang} answers={answers} />
       <p className="mt-10 text-xs text-ink/40">{quiz.disclaimer}</p>
     </div>
+  );
+}
+
+function QuizNewsletterSignup({ lang, answers }: { lang: Locale; answers: Answers }) {
+  const [email, setEmail] = useState("");
+  const [consent, setConsent] = useState(false);
+  const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const tx = (en: string, de: string) => lang === "de" ? de : en;
+
+  async function submit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setState("sending");
+    try {
+      const response = await fetch("/api/regeneration-check/evaluate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ answers, email, newsletterConsent: consent, lang }),
+      });
+      const body = await response.json();
+      if (!response.ok || body.newsletter?.status !== "pending_confirmation") throw new Error("Newsletter signup failed");
+      setState("sent");
+      setEmail("");
+    } catch {
+      setState("error");
+    }
+  }
+
+  if (state === "sent") return <p role="status" className="mt-10 rounded-2xl border border-mauve/10 bg-white/60 p-5 text-sm text-ink/70">{tx("Signup request received. Check your inbox and confirm using the email link.", "Anmeldung erhalten. Bitte bestätigen Sie Ihre Anmeldung über den Link in der E-Mail.")}</p>;
+
+  return (
+    <form onSubmit={submit} className="mt-10 rounded-2xl border border-mauve/10 bg-white/60 p-5 text-left">
+      <h2 className="font-serif text-xl text-ink">{tx("Get the SomnoBalance newsletter", "SomnoBalance-Newsletter erhalten")}</h2>
+      <p className="mt-2 text-sm text-ink/60">{tx("Optional updates and news. Your quiz answers are not sent to Brevo.", "Optionale Neuigkeiten. Ihre Quizantworten werden nicht an Brevo übermittelt.")}</p>
+      <input type="email" required value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" placeholder={tx("Email address", "E-Mail-Adresse")} aria-label={tx("Email address", "E-Mail-Adresse")} className="mt-4 w-full rounded-xl border border-mauve/20 bg-white px-4 py-3 text-sm text-ink" />
+      <label className="mt-3 flex items-start gap-2 text-xs leading-5 text-ink/60">
+        <input type="checkbox" required checked={consent} onChange={(event) => setConsent(event.target.checked)} className="mt-1" />
+        <span>{tx("I agree to receive the newsletter and understand I can unsubscribe at any time. See the ", "Ich willige in den Newsletter ein und kann mich jederzeit abmelden. Mehr dazu in der ")}<Link href={`/${lang}/legal/privacy`} className="underline">{tx("privacy notice", "Datenschutzerklärung")}</Link>.</span>
+      </label>
+      <button type="submit" disabled={state === "sending"} className="mt-4 rounded-full bg-mauve px-6 py-2.5 text-sm text-white hover:bg-mauve-dark disabled:opacity-50">{state === "sending" ? tx("Submitting…", "Wird gesendet…") : tx("Subscribe", "Anmelden")}</button>
+      {state === "error" && <p role="alert" className="mt-3 text-xs text-red-700">{tx("Signup is temporarily unavailable. Please try again later.", "Die Anmeldung ist derzeit nicht möglich. Bitte versuchen Sie es später erneut.")}</p>}
+    </form>
   );
 }

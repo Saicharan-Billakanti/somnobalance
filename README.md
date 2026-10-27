@@ -20,13 +20,15 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 ## Deployment
 
-This project deploys to **Cloudflare Workers** only, with **Supabase** as the database/auth backend. No Vercel or other hosting platform is used.
+The configured deployment target is **Cloudflare Workers** via vinext. Storage is currently mixed: D1 for core records, contact messages and newsletter request evidence; Supabase for partner/business services and parts of authentication. See [backend handoff](docs/backend-handoff.md) for setup and verification status.
 
 ```bash
 npm run deploy:vinext     # builds fresh (predeploy) and deploys to the "somnobalance" Cloudflare Worker
 ```
 
-Production is served from `somnobalance.com` / `www.somnobalance.com`, both routed to the `somnobalance` Worker. See `wrangler.jsonc` for the Worker configuration.
+The Worker name is `somnobalance`. The current deployment is available at https://somnobalance.mounipullepu42.workers.dev. Custom-domain routing is not configured in `wrangler.jsonc`; verify it in Cloudflare before attaching a domain. Removing repository Vercel configuration does not disconnect an external Vercel project.
+
+For Worker-compatible local development use `npm run dev:vinext`. Copy `.env.example` to the ignored `.dev.vars` and configure values securely. Do not run live provider submissions without approval. Automated `npm test` uses mocked external services only.
 
 ## Learn More
 

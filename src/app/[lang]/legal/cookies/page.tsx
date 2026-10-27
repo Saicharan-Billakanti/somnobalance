@@ -62,6 +62,12 @@ export default async function CookiesPage({ params }: { params: Promise<{ lang: 
           in unserer <a href={`/${lang}/legal/privacy`}>Datenschutzerklärung</a>.
         </p>
 
+        <p>
+          Resend und Brevo verarbeiten E-Mail-Daten als unsere Versanddienstleister. Die
+          serverseitigen API-Einbindungen dieser Anbieter setzen selbst keine Cookies in Ihrem
+          Browser. Eine etwaige Verarbeitung von &Ouml;ffnungs- oder Klickdaten in E-Mails richtet
+          sich nach den aktivierten Einstellungen des jeweiligen Anbieters.
+        </p>
         <h2>7. Kontakt</h2>
         <p>
           Fragen zu dieser Cookie-Richtlinie können Sie über die Kontaktdaten in unserem{" "}
@@ -117,6 +123,11 @@ export default async function CookiesPage({ params }: { params: Promise<{ lang: 
         <a href={`/${lang}/legal/privacy`}>Privacy Policy</a>.
       </p>
 
+      <p>
+        Resend and Brevo process email data as our email delivery providers. Their server-side API
+        integrations do not themselves set cookies in your browser. Any processing of email open
+        or click data depends on the settings enabled with each provider.
+      </p>
       <h2>7. Contact</h2>
       <p>
         Questions about this Cookie Policy can be directed to us using the contact details in our{" "}

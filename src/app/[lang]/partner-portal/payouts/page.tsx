@@ -1,4 +1,5 @@
-import { getPayoutHistory, getPayoutReadiness } from "@/lib/affiliateMockData";
+import { getCurrentUser } from "@/lib/currentUser";
+import { getPartnerPortalData, getStripeConnectAccountStatus } from "@/lib/affiliateService";
 import { formatPrice } from "@/lib/products";
 import { StatusBadge } from "@/components/partner-portal/StatusBadge";
 import { RequestPayoutButton } from "@/components/partner-portal/RequestPayoutButton";
@@ -6,8 +7,30 @@ import { RequestPayoutButton } from "@/components/partner-portal/RequestPayoutBu
 export default async function PayoutsPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   const tx = (en: string, de: string) => (lang === "de" ? de : en);
-  const readiness = getPayoutReadiness();
-  const history = getPayoutHistory();
+  const user = await getCurrentUser();
+  const portal = user?.email ? await getPartnerPortalData(user.email) : null;
+  const stripeStatus = portal?.affiliate.stripeAccountId
+    ? await getStripeConnectAccountStatus(portal.affiliate.stripeAccountId)
+    : { connected: false };
+  const readiness = {
+    availableBalance: portal?.metrics.availableBalance ?? 0,
+    minimumPayout: portal?.metrics.payoutThreshold ?? 50,
+    selectedMethod: portal?.affiliate.paymentMethod === "stripe_connect" ? "stripe" as const : portal?.affiliate.paymentMethod === "bank_transfer" ? "bank" as const : null,
+    nextEligibleDate: null,
+    stripeStatus: stripeStatus.connected && stripeStatus.details_submitted && stripeStatus.payouts_enabled ? "connected" as const : "restricted" as const,
+    bankDetailsComplete: Boolean(portal?.affiliate.bankName && portal?.affiliate.iban),
+    accountSuspended: portal?.affiliate.status !== "active",
+    payoutProcessing: portal?.metrics.payoutProcessing ?? false,
+  };
+  const history = (portal?.payouts ?? []).map((p: any) => ({
+    id: p.id,
+    date: p.paymentDate || p.createdAt,
+    amount: Number(p.amount),
+    method: p.paymentMethod === "stripe_connect" ? "Stripe Connect" : tx("Bank transfer", "Banküberweisung"),
+    status: p.status,
+    referenceId: p.stripeTransferId || p.paymentReference || "—",
+    failureReason: p.failureReason,
+  }));
 
   return (
     <div>
@@ -32,6 +55,7 @@ export default async function PayoutsPage({ params }: { params: Promise<{ lang: 
 
       <div className="mt-8 rounded-2xl border border-mauve/10 bg-white/60 p-6">
         <RequestPayoutButton readiness={readiness} />
+        <p className="mt-3 text-xs text-ink/50">{tx("Requests are reviewed before funds are transferred to your connected Stripe balance. Bank arrival follows your Stripe payout schedule.", "Anfragen werden geprüft, bevor das Guthaben auf Ihr verbundenes Stripe-Guthaben übertragen wird. Die Bankgutschrift richtet sich nach Ihrem Stripe-Auszahlungsplan.")}</p>
       </div>
 
       <h2 className="mt-10 font-serif text-xl text-ink">{tx("Payout History", "Auszahlungsverlauf")}</h2>

@@ -147,6 +147,21 @@ export default async function PrivacyPage({ params }: { params: Promise<{ lang: 
           Angemessenheitsbeschluss; Näheres teilen wir Ihnen auf Anfrage mit.
         </p>
 
+        <p>
+          F&uuml;r den Versand von Kontaktanfragen, Unternehmensanfragen, Partnerbewerbungen und
+          angeforderten Service-E-Mails verwenden wir Resend als Auftragsverarbeiter f&uuml;r den E-Mail-Versand.
+          Dabei &uuml;bermitteln wir die f&uuml;r die jeweilige Nachricht erforderlichen Angaben, etwa
+          Ihre E-Mail-Adresse, Ihren Namen und den von Ihnen eingegebenen Nachrichtentext.
+        </p>
+        <p>
+          F&uuml;r die Newsletter-Anmeldung im Double-Opt-in-Verfahren und den Newsletterversand
+          verwenden wir Brevo als Auftragsverarbeiter. An Brevo wird Ihre E-Mail-Adresse &uuml;bermittelt; Antworten und
+          Ergebnisse aus dem Regenerationscheck werden nicht an Brevo &uuml;bermittelt. Eine
+          Anmeldeanfrage ist noch keine best&auml;tigte Newsletter-Anmeldung. Wir speichern die
+          Anmeldeanfrage mit serverseitigem Zeitpunkt, Herkunft, Version des Einwilligungstexts
+          und Bearbeitungsstatus in unserer Cloudflare-D1-Datenbank. Der BestÃ¤tigungsstatus wird
+          bei Brevo gef&uuml;hrt.
+        </p>
         <h2>6. Eingebettete Spotify-Player</h2>
         <p>
           Unsere Plattform nutzt das offizielle Einbettungstool von Spotify, um passend zu jeder
@@ -368,6 +383,17 @@ export default async function PrivacyPage({ params }: { params: Promise<{ lang: 
         or an applicable adequacy decision; details are available on request.
       </p>
 
+      <p>
+        We use Resend as our processor for delivering contact enquiries, business enquiries,
+        partner applications and requested service emails. We send the information needed for the
+        relevant message, such as your email address, name and submitted message text.
+      </p>
+      <p>
+        We use Brevo as our processor for newsletter double opt-in and delivery. We send Brevo your email address;
+        regeneration-check answers and results are not sent to Brevo. A signup request is not a
+        confirmed subscription. We retain the request time, source, consent-text version and
+        processing status in our Cloudflare D1 database. Brevo maintains the confirmation status.
+      </p>
       <h2>6. Embedded Spotify players</h2>
       <p>
         Our Platform uses Spotify&apos;s official embedding tool to offer curated music for each

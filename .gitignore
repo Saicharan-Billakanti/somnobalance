@@ -62,3 +62,11 @@ next-env.d.ts
 /business_app_post.json
 /docx_full_text.txt
 /*.docx
+
+# Local Worker secrets (examples contain placeholders only)
+.dev.vars*
+!.dev.vars.example
+!.env.example
+
+# Local validation output
+/.verification/

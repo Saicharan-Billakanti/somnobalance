@@ -4,8 +4,7 @@ import { useState } from "react";
 
 type HealthResponse = {
   timestamp: string;
-  supabase: { configured: boolean; connected: boolean; error?: string };
-  supabaseOtp: { configured: boolean };
+  d1: { configured: boolean; connected: boolean; error?: string };
   stripe: { configured: boolean; connected: boolean; error?: string };
 };
 
@@ -47,7 +46,7 @@ export default function SystemStatusPage() {
         <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
           <div className="p-10 border-b border-gray-100 bg-gradient-to-r from-blue-600 to-indigo-700">
             <h1 className="text-3xl font-bold text-white mb-2">System Diagnostics</h1>
-            <p className="text-blue-100">Live check of SomnoBalance&rsquo;s Supabase and Stripe integrations</p>
+            <p className="text-blue-100">Live check of SomnoBalance&rsquo;s Cloudflare D1 and Stripe integrations</p>
           </div>
 
           <div className="p-10">
@@ -89,28 +88,28 @@ export default function SystemStatusPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="p-6 rounded-2xl border border-gray-100 bg-gray-50 flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <div className={`p-3 rounded-xl ${status?.supabase.connected ? "bg-green-100 text-green-600" : "bg-gray-200 text-gray-400"}`}>
+                  <div className={`p-3 rounded-xl ${status?.d1.connected ? "bg-green-100 text-green-600" : "bg-gray-200 text-gray-400"}`}>
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-800">Supabase Database</h3>
+                    <h3 className="font-semibold text-gray-800">Cloudflare D1 Database</h3>
                     <p className="text-xs text-gray-500">Main data store (users, orders, affiliates)</p>
                   </div>
                 </div>
-                {badge(status?.supabase.connected, "Connected")}
+                {badge(status?.d1.connected, "Connected")}
               </div>
 
               <div className="p-6 rounded-2xl border border-gray-100 bg-gray-50 flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <div className={`p-3 rounded-xl ${status?.supabaseOtp.configured ? "bg-green-100 text-green-600" : "bg-gray-200 text-gray-400"}`}>
+                  <div className="p-3 rounded-xl bg-gray-200 text-gray-400">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-800">Supabase OTP</h3>
-                    <p className="text-xs text-gray-500">Phone verification for auth</p>
+                    <h3 className="font-semibold text-gray-800">Phone SMS</h3>
+                    <p className="text-xs text-gray-500">No SMS provider configured</p>
                   </div>
                 </div>
-                {badge(status?.supabaseOtp.configured, "Configured")}
+                {badge(false, "Configured")}
               </div>
 
               <div className="p-6 rounded-2xl border border-gray-100 bg-gray-50 flex items-center justify-between md:col-span-2">
