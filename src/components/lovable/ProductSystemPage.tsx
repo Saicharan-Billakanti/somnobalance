@@ -760,12 +760,13 @@ export function ProductSystemPage({
 
         {config.vitalizeImage && (
           <section className="mx-auto grid max-w-7xl items-center gap-8 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:py-20">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-md bg-lovable-muted">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-md bg-white">
               <Image
                 src={config.vitalizeImage}
                 alt={tx("Vitalize® fabric detail", "Vitalize®-Stoffdetail")}
                 fill
-                className="object-cover"
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="object-contain p-2"
               />
             </div>
             <div>
