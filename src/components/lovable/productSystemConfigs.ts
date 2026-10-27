@@ -780,7 +780,7 @@ export const productSystemConfigs: Record<string, ProductSystemConfig> = {
       { icon: Sun, label: "Gute Voraussetzungen schaffen", description: "Eine passende Schlafumgebung schafft den Rahmen für Komfort und Regeneration während der Nacht." },
     ],
     howToUseNote: ["So individuell wie", "Ihre Liegeposition."],
-    vitalizeImage: "/products/neck-pillow-detail-top.webp",
+    vitalizeImage: "/products/neck-pillow-detail-corner.webp",
     nextCompanionLabel: "Regulation und Rituale bereiten vor — die Schlafumgebung übernimmt in der Nacht.",
     keyFeatures: [
       {
