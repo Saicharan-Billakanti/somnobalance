@@ -12,7 +12,7 @@ import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 
 export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   const tx = (en: string, de: string) => (lang === "de" ? de : en);
-  const { count, clear } = useCart();
+  const { count } = useCart();
   const { user, setUser, loading } = useAuth();
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -34,9 +34,7 @@ export function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   ];
 
   const logout = async () => {
-    const response = await fetch("/api/auth/logout", { method: "POST" });
-    if (!response.ok) return;
-    clear();
+    await fetch("/api/auth/logout", { method: "POST" });
     setUser(null);
     setOpen(false);
     router.push(`/${lang}`);

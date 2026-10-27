@@ -6,7 +6,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { formatPrice } from "@/lib/products";
 import { useAuth } from "@/components/AuthProvider";
-import { useCart } from "@/components/CartProvider";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/getDictionary";
 
@@ -32,14 +31,11 @@ export function AccountClient({
           .replace("100-Night Risk-Free Sleep Trial & Free Return Pickup", "100 Nächte risikofreies Probeschlafen & kostenlose Rückholung")
       : p;
   const { user, setUser } = useAuth();
-  const { clear } = useCart();
   const router = useRouter();
   const [tab, setTab] = useState<"orders" | "profile">("orders");
 
   const logout = async () => {
-    const response = await fetch("/api/auth/logout", { method: "POST" });
-    if (!response.ok) return;
-    clear();
+    await fetch("/api/auth/logout", { method: "POST" });
     setUser(null);
     router.push(`/${lang}`);
     router.refresh();

@@ -5,12 +5,11 @@
   "compatibility_flags": [
     "nodejs_compat"
   ],
-  "main": "worker/index.js",
+  "main": "vinext/server/fetch-handler",
   "assets": {
     "directory": "dist/client",
     "not_found_handling": "none",
-    "binding": "ASSETS",
-    "run_worker_first": true
+    "binding": "ASSETS"
   },
   "cache": {
     "enabled": true
@@ -32,7 +31,6 @@
   "workers_dev": true,
   "preview_urls": true,
   "vars": {
-    "SITE_ACCESS_ENABLED": "true",
     "BREVO_DOI_REDIRECT_URL": "https://somnobalance.com/de",
     "BREVO_DOI_TEMPLATE_ID": "1",
     "BREVO_LIST_ID": "3"
